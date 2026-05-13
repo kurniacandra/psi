@@ -7,25 +7,23 @@
   <style>
 :root{--primary:#0f172a;--accent:#f59e0b;--danger:#dc2626;--bg:#f8fafc;--muted:#64748b;--card:#ffffff;--line:#e2e8f0;--green:#16a34a}
 *{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#ecfdf5 0%,#f8fafc 45%,#ffffff 100%);color:#0f172a}.hero{padding:28px 16px 12px}.hero-inner{max-width:1100px;margin:0 auto;background:linear-gradient(135deg,#064e3b 0%,#14532d 58%,#166534 100%);color:#fff;border-radius:24px;padding:28px;box-shadow:0 18px 50px rgba(15,23,42,.20)}.badge{display:inline-block;background:rgba(255,255,255,.16);color:#dcfce7;padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:800;letter-spacing:.3px}h1{margin:14px 0 8px;font-size:clamp(1.8rem,4vw,2.6rem)}.sub{max-width:720px;color:#dcfce7;line-height:1.7;margin:0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:none;border-radius:12px;padding:12px 16px;font-weight:750;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit}.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.26)}.btn-primary{background:#166534;color:#fff}.btn-light{background:#fff;color:#0f172a;border:1px solid var(--line)}.btn-disabled{background:#e2e8f0;color:#64748b;cursor:not-allowed}.wrap{max-width:1100px;margin:0 auto;padding:18px 16px 42px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}.section-title{margin:0;font-size:1.22rem}.section-note{font-size:.9rem;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 8px 24px rgba(15,23,42,.06);transition:.2s ease;cursor:pointer}.card:hover{transform:translateY(-4px)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.76rem;font-weight:800;margin-bottom:10px;background:#f1f5f9;color:#475569}.card h3{margin:0 0 8px;font-size:1.05rem}.card p{margin:0;color:var(--muted);line-height:1.55;font-size:.92rem;min-height:44px}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.mini{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-size:.78rem;color:#475569;background:#f8fafc;font-weight:650}.footer-actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}@media (max-width:680px){.hero-inner{padding:22px}}
+
+.brand-mark{display:inline-flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.08em}
+.brand-mark .brand-icon{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#0f172a;display:inline-flex;align-items:center;justify-content:center;font-weight:900;box-shadow:0 10px 24px rgba(245,158,11,.25)}
+.brand-mark .brand-text{display:flex;flex-direction:column;line-height:1.05}
+.brand-mark .brand-main{font-size:1.08rem;color:inherit}
+.brand-mark .brand-sub{font-size:.68rem;letter-spacing:.18em;opacity:.75}
+
 </style>
   <link rel="stylesheet" href="jagopsi-elegant.css">
 </head>
 <body>
-  <section class="hero"><div class="hero-inner"><span class="badge">TIU</span><h1>Daftar Paket TIU SKD</h1><p class="sub">Paket TIU SKD Kedinasan/CPNS akan ditambahkan di halaman ini.</p><div class="actions"><a class="btn btn-outline" href="skd_cpns.html">Kembali ke SKD</a><a class="btn btn-outline" href="main.html">Menu Utama</a><a class="btn btn-outline" href="riwayat.html">Riwayat TO</a></div></div></section>
-  <main class="wrap"><section><div class="section-head"><h2 class="section-title">Paket Tersedia</h2><div class="section-note">0 paket aktif</div></div><div class="grid">
-        <div class="card" onclick="soon('TIU Paket 1 belum tersedia.')">
-          <span class="tag">SEGERA</span>
-          <h3>TIU Paket 1</h3>
-          <p>Slot paket TIU pertama untuk verbal, numerik, logika, dan figural.</p>
-          <div class="meta"><span class="mini">TIU</span><span class="mini">Belum Aktif</span></div>
-          <div style="margin-top:14px"><button class="btn btn-disabled" type="button">Belum Aktif</button></div>
+  <section class="hero"><div class="hero-inner">
+    <div class="brand-mark" aria-label="JAGOPSI"><span class="brand-icon">J</span><span class="brand-text"><span class="brand-main">JAGOPSI</span><span class="brand-sub">ONLINE</span></span></div><span class="badge">TIU</span><h1>Daftar Paket TIU SKD</h1><p class="sub">Paket TIU SKD Kedinasan/CPNS akan ditambahkan di halaman ini.</p><div class="actions"><a class="btn btn-outline" href="skd_cpns.html">Kembali ke SKD</a><a class="btn btn-outline" href="main.html">Menu Utama</a><a class="btn btn-outline" href="riwayat.html">Riwayat TO</a></div></div></section>
+  <main class="wrap"><section><div class="section-head"><h2 class="section-title">Paket Aktif</h2><div class="section-note">0 paket aktif</div></div><div class="grid">
+<div style="margin-top:14px"><button class="btn btn-disabled" type="button">Nonaktif</button></div>
         </div>
-        <div class="card" onclick="soon('TIU Paket 2 belum tersedia.')">
-          <span class="tag">SEGERA</span>
-          <h3>TIU Paket 2</h3>
-          <p>Slot paket tambahan untuk variasi latihan TIU berikutnya.</p>
-          <div class="meta"><span class="mini">TIU</span><span class="mini">Belum Aktif</span></div>
-          <div style="margin-top:14px"><button class="btn btn-disabled" type="button">Belum Aktif</button></div>
+<div style="margin-top:14px"><button class="btn btn-disabled" type="button">Nonaktif</button></div>
         </div>
       </div></section><div class="footer-actions"><a class="btn btn-light" href="skd_cpns.html">Kembali ke SKD</a><a class="btn btn-light" href="riwayat.html">Lihat Riwayat</a></div></main>
   <script>function soon(msg){alert(msg);}</script>

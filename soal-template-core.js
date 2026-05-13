@@ -15,7 +15,7 @@ const db = getDatabase(app);
 const config = window.__SOAL_TEMPLATE_CONFIG || {};
 const BANK = Array.isArray(window.__SOAL_TEMPLATE_QUESTIONS) ? window.__SOAL_TEMPLATE_QUESTIONS : [];
 const DURATION_SECONDS = Number(config.durationMinutes || 60) * 60;
-const STORAGE_KEY = config.storageKey || ('template_session_' + (config.examFile || config.examType || 'exam'));
+const STORAGE_KEY = config.storageKey || ('jagopsi_session_' + (config.examFile || config.examType || 'exam'));
 
 const email = localStorage.getItem('pesertaEmail') || '';
 const session = localStorage.getItem('currentSession') || null;
@@ -138,8 +138,8 @@ function renderIntro(){
   $('screen-section').classList.add('hidden');
   $('screen-result').classList.add('hidden');
   $('introBadge').textContent = `${(config.examName || 'UJIAN').toUpperCase()}${questions.length ? ' • ' + questions.length + ' SOAL' : ''}`;
-  $('introTitle').textContent = config.introTitle || 'Template Soal';
-  $('introText').textContent = config.introText || 'Format tes mengikuti template soal.html.';
+  $('introTitle').textContent = config.introTitle || 'Paket Latihan';
+  $('introText').textContent = config.introText || 'Silakan mulai ujian saat sudah siap.';
   $('stagePill').textContent = config.sectionLabel || config.examName || 'Ujian';
   $('statTotal').textContent = String(config.randomBank ? (config.sessionSize || questions.length || BANK.length) : (questions.length || BANK.length));
   $('statTime').textContent = `${config.durationMinutes || 60} Menit`;

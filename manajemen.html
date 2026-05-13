@@ -85,13 +85,21 @@
             .sidebar { width: 100%; border-right: none; height: auto; }
             .main-panel { padding: 15px; }
         }
-    </style>
+    
+.brand-mark{display:inline-flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.08em}
+.brand-mark .brand-icon{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#0f172a;display:inline-flex;align-items:center;justify-content:center;font-weight:900;box-shadow:0 10px 24px rgba(245,158,11,.25)}
+.brand-mark .brand-text{display:flex;flex-direction:column;line-height:1.05}
+.brand-mark .brand-main{font-size:1.08rem;color:inherit}
+.brand-mark .brand-sub{font-size:.68rem;letter-spacing:.18em;opacity:.75}
+
+</style>
   <link rel="stylesheet" href="jagopsi-elegant.css">
 </head>
 <body>
 
 <div id="main-wrapper">
     <div class="sidebar">
+        <div class="brand-admin-panel" style="margin-bottom:18px;color:#0f172a"><div class="brand-mark" aria-label="JAGOPSI"><span class="brand-icon">J</span><span class="brand-text"><span class="brand-main">JAGOPSI</span><span class="brand-sub">ONLINE</span></span></div></div>
         <div class="nav-top">
             <a href="hasil.html" class="btn-nav">📊 Hasil</a>
             <button id="do-logout" class="btn-logout">Logout</button>
@@ -100,10 +108,10 @@
         <a href="custom.html" class="btn-custom">✨ GANTI HURUF / SYMBOL</a>
         
         <div class="reg-card">
-            <h2>Pendaftaran Akun</h2>
+            <h2>Daftar Akun</h2>
             <div id="reg-state-badge" class="reg-state reg-on">MEMUAT...</div>
             <p style="font-size:0.82rem; color:#666; line-height:1.5; margin:10px 0 12px;">
-                Matikan daftar akun agar peserta tidak bisa membuat akun baru dari halaman index.
+                Atur apakah peserta boleh membuat akun sendiri dari halaman awal.
             </p>
             <div style="display:flex; gap:8px;">
                 <button id="btn-reg-on" class="btn-reg btn-reg-on">HIDUPKAN</button>
