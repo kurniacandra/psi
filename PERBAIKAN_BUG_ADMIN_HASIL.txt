@@ -1,6 +1,0 @@
-Perbaikan bug lanjutan:
-1. hasil.html sekarang membaca multi-source: rekap_skor + hasil_kepri.
-2. hasil.html sekarang bisa membaca struktur hasil datar maupun struktur bersarang.
-3. hasil.html menampilkan simbol/huruf peserta pada daftar hasil dan detail modal.
-4. riwayat.html ikut diperbaiki agar membaca hasil bersarang dan menampilkan simbol/huruf.
-5. hapus hasil dari admin sekarang mendukung path rekap_skor maupun hasil_kepri.

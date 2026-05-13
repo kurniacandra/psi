@@ -38,7 +38,7 @@
         .tab-content.active { display: block; }
 
         .table-card { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 650px; }
+        table { width: 100%; border-collapse: collapse; min-width: 760px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.85rem; }
         
         .live-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
@@ -61,6 +61,24 @@
         .search-container { margin-bottom: 15px; position: relative; }
         .search-input { padding-left: 40px !important; border: 2px solid #ddd !important; transition: 0.3s; }
         .search-icon { position: absolute; left: 15px; top: 18px; color: #999; }
+
+
+        .dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:18px}
+        .dash-card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(15,23,42,.06)}
+        .dash-card h3{margin:0 0 8px;color:#64748b;font-size:.78rem;text-transform:uppercase;letter-spacing:.4px}
+        .dash-value{font-size:1.65rem;font-weight:800;color:#0f172a}
+        .dash-small{font-size:.78rem;color:#64748b;margin-top:5px}
+        .admin-tools{background:white;border:1px solid #e2e8f0;border-radius:16px;padding:16px;margin-bottom:18px;box-shadow:0 6px 18px rgba(15,23,42,.05)}
+        .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+        .btn-tool{border:none;border-radius:10px;padding:11px 12px;font-weight:700;cursor:pointer;background:#eef2ff;color:#1e3a8a;text-align:center;text-decoration:none;font-size:.82rem}
+        .btn-tool.green{background:#dcfce7;color:#166534}.btn-tool.orange{background:#ffedd5;color:#9a3412}.btn-tool.red{background:#fee2e2;color:#991b1b}.btn-tool.gray{background:#f1f5f9;color:#334155}.btn-tool.purple{background:#ede9fe;color:#5b21b6}
+        .filter-row{display:grid;grid-template-columns:1.4fr .7fr .7fr;gap:10px;margin-bottom:12px}
+        .admin-note{font-size:.82rem;color:#64748b;line-height:1.55;margin:6px 0 0}
+        .quick-menu{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+        .quick-menu a{background:#f8fafc;border:1px solid #e2e8f0;color:#0f172a;text-decoration:none;border-radius:10px;padding:10px;font-size:.78rem;font-weight:700;text-align:center}
+        .status-chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 8px;font-size:.72rem;font-weight:800}
+        .chip-aktif{background:#dcfce7;color:#166534}.chip-vip{background:#ffedd5;color:#9a3412}.chip-nonaktif{background:#fee2e2;color:#991b1b}
+        .btn-mini{border:none;border-radius:8px;padding:7px 9px;cursor:pointer;font-weight:700;font-size:.72rem}
 
         @media (max-width: 768px) {
             #main-wrapper { flex-direction: column; overflow-y: auto; height: auto; }
@@ -113,11 +131,35 @@
 
     <div class="main-panel">
         <div class="tab-container">
-            <button class="tab-btn active" id="tab-btn-monitor">🔴 LIVE MONITOR</button>
+            <button class="tab-btn active" id="tab-btn-ringkasan">📈 RINGKASAN</button>
+            <button class="tab-btn" id="tab-btn-monitor">🔴 LIVE MONITOR</button>
             <button class="tab-btn" id="tab-btn-peserta">📋 DAFTAR PESERTA</button>
         </div>
 
-        <div id="tab-monitor" class="tab-content active">
+        <div id="tab-ringkasan" class="tab-content active">
+            <div class="dashboard-grid">
+                <div class="dash-card"><h3>Total Akun</h3><div class="dash-value" id="dash-total">0</div><div class="dash-small">Semua peserta</div></div>
+                <div class="dash-card"><h3>Aktif</h3><div class="dash-value" id="dash-aktif">0</div><div class="dash-small">Akun biasa</div></div>
+                <div class="dash-card"><h3>VIP</h3><div class="dash-value" id="dash-vip">0</div><div class="dash-small">Akses penuh</div></div>
+                <div class="dash-card"><h3>Nonaktif</h3><div class="dash-value" id="dash-nonaktif">0</div><div class="dash-small">Tidak bisa ujian</div></div>
+                <div class="dash-card"><h3>Live</h3><div class="dash-value" id="dash-live">0</div><div class="dash-small">Sedang mengerjakan</div></div>
+            </div>
+
+            <div class="admin-tools">
+                <h2>Kontrol Admin</h2>
+                <p class="admin-note">Gunakan menu ini untuk memantau peserta, membuka hasil, mengatur akun, dan membersihkan sesi ujian yang tersangkut.</p>
+                <div class="tool-grid" style="margin-top:12px">
+                    <button id="btn-export-csv" class="btn-tool green" type="button">Export Akun CSV</button>
+                    <button id="btn-backup-json" class="btn-tool purple" type="button">Backup Akun JSON</button>
+                    <button id="btn-copy-selected" class="btn-tool gray" type="button">Copy Email Terpilih</button>
+                    <button id="btn-clear-monitor" class="btn-tool red" type="button">Bersihkan Live Monitor</button>
+                    <a class="btn-tool" href="hasil.html">Buka Hasil</a>
+                    <a class="btn-tool orange" href="riwayat.html">Buka Riwayat</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-monitor" class="tab-content">
             <div id="live-user-list" class="live-grid">
                 <p style="font-size: 0.85rem; color: #999; font-style: italic;">Tidak ada aktivitas ujian...</p>
             </div>
@@ -132,9 +174,23 @@
                 </div>
             </div>
 
-            <div class="search-container">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="search-peserta" class="search-input" placeholder="Cari email peserta...">
+            <div class="filter-row">
+                <div class="search-container" style="margin-bottom:0">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-peserta" class="search-input" placeholder="Cari email peserta...">
+                </div>
+                <select id="filter-status">
+                    <option value="semua">Semua Status</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="vip">VIP</option>
+                    <option value="nonaktif">Nonaktif</option>
+                </select>
+                <select id="bulk-status">
+                    <option value="">Bulk Status</option>
+                    <option value="aktif">Jadikan Aktif</option>
+                    <option value="vip">Jadikan VIP</option>
+                    <option value="nonaktif">Jadikan Nonaktif</option>
+                </select>
             </div>
 
             <div class="table-card">
@@ -143,6 +199,7 @@
                         <tr>
                             <th><input type="checkbox" id="select-all"></th>
                             <th>Email</th>
+                            <th>Status Info</th>
                             <th>Password</th>
                             <th>Status (Klik Ganti)</th>
                             <th>Aksi</th>
@@ -218,9 +275,11 @@
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        if(id === 'tab-monitor') document.getElementById('tab-btn-monitor').classList.add('active');
+        if(id === 'tab-ringkasan') document.getElementById('tab-btn-ringkasan').classList.add('active');
+        else if(id === 'tab-monitor') document.getElementById('tab-btn-monitor').classList.add('active');
         else document.getElementById('tab-btn-peserta').classList.add('active');
     };
+    document.getElementById('tab-btn-ringkasan').onclick = () => showTab('tab-ringkasan');
     document.getElementById('tab-btn-monitor').onclick = () => showTab('tab-monitor');
     document.getElementById('tab-btn-peserta').onclick = () => showTab('tab-peserta');
 
@@ -275,8 +334,10 @@
         onValue(ref(db, 'temp_progress'), (snap) => {
             const container = document.getElementById('live-user-list');
             container.innerHTML = "";
+            let liveCount = 0;
             if(snap.exists()) {
                 snap.forEach(child => {
+                    liveCount++;
                     const u = child.val() || {};
                     const email = (u.email || child.key.replace(/_/g, "."));
                     const stage = u.stage || u.examType || "";
@@ -324,6 +385,7 @@
             } else {
                 container.innerHTML = '<p style="font-size: 0.85rem; color: #999; font-style: italic;">Tidak ada aktivitas ujian...</p>';
             }
+            updateDashboard(liveCount);
         });
     }
 
@@ -337,6 +399,50 @@
         } else alert("Data tidak valid!");
     };
 
+
+    function updateDashboard(liveCount = null) {
+        const total = allUsersData.length;
+        const aktif = allUsersData.filter(u => (u.status || 'nonaktif') === 'aktif').length;
+        const vip = allUsersData.filter(u => (u.status || 'nonaktif') === 'vip').length;
+        const nonaktif = allUsersData.filter(u => (u.status || 'nonaktif') === 'nonaktif').length;
+        const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+        set('dash-total', total);
+        set('dash-aktif', aktif);
+        set('dash-vip', vip);
+        set('dash-nonaktif', nonaktif);
+        if (liveCount !== null) set('dash-live', liveCount);
+    }
+
+    function applyFilters() {
+        const keyword = (document.getElementById('search-peserta')?.value || '').toLowerCase();
+        const status = document.getElementById('filter-status')?.value || 'semua';
+        let filtered = allUsersData.filter(u => String(u.email || '').toLowerCase().includes(keyword));
+        if (status !== 'semua') filtered = filtered.filter(u => (u.status || 'nonaktif') === status);
+        renderTable(filtered);
+        updateDashboard();
+    }
+
+    function downloadTextFile(filename, content, mime='text/plain') {
+        const blob = new Blob([content], {type: mime});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+    }
+
+    function usersToCsv(users) {
+        const header = ['email','password','status'];
+        const escCsv = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+        return [header.join(','), ...users.map(u => [u.email, u.password, u.status].map(escCsv).join(','))].join('\n');
+    }
+
+    function getSelectedUserKeys() {
+        return Array.from(document.querySelectorAll('.user-checkbox:checked')).map(c => ({key:c.value, email:c.dataset.email || ''}));
+    }
+
+
     function loadData() {
         onValue(ref(db, 'users'), (snap) => {
             allUsersData = [];
@@ -345,7 +451,7 @@
                     allUsersData.push({ key: child.key, ...child.val() });
                 });
             }
-            renderTable(allUsersData);
+            applyFilters();
         });
     }
 
@@ -357,22 +463,27 @@
             count++;
             const tr = document.createElement('tr');
             let statusClass = u.status || 'nonaktif';
+            const email = String(u.email || '');
+            const safeKey = String(u.key || '').replace(/'/g, "\\'");
+            const safeStatus = String(u.status || 'nonaktif').replace(/'/g, "\\'");
+            const emailUrl = encodeURIComponent(email.toLowerCase());
             tr.innerHTML = `
-                <td><input type="checkbox" class="user-checkbox" value="${u.key}" data-email="${u.email}"></td>
-                <td><b>${u.email}</b></td>
+                <td><input type="checkbox" class="user-checkbox" value="${esc(u.key)}" data-email="${esc(email)}"></td>
+                <td><b>${esc(email)}</b><div style="font-size:.72rem;color:#64748b;margin-top:4px">ID: ${esc(u.key)}</div></td>
+                <td><span class="status-chip chip-${esc(statusClass)}">${esc(statusClass.toUpperCase())}</span></td>
                 <td>
                     <div style="display:flex; gap:5px;">
-                        <input type="text" id="pass-${u.key}" style="width:110px; padding:6px; font-size:0.8rem; margin:0;" value="${u.password}">
-                        <button style="background:var(--success); color:white; border:none; padding:5px; border-radius:4px; cursor:pointer;" onclick="window.savePass('${u.key}')">💾</button>
+                        <input type="text" id="pass-${esc(u.key)}" style="width:110px; padding:6px; font-size:0.8rem; margin:0;" value="${esc(u.password || '')}">
+                        <button class="btn-mini" style="background:var(--success); color:white;" onclick="window.savePass('${safeKey}')">Simpan</button>
                     </div>
                 </td>
-                <td><span class="status-badge ${statusClass}" onclick="window.cycleStatus('${u.key}', '${u.status}')">${u.status}</span></td>
                 <td>
                     <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                        <a href="hasil.html?email=${encodeURIComponent(u.email.toLowerCase())}" style="text-decoration:none; background:#eef2ff; color:#1e3a8a; padding:6px 8px; border-radius:8px; font-size:0.72rem; font-weight:700;">Review</a>
-                        <a href="riwayat.html?email=${encodeURIComponent(u.email.toLowerCase())}" style="text-decoration:none; background:#ecfeff; color:#155e75; padding:6px 8px; border-radius:8px; font-size:0.72rem; font-weight:700;">Riwayat</a>
-                        <a href="hasil.html?email=${encodeURIComponent(u.email.toLowerCase())}" style="text-decoration:none; background:#ecfdf5; color:#166534; padding:6px 8px; border-radius:8px; font-size:0.72rem; font-weight:700;">Grafik</a>
-                        <button style="background:red; border:none; color:white; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="window.delUser('${u.key}')">🗑️</button>
+                        <a href="hasil.html?email=${emailUrl}" style="text-decoration:none; background:#eef2ff; color:#1e3a8a; padding:6px 8px; border-radius:8px; font-size:0.72rem; font-weight:700;">Review</a>
+                        <a href="riwayat.html?email=${emailUrl}" style="text-decoration:none; background:#ecfeff; color:#155e75; padding:6px 8px; border-radius:8px; font-size:0.72rem; font-weight:700;">Riwayat</a>
+                        <a href="hasil.html?email=${emailUrl}" style="text-decoration:none; background:#ecfdf5; color:#166534; padding:6px 8px; border-radius:8px; font-size:0.72rem; font-weight:700;">Grafik</a>
+                        <button class="btn-mini" style="background:#f1f5f9;color:#334155" onclick="window.cycleStatus('${safeKey}', '${safeStatus}')">Status</button>
+                        <button class="btn-mini" style="background:red;color:white" onclick="window.delUser('${safeKey}')">Hapus</button>
                     </div>
                 </td>
             `;
@@ -380,12 +491,50 @@
         });
         document.getElementById('total-user').innerText = "Total: " + count;
         initCheckboxes();
+        updateDashboard();
     }
 
-    document.getElementById('search-peserta').onkeyup = function() {
-        const keyword = this.value.toLowerCase();
-        const filtered = allUsersData.filter(u => u.email.toLowerCase().includes(keyword));
-        renderTable(filtered);
+    document.getElementById('search-peserta').onkeyup = applyFilters;
+    document.getElementById('filter-status').onchange = applyFilters;
+    document.getElementById('bulk-status').onchange = async function() {
+        const status = this.value;
+        if (!status) return;
+        const selected = getSelectedUserKeys();
+        if (!selected.length) {
+            alert('Pilih akun terlebih dahulu.');
+            this.value = '';
+            return;
+        }
+        if (confirm(`Ubah ${selected.length} akun menjadi ${status.toUpperCase()}?`)) {
+            const updates = {};
+            selected.forEach(u => { updates[`users/${u.key}/status`] = status; });
+            await update(ref(db), updates);
+        }
+        this.value = '';
+    };
+
+    document.getElementById('btn-export-csv').onclick = () => {
+        downloadTextFile('daftar_akun_jagopsi.csv', usersToCsv(allUsersData), 'text/csv');
+    };
+    document.getElementById('btn-backup-json').onclick = () => {
+        downloadTextFile('backup_akun_jagopsi.json', JSON.stringify(allUsersData, null, 2), 'application/json');
+    };
+    document.getElementById('btn-copy-selected').onclick = async () => {
+        const selected = getSelectedUserKeys();
+        if (!selected.length) return alert('Pilih akun terlebih dahulu.');
+        const emails = selected.map(u => u.email).filter(Boolean).join('\n');
+        try {
+            await navigator.clipboard.writeText(emails);
+            alert('Email terpilih disalin.');
+        } catch(e) {
+            prompt('Salin email berikut:', emails);
+        }
+    };
+    document.getElementById('btn-clear-monitor').onclick = async () => {
+        if(confirm('Bersihkan semua data live monitor?')) {
+            await remove(ref(db, 'temp_progress'));
+            alert('Live monitor dibersihkan.');
+        }
     };
 
     window.savePass = (id) => {
