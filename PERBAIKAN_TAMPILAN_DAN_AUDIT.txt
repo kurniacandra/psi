@@ -1,0 +1,23 @@
+PERBAIKAN_TAMPILAN_DAN_AUDIT.txt
+
+Yang dicek:
+- 17 file template berbasis soal-template-core.js
+- Nama examFile vs nama file HTML
+- sessionSize vs jumlah soal
+- link HTML lokal
+- bobot SKD: TWK 30, TKP 45, TIU 35, maksimal 550
+- jalur hasil: rekap_skor dan hasil_skd
+- riwayat/admin membaca SKD sebagai poin asli, bukan persen
+
+Yang diperbaiki:
+1. Tambah jagopsi-elegant.css untuk memperbagus tampilan global tanpa mengubah fitur.
+2. Semua file HTML sudah dipasang stylesheet elegan.
+3. result-utils.js diberi fallback tipe lama: SKD, BINDO, PU, MATEMATIKA agar hasil lama tetap terbaca rapi meski examType kosong.
+4. Perhitungan summary correct untuk record lama dibuat lebih aman agar skor raw SKD tidak terbaca sebagai jumlah benar.
+
+Catatan fitur tambahan yang disarankan selanjutnya:
+- Anti manipulasi skor lewat Cloud Functions/server-side scoring.
+- Pembatasan attempt per paket.
+- Ranking khusus SKD dengan breakdown TWK/TIU/TKP.
+- Export hasil admin ke CSV/Excel.
+- Mode pembahasan hanya terbuka setelah peserta selesai.

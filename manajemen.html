@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANAJEMEN PESERTA - JAGOPSI</title>
+    <style>
+        :root { --primary: #1a252f; --accent: #f39c12; --bg: #f4f7f6; --success: #27ae60; --danger: #e74c3c; --blue: #3498db; --vip: #ef6c00; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        #main-wrapper { display: none; width: 100%; height: 100vh; flex-direction: row; }
+        
+        .sidebar { width: 300px; background: white; border-right: 1px solid #ddd; padding: 20px; flex-shrink: 0; overflow-y: auto; display: flex; flex-direction: column; }
+        .main-panel { flex: 1; padding: 25px; overflow-y: auto; position: relative; }
+        
+        .nav-top { display: flex; justify-content: space-between; margin-bottom: 25px; gap: 10px; }
+        .btn-nav { text-decoration: none; background: var(--primary); color: white; padding: 10px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; text-align: center; flex: 1; }
+        
+        h2 { font-size: 1.1rem; color: var(--primary); border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        
+        .btn-add { width: 100%; padding: 12px; background: var(--success); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .reg-card{background:#fff8ee;border:1px solid #ffd9a8;border-radius:12px;padding:14px;margin-bottom:20px}
+        .reg-state{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.75rem;font-weight:700;margin-top:6px}
+        .reg-on{background:#e8f5e9;color:#2e7d32}
+        .reg-off{background:#ffebee;color:#c62828}
+        .btn-reg{flex:1;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:.78rem;color:#fff}
+        .btn-reg-on{background:var(--success)}
+        .btn-reg-off{background:var(--danger)}
+        /* Tombol Custom Redirect */
+        .btn-custom { width: 100%; padding: 12px; background: var(--blue); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 20px; text-decoration: none; display: block; text-align: center; font-size: 0.9rem; }
+        
+        .btn-mass-del { background: var(--danger); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.8rem; display: none; }
+
+        .tab-container { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+        .tab-btn { padding: 10px 20px; border: none; background: #ddd; cursor: pointer; border-radius: 8px; font-weight: bold; color: #666; transition: 0.3s; }
+        .tab-btn.active { background: var(--primary); color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .table-card { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 650px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.85rem; }
+        
+        .live-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+        .live-card { background: white; border-radius: 8px; padding: 15px; border-left: 4px solid var(--blue); box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: relative; }
+        .live-card.skd { border-left-color: #7c3aed; }
+        .monitor-line { font-size:0.78rem; color:#444; margin-top:6px; line-height:1.45; }
+        .monitor-progress { height:8px; background:#eef2f7; border-radius:999px; overflow:hidden; margin-top:9px; }
+        .monitor-progress > span { display:block; height:100%; background:var(--success); border-radius:999px; }
+        .answer-preview { margin-top:9px; padding:8px; background:#f8fafc; border-radius:8px; font-size:0.72rem; color:#334155; max-height:74px; overflow:auto; line-height:1.45; }
+        .badge-live { background: #2ecc71; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; float: right; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.5; } }
+
+        .status-badge { padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; cursor: pointer; text-transform: uppercase; text-align: center; display: inline-block; min-width: 70px; }
+        .aktif { background: #e8f5e9; color: #2e7d32; }
+        .nonaktif { background: #ffebee; color: #c62828; }
+        .vip { background: #fff3e0; color: var(--vip); border: 1px solid #ffb74d; }
+        
+        .btn-logout { background: none; border: 1px solid red; color: red; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+
+        .search-container { margin-bottom: 15px; position: relative; }
+        .search-input { padding-left: 40px !important; border: 2px solid #ddd !important; transition: 0.3s; }
+        .search-icon { position: absolute; left: 15px; top: 18px; color: #999; }
+
+        @media (max-width: 768px) {
+            #main-wrapper { flex-direction: column; overflow-y: auto; height: auto; }
+            .sidebar { width: 100%; border-right: none; height: auto; }
+            .main-panel { padding: 15px; }
+        }
+    </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+
+<div id="main-wrapper">
+    <div class="sidebar">
+        <div class="nav-top">
+            <a href="hasil.html" class="btn-nav">📊 Hasil</a>
+            <button id="do-logout" class="btn-logout">Logout</button>
+        </div>
+
+        <a href="custom.html" class="btn-custom">✨ GANTI HURUF / SYMBOL</a>
+        
+        <div class="reg-card">
+            <h2>Pendaftaran Akun</h2>
+            <div id="reg-state-badge" class="reg-state reg-on">MEMUAT...</div>
+            <p style="font-size:0.82rem; color:#666; line-height:1.5; margin:10px 0 12px;">
+                Matikan daftar akun agar peserta tidak bisa membuat akun baru dari halaman index.
+            </p>
+            <div style="display:flex; gap:8px;">
+                <button id="btn-reg-on" class="btn-reg btn-reg-on">HIDUPKAN</button>
+                <button id="btn-reg-off" class="btn-reg btn-reg-off">MATIKAN</button>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <h2>Tambah Akun</h2>
+            <input type="email" id="new_email" placeholder="Email Peserta">
+            <input type="text" id="new_pass" placeholder="Password Baru">
+            <select id="new_status">
+                <option value="aktif">Aktif (Biasa)</option>
+                <option value="vip">VIP Member</option>
+                <option value="nonaktif">Nonaktif</option>
+            </select>
+            <button class="btn-add" id="btn-save">SIMPAN</button>
+            
+            <div style="display: flex; gap: 5px; margin-top: 10px;">
+                <button id="btn-aktif-semua" style="flex: 1; padding: 10px; background:var(--success); color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:0.7rem;">AKTIFKAN SEMUA</button>
+                <button id="btn-non-semua" style="flex: 1; padding: 10px; background:var(--danger); color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:0.7rem;">MATIKAN SEMUA</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <div class="tab-container">
+            <button class="tab-btn active" id="tab-btn-monitor">🔴 LIVE MONITOR</button>
+            <button class="tab-btn" id="tab-btn-peserta">📋 DAFTAR PESERTA</button>
+        </div>
+
+        <div id="tab-monitor" class="tab-content active">
+            <div id="live-user-list" class="live-grid">
+                <p style="font-size: 0.85rem; color: #999; font-style: italic;">Tidak ada aktivitas ujian...</p>
+            </div>
+        </div>
+
+        <div id="tab-peserta" class="tab-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                <h2>Daftar Peserta</h2>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button id="btn-mass-del" class="btn-mass-del">HAPUS TERPILIH (0)</button>
+                    <div id="total-user" style="font-weight:bold;">Total: 0</div>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-peserta" class="search-input" placeholder="Cari email peserta...">
+            </div>
+
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="select-all"></th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Status (Klik Ganti)</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-list-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="result-utils.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, onValue, remove, update, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const config = {
+        apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw",
+        authDomain: "simulasi-2b93b.firebaseapp.com",
+        databaseURL: "https://simulasi-2b93b-default-rtdb.firebaseio.com",
+        projectId: "simulasi-2b93b"
+    };
+
+    const app = initializeApp(config);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    let allUsersData = [];
+    const REGISTRATION_PATH = 'app_settings/allow_registration';
+
+    function setRegistrationBadge(enabled) {
+        const badge = document.getElementById('reg-state-badge');
+        if (!badge) return;
+        badge.className = 'reg-state ' + (enabled ? 'reg-on' : 'reg-off');
+        badge.textContent = enabled ? 'DAFTAR AKUN AKTIF' : 'DAFTAR AKUN DIMATIKAN';
+    }
+
+    function safeEmailUrl(email) {
+        return encodeURIComponent(String(email || '').toLowerCase());
+    }
+    function esc(value) {
+        if (window.resultUtils && window.resultUtils.escapeHtml) return window.resultUtils.escapeHtml(value);
+        return String(value ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[m]));
+    }
+    function formatSisaWaktu(seconds) {
+        const total = Math.max(0, Number(seconds || 0));
+        const h = String(Math.floor(total / 3600)).padStart(2, '0');
+        const m = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+        const s = String(total % 60).padStart(2, '0');
+        return `${h}:${m}:${s}`;
+    }
+    function buildAnswerPreview(answers) {
+        if (!answers || typeof answers !== 'object') return '';
+        const rows = Object.keys(answers)
+            .sort((a, b) => Number(a) - Number(b))
+            .map(no => `${esc(no)}:${esc(answers[no])}`);
+        if (!rows.length) return '';
+        return `<div class="answer-preview"><strong>Jawaban masuk:</strong><br>${rows.join(' &nbsp; ')}</div>`;
+    }
+    function shortcutButtons(email) {
+        const url = safeEmailUrl(email);
+        return `
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;">
+                <a href="hasil.html?email=${url}" style="text-decoration:none; background:#eef2ff; color:#1e3a8a; padding:7px 9px; border-radius:8px; font-size:0.75rem; font-weight:700;">Review/Hasil</a>
+                <a href="riwayat.html?email=${url}" style="text-decoration:none; background:#ecfeff; color:#155e75; padding:7px 9px; border-radius:8px; font-size:0.75rem; font-weight:700;">Riwayat</a>
+                <a href="hasil.html?email=${url}" style="text-decoration:none; background:#ecfdf5; color:#166534; padding:7px 9px; border-radius:8px; font-size:0.75rem; font-weight:700;">Grafik</a>
+            </div>`;
+    }
+
+    const showTab = (id) => {
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        if(id === 'tab-monitor') document.getElementById('tab-btn-monitor').classList.add('active');
+        else document.getElementById('tab-btn-peserta').classList.add('active');
+    };
+    document.getElementById('tab-btn-monitor').onclick = () => showTab('tab-monitor');
+    document.getElementById('tab-btn-peserta').onclick = () => showTab('tab-peserta');
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) { 
+            document.getElementById('main-wrapper').style.display = 'flex'; 
+            onValue(ref(db, REGISTRATION_PATH), (snap) => {
+                setRegistrationBadge(snap.exists() ? snap.val() !== false : true);
+            });
+            loadData(); 
+            startLiveMonitor();
+        } else { window.location.href = "admin.html"; }
+    });
+
+    document.getElementById('do-logout').onclick = () => signOut(auth);
+
+    document.getElementById('btn-reg-on').onclick = async () => {
+        await update(ref(db), { [REGISTRATION_PATH]: true });
+        alert('Daftar akun dihidupkan!');
+    };
+    document.getElementById('btn-reg-off').onclick = async () => {
+        await update(ref(db), { [REGISTRATION_PATH]: false });
+        alert('Daftar akun dimatikan!');
+    };
+
+    document.getElementById('btn-aktif-semua').onclick = async () => {
+        if(confirm("Aktifkan semua akun (Biasa)?")) {
+            const snap = await get(ref(db, 'users'));
+            if(snap.exists()) {
+                const updates = {};
+                snap.forEach(c => { updates[`users/${c.key}/status`] = "aktif"; });
+                await update(ref(db), updates);
+                alert("Semua akun AKTIF!");
+            }
+        }
+    };
+
+    document.getElementById('btn-non-semua').onclick = async () => {
+        if(confirm("Matikan semua akun & bersihkan monitor?")) {
+            const snap = await get(ref(db, 'users'));
+            const updates = {};
+            if(snap.exists()) {
+                snap.forEach(c => { updates[`users/${c.key}/status`] = "nonaktif"; });
+                await update(ref(db), updates);
+            }
+            await remove(ref(db, 'temp_progress'));
+            alert("Berhasil dinonaktifkan!");
+        }
+    };
+
+    function startLiveMonitor() {
+        onValue(ref(db, 'temp_progress'), (snap) => {
+            const container = document.getElementById('live-user-list');
+            container.innerHTML = "";
+            if(snap.exists()) {
+                snap.forEach(child => {
+                    const u = child.val() || {};
+                    const email = (u.email || child.key.replace(/_/g, "."));
+                    const stage = u.stage || u.examType || "";
+
+                    // Mode lama kecermatan: tetap seperti biasa
+                    if (stage === "Kecermatan" || (!stage && (u.currentCol !== undefined || u.currentB !== undefined || u.currentS !== undefined))) {
+                        container.innerHTML += `
+                            <div class="live-card">
+                                <span class="badge-live">LIVE</span>
+                                <strong>${esc(email.split('@')[0]).toUpperCase()}</strong>
+                                <small>Kolom: ${(u.currentCol ?? 0) + 1} | Sisa: ${u.timeLeft ?? 0}s</small>
+                                <div style="font-size:0.8rem; margin-top:8px; display:flex; justify-content:space-between;">
+                                    <span style="color:var(--success)">✅ B: ${u.currentB || 0}</span>
+                                    <span style="color:var(--danger)">❌ S: ${u.currentS || 0}</span>
+                                </div>
+                                ${shortcutButtons(email)}
+                            </div>`;
+                        return;
+                    }
+
+                    // Mode template umum: SKD, akademik, kecerdasan, kepribadian, WK, PU, dan lainnya
+                    const total = Number(u.total || 0);
+                    const nomor = Number(u.nomor || u.currentQuestionSession || 1);
+                    const answered = Number(u.answered || (u.answers ? Object.keys(u.answers).length : 0));
+                    const percent = total ? Math.round((answered / total) * 100) : 0;
+                    const isSkd = String(u.examType || '').toUpperCase() === 'SKD' || String(stage || '').toUpperCase().includes('SKD');
+                    const fileInfo = u.examFile ? `<div class="monitor-line">File: <strong>${esc(u.examFile)}</strong></div>` : '';
+                    const currentBank = u.currentQuestionBank ? ` • Bank no. ${esc(u.currentQuestionBank)}` : '';
+                    const statusText = total && answered >= total ? 'Semua soal sudah dijawab, menunggu submit/selesai.' : 'Sedang mengerjakan.';
+
+                    container.innerHTML += `
+                        <div class="live-card ${isSkd ? 'skd' : ''}">
+                            <span class="badge-live">LIVE</span>
+                            <strong>${esc(email.split('@')[0]).toUpperCase()}</strong>
+                            <div style="font-size:0.8rem; margin-top:6px; font-weight:bold; color:${isSkd ? '#7c3aed' : 'var(--blue)'};">${esc(stage || 'Sedang Ujian')}</div>
+                            <div class="monitor-line">Soal aktif: <strong>${esc(nomor)}${total ? ' / ' + esc(total) : ''}</strong>${currentBank}</div>
+                            <div class="monitor-line">Terjawab: <strong>${esc(answered)}${total ? ' / ' + esc(total) : ''}</strong> • ${esc(percent)}% • Sisa: <strong>${esc(formatSisaWaktu(u.timeLeft))}</strong></div>
+                            ${fileInfo}
+                            <div class="monitor-progress"><span style="width:${Math.min(100, Math.max(0, percent))}%"></span></div>
+                            <div class="monitor-line" style="font-weight:700;color:${answered >= total && total ? 'var(--success)' : '#64748b'}">${esc(statusText)}</div>
+                            ${buildAnswerPreview(u.answers)}
+                            ${shortcutButtons(email)}
+                        </div>`;
+                });
+            } else {
+                container.innerHTML = '<p style="font-size: 0.85rem; color: #999; font-style: italic;">Tidak ada aktivitas ujian...</p>';
+            }
+        });
+    }
+
+    document.getElementById('btn-save').onclick = () => {
+        const e = document.getElementById('new_email').value.trim();
+        const p = document.getElementById('new_pass').value;
+        const s = document.getElementById('new_status').value;
+        if(e && p.length >= 6) {
+            update(ref(db, 'users/' + e.replace(/[.@]/g, "_")), { email: e, password: p, status: s })
+            .then(() => { alert("Tersimpan sebagai " + s.toUpperCase() + "!"); document.getElementById('new_email').value=""; document.getElementById('new_pass').value=""; });
+        } else alert("Data tidak valid!");
+    };
+
+    function loadData() {
+        onValue(ref(db, 'users'), (snap) => {
+            allUsersData = [];
+            if(snap.exists()) {
+                snap.forEach(child => {
+                    allUsersData.push({ key: child.key, ...child.val() });
+                });
+            }
+            renderTable(allUsersData);
+        });
+    }
+
+    function renderTable(data) {
+        const tbody = document.getElementById('user-list-body');
+        tbody.innerHTML = "";
+        let count = 0;
+        data.forEach(u => {
+            count++;
+            const tr = document.createElement('tr');
+            let statusClass = u.status || 'nonaktif';
+            tr.innerHTML = `
+                <td><input type="checkbox" class="user-checkbox" value="${u.key}" data-email="${u.email}"></td>
+                <td><b>${u.email}</b></td>
+                <td>
+                    <div style="display:flex; gap:5px;">
+                        <input type="text" id="pass-${u.key}" style="width:110px; padding:6px; font-size:0.8rem; margin:0;" value="${u.password}">
+                        <button style="background:var(--success); color:white; border:none; padding:5px; border-radius:4px; cursor:pointer;" onclick="window.savePass('${u.key}')">💾</button>
+                    </div>
+                </td>
+                <td><span class="status-badge ${statusClass}" onclick="window.cycleStatus('${u.key}', '${u.status}')">${u.status}</span></td>
+                <td>
+                    <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                        <a href="hasil.html?email=${encodeURIComponent(u.email.toLowerCase())}" style="text-decoration:none; background:#eef2ff; color:#1e3a8a; padding:6px 8px; border-radius:8px; font-size:0.72rem; font-weight:700;">Review</a>
+                        <a href="riwayat.html?email=${encodeURIComponent(u.email.toLowerCase())}" style="text-decoration:none; background:#ecfeff; color:#155e75; padding:6px 8px; border-radius:8px; font-size:0.72rem; font-weight:700;">Riwayat</a>
+                        <a href="hasil.html?email=${encodeURIComponent(u.email.toLowerCase())}" style="text-decoration:none; background:#ecfdf5; color:#166534; padding:6px 8px; border-radius:8px; font-size:0.72rem; font-weight:700;">Grafik</a>
+                        <button style="background:red; border:none; color:white; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="window.delUser('${u.key}')">🗑️</button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+        document.getElementById('total-user').innerText = "Total: " + count;
+        initCheckboxes();
+    }
+
+    document.getElementById('search-peserta').onkeyup = function() {
+        const keyword = this.value.toLowerCase();
+        const filtered = allUsersData.filter(u => u.email.toLowerCase().includes(keyword));
+        renderTable(filtered);
+    };
+
+    window.savePass = (id) => {
+        const p = document.getElementById('pass-' + id).value;
+        if(p.length < 6) return alert("Min 6 Karakter");
+        update(ref(db, 'users/' + id), { password: p }).then(() => alert("Password Berhasil Diperbarui!"));
+    };
+
+    window.cycleStatus = (id, cur) => {
+        let next = cur === 'aktif' ? 'vip' : (cur === 'vip' ? 'nonaktif' : 'aktif');
+        update(ref(db, 'users/' + id), { status: next });
+    };
+
+    window.delUser = (id) => {
+        if(confirm("Hapus akun?")) remove(ref(db, 'users/' + id));
+    };
+
+    function initCheckboxes() {
+        const master = document.getElementById('select-all');
+        const btn = document.getElementById('btn-mass-del');
+        master.onchange = () => {
+            document.querySelectorAll('.user-checkbox').forEach(c => c.checked = master.checked);
+            updateBtn();
+        };
+        document.querySelectorAll('.user-checkbox').forEach(c => c.onchange = updateBtn);
+        function updateBtn() {
+            const len = document.querySelectorAll('.user-checkbox:checked').length;
+            btn.style.display = len > 0 ? 'block' : 'none';
+            btn.innerText = `HAPUS TERPILIH (${len})`;
+        }
+        btn.onclick = async () => {
+            if(confirm("Hapus semua yang dipilih?")) {
+                const checked = document.querySelectorAll('.user-checkbox:checked');
+                for(let c of checked) await remove(ref(db, 'users/' + c.value));
+                master.checked = false; updateBtn();
+            }
+        };
+    }
+</script>
+</body>
+</html>

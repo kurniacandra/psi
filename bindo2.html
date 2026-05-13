@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bahasa Indonesia Paket 2 - JAGOPSI</title>
+<style>
+:root{--primary:#0f172a;--danger:#dc2626;--success:#16a34a;--info:#2563eb;--bg:#f8fafc;--muted:#64748b;--warning:#f59e0b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:'Segoe UI',Arial,sans-serif;color:#0f172a}
+.topbar{position:sticky;top:0;z-index:10;background:linear-gradient(90deg,#0f172a,#1e293b);color:#fff;padding:14px 18px}
+.topbar-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top-timer{background:#fff;color:#991b1b;border-radius:12px;padding:10px 14px;font-weight:700}
+.wrap{max-width:1180px;margin:20px auto;padding:0 16px}.grid{display:grid;grid-template-columns:1.6fr .95fr;gap:18px}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 24px rgba(15,23,42,.08);border:1px solid #e2e8f0}
+.badge{display:inline-block;padding:6px 12px;border-radius:999px;background:#fff7ed;color:#9a3412;font-weight:700;font-size:.8rem;margin-bottom:10px}.badge-blue{background:#eff6ff;color:#1d4ed8}
+.hidden{display:none!important}.option-box{border:1px solid #ddd;padding:12px 14px;border-radius:12px;margin-bottom:10px;cursor:pointer;background:#fff;transition:.15s;white-space:pre-line;line-height:1.55}.option-box:hover{border-color:#93c5fd;transform:translateY(-1px)}.option-box.selected{background:#dc2626;color:#fff;border-color:#b91c1c}.option-box.partial{background:#fff7ed;border-color:#f59e0b;color:#9a3412}.number-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.num-btn{min-height:42px;border:1px solid #cbd5e1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;background:#fff;cursor:pointer}.num-btn.active{border:2px solid var(--info);color:var(--info)}.num-btn.answered{background:var(--success);color:#fff;border-color:var(--success)}.num-btn.partial{background:#fff7ed;color:#9a3412;border-color:#f59e0b}.controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px}button,.btn{border:none;border-radius:12px;padding:12px 16px;font-family:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--info);color:#fff}.btn-outline{background:#fff;color:#334155;border:1px solid #cbd5e1}.btn-danger{background:var(--danger);color:#fff}.btn-success{background:var(--success);color:#fff}.btn-warning{background:#f59e0b;color:#fff}.qtitle{font-size:1.08rem;font-weight:700;line-height:1.7;margin-bottom:16px;white-space:pre-line}.qnum{font-size:.95rem;color:#64748b;margin-bottom:6px}.center-screen{max-width:960px;margin:40px auto}.stage-line{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.stage-pill{padding:8px 12px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:700;font-size:.82rem}.img-fluid-custom{max-width:100%;height:auto;border-radius:8px;border:1px solid #ddd;background:#fff;margin-bottom:12px}.small-muted{color:#64748b;font-size:.92rem}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.stat-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:16px}.stat-card h4{margin:0 0 8px;font-size:.9rem;color:#475569}.stat-value{font-size:1.55rem;font-weight:800}.review-list{display:grid;gap:12px;margin-top:18px}.review-item{border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff}.review-option{padding:9px 11px;border-radius:10px;margin-bottom:8px;border:1px solid #e5e7eb;background:#fafafa;white-space:pre-line;line-height:1.55}.review-option.correct{background:#dcfce7;border-color:#16a34a;color:#166534;font-weight:700}.review-option.picked-wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b;font-weight:700}.review-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}.pill-ok,.pill-no,.pill-empty{display:inline-flex;padding:8px 12px;border-radius:999px;font-weight:700;font-size:.82rem}.pill-ok{background:#dcfce7;color:#166534}.pill-no{background:#fee2e2;color:#991b1b}.pill-empty{background:#fef3c7;color:#92400e}@media (max-width:900px){.grid{grid-template-columns:1fr}.number-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <h1 style="margin:0;font-size:1.05rem;font-weight:700">BAHASA INDONESIA PAKET 2</h1>
+      <div id="userLine" style="font-size:.9rem;color:#cbd5e1">Memuat akun...</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div class="top-timer" id="globalTimer">--:--:--</div>
+      <button class="btn-danger" type="button" id="logoutBtn">Keluar</button>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <div id="screen-loading" class="center-screen card">
+    <div class="badge">MEMUAT</div>
+    <h2 style="margin-top:0">Menyiapkan try out...</h2>
+    <p class="small-muted">Sistem sedang menyiapkan soal dan sesi ujianmu.</p>
+  </div>
+  <div id="screen-main" class="center-screen card hidden">
+    <div class="badge" id="introBadge">TRY OUT</div>
+    <h2 style="margin-top:0" id="introTitle">Bahasa Indonesia Paket 2</h2>
+    <p class="small-muted" id="introText"></p>
+    <div class="stage-line"><div class="stage-pill" id="stagePill">Ujian</div></div>
+    <div class="stats-grid" style="margin-top:18px">
+      <div class="stat-card"><h4>Total Soal</h4><div class="stat-value" id="statTotal">0</div></div>
+      <div class="stat-card"><h4>Waktu</h4><div class="stat-value" id="statTime">0 Menit</div></div>
+      <div class="stat-card"><h4>Mode</h4><div class="stat-value" id="statMode">Single</div></div>
+    </div>
+    <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+      <button type="button" class="btn btn-primary" id="startMainBtn">Mulai</button>
+      <a href="tryout_polri.html" class="btn btn-outline">Kembali</a>
+    </div>
+  </div>
+  <div id="screen-section" class="hidden">
+    <div class="grid">
+      <div class="card">
+        <div class="badge badge-blue" id="sectionBadge">UJIAN</div>
+        <div class="qnum" id="sectionQno"></div>
+        <div class="qtitle" id="sectionQtext"></div>
+        <div id="sectionQImages"></div>
+        <div id="sectionOptions"></div>
+        <div class="controls">
+          <button type="button" class="btn btn-outline" id="prevBtn">Sebelumnya</button>
+          <button type="button" class="btn btn-primary" id="nextBtn">Selanjutnya</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Navigasi</h3>
+        <div class="small-muted" id="sectionHelp">Klik jawaban untuk menyimpan.</div>
+        <div style="margin:10px 0 14px;display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge badge-blue" id="categoryBadge">Materi</span>
+          <span class="badge" id="typeBadge">Single</span>
+        </div>
+        <div class="number-grid" id="numberGrid"></div>
+        <hr>
+        <button type="button" class="btn btn-danger" id="finishSectionBtn">Selesaikan Try Out</button>
+      </div>
+    </div>
+  </div>
+  <div id="screen-result" class="center-screen hidden">
+    <div id="resultHost"></div>
+  </div>
+</div>
+<script src="result-utils.js"></script>
+<script>
+window.__SOAL_TEMPLATE_CONFIG = {"title":"Bahasa Indonesia Paket 2 - JAGOPSI","examType":"BINDO","examName":"Bahasa Indonesia Paket 2","examFile":"bindo2.html","packageCode":"BINDO_2","sectionLabel":"Bahasa Indonesia","introTitle":"Bahasa Indonesia Paket 2","introText":"Paket soal Bahasa Indonesia berjumlah 50 soal.","durationMinutes":75,"scoringMode":"correct","sessionSize":50,"randomBank":false,"storageKey":"bindo2_fixed_50_session_v1","requireVIP":true,"vipMessage":"Bahasa Indonesia Paket 2 hanya untuk akun VIP.","requireLogin":true,"backUrl":"bahasa_indonesia_list.html"};
+window.__SOAL_TEMPLATE_QUESTIONS = [
+  {
+    "number": 1,
+    "type": "single",
+    "text": "(1) Cermati kalimat berikut!\n\nosis smk bina utama mengadakan kerja bakti dengan masyarakat desa bulugede untuk membersihkan lingkungan sekitar agar terhindar dari bahaya demam berdarah.\n\nPerbaikan penggunaan huruf kapital kalimat tersebut adalah...",
+    "options": {
+      "A": "Osis Smk Bina Utama mengadakan kerja bakti dengan masyarakat Desa Bulugede untuk membersihkan lingkungan sekitar agar terhindar dari bahaya demam berdarah.",
+      "B": "OSIS SMK BINA UTAMA mengadakan kerja bakti dengan masyarakat desa Bulugede untuk membersihkan lingkungan sekitar agar terhindar dari bahaya demam berdarah.",
+      "C": "OSIS SMK Bina Utama mengadakan kerja bakti dengan masyarakat desa Bulugede untuk membersihkan lingkungan sekitar agar terhindar dari bahaya demam berdarah.",
+      "D": "OSIS SMK Bina Utama mengadakan kerja bakti dengan masyarakat Desa Bulugede untuk membersihkan lingkungan sekitar agar terhindar dari bahaya demam berdarah.",
+      "E": "OSIS Smk Bina Utama mengadakan kerja bakti dengan masyarakat desa Bulugede untuk membersihkan lingkungan sekitar agar terhindar dari bahaya demam berdarah."
+    },
+    "answer": "D"
+  },
+  {
+    "number": 2,
+    "type": "single",
+    "text": "(2) Cermati kalimat berikut!\n\nJika uang THR turun ibu akan membelikan saya sepatu sedangkan ayah akan membelikan sarung.\n\nPerbaikan penggunaan tanda baca dalam kalimat tersebut adalah...",
+    "options": {
+      "A": "Jika uang THR, turun ibu akan membelikan saya sepatu sedangkan ayah akan membelikan sarung.",
+      "B": "Jika uang THR turun ibu akan membelikan saya sepatu, sedangkan ayah akan membelikan sarung.",
+      "C": "Jika uang THR turun ibu akan membelikan saya sepatu sedangkan ayah, akan membelikan sarung.",
+      "D": "Jika uang THR turun ibu, akan membelikan saya sepatu sedangkan ayah akan membelikan sarung.",
+      "E": "Jika uang THR turun, ibu akan membelikan saya sepatu, sedangkan ayah akan membelikan sarung."
+    },
+    "answer": "E"
+  },
+  {
+    "number": 3,
+    "type": "single",
+    "text": "(3) Cermati teks prosedur kompleks berikut!\n\nMemproduksi Kaos Bola yang Baik\n\nUntuk bisa memproduksi kaos bola yang baik, pilihlah bahan dasar kaos dengan bahan yang mudah menyerap keringat, sejuk, dan ringan. Warna bahan yang digunakan sebaiknya mirip dengan warna aslinya. Logo setiap klub perhatikan dengan detail. Potongan pola serta jahitan juga harus memiliki kualitas yang baik. Hal tersebut akan meningkatkan kualitas kaos yang Anda produksi. Akan lebih baik jika Anda memberikan produk berkualitas dengan harga tidak terlalu tinggi, tetapi juga harus disesuaikan dengan biaya produksi sehingga Anda tetap mendapatkan keuntungan yang diinginkan.\n\nPerbaikan struktur yang tepat untuk kalimat bercetak miring adalah...",
+    "options": {
+      "A": "Perhatikan logo setiap klub dengan detail.",
+      "B": "Logo, perhatikan dengan detail setiap klub.",
+      "C": "Logo perhatikan dengan detail setiap klub.",
+      "D": "Perhatikan detail dengan logo setiap klub.",
+      "E": "Dengan logo detail, perhatikan setiap klub."
+    },
+    "answer": "A"
+  },
+  {
+    "number": 4,
+    "type": "single",
+    "text": "(4) Cermati paragraf berikut!\n\n(1) Kemacetan adalah hal yang kerap terjadi saat puncak arus mudik dan arus balik. (2) Namun, untuk puncak arus balik 2019 ini, maka diprediksi akan terjadi kemacetan setidaknya pada 21─22 Juni 2019. (3) Hal ini diakibatkan para pemudik akan kembali beraktivitas ketika libur panjang. (4) Selain itu, banyak pula warga baru yang akan mengadu nasib di Jakarta. (5) Untuk mengurai kemacetan, khususnya di ruas jalan tol Cikampek, Kapolri memiliki strategi cukup berani. (6) Strategi yang diambil, yaitu meminta Jasa Marga menggratiskan pembayaran di pintu tol Cikarang Utama. (7) Cara lain yang dilakukan untuk menerapkan system contra flow atau sistem lawan arus yang diterapkan di Tol Jakarta Cikampek, Selasa, 19 Juni 2019. (8) Rekayasa ini diberlakukan mulai wilayah Dawuan km 65 hingga km 41.\n\nPenggunaan konjungsi yang tidak tepat terdapat pada kalimat nomor...",
+    "options": {
+      "A": "(3), (4), dan (8)",
+      "B": "(2), (3), dan (7)",
+      "C": "(3), (5), dan (7)",
+      "D": "(2), (4), dan (5)",
+      "E": "(1), (2), dan (4)"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 5,
+    "type": "single",
+    "text": "(5) Cermati kalimat-kalimat berikut!\n\n(1) Jepang tersingkir dari piala dunia 2018 setelah kalah dalam babak 16 besar ketika melawan Belgia.\n(2) Wali kelas kami bernama Budi Santoso, S.Pd.\n(3) \"Apa yang bisa saya bantu bu?\" tanya karyawati itu.\n(4) Tahun kemarin sekolah kami mengadakan studi wisata ke kota Surabaya.\n(5) Suporter Indonesia terus memberikan semangat kepada para atlet yang bertanding.\n(6) Ayah membawakan oleh-oleh dari Medan untuk kami sekeluarga.\n\nKesalahan penggunaan ejaan terdapat pada kalimat nomor...",
+    "options": {
+      "A": "(1), (2), dan (3)",
+      "B": "(2), (4), dan (6)",
+      "C": "(1), (3), dan (4)",
+      "D": "(3), (5), dan (6)",
+      "E": "(2), (3), dan (5)"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 6,
+    "type": "single",
+    "text": "(6) Cermati teks laporan observasi berikut!\n\n(1) Kakao merupakan buah yang dapat diolah menjadi berbagai jenis makanan atau minuman. (2) Tanaman kakao banyak ditemukan di Pulau Sulawesi dan Sumatra. (3) Baji kakao dijadikan bahan utama beberapa makanan, antara lain minyak, kakao, pasta cokelat, dan bubuk cokelat. (4) Olahan biji kakao tersebut ini tersebut biasanya sangat banyak sekali digemari oleh sebagian besar banyak orang.\n\nPerbaikan kalimat nomor (4) agar efektif adalah...",
+    "options": {
+      "A": "Olahan biji kakao ini biasanya sangat digemar sekali oleh banyak orang.",
+      "B": "Olahan biji kakao tersebut biasanya sangat digemari oleh banyak orang.",
+      "C": "Olahan biji kakao tersebut sangat digemari oleh sebagian besar banyak orang.",
+      "D": "Olahan biji kakao ini biasanya sangat banyak sekali digemari oleh sebagian orang.",
+      "E": "Olahan biji kakao tersebut ini biasanya sangat banyak digemari oleh sebagian masyarakat."
+    },
+    "answer": "B"
+  },
+  {
+    "number": 7,
+    "type": "single",
+    "text": "(7) Cermati teks berikut!\n\n(1) Wayang adalah seni pertunjukan yang telah ditetapkan sebagai warisan budaya asli Indonesia.\n(2) UNESCO, lembaga yang mengurusi kebudayaan dari PBB, pada 7 Nopember 2003 menetapkan wayang sebagai pertunjukan bayangan boneka tersohor berasal dari Indonesia.\n(3) Wayang merupakan warisan mahakarya dunia yang tidak ternilai dalam seni bertutur (Masterpiece of Oral and Intangible Heritage of Humanity).\n(4) Penyebar agama Islam di Jawa membagi wayang menjadi tiga jenis.\n(5) Wayang kulit di Jawa Timur, Wayang Wong atau wayang orang di Jawa Tengah, dan Wayang Golek atau wayang boneka di Jawa Barat.\n(6) Penjenisan tersebut di sesuaikan dengan penggunaan bahan wayang.\n\nPenulisan yang sesui dengan ejaan terdapat pada nomor...",
+    "options": {
+      "A": "(1), (3), dan (4)",
+      "B": "(3), (4), dan (6)",
+      "C": "(4), (5), dan (6)",
+      "D": "(2), (4), dan (5)",
+      "E": "(1), (2), dan (3)"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 8,
+    "type": "single",
+    "text": "(8) Cermati kalimat kompleks berikut!\n\nKetika gunung Semeru meletus, haji Ahmad Dahlan sedang menunaikan ibadah haji.\n\nPerbaikan penggunaan ejaan dalam kalimat tersebut adalah...",
+    "options": {
+      "A": "Ketika Gunung semeru meletus, Haji Ahmad Dahlan sedang menunaikan ibadah haji.",
+      "B": "Ketika Gunung semeru meletus, haji Ahmad Dahlan sedang menunaikan ibadah Haji.",
+      "C": "Ketika Gunung Semeru meletus, haji Ahmad Dahlan sedang menunaikan ibadah Haji.",
+      "D": "Ketika Gunung Semeru meletus, Haji Ahmad Dahlan sedang menunaikan ibadah haji.",
+      "E": "Ketika gunung Semeru meletus, Haji Ahmad Dahlan sedang menunaikan ibadah Haji."
+    },
+    "answer": "D"
+  },
+  {
+    "number": 9,
+    "type": "single",
+    "text": "(9) Cermati kalimat kompleks berikut!\n\nBerdasarkan Kamus Besar, Bahasa Indonesia Cilacap merupakan sebuah kabupaten yang luasnya 2.142.50 km².\n\nPerbaikan penulisan ejaan kalimat tersebut adalah...",
+    "options": {
+      "A": "Berdasarkan “Kamus Besar Bahasa Indonesia” Cilacap, merupakan sebuah kabupaten yang luasnya 2.142.50 km².",
+      "B": "Berdasarkan Kamus Besar Bahasa Indonesia, Cilacap merupakan sebuah kabupaten yang luasnya 2.142.50 km².",
+      "C": "Berdasarkan Kamus Besar Bahasa Indonesia, Cilacap merupakan sebuah kabupaten yang luasnya 2.142.50 km².",
+      "D": "Berdasarkan: Kamus Besar Bahasa Indonesia Cilacap merupakan sebuah kabupaten yang luasnya 2.142.50 km².",
+      "E": "Berdasarkan KAMUS BESAR BAHASA INDONESIA Cilacap merupakan sebuah kabupaten yang luasnya 2.142.50 km²."
+    },
+    "answer": "B"
+  },
+  {
+    "number": 10,
+    "type": "single",
+    "text": "(10) Cermati kalimat-kalimat berikut!\n\nLangkah-Langkah Menanam Tabulampot\n\n(1) Untuk mengurangi penguapan tanaman, pangkas sebagian daun atau batang tanaman kemudian buka polybag bibit tanaman dan letakan ke dalam pot.\n(2) Siapkan media tanam yang akan digunakan, kemudian ayak dan buang kerikil-kerikil yang tercampur di dalamnya.\n(3) Padatkan media tanam di sekitar tanaman pastikan tanaman sudah ditopang dengan kuat sehingga tidak roboh, kemudian siram dengan air untuk menjaga kelembapan tanaman.\n(4) Siapkan pot yang akan Anda gunakan untuk tahap awal gunakan pot dengan ukuran kecil sehingga ketika tanaman tumbuh besar pot bisa diganti sekaligus sebagai penanda untuk mengganti media tanam yang digunakan.\n(5) Letakkan tabulampot di tempat yang teduh agar bisa beradaptasi dengan lingkungan kemudian siram setiap hari pada pagi atau sore hari.\n(6) Letakkan pecahan genteng pada bagian dasar pot, kemudian lapisi dengan ijuk atau sabut kelapa.\n\nUrutan proses penanaman tabulampot yang benar adalah...",
+    "options": {
+      "A": "(1), (5), (3), (4), (2), (6)",
+      "B": "(2), (4), (6), (1), (3), (5)",
+      "C": "(2), (6), (4), (3), (5), (1)",
+      "D": "(1), (2), (3), (6), (4), (5)",
+      "E": "(4), (6), (2), (5), (3), (1)"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 11,
+    "type": "single",
+    "text": "(11) Cermati paragraf berikut!\n\nDua orang siswa di Kudus berhasil merangkai robot peringatan dini erupsi. Atas temuannya itu, mereka menjadi juara pertama dalam \"Lomba Rancang Bangun Mesin Otomatis Bencana\". Mereka menjelaskan bahwa robot tersebut mampu memonitor suhu, getaran, dan gas karbon monoksida sebagai peringatan dini terhadap bencana gunung meletus berbasis Short Message Service (SMS) ke nomor yang sudah ditentukan. Alat tersebut di atas akan segera mengirimkan peringatan berupa pesan singkat SMS jika terjadi peningkatan kenaikan pada suhu, getaran, dan gas karbon monoksida.\n\nPerbaikan kalimat yang bercetak miring agar menjadi kalimat efektif adalah...",
+    "options": {
+      "A": "Alat tersebut akan mengirimkan SMS jika terjadi peningkatan suhu, getaran, dan gas karbon monoksida.",
+      "B": "Pesan akan dikirim oleh alat tersebut melalui SMS singkat apabila terjadi kenaikan suhu, getaran, dan gas kartion monoksida.",
+      "C": "Pesan SMS akan segera dikirimkan oleh alat tersebut jika terjadi peningkatan kenaikan suhu, getaran, dan gas karbon monoksida.",
+      "D": "Alat tersebut akan mengirimkan peringatan berupa pesan SMS jika terjadi kenaikan pada suhu, getaran, dan gas karbon monoksida.",
+      "E": "Alat tersebut akan segera mengirimkan peringatan berupa pesan jika terjadi peningkatan kenaikan pada suhu, getaran, dan gas karbon monoksida."
+    },
+    "answer": "A"
+  },
+  {
+    "number": 12,
+    "type": "single",
+    "text": "(12) Cermati teks berita berikut!\n\n(1) Perjalanan pengguna kereta komuter di Muenchen, Jerman, pagi-pagi kacau gara-gara ulah seorang laki-laki mabuk tidak sadar telah bermalam di dalam kereta barang. (2) Saking mabuknya ia tidak sadar berada di mana. (3) Kepolisian Muenchen, Senin (7-5-2018) pagi-pagi, menerima panggilan darurat dari orang yang mengaku terbangun dalam kontainer yang sedang diangkut kereta di Stasiun Pasing Munenchen. (4) Pria berusia 25 tahun itu mengaku terjebak dalam kontainer. (5) Untuk mencarinya, kepolisian menutup seluruh jalur komuter dan menyusuri gerbong kereta satu per satu. (6) Satu jam kemudian orang itu ditemukan. (7) Gara-gara insiden itu, 86 kereta terlambat berangkat hingga 1.280 menit, dan 37 kereta batal berangkat.\n\nPerbaikan kalimat nomor (1) agar tidak ambigu adalah...",
+    "options": {
+      "A": "Jadwal perjalanan kereta komuter di Muenchen, Jerman, kacau akibat ulah seorang laki-laki mabuk yang tidak sadar telah bermalam di dalam kereta barang.",
+      "B": "Perjalanan pagi-pagi pengguna kereta komuter di Muenchen, Jerman, kacau akibat ulah seorang laki-laki mabuk yang tidak sadar telah bermalam di dalam kereta barang.",
+      "C": "Perjalanan pengguna kereta komuter di Muenchen, Jerman, kacau pagi-pagi gara-gara ulah seorang laki-laki mabuk tidak sadar telah bermalam di dalam kereta barang.",
+      "D": "Perjalanan pengguna kereta komuter di Muenchen, Jerman, pagi-pagi kacau gara-gara ulah seorang laki-laki mabuk yang tidak sadar telah bermalam di dalam kereta barang.",
+      "E": "Jadwal perjalanan pengguna kereta komuter di Muenchen, Jerman, pagi-pagi kacau gara-gara ulah seorang laki-laki mabuk tidak sadar telah bermalam di dalam kereta barang."
+    },
+    "answer": "A"
+  },
+  {
+    "number": 13,
+    "type": "single",
+    "text": "(13) Cermati kalimat pendapat dan argumen berikut!\n\nKalimat pendapat:\nKeberadaan telepon genggam sangat dibutuhkan oleh banyak orang.\n\nKalimat argumentasi:\n(1) Tingkat mobilitas yang tinggi membuat orang harus selalu berkomunikasi untuk mendukung kegiatan yang dilakukan.\n(2) Prestise seseorang salah satunya ditentukan oleh telepon genggam yang digunakan.\n(3) Sarana komunikasi yang efektif antaranggota keluarga yang berjauhan.\n(4) Telepon genggam menunjukkan eksistensi penggunanya.\n(5) Seseorang dapat dihubungi kapan saja dan di mana saja saat ada sesuatu yang harus segera disampaikan.\n\nKalimat argumentasi yang mendukung pendapat adalah kalimat nomor...",
+    "options": {
+      "A": "(1), (3), dan (4)",
+      "B": "(1), (3), dan (5)",
+      "C": "(3), (4), dan (5)",
+      "D": "(1), (2), dan (3)",
+      "E": "(2), (3), dan (4)"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 14,
+    "type": "single",
+    "text": "(14) Cermati teks prosedur berikut!\n\nCara Membuat Lilin Aroma Terapi\n\nLilin aroma terapi sangat diminati, khususnya bagi kita yang ingin mengharumkan kamar dengan wangi bahan atau bunga yang menyenangkan. Adapun bahan-bahan yang dibutuhkan ketika kita ingin membuat lilin aroma terapi, antara lain lilin ukuran besar, aroma terapi alami, dan gelas bekas dari kaca. Berikut adalah cara membuat lilin aroma terapi yang bisa dipraktikkan di rumah.\n\n(1) Panaskan lilin di atas wajan dengan api kecil dan sisihkan sumbunya.\n(2) Tambahkan parfum pada saat lilin dipanaskan dengan hati-hati.\n(3) […]\n(4) Tunggu beberapa saat hingga mengering lalu pecahkan gelas dengan perlahan.\n(5) Setelah lilin tercetak, panaskan bagian tepi lilin untuk ditempeli dengan kayu manis, susun kayu manis sampai habis.\n(6) Tunggu sampai kering dan lilin siap digunakan.\n\nKalimat yang tepat untuk melengkapi teks tersebut adalah...",
+    "options": {
+      "A": "Campurkan parfum dengan adonan lilin yang telah dilelehkan.",
+      "B": "Kemudian, siapkan gelas yang akan digunakan sebagai tempat lilin.",
+      "C": "Aduk campuran parfum dan lilin yang ada di wajan secara perlahan.",
+      "D": "Pindahkan parfum perlahan-lahan ke dalam botol yang akan digunakan.",
+      "E": "Setelah lilin meleleh, masukkan ke dalam gelas bekas dan pasang sumbunya."
+    },
+    "answer": "E"
+  },
+  {
+    "number": 15,
+    "type": "single",
+    "text": "(15) Cermati kutipan cerpen berikut!\n\n(1) ”Pohon ini bisa kau anggap adikmu,” ujar ayah sekitar sepuluh tahun lalu. Aku masih SMA. (2) Ayah memang suka begitu, mengatakan pohon-pohon tertentu sebagai kakak atau adik dari kami, anak-anaknya. (3) Tolok ukur yang digunakannya jelas adalah usia. (4) Rambutan di sudut kanan halaman depan rumah dibilang sebagai kakakku karena dia ditanam dua tahun lebih dulu daripada kelahiranku. (5) Begitu juga dengan kelengkeng yang ada sekitar tujuh meter dari rambutan, dia juga kakakku yang lebih tua empat tahun. (6) “Dia lebih muda darimu empat tahun,” ayah melanjutkan. (7) Aku menelengkan kepala ke arah pohon durian yang ditunjuk ayah, (8) “Tapi anak ayah yang satu ini belum pernah berbuah sekalipun. (9) ‘Kakak-kakak’ku yang lain tak perlu menunggu sampai sepuluh tahun, sudah berbuah kataku kepada Ayah. (10) Ayah hanya tersenyum, Sabarlah, Seperti manusia, pohon tidak matang dan dewasa di usia yang sama. (11) Mereka punya perjuangan sendiri-sendiri menuju dewasa.\n\nWatak tokoh Ayah yang bijaksana dalam kutipan cerpen tersebut dibuktikan pada kalimat nomor...",
+    "options": {
+      "A": "(7), (8), dan (19)",
+      "B": "(3), (9), dan (10)",
+      "C": "(1), (10), dan (11)",
+      "D": "(11), (7), dan (8)",
+      "E": "(7), (5), dan (10)"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 16,
+    "type": "single",
+    "text": "(16) Cermati kutipan teks berita berikut!\n\nTimnas Indonesia hanya bisa finis keempat di bawah Thailand, Filipina, dan Singapura. Mereka hanya lebih baik dari Timor Leste yang tak mampu meraih nilai. Tentu hal ini jadi sebuah penurunan mengingat skuad Garuda sukses melaju ke final di Piala AFF 2016. Dengan berakhirnya petualangan di Piala AFF 2018, berakhir pula agenda Timnas Indonesia di tahun ini. Selanjutnya, agenda baru sudah menanti pada tahun 2019. Timnas Indonesia akan mengikuti kejuaraan baru. Piala AFF U-22 yang berlangsung di Kamboja 17 Februari―2 Maret 2019. Ini adalah turnamen pemanasan sebelum para tim Asia Tenggara mengikuti finalisasi Piala Asia U-23 2020.\n\nKesalahan penggunaan istilah yang terdapat dalam kutipan teks tersebut adalah...",
+    "options": {
+      "A": "Finalisasi, nilai",
+      "B": "final, petualangan",
+      "C": "agenda, turnamen",
+      "D": "finis, kejuaraan",
+      "E": "penurunan, skuad"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 17,
+    "type": "single",
+    "text": "(17) Cermati teks iklan berikut!\n\nObat gosok ini menghilangkan kaki Anda yang pegal.\n\nPerbaikan teks iklan tersebut agar menjadi logis adalah...",
+    "options": {
+      "A": "Pegal pada kaki Anda akan hilang dengan obat gosok ini.",
+      "B": "Obat gosok ini menjadikan kaki Anda yang pegal bisa hilang.",
+      "C": "Kaki Anda yang pegal akan hilang jika menggunakan obat gosok ini.",
+      "D": "Gunakan obat gosok ini untuk menghilangkan kaki Anda yang pegal.",
+      "E": "Hilangkan kaki Anda yang pegal dengan menggunakan obat gosok ini."
+    },
+    "answer": "A"
+  },
+  {
+    "number": 18,
+    "type": "single",
+    "text": "(18) Cermatilah kalimat kompleks berikut!\n\nKarena baik pengusaha maupun pemerintah tidak memperhitungkan biaya sosial dan biaya lingkungan, pendapatan satu hektare tanaman kelapa sawit akan besar.\n\nParafrasa kalimat tersebut yang tepat adalah...",
+    "options": {
+      "A": "Karena baik pengusaha maupun pemerintah tidak memperhitungkan biaya sosial dan biaya lingkungan pendapatan satu hektare tanaman kelapa sawit cukup besar.",
+      "B": "Jika pengusaha maupun pemerintah tidak memperhitungkan biaya sosial dan biaya lingkungan sehingga pendapatan satu hektare tanaman kelapa sakit akan lumayan besar.",
+      "C": "Meskipun pengusaha dan pemerintah memperhitungkan biaya sosial dan biaya Iingkungan, pendapatan satu hektare tanaman kelapa sawit akan besar.",
+      "D": "Hasil satu hektare kelapa sawit meningkat disebabkan oleh pengusaha dan pemerintah tidak memperhitungkan biaya sosial dan lingkungan.",
+      "E": "Karena itu, baik pengusaha maupun pemerintah memperhitungkan biaya sosial dan biaya lingkungan pendapatan satu hektare tanaman kelapa sawit akan besar."
+    },
+    "answer": "D"
+  },
+  {
+    "number": 19,
+    "type": "single",
+    "text": "(19) Cermati paragraf berikut!\n\nDalam kesempatan sebelumnya pada rapat […] nasional penanganan guru dan tenaga pendidik. Menteri Pendidikan dan Kebudayaan menyampaikan bahwa Kementerian Pendidikan dan Kebudayaan (Kemendikbud) akan menggelar puncak peringatan Hari Guru Nasional (HGN). Mendikbud menyampaikan peringatan HGN dilakukan pihak Kemendikbud dengan melakukan [...] dunia pendidikan, khususnya […] guru. Kinerja guru diharapkan dapat meningkat melalui kegiatan tersebut.\n\nKata baku yang tepat untuk melengkapi paragraf tersebut adalah...",
+    "options": {
+      "A": "koordinasi, reflektif, profesionalis",
+      "B": "koordinasi, refleksi, profesionalisme",
+      "C": "koordinatif, repleksi, profesionalisme",
+      "D": "koordinatif, refleksi, profesionalitas",
+      "E": "koordinasi, repleksi, profesionalisme"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 20,
+    "type": "single",
+    "text": "(20) Cermati kedua ulasan novel berikut!\n\nUlasan 1\nNovel “Hujan” ini ditampilkan dengan bahasa yang mengajak para pembaca untuk ikut merasakan rasa tegar ketika ditimpa beberapa masalah. Novel ini mengisahkan tokoh Rindu bertemu dengan pasangan dan berjumpa kembali setelah sekian lama tidak berjumpa serta cemburu. Seseorang yang ketika remaja atau sudah melewati masa itu mungkin akan tersenyum mengetahui tingkah Lail. Imajinasi akan dibuat terbang oleh novel ini. Tema yang diulas tidak seperti novel tema romantis kebanyakan. Bukan hanya membahas mengenai percintaan, tetapi juga terdapat beberapa hal ilmiah.\n\nUlasan 2\nNovel “Hujan” ini memang istimewa. Bahasa yang digunakan mampu menyihir pembaca sehingga terhanyut dalam perasaan ketegaran tokoh. Tema yang diusung tidak sesederhana tema novel romantis kebanyakan. Porsinya tak hanya untuk seputar cinta remaja melainkan ada bumbu-bumbu ilmiahnya. Novel ini juga berisi tentang kepastian yang tidak pasti tentang kabar yang hampir tidak pernah dikabarkan, Hingga membuat sepasang kekasih yang saling mencintai juga saling menunggu untuk saling mengungkapkan. Imajinasimu benar-benar akan dibuat terbang oleh penulisnya.\n\nUlasan yang tepat untuk mempromosikan novel tersebut berserta alasannya adalah...",
+    "options": {
+      "A": "Ulasan 1 karena membahas tema cerita yang tidak biasa.",
+      "B": "Ulasan 2 karena membahas tentang tema cerita yang menarik.",
+      "C": "Ulasan 2 karena membahas kelebihan novel yaitu bahasa dan tema.",
+      "D": "Ulasan 2 karena sesuai dengan masalah yang dihadapi para remaja.",
+      "E": "Ulasan 1 karena cocok dengan kondisi remaja yang sedang jatuh cinta."
+    },
+    "answer": "C"
+  },
+  {
+    "number": 21,
+    "type": "single",
+    "text": "(21) Cermati paragraf berikut!\n\nGempa bumi berkekuatan 7,8 skala richter mengguncang kawasan barat Provinsi Baluchistan, Pakistan. Gempa ini terjadi pada 24 september 2013. Pusat gempa berada di kedalaman 23 kilometer, sekitar 233 kilometer tenggara Dalbandin, Baluchistan. Bencana menyebabkan sedikitnya 515 orang tewas, 765 orang terluka, dan lebih dari 100.000 orang telantar, serta menghancurkan sejumlah fasilitas umum dan infra struktur. Gempa juga dirasakan masyarakat di Gwadar, Khuzdar, Chagai, Hyderabad, dan Karachi yang berada ratusan kilometer dari pusat gempa.\n\nKesalahan ejaan pada paragraf tersebut adalah...",
+    "options": {
+      "A": "provinsi, fasilitas",
+      "B": "skala richter, infra struktur",
+      "C": "Provinsi Baluchistan, tenggara Dalbandin",
+      "D": "kilometer, telantar",
+      "E": "tenggara Dalbandin, telantar"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 22,
+    "type": "single",
+    "text": "(22) Cermati paragraf berikut!\n\n(1) Hutan musim di Indonesia memiliki ciri khas tersendiri. (2) Salah satu ciri khasnya adalah perubahan kondisi tumbuhan dan suhu udara pada musim yang berbeda. (3) Pada musim kemarau pohonnya meranggas dan pada musim hujan akan tumbuh menjadi hijau kembali. (4) Contoh hutan musim antara lain hutan jati dan hutan kapuk randu. (5) Hutan musim banyak terdapat di Provinsi Jawa Tengah dan Jawa Timur.\n\nKalimat utama teks tersebut terdapat pada kalimat nomar...",
+    "options": {
+      "A": "(5)",
+      "B": "(2)",
+      "C": "(1)",
+      "D": "(4)",
+      "E": "(3)"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 23,
+    "type": "single",
+    "text": "(23) Cermati kalimat-kalimat berikut!\n\n(1) Selain itu, pecandu gawai juga dapat mengalami permasalahan perubahan mental.\n(2) Kecanduan yang akut terhadap gawai dapat berakibat pada rusaknya keseimbangan otak.\n(3) Tingkat lebih parah ditunjukkan ketika adanya getaran pada bagian tubuh tertentu dan mereka mengira itu adalah notifikasi getar dan gawai sehingga mereka berusaha mengambilnya.\n(4) Kerusakan tersebut mengarah ke dampak negatif, misalnya depresi, kegelisahan insomnia, dan impulsif.\n(5) Sementara tingkat paling parah adalah perasaan takut yang berlebihan manakala gawai tersebut jauh dari genggaman.\n(6) Misalnya, pada tingkat ringan, remaja akan merasa panik manakala baterai mereka lemah.\n\nSusunan kalimat yang tepat agar menjadi paragrat argumentasi yang padu adalah...",
+    "options": {
+      "A": "(5), (6), (3), (2), (1), dan (4)",
+      "B": "(2), (4), (1), (3), (5), dan (6)",
+      "C": "(3), (4), (6), (1), (2), dan (5)",
+      "D": "(2), (4), (1), (6), (3), dan (5)",
+      "E": "(5), (2), (1), (4), (3), dan (6)"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 24,
+    "type": "single",
+    "text": "(24) Cermati teks berikut!\n\nGenerasi muda seharusnya berpartisipasi aktif pada pembangunan daerah, khususnya dalam bidang budaya. Partisipasi tersebut dapat dilakukan jika mereka mempunyai kemauan, kemampuan, dan harapan yang besar untuk membangun suatu daerah menjadi lebih baik. Mereka dapat bekerja sama dengan pemerintah daerah untuk bersama-sama meningkatkan potensi yang ada di suatu daerah.\n\nPotensi yang dimiliki setiap daerah di Indonesia berbeda-beda yang meliputi budaya kesenian, suku, ras, bahasa, agama, dan kepercayaan. Perbedaan tersebut tentu akan menjadi kekuatan dan kelebihan yang dimiliki Indonesia seperti pada semboyan bhinneka tunggal ika, yaitu berbeda-beda, tetapi pada hakikatnya tetap sebagai satu kesatuan.\n\nGenerasi muda memiliki kontribusi yang sangat besar dalam pembangunan bangsa dan negara Indonesia. Mereka berasal dari budaya agama, ras, dan bahasa yang berbeda-beda. Perbedaan tersebut dapat menjadi kekuatan dan nilai hidup yang berharga apabila tertanam sikap saling memahami dan menghormati satu sama lain.\n\nSehubungan dengan pelestarian budaya lokat muncul permasalahan di tengah-tengah masyarakat. Permasalahannya adalah sampai saat ini masyarakat belum mengetahui cara memperkenalkan budaya lokal kepada publik. Oleh karena itu, perlu suatu cara untuk mengarahkan masyarakat dalam memecahkan permasalahan tersebut. Salah satu upaya yang dapat dilakukan, yaitu menyelenggarakan acara festival budaya di daerah masing-masing. Cara tersebut dapat membuat generasi muda mengenali dan mencintai kebudayaan yang ada di Indonesia.\n\nBagaimana cara memperkenalkan budaya lokal ke masyarakat umum?",
+    "options": {
+      "A": "Menerima perbedaan budaya lokal sebagai kekayaan yang bernilai.",
+      "B": "Berperan serta terhadap penumbuhan dan pelestarian budaya lokal.",
+      "C": "Menanamkan rasa cinta kebudayaan yang ada di Indonesia sejak dini.",
+      "D": "Menyelenggarakan berbagai festival budaya di daerah masing-masing.",
+      "E": "Mengatasi permasalahan-permasalahan dalam pelestarian budaya lokal."
+    },
+    "answer": "D"
+  },
+  {
+    "number": 25,
+    "type": "single",
+    "text": "(25) Cermati paragraf berikut!\n\nSelama bertahun-tahun di wilayah Hutan Wonodadi terjadi banyak masalah kesehatan karena kekurangan air bersih. Namun, sekarang air bersih tidak sulit lagi. Setiap rumah sudah mempunyai kamar mandi dan WC. Kehidupan ekonomi warga terus membaik. Hal tersebut dapat dilihat dari banyaknya warga yang melakukan [...] tempat tinggal mereka. Air bersih menjadi [...] utama dalam kehidupan masyarakat di sana. Ternyata [...] Hutan Wonodadi membawa perubahan yang semula tidak terbayangkan bagi masyarakat di sekitar hutan tersebut.\n\nIstilah yang tepat untuk melengkapi paragraf tersebut adalah...",
+    "options": {
+      "A": "renovator, prioritas, irigasi",
+      "B": "realokasi, referensi, reduplikasi",
+      "C": "rehabilitasi, regenerasi, reboisasi",
+      "D": "renovasi, prioritas, reboisasi",
+      "E": "renovasi, komoditas, regenerasi"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 26,
+    "type": "single",
+    "text": "(26) Cermati kalimat berikut!\n\nPelamar kerja tidak pernah dihukum penjara atau kurungan berdasarkan […] pengadilan yang telah mempunyai kekuatan hukum yang tetap karena [...] suatu tindak pidana kejahatan.\n\nKata bentukan yang tepat untuk melengkapi bagian rumpang tersebut adalah...",
+    "options": {
+      "A": "putusan, melakukan",
+      "B": "keputusan, perlakuan",
+      "C": "memutus, memperlakukan",
+      "D": "pemutusan, lakukan",
+      "E": "memutuskan, perlakukan"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 27,
+    "type": "single",
+    "text": "(27) Cermati paragraf berikut!\n\nHari ini adalah hari yang sangat kutunggu-tunggu, hari di mana semua orang bekerja di tempat ini termasuk juga aku untuk menerima gaji yang mungkin tidak besar, tetapi harus aku syukuri karena masih banyak yang harus aku pikirkan. Saat aku melangkah pulang langkah kakiku terhenti di depan toko baju yang sangat bagus. Bukan baju yang bagus itu yang membuatku terhenti, tetapi mukena yang tergantung di depan toko tersebut yang membuat aku teringat pada ibuku. Aku memandangi mukena itu sangat lama dan melihat harga yang melekat pada mukena tersebut. Harga yang sangat jauh untuk aku capai dengan gaji yang besarnya hanya sekali makan saja. Kakiku pun mulai melangkah pergi dari depan toko baju itu dan aku pulang dengan […].\n\nUngkapan yang tepat untuk melengkapi paragraf tersebut adalah...",
+    "options": {
+      "A": "naik pitam",
+      "B": "buah tangan",
+      "C": "tangan hampa",
+      "D": "angkat kaki",
+      "E": "berat tangan"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 28,
+    "type": "single",
+    "text": "(28) Cermati paragraf berikut!\n\nPerubahan iklim global merupakan malapetaka yang akan datang. Penyebab hal tersebut, yaitu konsumsi bahan bakar yang berasal dari fosil seperti batu bara, minyak bumi, dan gas bumi secara terus menerus. Dampak dari aktivitas ini adalah adanya pemanasan global. Seperti diketahui, pemanasan global mengakibatkan mencairnya tudung es di kutub, meningkatnya suhu lautan, kekeringan yang berkepanjangan, penyebaran wabah penyakit berbahaya, bencana banjir, dan gelombang badai besar. Kita juga telah mengetahui bahwa wilayah yang akan terkena dampak tersebut adalah negara pesisir pantai negara kepulauan, dan negara yang kurang berkembang seperti Asia Tenggara.\n\nPernyataan yang sesuai dengan isi paragraf tersebut adalah...",
+    "options": {
+      "A": "Perubahan iklim global dapat menimbulkan bencana alam.",
+      "B": "Persentase konsumsi bahan bakar dari fosil terus meningkat setiap tahunnya.",
+      "C": "Penanggulangan dampak perubahan iklim global memerlukan proses panjang.",
+      "D": "Pemerintah bertanggung jawab terhadap permasalahan perubahan iklim global.",
+      "E": "Pemanfaatan energi alternatif merupakan solusi mengatasi perubahan iklim global."
+    },
+    "answer": "A"
+  },
+  {
+    "number": 29,
+    "type": "single",
+    "text": "(29) Cermati kutipan novel berikut!\n\n(1) Fasilitas di rumah itu pun hanya selembar tikar rombeng di atas dipan yang selalu berdent jika dinaik saking reotnya. (2) Tempat berteduh yang mereka tempati tak lebih sebuah gubuk yang disekat menjadi dua, satu untuk tidur Aki Jaya dan satu untuk dirinya.\n\n(3) Saat dia terbangun suman dari pingsannya dan menemukan bahwa dia tak matu, rasa kecewa seperti menampar-naraparnya bada henti. (4) Aki Jaya telah menyelamatkannya dan itu berarti dia telah melanggengkan penenggakan pahithya kopi kehidupan.\n\n(5) Akan tetapi dia tak akan berani marah kepada Aki Jaya karena membiarkan dia tetap hidup, bahkan merawatnya, hingga dia kembali bisa menegakkan tulang punggungnya dan berjalan mertyusuri bait-bat kehidupannya yang sama sekali baru. (6) Dia juga Tak akan sanggup marah, ketika Ako Jaya memilih membawanya pulang dari rumah sakit ketika satu tim dokter menawarkan bedan plastik pada mukanya, bukan untuk membuatnya kembali cantik, akan tetapi paling tidak menghindarkannya dan muka seceram topeng reog Ponorogo karena biaya yang harus dibayarnya, bahkan dalam mimpi pun tak pemals dilihat olen sang Aki.\n\nNilai moral dalam kutipan novel tesebut dibuktikan pada nomor...",
+    "options": {
+      "A": "(4), (5), dan (6)",
+      "B": "(2), (3), dan (4)",
+      "C": "(1), (3), dan (4)",
+      "D": "(1), (2), dan (3)",
+      "E": "(3), (4), dan (5)"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 30,
+    "type": "single",
+    "text": "(30) Cermati kutipan cerpen berikut!\n\n(1) ”Pohon ini bisa kau anggap adikmu,” ujar ayah sekitar sepuluh tahun lalu. Aku masih SMA. (2) Ayah memang suka begitu, mengatakan pohon-pohon tertentu sebagai kakak atau adik dari kami, anak-anaknya. (3) Tolok ukur yang digunakannya jelas adalah usia. (4) Rambutan di sudut kanan halaman depan rumah dibilang sebagai kakakku karena dia ditanam dua tahun lebih dulu daripada kelahiranku. (5) Begitu juga dengan kelengkeng yang ada sekitar tujuh meter dari rambutan, dia juga kakakku yang lebih tua empat tahun. (6) “Dia lebih muda darimu empat tahun,” ayah melanjutkan. (7) Aku menelengkan kepala ke arah pohon durian yang ditunjuk ayah, (8) “Tapi anak ayah yang satu ini belum pernah berbuah sekalipun. (9) ‘Kakak-kakak’ku yang lain tak perlu menunggu sampai sepuluh tahun, sudah berbuah kataku kepada Ayah. (10) Ayah hanya tersenyum, Sabarlah, Seperti manusia, pohon tidak matang dan dewasa di usia yang sama. (11) Mereka punya perjuangan sendiri-sendiri menuju dewasa.\n\nAmanat dalam kutipan cerpen tersebut adalah...",
+    "options": {
+      "A": "Latihlah rasa kecintaan terhadap lingkungan sekitar pada anak-anak usia dini.",
+      "B": "cintailah tanaman seperti mencintai keluargamu agar memberikan hasil yang terbaik.",
+      "C": "Perlunya tangan dingin dalam merawat tanaman agar memberikan hasil yang terbaik.",
+      "D": "Panggillah kakak dan adik pada tanaman untuk memberikan pengaruh baik bagi tanaman.",
+      "E": "Rajinlah menanam tanaman agar menjaga kelestarian lingkungan di sekitar tempat tinggalmu."
+    },
+    "answer": "B"
+  },
+  {
+    "number": 31,
+    "type": "single",
+    "text": "(31) Cermati kutipan cerita berikut!\n\nPagi ini, ia bersama administrator produksi. Meneer Karel Van Loon, akan mengecek langsung penanaman tebu di lahan baru di Colomadu seluas 10 hektare. Lahan baru itu disewa dengan harga yang sangat murah dari seorang lurah. Tanah bengkok para petinggi desa statusnya adalah hak milik petinggi bukan komunal sehingga tidak perlu meminta persetujuan seluruh penduduk desa untuk menyewakannya […]. Tiga perempatnya disewa dari desa-desa yang menunjuk Prati sebagai wakilnya.\n\nKalimat yang tepat untuk melengkapi kutipan cerita tersebut adalah...",
+    "options": {
+      "A": "Namun, tanah tipe semacam itu susah sekali mendapatkannya di zaman sekarang.",
+      "B": "Beruntung sekali ia menemukan tanah semacam itu di sebuah desa yang sangat asri.",
+      "C": "Banyak para petinggi desa yang menyewakan tanah bengkok miliknya kepada para pendatang.",
+      "D": "Namun, tanah tipe semacam itu hanya seperempat dari total tanah yang disewa pabrik gula De Winst.",
+      "E": "Meminta persetujuan seluruh penduduk desa untuk menyewakannya merupakan hal yang tidak mudah."
+    },
+    "answer": "D"
+  },
+  {
+    "number": 32,
+    "type": "single",
+    "text": "(32) Cermati kalimat-kalimat berikut!\n\n(1) Ada jalan umum, rumah sakit, perpustakaan, sekolah dan lain-lain.\n(2) Semua tempat umum itu dibuat untuk semua orang tanpa memandang status sosial mereka.\n(3) Kebanyakan orang kecewa dengan pelayanan tempat-tempat yang dikatakan untuk umum itu.\n(4) Banyak tempat umum di sekitar kita yang fungsinya melakukan pelayanan kepada publik.\n(5) Namun, di negeri ini tempat-tempat yang dikatakan untuk umum itu ternyata belum bisa dimanfaatkan oleh semua orang.\n\nUrutan kalimat agar menjadi paragraf laporan yang padu adalah...",
+    "options": {
+      "A": "(2)-(4)-(3)-(1)-(5)",
+      "B": "(2)-(1)-(4)-(5)-(3)",
+      "C": "(3)-(1)-(5)-(2)-(4)",
+      "D": "(4)-(2)-(3)-(1)-(5)",
+      "E": "(4)-(1)-(2)-(5)-(3)"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 33,
+    "type": "single",
+    "text": "(33) Cermati teks berikut!\n\n(1) Kegiatan transportasi dengan kendaraan pribadi relatif menimbulkan pergerakan yang bersifat berulang yang kemudian menimbulkan kemacetan. (2) Kemacetan harian yang dominan ditimbulkan oleh aktivitas masyarakat dalam lingkup internal. (3) Akibatnya, kemacetan terjadi pada titik-titik yang menjadi jalur pergerakan pekerja dan siswa dari tempat tinggal menuju lokasi kerja dan sekolah. (4) Hal tersebut terjadi secara berulang setiap hari yang merupakan hasil dari ketiga pola tersebut. (5) Oleh karena itu, alangkah bijaknya jika kita mau beralih ke moda transportasi massal untuk mengurangi angka kemacetan.\n\nHubungan antarkalimat yang terdapat dalam teks tersebut adalah...",
+    "options": {
+      "A": "Penegasan",
+      "B": "sebab-akibat",
+      "C": "pertentangan",
+      "D": "akibat-sebab",
+      "E": "perbandingan"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 34,
+    "type": "single",
+    "text": "(34) Cermati kutipan cerpen berikut!\n\n(1) Sinar matahari telah menyapu embun di kuncup dedaunan, ibu pun segera menyiapkan sarapan untuk keluarga. (2) Keadaan sudah menjadi kebiasaan setiap pagi di dalam keluarga tersebut. (3) Ayah, ibu, dan Lionel duduk bersama di meja makan mereka menyantap nasi, telur dadar, dan teh hangat. (4) \"Nak, ini telur dadarmu, jangan lupa tuangkan sedikit kecap kesukaanmu seperti menuangkan gula dalam teh agar terasa lebih sedap.\" (5) \"lya. Bu. Memang paling enak kalau memakai kecap in. Terima kasih Bu kata Lionel. (6) Sarapan pun selesai, Lionel segera berangkat ke sekolah dengan mobil, bersama ayah yang akan selalu menjadi kanangan manis di hidupnya.\n\nKalimat bermajas di dalam kutipan cerpen tersebut ditunjukkan pada kalimat nomor...",
+    "options": {
+      "A": "(1), (3) dan (4)",
+      "B": "(2), (4) dan (6)",
+      "C": "(4), (5), dan (6)",
+      "D": "(3), (4) dan (5)",
+      "E": "(1), (4), dan (6)"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 35,
+    "type": "single",
+    "text": "(35) Cermati teks berikut!\n\n(1) Dari gagalnya penen akibat kemarau panjang, lebih lanjut akan memunculkan dampak kurangnya sediaan gabah kering atau beras, baik di masyarakat maupun stok pemerintah yang dikelola oleh Bulog. (2) Kurangnya sediaan beras boleh jadi memang tidak dirasakan mengganggu tahun ini karena masih cukupnya sediaan beras nasional, dampaknya mungkin baru akan dirasakan pada jangka waktu berikutnya. (3) Dari terjadinya kurangannya sediaan beras, dampak yang muncul bisa jadi berupa naiknya harga kebutuhan pokok sebagian besar rakyat Indonesia. (4) Di sisi lain terjadinya polusi udara serta terganggunya jadwal penerbangan di sejumlah bandara di Sumatra maupun Kalimantan disebabkan oleh terbakarnya lahan gambut atau hutan. (5) Kemarau panjang juga mengakibatkan kurangnya sediaan air minum bersih yang berdampak langsung pada tingkat kesehatan Masyarakat. (6) Sebagaimana diketahui, penduduk di sejumlah kawasan timur Indonesia, sebagian Jawa dan Kalimantan masih sangat bergantung pada air tanah yang sumbernya adalah hujan. (7) Sebagian masyarakat di Kalimantan bahkan menjadikan air hujan sebagai pemenuhan kebutuhan sehari-hari. (8) Fakta yang ada serta perkiraan dampak dari musim kemarau tahun ini tentu harus diantisipasi. (9) Dalam jangka pendek terkait persedian beras akibat kemungkinan puso atau gagal panen perlu diatasi atau diantisipasi dengan strategi pengamanan pangan. (10) Untuk kebakaran hutan, pihak berwenang harus sudah mulai memperingatkan penduduk di lahan yang mudah terbakar dan juga perusahaan-perusahaan untuk berhati-hati dan tidak dengan sengaja membakar lahan atau hutan. (11) Langkah yang dilakukan oleh pihak berwajib untuk memberikan sanksi bagi yang terbukti membakar lahan, selain perlu dilanjutkan juga dapat dicontoh. (12) Dalam jangka menengah program pemerintah untuk membangun danau dan juga waduk atau resapan air harus segera diwujudkan atau dilaksanakan.\n\nKalimat yang menyatakan hubungan akibat-sebab pada paragraf tersebut adalah...",
+    "options": {
+      "A": "(7)",
+      "B": "(4)",
+      "C": "(6)",
+      "D": "(8)",
+      "E": "(10)"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 36,
+    "type": "single",
+    "text": "(36) Cermati teks berikut!\n\nGenerasi muda seharusnya berpartisipasi aktif pada pembangunan daerah, khususnya dalam bidang budaya. Partisipasi tersebut dapat dilakukan jika mereka mempunyai kemauan, kemampuan, dan harapan yang besar untuk membangun suatu daerah menjadi lebih baik. Mereka dapat bekerja sama dengan pemerintah daerah untuk bersama-sama meningkatkan potensi yang ada di suatu daerah.\n\nPotensi yang dimiliki setiap daerah di Indonesia berbeda-beda yang meliputi budaya kesenian, suku, ras, bahasa, agama, dan kepercayaan. Perbedaan tersebut tentu akan menjadi kekuatan dan kelebihan yang dimiliki Indonesia seperti pada semboyan bhinneka tunggal ika, yaitu berbeda-beda, tetapi pada hakikatnya tetap sebagai satu kesatuan.\n\nGenerasi muda memiliki kontribusi yang sangat besar dalam pembangunan bangsa dan negara Indonesia. Mereka berasal dari budaya agama, ras, dan bahasa yang berbeda-beda. Perbedaan tersebut dapat menjadi kekuatan dan nilai hidup yang berharga apabila tertanam sikap saling memahami dan menghormati satu sama lain.\n\nSehubungan dengan pelestarian budaya lokat muncul permasalahan di tengah-tengah masyarakat. Permasalahannya adalah sampai saat ini masyarakat belum mengetahui cara memperkenalkan budaya lokal kepada publik. Oleh karena itu, perlu suatu cara untuk mengarahkan masyarakat dalam memecahkan permasalahan tersebut. Salah satu upaya yang dapat dilakukan, yaitu menyelenggarakan acara festival budaya di daerah masing-masing. Cara tersebut dapat membuat generasi muda mengenali dan mencintai kebudayaan yang ada di Indonesia.\n\nMaksud kalimat yang bercetak miring pada paragraf kedua teks tersebut adalah...",
+    "options": {
+      "A": "Budaya yang berbeda di setiap wilayah Indonesia disatukan dalam sebuah semboyan kesatuan, yaitu bhinneka tunggal ika.",
+      "B": "Indonesia memiliki semboyan bhinneka tunggal ika yang berarti walau berbeda-beda tetapi tetap memiliki satu kesatuan.",
+      "C": "Agama dan budaya yang berbeda menjadi keunggulan bangsa Indonesia yang disatukan dalam semboyan bhinneka tunggal ika.",
+      "D": "Perbedaan suku dan ras tidak memecah-belah bangsa Indonesia karena disatukan dalam sebuah semboyan bhinneka tunggal ika.",
+      "E": "Potensi beragam yang dimiliki setiap wilayah menjadi kekuatan Indonesia yang tergambar dalam semboyan bhinneka tunggal ika."
+    },
+    "answer": "E"
+  },
+  {
+    "number": 37,
+    "type": "single",
+    "text": "(37) Cermati kalimat berikut!\n\nSudah berkali-kali siswa itu melanggar peraturan sekolah, sudah berkali-kali juga guru memarahi dan menjatuhkan sanksi tetapi tetap tidak berubah.\n\nPerbaikan kata bercetak miring yang tepat adalah...",
+    "options": {
+      "A": "menghardik, memberi",
+      "B": "menasihat, memberikan",
+      "C": "menasihati, mempertimbangkan",
+      "D": "menyarankan, memberi",
+      "E": "Mensekors, mengendalikan"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 38,
+    "type": "single",
+    "text": "(38) Cermati teks berikut!\n\nGenerasi muda seharusnya berpartisipasi aktif pada pembangunan daerah, khususnya dalam bidang budaya. Partisipasi tersebut dapat dilakukan jika mereka mempunyai kemauan, kemampuan, dan harapan yang besar untuk membangun suatu daerah menjadi lebih baik. Mereka dapat bekerja sama dengan pemerintah daerah untuk bersama-sama meningkatkan potensi yang ada di suatu daerah.\n\nPotensi yang dimiliki setiap daerah di Indonesia berbeda-beda yang meliputi budaya kesenian, suku, ras, bahasa, agama, dan kepercayaan. Perbedaan tersebut tentu akan menjadi kekuatan dan kelebihan yang dimiliki Indonesia seperti pada semboyan bhinneka tunggal ika, yaitu berbeda-beda, tetapi pada hakikatnya tetap sebagai satu kesatuan.\n\nGenerasi muda memiliki kontribusi yang sangat besar dalam pembangunan bangsa dan negara Indonesia. Mereka berasal dari budaya agama, ras, dan bahasa yang berbeda-beda. Perbedaan tersebut dapat menjadi kekuatan dan nilai hidup yang berharga apabila tertanam sikap saling memahami dan menghormati satu sama lain.\n\nSehubungan dengan pelestarian budaya lokat muncul permasalahan di tengah-tengah masyarakat. Permasalahannya adalah sampai saat ini masyarakat belum mengetahui cara memperkenalkan budaya lokal kepada publik. Oleh karena itu, perlu suatu cara untuk mengarahkan masyarakat dalam memecahkan permasalahan tersebut. Salah satu upaya yang dapat dilakukan, yaitu menyelenggarakan acara festival budaya di daerah masing-masing. Cara tersebut dapat membuat generasi muda mengenali dan mencintai kebudayaan yang ada di Indonesia.\n\nBukti yang mendukung simpulan bahwa peran serta generasi muda sangat diperlukan karena mereka merupakan harapan bangsa untuk melestarikan berbagai potensi budaya negara Indonesia terdapat pada kalimat...",
+    "options": {
+      "A": "Oleh karena itu, perlu suatu cara untuk mengarahkan masyarakat dalam memecahkan permasalahan tersebut.",
+      "B": "Generasi muda memiliki kontribusi yang sangat besar dalam pembangunan bangsa dan negara Indonesia.",
+      "C": "Permasalahannya adalah sampai saat ini masyarakat belum mengetahui cara memperkenalkan budaya lokal kepada publik.",
+      "D": "Potensi yang dimiliki setiap daerah di Indonesia berbeda-beda yang meliputi budaya, kesenian, suku, ras, bahasa, agama, dan kepercayaan.",
+      "E": "Perbedaan tersebut dapat menjadi kekuatan dan nilai hidup yang berharga apabila tertanam sikap saling memahami dan menghormati satu sama lain."
+    },
+    "answer": "B"
+  },
+  {
+    "number": 39,
+    "type": "single",
+    "text": "(39) Cermati teks berikut!\n\n(1) Dari gagalnya penen akibat kemarau panjang, lebih lanjut akan memunculkan dampak kurangnya sediaan gabah kering atau beras, baik di masyarakat maupun stok pemerintah yang dikelola oleh Bulog. (2) Kurangnya sediaan beras boleh jadi memang tidak dirasakan mengganggu tahun ini karena masih cukupnya sediaan beras nasional, dampaknya mungkin baru akan dirasakan pada jangka waktu berikutnya. (3) Dari terjadinya kurangannya sediaan beras, dampak yang muncul bisa jadi berupa naiknya harga kebutuhan pokok sebagian besar rakyat Indonesia. (4) Di sisi lain terjadinya polusi udara serta terganggunya jadwal penerbangan di sejumlah bandara di Sumatra maupun Kalimantan disebabkan oleh terbakarnya lahan gambut atau hutan. (5) Kemarau panjang juga mengakibatkan kurangnya sediaan air minum bersih yang berdampak langsung pada tingkat kesehatan Masyarakat. (6) Sebagaimana diketahui, penduduk di sejumlah kawasan timur Indonesia, sebagian Jawa dan Kalimantan masih sangat bergantung pada air tanah yang sumbernya adalah hujan. (7) Sebagian masyarakat di Kalimantan bahkan menjadikan air hujan sebagai pemenuhan kebutuhan sehari-hari. (8) Fakta yang ada serta perkiraan dampak dari musim kemarau tahun ini tentu harus diantisipasi. (9) Dalam jangka pendek terkait persedian beras akibat kemungkinan puso atau gagal panen perlu diatasi atau diantisipasi dengan strategi pengamanan pangan. (10) Untuk kebakaran hutan, pihak berwenang harus sudah mulai memperingatkan penduduk di lahan yang mudah terbakar dan juga perusahaan-perusahaan untuk berhati-hati dan tidak dengan sengaja membakar lahan atau hutan. (11) Langkah yang dilakukan oleh pihak berwajib untuk memberikan sanksi bagi yang terbukti membakar lahan, selain perlu dilanjutkan juga dapat dicontoh. (12) Dalam jangka menengah program pemerintah untuk membangun danau dan juga waduk atau resapan air harus segera diwujudkan atau dilaksanakan.\n\nInti kalimat nomor satu (1) paragraf tersebut adalah...",
+    "options": {
+      "A": "Dari gagalnya penen akibat kemarau Panjang.",
+      "B": "Gagalnya penen akibat kemarau panjang akan memunculkan dampak besar.",
+      "C": "Kemarau yang panjang menyebabkan gagal panen, sediaan beras, dan gabah berkurang.",
+      "D": "Bulog yang dikelola pemerintah akan kekurangan stok beras dan gabah kering akibat kemarau.",
+      "E": "sediaan gabah kering baik di masyarakat maupun stok pemerintah yang dikelola oleh Bulog mulai berkurang."
+    },
+    "answer": "B"
+  },
+  {
+    "number": 40,
+    "type": "single",
+    "text": "(40) Cermati teks berikut!\n\n(1) Dari gagalnya penen akibat kemarau panjang, lebih lanjut akan memunculkan dampak kurangnya sediaan gabah kering atau beras, baik di masyarakat maupun stok pemerintah yang dikelola oleh Bulog. (2) Kurangnya sediaan beras boleh jadi memang tidak dirasakan mengganggu tahun ini karena masih cukupnya sediaan beras nasional, dampaknya mungkin baru akan dirasakan pada jangka waktu berikutnya. (3) Dari terjadinya kurangannya sediaan beras, dampak yang muncul bisa jadi berupa naiknya harga kebutuhan pokok sebagian besar rakyat Indonesia. (4) Di sisi lain terjadinya polusi udara serta terganggunya jadwal penerbangan di sejumlah bandara di Sumatra maupun Kalimantan disebabkan oleh terbakarnya lahan gambut atau hutan. (5) Kemarau panjang juga mengakibatkan kurangnya sediaan air minum bersih yang berdampak langsung pada tingkat kesehatan Masyarakat. (6) Sebagaimana diketahui, penduduk di sejumlah kawasan timur Indonesia, sebagian Jawa dan Kalimantan masih sangat bergantung pada air tanah yang sumbernya adalah hujan. (7) Sebagian masyarakat di Kalimantan bahkan menjadikan air hujan sebagai pemenuhan kebutuhan sehari-hari. (8) Fakta yang ada serta perkiraan dampak dari musim kemarau tahun ini tentu harus diantisipasi. (9) Dalam jangka pendek terkait persedian beras akibat kemungkinan puso atau gagal panen perlu diatasi atau diantisipasi dengan strategi pengamanan pangan. (10) Untuk kebakaran hutan, pihak berwenang harus sudah mulai memperingatkan penduduk di lahan yang mudah terbakar dan juga perusahaan-perusahaan untuk berhati-hati dan tidak dengan sengaja membakar lahan atau hutan. (11) Langkah yang dilakukan oleh pihak berwajib untuk memberikan sanksi bagi yang terbukti membakar lahan, selain perlu dilanjutkan juga dapat dicontoh. (12) Dalam jangka menengah program pemerintah untuk membangun danau dan juga waduk atau resapan air harus segera diwujudkan atau dilaksanakan.\n\nPesan yang disampaikan penulis kepada pembaca adalah...",
+    "options": {
+      "A": "Kekeringan sebagai sumber utama dampak kehidupan masyarakat Indonesia, maka perlu segera diatasinya.",
+      "B": "Kekeringan yang panjang menyebabkan menurunnya kualitas kesehatan masyarakat dan kelaparan.",
+      "C": "Sebagian masyarakat di Kalimantan bahkan menjadikan air hujan sebagai pemenuhan kebutuhan sehari-hari.",
+      "D": "Dalam jangka menengah program pemerintah untuk membangun danau dan juga waduk atau resapan air harus segera diwujudkan atau dilaksanakan.",
+      "E": "Perkiraan dampak dari musim kemarau tahun ini harus diantisipasi."
+    },
+    "answer": "E"
+  },
+  {
+    "number": 41,
+    "type": "single",
+    "text": "(41) Cermati kutipan novel berikut!\n\nKalau setiap anak cenderung memiliki kedekatan emosional dengan ibunya. Sugi pun tak beda. Bahkan, kedekatannya dengan sang ibu, tak ubahnya seperti lem dan prangko yang sulit untuk dipisahkan. Sugi yang terlahir sebagai anak bungsu, jelas sangat lekat dengan sifat manjanya. Sementara sang ibu pun memiliki rasa sayang yang sangat besar kepadanya lantaran dari empat anak laki-laki yang sangat didambakan, hanya Sugilah satu-satunya yang bertahan hidup.\n\nMaka tak salah, perpaduan kedua hal itu seperti menyatukan jiwa mereka. Karena kedua hal itu pula, terciptalah kisah di antara mereka yang pasti terdengar konyol bagi orang kebanyakan. Meski begitu, Sugi sama sekali tak merasa malu jika ada orang lain yang mencandainya dengan mengungkit kisah-kisah konyol itu. la tak malu mengakui kalau ibunya baru berusaha menyapihnya ketika ia berumur enam tahun. Itu pun karena ia telah masuk sekolah dasar sehingga tak nyaman rasa ibunya kalau sepulang dari sekolah, anak bungsunya langsung menyusu padanya. Ah, menggelikan memang.\n\nRingkasan kutipan novel tersebut adalah...",
+    "options": {
+      "A": "Sugi sama sekali tak merasa malu jika ada orang lain yang mencandainya dengan mengungkit kisah-kisah konyol.",
+      "B": "Kedekatan seorang anak terutama anak bungsu, dengan sang ibu merupakan hal yang wajar sebagaimana kedekatan Sugi dan ibunya. Kedekatan mereka sering menghasilkan kisah konyol dan sering diungkit kembali.",
+      "C": "Sugi sangat dekat dengan ibunya karena ia adalah anak bungsu. Ibunya pun sangat sayang padanya karena dialah anak laki-laki yang sangat didambakan. Mereka memiliki kebiasaan yang konyol dan senang sekali mengungkit kisah-kisah itu.",
+      "D": "Setiap anak memiliki kedekatan dengan ibunya, termasuk Sugi. Sugi adalah si bungsu yang sangat manja dan sangat disayangi ibunya sehingga meninggalkan banyak cerita yang diangggap konyol, misalnya Sugi baru berhenti menyusu ketika berumur enam tahun.",
+      "E": "Kedekatan Sugi dengan ibunya seperti lengketnya lem dan prangko. Sugi tidak malu karena ia adalah anak bungsu sekaligus anak laki-laki satu-satunya yang sangat disayang."
+    },
+    "answer": "C"
+  },
+  {
+    "number": 42,
+    "type": "single",
+    "text": "(42) Cermati teks berikut!\n\n(1) Makin banyak dan panjangnya jalan tol membuat mudik tahun ini relatif lancar. (2) Pada puncaknya yang berlangsung kemarin. arus mudik relatif lancar. (3) Pemudik sungguh merasakan kelancaran mudik tahun ini. (4) Mereka memberi testimoni. (5) Selain itu mereka berterima kasih kepada pemerintah. (6) Testimoni rakyat dijamin tulus. (7) Hal ini disebabkan mereka merasakan langsung manfaat pembangunan infrastruktur. (8) Mereka merasakan kelancaran mudik tahun ini. (9) Mereka tidak terlalu mengalami kemacetan yang panjang saat mudik. (10) Lancarnya arus mudik menjadikan perjalanan mudik semakin singkat.\n\nMaksud kalimat nomor (6) paragraf kedua teks tersebut adalah...",
+    "options": {
+      "A": "Pernyataan dari pemudik yang bisa mudik dalam jangka waktu singkat.",
+      "B": "Pernyataan sebagian warga masyarakat yang bisa mudik dengan lancer.",
+      "C": "Pernyataan masyarakat dan hati yang paling dalam tanpa maksud apa pun.",
+      "D": "Pernyataan dari para pemudik yang bisa pulang kampung tanpa hambatan.",
+      "E": "Warga masyarakat yang sangat berbahagia karena bisa mudik tanpa halangan."
+    },
+    "answer": "D"
+  },
+  {
+    "number": 43,
+    "type": "single",
+    "text": "(43) Cermati teks berikut!\n\nRatusan warga memeriahkan Festival Balon Udara Budaya di Lapangan Jepun, Kecamatan Balong, Kabupaten Ponorogo, Jawa Timur, pada tahun 2018. Kegiatan itu digelar oleh beberapa pihak, antara lain Direktur Jenderal Perhubungan Udara dan Pemerintah Kabupaten Ponorogo. Ada beberapa kriteria yang dilombakan, yaitu balon dengan bentuk paling unik, kemampuan melambung paling tinggi, dan kekompakan setiap tim. Festival ini diadakan untuk mengubah kebiasaan warga yang menerbangkan balon udara secara ilegal sekaligus mengedukasi warga terhadap dampak menerbangkan balon udara secara liar. Festival balon udara yang diadakan secara legal ini juga mewajibkan balon udara ditali dan ketinggiannya pun dibatasi.\n\nTanggapan logis terhadap teks tersebut adalah...",
+    "options": {
+      "A": "Ketentuan balon wajib ditali mengurangi kesenangan peserta dalam mengikuti Festival Balon Udara Ponorogo.",
+      "B": "Masyarakat semakin terinspirasi untuk menggunakan balon dalam berbagai kegiatan dengan adanya festival tersebut.",
+      "C": "Kriteria yang digunakan dalam Festival Balon Udara memberikan kemudahan bagi masyarakat yang gemar naik balon udara.",
+      "D": "Festival Balon Udara yang diselenggarakan Direktur Jenderal Perhubungan Udara tidak berdampak apa pun bagi masyarakat.",
+      "E": "Festival Balon Udara Ponorogo sebaiknya sering diadakan agar masyarakat lebih paham dampak penerbangan balon udara tanpa izin."
+    },
+    "answer": "E"
+  },
+  {
+    "number": 44,
+    "type": "single",
+    "text": "(44) Cermati teks berikut!\n\n(1) Makin banyak dan panjangnya jalan tol membuat mudik tahun ini relatif lancar. (2) Pada puncaknya yang berlangsung kemarin. arus mudik relatif lancar. (3) Pemudik sungguh merasakan kelancaran mudik tahun ini. (4) Mereka memberi testimoni. (5) Selain itu mereka berterima kasih kepada pemerintah. (6) Testimoni rakyat dijamin tulus. (7) Hal ini disebabkan mereka merasakan langsung manfaat pembangunan infrastruktur. (8) Mereka merasakan kelancaran mudik tahun ini. (9) Mereka tidak terlalu mengalami kemacetan yang panjang saat mudik. (10) Lancarnya arus mudik menjadikan perjalanan mudik semakin singkat.\n\nMakna istilah infrastruktur pada kalimat nomor (7) dalam teks tersebut adalah...",
+    "options": {
+      "A": "Media",
+      "B": "Prasarana",
+      "C": "perlengkapan",
+      "D": "Peralatan",
+      "E": "konstruksi"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 45,
+    "type": "single",
+    "text": "(45) Cermati kutipan cerpen berikut!\n\n(1) Sinar matahari telah menyapu embun di kuncup dedaunan, ibu pun segera menyiapkan sarapan untuk keluarga. (2) Keadaan sudah menjadi kebiasaan setiap pagi di dalam keluarga tersebut. (3) Ayah, ibu, dan Lionel duduk bersama di meja makan mereka menyantap nasi, telur dadar, dan teh hangat. (4) \"Nak, ini telur dadarmu, jangan lupa tuangkan sedikit kecap kesukaanmu seperti menuangkan gula dalam teh agar terasa lebih sedap.\" (5) \"lya. Bu. Memang paling enak kalau memakai kecap in. Terima kasih Bu kata Lionel. (6) Sarapan pun selesai, Lionel segera berangkat ke sekolah dengan mobil, bersama ayah yang akan selalu menjadi kanangan manis di hidupnya.\n\nNilai budaya yang terdapat di dalam kutipan cerpen tersebut adalah...",
+    "options": {
+      "A": "keluarga yang harmonis",
+      "B": "perlakuan adil ibu kepada anak",
+      "C": "selalu sarapan pagi bersama keluarga",
+      "D": "kasih sayang ibu kepada anak",
+      "E": "saling menghormati dalam keluarga"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 46,
+    "type": "single",
+    "text": "(46) Cermati teks berikut!\n\n(1) Makin banyak dan panjangnya jalan tol membuat mudik tahun ini relatif lancar. (2) Pada puncaknya yang berlangsung kemarin. arus mudik relatif lancar. (3) Pemudik sungguh merasakan kelancaran mudik tahun ini. (4) Mereka memberi testimoni. (5) Selain itu mereka berterima kasih kepada pemerintah. (6) Testimoni rakyat dijamin tulus. (7) Hal ini disebabkan mereka merasakan langsung manfaat pembangunan infrastruktur. (8) Mereka merasakan kelancaran mudik tahun ini. (9) Mereka tidak terlalu mengalami kemacetan yang panjang saat mudik. (10) Lancarnya arus mudik menjadikan perjalanan mudik semakin singkat.\n\nIde pokok paragraf pertama teks tersebut adalah...",
+    "options": {
+      "A": "jalan tol makin panjang",
+      "B": "pemudik memberi testimoni",
+      "C": "pemudik mengucapkan terima kasih",
+      "D": "puncak mudik sudah berlalu",
+      "E": "mudik tahun ini relatif lancar"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 47,
+    "type": "single",
+    "text": "(47) Cermati kedua kutipan cerita berikut!\n\nKutipan 1\nSatu-satunya solusi sejati adalah keluar dari perangkap konflik, menembus tingkap kaca, dan memandang kemerdekaan sebagai suara jiwa, suara individu nan otentik, bukan suara sosial semata. Kemerdekaan semacam ini tidak bersuara dan tidak berdarah-darah. Kemerdekaan ini tanpa proklamasi, tanpa organisasi, tanpa prosesi. Kemerdekaan ini bernama ‘kesadaran’.\n\nMerdeka sejati berarti mentransendensi bipolaritas nilai dan mengatasi tingkap kaca yang menaungi kepala. Kita bisa jadi disebut bangsa berdaulat tetapi kita amat jauh dari manusia yang berdaulat. Semoga suasana kemerdekaan setahun sekali ini dapat menggelitik kita untuk mengecek sejauh mana tingkap kaca di atas kepala kita, dan apakah kita tergerak untuk mengatasinya menjadi manusia yang sungguhan merdeka dan berdaulat. Manusia otentik yang merayakan kemerdekaannya setiap hari. Itu yang selalu kupikirkan.\n\nKutipan 2\n“Sederhana, Nak. Kau bolak balik sedikit saja hati kau. Sedikit saja, dari rasa dipaksa menjadi sukarela, dari rasa terhina menjadi dibutuhkan, dari rasa disuruh-suruh menjadi penerimaan. Seketika wajah kau tak kusut lagi. Dijamin berhasil.”\n\n“Nak, perasaan itu tidak sesederhana satu tambah satu sama dengan dua. Bahkan ketika perasaan itu sudah jelas bagai bintang di langit, gemerlap indah tak terkira, tetap saja dia bukan rumus matematika. Perasaan adalah perasaan, meski secuil, walau setitik hitam di tengah lapangan putih luas, dia bisa membuat seluruh tubuh jadi sakit, kehilangan selera makan, kehilangan semangat. Hebat sekali benda bernama perasaan itu.\n\n\"Perasaan adalah perasaan, Borno. Orang seperti kau, lebih suka rusuh dengan perasaan itu sendiri. Rusuh dengan harapan, semoga besok ketemu, semoga besok ada penjelasan baiknya. Semoga. Semoga. Kau sibuk sendiri, tanpa menyadari Mei juga sibuk sendiri. Itulah sifat perasaan, butuh waktu, butuh proses.\"\n\nPersamaan unsur intrinsik pada kedua kutipan tersebut adalah...",
+    "options": {
+      "A": "latar suasana penuh kegembiraan",
+      "B": "menggunakan alur cerita campuran",
+      "C": "penggambaran perwatakan dengan dialog",
+      "D": "amanat cerita mengenai cara menyikapi sesuatu",
+      "E": "penggambaran perwatakan dengan pikiran tokoh"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 48,
+    "type": "single",
+    "text": "(48) Cermati kedua kutipan novel berikut!\n\nKutipan 1\nHanya sesekali telepon dari Mama yang memuji sketsa-sketsa yang ia kirim tanpa ucapan tambahan yang menyiratkan kalau ia bisa terus tinggal di Amsterdam, menemani Oma yang berjuang agar tidak digusur ke panti jompo karena dianggap terlalu tua untuk hidup sendiri, melukis di salah satu bangku di Vondelpark tumbuh besar menjadi seniman-seniman yang ia kagumi dan banyak berseliweran di kota ini. Bukankah di kota ini mamanya dilahirkan dan menjadi pelukis, sampai akhirnya pergi ke Indonesia dan berhenti menjadi pelukis? Keenan tidak tahu persis apa yang terjadi. Bagaimana mungkin orang tuanya, sumber dari bakat melukis yang mengalir dalam darahnya, justru ingin memadamkan apa yang mereka wariskan? Papa khawatir Amsterdam akan menghidupkan seorang seniman dalam diri anaknya. Kenapa Papa takut? Keenan dulu bertanya. Karena otakmu terlalu pintar untuk cuma jadi pelukis jawab ayahnya. Keenan pun bertanya-tanya haruskah dia mulai menyabotase nilai-nilainya sendiri di sekolah agar papanya keliru?\n\nKutipan 2\nPilihannya mengambil jurusan sastra adalah buah dari cita-citanya yang ingin jadi penulis dongeng. Pilihannya kuliah di kota lain adalah buah dari khayalannya untuk hidup mandiri. Di luar dari perilakunya yang serba spontan Kugy merencanakan dengan matang perjalanan hidupnya. Tidak semua orang menganggap menjadi penulis dongeng layak disebut sebagai cita-cita. Kugy juga tahu itu. Semakin ia beranjak besar. Kugy sadar bahwa sebuah cita-cita yang dianggap layak sama dengan profesi yang pasti menghasilkan uang. Penulis dongeng bukan salah satunya. Untuk itu sepanjang hidupnya Kugy berupaya membuktikan bahwa ia bisa mandiri dari buku dan menulis. Dalam kamarnya yang bergabung dengan taman bacaan di loteng rumah, Kugy menyusun balok demi balok mimpinya suatu hari ia bukan hanya seorang kolektor buku dongeng, la akan menulis dongengnya sendiri, kendati jalan yang ditempuhnya harus berputar-putar.\n\nPerbedaan solusi konflik yang dialami tokoh dalam dua kutipan novel tersebut adalah...",
+    "options": {
+      "A": "Kutipan 1 tokoh memilih menemani nenek yang akan digusur, sedangkan kutipan 2 tokoh tahu apa yang diinginkan sejak kecil.",
+      "B": "Kutipan 1 tokoh memilih kembali ke Indonesia, sedangkan kutipan 2 tokoh memilih jurusan sastra dan merencanakan hidupnya.",
+      "C": "Kutipan I tokoh menyerah memilih tinggal di luar negeri, sedangkan kutipan 2 tokoh menjadi kolektor buku dan pemilik taman bacaan.",
+      "D": "Kutipan 1 tokoh memilih pergi dari rumah dan menghapus mimpinya, sedangkan kutipan 2 tokoh berjuang meraih mimpinya seorang diri.",
+      "E": "Kutipan 1 tokoh memikirkan ide untuk mempertahankan mimpinya, sedangkan kutipan 2 tokoh tidak menyerah dan berjuang meraih mimpinya."
+    },
+    "answer": "E"
+  },
+  {
+    "number": 49,
+    "type": "single",
+    "text": "(49) Cermati kutipan novel berikut!\n\n(1) Fasilitas di rumah itu pun hanya selembar tikar rombeng di atas dipan yang selalu berdent jika dinaik saking reotnya. (2) Tempat berteduh yang mereka tempati tak lebih sebuah gubuk yang disekat menjadi dua, satu untuk tidur Aki Jaya dan satu untuk dirinya.\n\n(3) Saat dia terbangun suman dari pingsannya dan menemukan bahwa dia tak mati, rasa kecewa seperti menampar-namparnya tak henti. (4) Aki Jaya telah menyelamatkannya dan itu berarti dia telah melanggengkan penenggakan pahitnya kopi kehidupan.\n\n(5) Akan tetapi dia tak akan berani marah kepada Aki Jaya karena membiarkan dia tetap hidup, bahkan merawatnya, hingga dia kembali bisa menegakkan tulang punggungnya dan berjalan mertyusuri bait-bat kehidupannya yang sama sekali baru. (6) Dia juga Tak akan sanggup marah, ketika Ako Jaya memilih membawanya pulang dari rumah sakit ketika satu tim dokter menawarkan bedan plastik pada mukanya, bukan untuk membuatnya kembali cantik, akan tetapi paling tidak menghindarkannya dan muka seceram topeng reog Ponorogo karena biaya yang harus dibayarnya, bahkan dalam mimpi pun tak pemals dilihat olen sang Aki.\n\nLatar tempat dalam kutipan novel tersebut dibuktikan pada kalimat nomor...",
+    "options": {
+      "A": "(5) dan (6)",
+      "B": "(3) dan (4)",
+      "C": "(2) dan (4)",
+      "D": "(4) dan (5)",
+      "E": "(1) dan (2)"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 50,
+    "type": "single",
+    "text": "(50) Cermati kalimat berikut!\n\npara peserta akpol mengikuti tes bahasa indonesia di gedung serbaguna polda bali pada hari senin.\n\nPerbaikan penggunaan huruf kapital yang tepat adalah...",
+    "options": {
+      "A": "Para Peserta AKPOL mengikuti tes Bahasa Indonesia di Gedung Serbaguna Polda Bali pada hari Senin.",
+      "B": "Para peserta AKPOL mengikuti tes bahasa Indonesia di Gedung Serbaguna Polda Bali pada hari Senin.",
+      "C": "Para peserta Akpol mengikuti tes bahasa Indonesia di gedung serbaguna Polda Bali pada Hari Senin.",
+      "D": "Para peserta AKPOL mengikuti Tes Bahasa Indonesia di Gedung Serbaguna polda Bali pada hari Senin.",
+      "E": "Para peserta AKPOL mengikuti tes bahasa indonesia di Gedung Serbaguna Polda Bali pada hari senin."
+    },
+    "answer": "B"
+  }
+];
+</script>
+<script type="module" src="soal-template-core.js"></script>
+</body>
+</html>

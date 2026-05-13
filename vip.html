@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ujian VIP - JAGOPSI</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <style>
+        body { background-color: #f4f6f9; user-select: none; }
+        .img-soal { width: 80px; height: 80px; object-fit: contain; }
+        .img-persoalan { width: 50px; height: 50px; object-fit: contain; }
+        .btn-success-custom { background-color: #28a745; border-color: #28a745; color: white; width: 100%; font-weight: bold; padding: 10px 0; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+        .overlay-jeda {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999; color: white;
+        }
+        #vip-checker {
+            position: fixed; inset: 0; background: white; z-index: 10000; display: flex; justify-content: center; align-items: center;
+        }
+        .img-fallback {
+            width: 80px; height: 80px; display: inline-flex; align-items: center; justify-content: center;
+            border: 1px dashed #bbb; border-radius: 8px; color: #888; font-size: 12px; text-align: center; padding: 4px;
+        }
+    </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body class="hold-transition layout-top-nav">
+
+<div id="vip-checker">
+    <div class="text-center">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2"><strong>Memverifikasi Status VIP...</strong></p>
+    </div>
+</div>
+
+<div class="wrapper">
+    <nav class="main-header navbar navbar-expand-md navbar-light navbar-white shadow-sm">
+        <div class="container">
+            <span class="navbar-brand"><strong>JAGO</strong>PSI.ONLINE <span class="badge badge-warning">VIP</span></span>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><span class="nav-link text-dark" id="user-display">Memuat...</span></li>
+                <li class="nav-item"><button onclick="logout()" class="btn btn-danger btn-sm ml-2">Keluar</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="content">
+            <br>
+            <div class="container">
+                <div id="screen-setup" class="screen active">
+                    <div class="card shadow">
+                        <div class="card-body text-center py-5">
+                            <h3>Selamat Datang di Materi Sebelas (VIP)</h3>
+                            <p id="setup-msg">Sistem siap memulai 10 kolom otomatis.</p>
+                            <button id="btn-start-action" onclick="window.mulaiUjian()" class="btn btn-primary btn-lg">MULAI SEKARANG</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen-game" class="screen">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="card"><div class="card-body"><h4 class="font-weight-bold">JAGOPSI VIP</h4></div></div>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <small>Sisa Waktu</small>
+                            <h2 id="countdown" class="text-primary font-weight-bold">01:00</h2>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead class="bg-light text-center"><tr><th colspan="5" id="col-label">KOLOM 1</th></tr></thead>
+                                        <tr id="key-display-row"></tr>
+                                        <tr class="text-center"><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td></tr>
+                                    </table>
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-md-5">
+                                            <table class="table table-bordered"><tr id="question-row"></tr></table>
+                                            <div class="row no-gutters">
+                                                <div class="col p-1"><button class="btn btn-success-custom" onclick="window.jawab(0)">a</button></div>
+                                                <div class="col p-1"><button class="btn btn-success-custom" onclick="window.jawab(1)">b</button></div>
+                                                <div class="col p-1"><button class="btn btn-success-custom" onclick="window.jawab(2)">c</button></div>
+                                                <div class="col p-1"><button class="btn btn-success-custom" onclick="window.jawab(3)">d</button></div>
+                                                <div class="col p-1"><button class="btn btn-success-custom" onclick="window.jawab(4)">e</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen-result" class="screen">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4 class="mb-0">HASIL UJIAN ANDA</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center mb-4">
+                                <h1 id="total-score-display" class="display-4 font-weight-bold text-primary">0.0</h1>
+                                <p class="text-muted">Rata-rata Jawaban Benar per Kolom</p>
+                            </div>
+                            <table class="table table-striped table-bordered text-center">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Kolom</th>
+                                        <th class="text-success">Benar</th>
+                                        <th class="text-danger">Salah</th>
+                                        <th>Total Terjawab</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="result-table-body"></tbody>
+                            </table>
+                            <div class="mt-4 text-center">
+                                <button onclick="logout()" class="btn btn-outline-danger">Selesai & Keluar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jeda-layer" class="overlay-jeda">
+    <h1>KOLOM SELESAI</h1>
+    <div id="jeda-timer" style="font-size: 5rem; font-weight: 900; color: #f39c12">3</div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, push, update, remove, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw",
+        databaseURL: "https://simulasi-2b93b-default-rtdb.firebaseio.com",
+        projectId: "simulasi-2b93b",
+        appId: "1:562508858666:web:fa63f71ec175c675e64a53"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const EXAM_KEY = 'materi11_vip';
+    const STORAGE_KEY = 'ujian_progress_materi11_vip';
+
+    const userEmail = localStorage.getItem('pesertaEmail');
+    const session = localStorage.getItem('currentSession');
+    const userId = userEmail ? userEmail.replace(/[.@]/g, "_") : null;
+    const tempRef = userId ? ref(db, 'temp_progress_materi11/' + userId) : null;
+
+    let currentCol = 0, b = 0, s = 0, stats = [], timerId = null, correctIdx = -1, timeLeft = 60;
+    let gameActive = false;
+
+    if (!userEmail || !session || !userId) {
+        window.location.replace('index.html');
+    }
+
+    function rawImgUrl(k, char) {
+        return `https://raw.githubusercontent.com/kurniacandra/gambar/main/materisebelas.1.kolom${k}.${char}.png`;
+    }
+
+    const materiData = [];
+    for (let k = 1; k <= 10; k++) {
+        const kolom = [];
+        ['a','b','c','d','e'].forEach(char => kolom.push(rawImgUrl(k, char)));
+        materiData.push(kolom);
+    }
+
+    function resetState() {
+        currentCol = 0;
+        b = 0;
+        s = 0;
+        stats = [];
+        timeLeft = 60;
+        correctIdx = -1;
+        gameActive = false;
+    }
+
+    function normalizeState(data) {
+        const safe = data && typeof data === 'object' ? data : {};
+        currentCol = Number.isInteger(safe.currentCol) ? safe.currentCol : parseInt(safe.currentCol || 0, 10);
+        if (!Number.isFinite(currentCol) || currentCol < 0 || currentCol >= materiData.length) currentCol = 0;
+
+        timeLeft = Number.isFinite(Number(safe.timeLeft)) ? Number(safe.timeLeft) : 60;
+        if (timeLeft <= 0 || timeLeft > 60) timeLeft = 60;
+
+        b = Number.isFinite(Number(safe.currentB)) ? Number(safe.currentB) : 0;
+        s = Number.isFinite(Number(safe.currentS)) ? Number(safe.currentS) : 0;
+
+        stats = Array.isArray(safe.stats) ? safe.stats.filter(x => x && typeof x === 'object').map(x => ({
+            b: Number(x.b) || 0,
+            s: Number(x.s) || 0,
+            terjawab: Number(x.terjawab) || ((Number(x.b) || 0) + (Number(x.s) || 0))
+        })) : [];
+
+        if (stats.length > materiData.length) stats = stats.slice(0, materiData.length);
+    }
+
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    function updateSetupText(isResume) {
+        const msg = document.getElementById('setup-msg');
+        const btn = document.getElementById('btn-start-action');
+        if (isResume) {
+            msg.innerText = `Melanjutkan Kolom ${currentCol + 1} (${timeLeft} detik tersisa).`;
+            btn.innerText = 'LANJUTKAN UJIAN';
+        } else {
+            msg.innerText = 'Sistem siap memulai 10 kolom otomatis.';
+            btn.innerText = 'MULAI SEKARANG';
+        }
+    }
+
+    function createImageCell(src, cls) {
+        const td = document.createElement('td');
+        td.className = 'text-center';
+
+        const img = document.createElement('img');
+        img.className = cls;
+        img.src = src;
+        img.alt = 'Soal';
+        img.loading = 'eager';
+        img.onerror = () => {
+            td.innerHTML = `<div class="img-fallback">Gambar<br>gagal</div>`;
+        };
+        td.appendChild(img);
+        return td;
+    }
+
+    function renderKeys() {
+        const row = document.getElementById('key-display-row');
+        row.innerHTML = '';
+        const kolom = materiData[currentCol] || [];
+        kolom.forEach(link => row.appendChild(createImageCell(link, 'img-soal')));
+    }
+
+    function newQuest() {
+        const kolom = materiData[currentCol];
+        if (!Array.isArray(kolom) || kolom.length !== 5) {
+            document.getElementById('question-row').innerHTML = '<td class="text-center text-danger">Data kolom tidak valid.</td>';
+            return;
+        }
+        correctIdx = Math.floor(Math.random() * 5);
+        const questionImgs = kolom
+            .map((link, idx) => ({ link, idx }))
+            .filter(item => item.idx !== correctIdx)
+            .sort(() => Math.random() - 0.5);
+
+        const row = document.getElementById('question-row');
+        row.innerHTML = '';
+        questionImgs.forEach(item => row.appendChild(createImageCell(item.link, 'img-persoalan')));
+    }
+
+    function formatCountdown(sec) {
+        const safe = Math.max(0, Number(sec) || 0);
+        const mm = String(Math.floor(safe / 60)).padStart(2, '0');
+        const ss = String(safe % 60).padStart(2, '0');
+        return `${mm}:${ss}`;
+    }
+
+    function updateCountdownText() {
+        document.getElementById('countdown').innerText = formatCountdown(timeLeft);
+    }
+
+    function saveLocalProgress() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            examKey: EXAM_KEY,
+            currentCol,
+            stats,
+            timeLeft,
+            currentB: b,
+            currentS: s,
+            updatedAt: Date.now()
+        }));
+    }
+
+    async function updateTempProgress() {
+        if (!tempRef) return;
+        await update(tempRef, {
+            examKey: EXAM_KEY,
+            email: userEmail,
+            currentCol,
+            currentB: b,
+            currentS: s,
+            timeLeft,
+            stats,
+            lastActive: Date.now()
+        });
+    }
+
+    function clearTimer() {
+        if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+        }
+    }
+
+    function startStep(isResume = false) {
+        if (currentCol < 0 || currentCol >= materiData.length) {
+            finish();
+            return;
+        }
+
+        if (!isResume) {
+            b = 0;
+            s = 0;
+            timeLeft = 60;
+        }
+
+        gameActive = true;
+        document.getElementById('col-label').innerText = `KOLOM ${currentCol + 1}`;
+        renderKeys();
+        newQuest();
+        updateCountdownText();
+        startTimer();
+    }
+
+    function startTimer() {
+        clearTimer();
+        updateCountdownText();
+
+        timerId = setInterval(() => {
+            timeLeft -= 1;
+            if (timeLeft < 0) timeLeft = 0;
+            updateCountdownText();
+            saveLocalProgress();
+            updateTempProgress().catch(() => {});
+
+            if (timeLeft <= 0) {
+                clearTimer();
+                gameActive = false;
+                stats.push({ b, s, terjawab: b + s });
+                currentCol += 1;
+                b = 0;
+                s = 0;
+                timeLeft = 60;
+                saveLocalProgress();
+                updateTempProgress().catch(() => {});
+
+                if (currentCol < materiData.length) showJeda();
+                else finish();
+            }
+        }, 1000);
+    }
+
+    function showJeda() {
+        const layer = document.getElementById('jeda-layer');
+        let sisa = 3;
+        document.getElementById('jeda-timer').innerText = sisa;
+        layer.style.display = 'flex';
+
+        const jedaInt = setInterval(() => {
+            sisa -= 1;
+            document.getElementById('jeda-timer').innerText = sisa;
+            if (sisa <= 0) {
+                clearInterval(jedaInt);
+                layer.style.display = 'none';
+                startStep(false);
+            }
+        }, 1000);
+    }
+
+    async function finish() {
+        clearTimer();
+        gameActive = false;
+        showScreen('screen-result');
+
+        const totalB = stats.reduce((acc, curr) => acc + (Number(curr.b) || 0), 0);
+        const totalS = stats.reduce((acc, curr) => acc + (Number(curr.s) || 0), 0);
+        const totalT = stats.reduce((acc, curr) => acc + (Number(curr.terjawab) || 0), 0);
+        const finalScore = parseFloat((totalB / 10).toFixed(1));
+        const ketelitian = totalT > 0 ? ((totalB / totalT) * 100).toFixed(1) : '0.0';
+        const kecepatan = (totalT / 10).toFixed(1);
+
+        let tableHtml = '';
+        stats.forEach((item, index) => {
+            tableHtml += `<tr>
+                <td>Kolom ${index + 1}</td>
+                <td class="text-success font-weight-bold">${item.b}</td>
+                <td class="text-danger font-weight-bold">${item.s}</td>
+                <td>${item.terjawab}</td>
+            </tr>`;
+        });
+        document.getElementById('result-table-body').innerHTML = tableHtml;
+        document.getElementById('total-score-display').innerText = finalScore;
+
+        const hasilData = {
+            nama: userEmail,
+            email: userEmail,
+            tipe: 'vip',
+            materi: 'Materi Sebelas',
+            skor: finalScore,
+            waktu: new Date().toLocaleTimeString('id-ID') + ' ' + new Date().toLocaleDateString('id-ID'),
+            timestamp: Date.now(),
+            total_benar: totalB,
+            total_salah: totalS,
+            total_terjawab: totalT,
+            pola_benar: stats.map(d => d.b),
+            pola_salah: stats.map(d => d.s),
+            detail_terjawab: stats.map(d => d.terjawab),
+            kecepatan,
+            ketelitian,
+            adaptasi: '0.0',
+            ketahanan: '0.0'
+        };
+
+        try {
+            await push(ref(db, 'rekap_skor'), hasilData);
+        } catch (e) {}
+        try {
+            if (tempRef) await remove(tempRef);
+        } catch (e) {}
+        localStorage.removeItem(STORAGE_KEY);
+    }
+
+    window.mulaiUjian = () => {
+        if (currentCol >= materiData.length) resetState();
+        showScreen('screen-game');
+        startStep(true);
+    };
+
+    window.jawab = (idx) => {
+        if (!gameActive) return;
+        if (idx === correctIdx) b += 1;
+        else s += 1;
+
+        saveLocalProgress();
+        updateTempProgress().catch(() => {});
+        newQuest();
+    };
+
+    window.logout = () => {
+        clearTimer();
+        localStorage.removeItem(STORAGE_KEY);
+        sessionStorage.clear();
+        localStorage.removeItem('currentSession');
+        localStorage.removeItem('pesertaEmail');
+        localStorage.removeItem('userStatus');
+        window.location.replace('index.html');
+    };
+
+    window.addEventListener('keydown', (e) => {
+        const map = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4 };
+        const idx = map[e.key.toLowerCase()];
+        if (idx !== undefined) window.jawab(idx);
+    });
+
+    async function init() {
+        try {
+            document.getElementById('user-display').innerText = userEmail || 'Peserta';
+            const snap = await get(ref(db, 'users/' + userId));
+            const isVip = snap.exists() && String((snap.val() || {}).status || '').toLowerCase() === 'vip';
+            if (!isVip) {
+                window.location.replace('index.html');
+                return;
+            }
+
+            let resumed = false;
+            try {
+                const tempSnap = await get(tempRef);
+                if (tempSnap.exists()) {
+                    const data = tempSnap.val() || {};
+                    if (data.examKey === EXAM_KEY) {
+                        normalizeState(data);
+                        resumed = true;
+                    }
+                }
+            } catch (e) {}
+
+            if (!resumed) {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        if (parsed.examKey === EXAM_KEY) {
+                            normalizeState(parsed);
+                            resumed = true;
+                        }
+                    } catch (e) {}
+                }
+            }
+
+            updateSetupText(resumed);
+            document.getElementById('vip-checker').style.display = 'none';
+        } catch (e) {
+            document.getElementById('setup-msg').innerText = 'Gagal memuat data. Silakan refresh halaman.';
+            document.getElementById('vip-checker').style.display = 'none';
+        }
+    }
+
+    init();
+</script>
+</body>
+</html>

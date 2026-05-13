@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tryout SKD Kedinasan/CPNS - JAGOPSI.ONLINE</title>
+  <style>
+    :root{--primary:#0f172a;--accent:#f59e0b;--danger:#dc2626;--bg:#f8fafc;--muted:#64748b;--card:#ffffff;--line:#e2e8f0;--green:#16a34a}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#ecfdf5 0%,#f8fafc 42%,#ffffff 100%);color:#0f172a}
+    .hero{padding:28px 16px 12px}
+    .hero-inner{max-width:1100px;margin:0 auto;background:linear-gradient(135deg,#064e3b 0%,#14532d 58%,#166534 100%);color:#fff;border-radius:24px;padding:28px;box-shadow:0 18px 50px rgba(15,23,42,.20)}
+    .badge{display:inline-block;background:rgba(255,255,255,.16);color:#dcfce7;padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:800;letter-spacing:.3px}
+    .topline{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap}
+    h1{margin:14px 0 8px;font-size:clamp(1.9rem,4vw,2.8rem)}
+    .sub{max-width:720px;color:#dcfce7;line-height:1.7;margin:0}
+    .userbox{background:#fff;color:#0f172a;padding:14px 16px;border-radius:16px;min-width:260px}
+    .userbox small{color:#64748b;display:block;margin-bottom:4px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .btn{border:none;border-radius:12px;padding:12px 16px;font-weight:750;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit}
+    .btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.26)}
+    .btn-danger{background:var(--danger);color:#fff}
+    .btn-primary{background:#166534;color:#fff}
+    .btn-light{background:#fff;color:#0f172a;border:1px solid var(--line)}
+    .btn-disabled{background:#e2e8f0;color:#64748b;cursor:not-allowed}
+    .wrap{max-width:1100px;margin:0 auto;padding:18px 16px 42px}
+    .section{margin-bottom:26px}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+    .section-title{margin:0;font-size:1.22rem}
+    .section-note{font-size:.9rem;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 8px 24px rgba(15,23,42,.06);transition:.2s ease;cursor:pointer}
+    .card:hover{transform:translateY(-4px)}
+    .card.ready{border-color:#bbf7d0}
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.76rem;font-weight:800;margin-bottom:10px;background:#ecfdf5;color:#047857}
+    .tag.soon{background:#f1f5f9;color:#475569}
+    .card h3{margin:0 0 8px;font-size:1.05rem}
+    .card p{margin:0;color:var(--muted);line-height:1.55;font-size:.92rem;min-height:44px}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .mini{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-size:.78rem;color:#475569;background:#f8fafc;font-weight:650}
+    .footer-actions{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+    @media (max-width:680px){.hero-inner{padding:22px}}
+  </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="topline">
+        <div>
+          <span class="badge">SKD KEDINASAN / CPNS</span>
+          <h1>Tryout SKD Kedinasan/CPNS</h1>
+          <p class="sub">Menu khusus SKD. Nanti paket bisa diisi TWK, TIU, TKP, dan Try Out SKD Full tanpa mengganggu menu POLRI.</p>
+        </div>
+        <div class="userbox">
+          <small>Login sebagai</small>
+          <div id="userName" style="font-weight:700;font-size:1rem;">Memuat akun...</div>
+          <div id="userStatus" style="margin-top:6px;font-size:.86rem;color:#64748b;">Memeriksa status...</div>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="btn btn-outline" href="main.html">Menu Utama</a>
+        <a class="btn btn-outline" href="riwayat.html">Riwayat TO</a>
+        <button class="btn btn-danger" type="button" onclick="logout()">Keluar</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Paket SKD</h2>
+        <div class="section-note">struktur sudah siap</div>
+      </div>
+      <div class="grid">
+        <div class="card ready" onclick="go('skd_twk_list.html')">
+          <span class="tag">TWK</span>
+          <h3>Tes Wawasan Kebangsaan</h3>
+          <p>Daftar paket TWK untuk SKD Kedinasan/CPNS.</p>
+          <div class="meta"><span class="mini">SKD</span><span class="mini">TWK</span></div>
+          <div style="margin-top:14px"><button class="btn btn-primary" type="button">Buka Paket</button></div>
+        </div>
+
+        <div class="card ready" onclick="go('skd_tiu_list.html')">
+          <span class="tag">TIU</span>
+          <h3>Tes Intelegensi Umum</h3>
+          <p>Daftar paket TIU untuk numerik, verbal, figural, dan logika.</p>
+          <div class="meta"><span class="mini">SKD</span><span class="mini">TIU</span></div>
+          <div style="margin-top:14px"><button class="btn btn-primary" type="button">Buka Paket</button></div>
+        </div>
+
+        <div class="card ready" onclick="go('skd_tkp_list.html')">
+          <span class="tag">TKP</span>
+          <h3>Tes Karakteristik Pribadi</h3>
+          <p>Daftar paket TKP dengan pola penilaian bertingkat.</p>
+          <div class="meta"><span class="mini">SKD</span><span class="mini">TKP</span></div>
+          <div style="margin-top:14px"><button class="btn btn-primary" type="button">Buka Paket</button></div>
+        </div>
+
+        <div class="card ready" onclick="go('skd_full_list.html')">
+          <span class="tag">SKD FULL</span>
+          <h3>Try Out SKD Full</h3>
+          <p>Gabungan TWK, TIU, dan TKP dalam satu paket try out.</p>
+          <div class="meta"><span class="mini">TWK</span><span class="mini">TIU</span><span class="mini">TKP</span></div>
+          <div style="margin-top:14px"><button class="btn btn-primary" type="button">Buka Paket</button></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-actions">
+      <a class="btn btn-light" href="main.html">Kembali ke Menu Utama</a>
+      <a class="btn btn-light" href="tryout_polri.html">Tryout POLRI</a>
+      <a class="btn btn-light" href="riwayat.html">Lihat Riwayat</a>
+    </div>
+  </main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw",
+  authDomain: "simulasi-2b93b.firebaseapp.com",
+  databaseURL: "https://simulasi-2b93b-default-rtdb.firebaseio.com",
+  projectId: "simulasi-2b93b",
+  appId: "1:562508858666:web:fa63f71ec175c675e64a53"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const email = localStorage.getItem("pesertaEmail");
+const session = localStorage.getItem("currentSession");
+const savedStatus = localStorage.getItem("userStatus") || "aktif";
+const savedName = localStorage.getItem("userName");
+const userNameEl = document.getElementById("userName");
+const userStatusEl = document.getElementById("userStatus");
+
+if(!email || !session){
+  location.replace("index.html");
+}
+
+const userId = email ? email.replace(/[.@]/g,"_") : null;
+userNameEl.textContent = savedName || email || "Peserta";
+userStatusEl.textContent = "Status akun: " + String(savedStatus || "aktif").toUpperCase();
+
+async function refreshUserStatus(){
+  if(!userId) return;
+  try{
+    const snap = await get(ref(db, "users/" + userId));
+    if(!snap.exists()) return;
+    const data = snap.val() || {};
+    const status = data.status || savedStatus || "aktif";
+    if(String(status).toLowerCase() === "nonaktif"){
+      localStorage.clear();
+      alert("Akun Anda telah dinonaktifkan oleh admin.");
+      location.replace("index.html");
+      return;
+    }
+    localStorage.setItem("userStatus", status);
+    localStorage.setItem("userRole", data.role || localStorage.getItem("userRole") || "user");
+    localStorage.setItem("userName", data.nama || data.name || savedName || email);
+    userNameEl.textContent = data.nama || data.name || savedName || email;
+    userStatusEl.textContent = "Status akun: " + String(status).toUpperCase();
+  }catch(e){
+    console.warn("Status akun belum bisa disegarkan.", e);
+  }
+}
+refreshUserStatus();
+
+function go(link){ location.href = link; }
+window.go = go;
+window.logout = function(){
+  localStorage.clear();
+  location.href = "index.html";
+}
+</script>
+</body>
+</html>

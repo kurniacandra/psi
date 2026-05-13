@@ -1,0 +1,12 @@
+PERBAIKAN RIWAYAT DAN SKOR SKD
+
+- skd_to6.html dicek: 110 soal, TWK 30, TKP 45, TIU 35.
+- Semua gambar skd_to6_img_001.png sampai skd_to6_img_045.png sudah memakai URL raw GitHub sesuai nama file.
+- Scoring TKP direvisi: jawaban terbaik/kunci selalu bernilai 5, empat opsi lain bernilai 1, 2, 3, 4.
+- TWK/TIU tetap benar 5 dan salah 0.
+- Skor maksimal SKD tetap 550: TWK 150, TKP 225, TIU 175.
+- Hasil sekarang menyimpan ringkasan per subtest ke payload sections.
+- saveResult memakai key yang sama untuk rekap_skor dan path tambahan seperti hasil_skd / hasil_kepri agar tidak dobel aneh.
+- riwayat.html dan hasil.html ditambah filter SKD, BINDO, PU, MATEMATIKA.
+- riwayat.html dan hasil.html sekarang menampilkan Poin SKD raw/max, Nilai persentase, ringkasan subtest, gambar soal, dan gambar pembahasan.
+- Admin hasil membaca hasil_skd juga, dengan dedupe berdasarkan resultId/key.

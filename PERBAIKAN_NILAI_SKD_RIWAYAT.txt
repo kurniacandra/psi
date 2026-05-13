@@ -1,0 +1,24 @@
+PERBAIKAN NILAI SKD DI RIWAYAT DAN ADMIN
+
+Masalah:
+- SKD sebelumnya menyimpan score sebagai persentase.
+- Contoh raw poin 10/550 dibulatkan menjadi 2, sehingga riwayat/admin terlihat seperti nilai 2.
+
+Perbaikan:
+1. Untuk examType SKD, score/finalScore/skor sekarang memakai raw poin SKD.
+2. Persentase tetap disimpan terpisah di normalizedScore, percentageScore, dan nilaiPersen.
+3. Record lama yang sudah telanjur tersimpan dengan score persentase tetap dikoreksi saat dibaca jika ada rawPoints.
+4. Riwayat peserta menampilkan Poin SKD dan Persentase secara terpisah.
+5. Admin hasil menampilkan Poin SKD dan Persentase secara terpisah.
+6. Tampilan hasil langsung setelah submit SKD menampilkan Poin SKD, Maksimal, Persentase, Terjawab.
+
+Audit:
+- skd_to6.html: 110 soal.
+- TWK: 30 soal, maksimum 150 poin.
+- TKP: 45 soal, maksimum 225 poin.
+- TIU: 35 soal, maksimum 175 poin.
+- Maksimal SKD total: 550 poin.
+- TKP: semua soal memiliki bobot opsi 1,2,3,4,5 dan kunci bernilai 5.
+- Semua config examFile cocok dengan nama file asli.
+- Semua file template memakai result-utils.js dan soal-template-core.js.
+- Tidak ada link HTML lokal yang hilang.

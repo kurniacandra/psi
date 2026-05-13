@@ -1,0 +1,25 @@
+PERUBAHAN TEMPLATE SOAL
+
+Semua halaman tes non-kecermatan sudah diseragamkan ke template soal.html.
+
+File yang dipindahkan ke template seragam:
+- cerdas1.html
+- cerdas2.html
+- to.html
+- to2.html
+- kepri.html
+- kepri2.html
+- kepri3.html
+- kepri4.html
+- wk.html
+- mtk.html
+
+Yang tidak diubah sesuai permintaan:
+- cermat.html
+- kecermatan.html
+
+Catatan:
+- Semua halaman di atas sekarang memakai layar loading, intro, area soal, navigasi, hasil, dan review yang seragam.
+- Penyimpanan hasil tetap masuk ke skema pusat rekap_skor.
+- Paket kepribadian tetap ikut simpan ke hasil_kepri.
+- WK dan MTK tetap random 50 soal per sesi dan tetap VIP-only.

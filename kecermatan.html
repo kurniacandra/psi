@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAT KECERMATAN - PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --primary: #1a252f; --accent: #f39c12; --success: #27ae60; --danger: #e74c3c; --bg: #f4f7f6; --info: #3498db; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: var(--bg); margin: 0; padding: 10px; display: flex; justify-content: center; user-select: none; font-weight: 400; }
+        .container { background: white; width: 100%; max-width: 900px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; position: relative; }
+        .header { background: var(--primary); color: white; padding: 15px; text-align: center; border-bottom: 5px solid var(--accent); position: relative; }
+        .btn-logout { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 400; font-size: 0.8rem; }
+        .btn-main { position: absolute; right: 105px; top: 50%; transform: translateY(-50%); background: var(--info); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 400; font-size: 0.8rem; }
+        .screen { display: none; padding: 20px; text-align: center; }
+        .active { display: block; }
+        .setup-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 15px 0; }
+        .input-group { background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #ddd; position: relative; transition: 0.3s; }
+        .input-group.error { border: 2px solid var(--danger); background: #fff0f0; }
+        input[type="text"] { width: 100%; border: none; text-align: center; font-weight: 400; font-size: 1.1rem; outline: none; background: transparent; text-transform: uppercase; letter-spacing: 2px; font-family: 'Source Sans Pro', sans-serif; }
+        .error-msg { color: var(--danger); font-size: 0.6rem; display: none; font-weight: 400; margin-top: 5px; line-height: 1.2; }
+        .input-group.error .error-msg { display: block; }
+        .stats-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; background: #f9f9f9; padding: 10px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #eee; }
+        .timer { font-size: 3rem; font-weight: 400; color: var(--danger); grid-column: 2; }
+        .key-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 10px; }
+        .key-box { border: 2px solid #2c3e50; border-radius: 8px; background: #fff; overflow: hidden; }
+        .key-h { background: #2c3e50; color: white; padding: 3px; font-size: 0.8rem; font-weight: 400; }
+        .key-v { font-size: 2.2rem; padding: 5px; font-weight: 400; }
+        #question { font-size: 5rem; font-weight: 400; letter-spacing: 15px; margin: 25px 0; color: #1a252f; min-height: 120px; text-transform: uppercase; }
+        .ans-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .btn-ans { padding: 20px 0; font-size: 1.8rem; border: none; background: var(--primary); color: white; border-radius: 10px; cursor: pointer; font-weight: 400; transition: 0.2s; font-family: 'Source Sans Pro', sans-serif; }
+        .btn-ans:active { transform: scale(0.95); background: var(--accent); }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85rem; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; font-weight: 400; }
+        .final-score-box { background: var(--primary); color: var(--accent); padding: 20px; border-radius: 15px; margin: 15px 0; }
+        .overlay-jeda { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; }
+        .modal-riwayat { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 20px; border-radius: 15px; width: 90%; max-width: 550px; max-height: 80vh; overflow-y: auto; text-align: left; }
+        .row-simbol { border-bottom: 1px solid #eee; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+        .btn-pilih { background: var(--success); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 400; }
+        .menu-khusus { display: none; background: linear-gradient(to right, #fff8e1, #ffffff); border: 2px solid var(--accent); padding: 12px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(243, 156, 18, 0.2); }
+        .vip-popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 20000; }
+        .vip-card { background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%); color: white; padding: 30px; border-radius: 20px; text-align: center; border: 2px solid var(--accent); box-shadow: 0 0 20px rgba(243, 156, 18, 0.4); max-width: 350px; position: relative; }
+        .vip-icon { font-size: 4rem; color: var(--accent); margin-bottom: 15px; }
+        .btn-mulai-custom { background: var(--success) !important; animation: pulse 1.5s infinite; box-shadow: 0 0 15px rgba(39, 174, 96, 0.5); }
+        h1, h2, h3, h4, b, strong { font-weight: 600; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
+
+        .setup-card{background:#fff;border:1px solid #e8edf2;border-radius:18px;padding:18px;box-shadow:0 10px 26px rgba(15,23,42,.05);margin-top:16px}
+        .setup-head{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;text-align:center}
+        .setup-title{margin:0;color:var(--primary);font-size:1.15rem;font-weight:600;text-align:center}
+        .setup-sub{margin:6px auto 0;color:#6b7280;font-size:.82rem;line-height:1.5;text-align:center;max-width:520px}
+        .type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+        .type-card{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+        .type-card strong{display:block;font-size:.92rem;color:#0f172a}
+        .type-card small{display:block;color:#64748b;margin-top:4px;line-height:1.35}
+        .switch{position:relative;display:inline-block;width:52px;height:30px;flex:none}
+        .switch input{opacity:0;width:0;height:0}
+        .slider{position:absolute;cursor:pointer;inset:0;background:#d1d5db;transition:.2s;border-radius:999px}
+        .slider:before{position:absolute;content:"";height:22px;width:22px;left:4px;top:4px;background:white;transition:.2s;border-radius:50%}
+        .switch input:checked + .slider{background:var(--primary)}
+        .switch input:checked + .slider:before{transform:translateX(22px)}
+        .setup-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+        .input-group{border-radius:14px;padding:12px;border:1px solid #dbe4ee;background:#fff;box-shadow:0 3px 10px rgba(15,23,42,.03)}
+        .input-group b{display:block;color:#475569;font-size:.8rem;margin-bottom:8px}
+        input[type="text"]{letter-spacing:3px;font-size:1rem}
+        .action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+        .btn-soft{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #d6dbe2;background:#f8fafc;color:#0f172a;cursor:pointer;font-weight:600;font-family:'Source Sans Pro', sans-serif}
+        .btn-soft.blue{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+        .btn-soft.red{background:#fef2f2;border-color:#fecaca;color:#b91c1c}
+        .start-wrap{margin-top:12px}
+        .hint-box{margin-top:14px;padding:12px 14px;border:1px dashed #cbd5e1;border-radius:14px;background:#f8fafc;color:#64748b;font-size:.8rem;line-height:1.5}
+        @media (max-width:700px){.type-grid,.action-grid{grid-template-columns:1fr}}
+    </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body oncontextmenu="return false;">
+
+<div id="vip-popup" class="vip-popup-overlay">
+    <div class="vip-card">
+        <div class="vip-icon">👑</div>
+        <h2 style="margin:0; color:var(--accent);">SELAMAT DATANG</h2>
+        <p id="vip-user-name" style="font-weight:400; font-size:1.2rem; margin:10px 0;">USER VIP</p>
+        <p style="font-size:0.9rem; opacity:0.8;">Akses VIP telah diaktifkan untuk akun Anda.</p>
+        <button onclick="document.getElementById('vip-popup').style.display='none'" style="background:var(--accent); color:white; border:none; padding:10px 30px; border-radius:30px; font-weight:400; cursor:pointer; margin-top:10px; font-family: 'Source Sans Pro', sans-serif;">MENGERTI</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="header">
+        <h3 id="user-display" style="margin:0">MENGHUBUNGKAN...</h3>
+        <button class="btn-main" id="btn-main" onclick="window.goMain()">MAIN</button>
+        <button class="btn-logout" id="btn-logout" onclick="window.logout()">LOGOUT</button>
+    </div>
+
+    
+    <div id="screen-setup" class="screen active">
+        <div id="area-riwayat-khusus" class="menu-khusus">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:var(--accent); font-weight:400;"><i class="fas fa-crown"></i> DASHBOARD POP VIP</span>
+                <button onclick="window.location.href='vip.html'" style="background:var(--accent); color:white; border:none; padding:7px 20px; border-radius:20px; cursor:pointer; font-weight:400; box-shadow: 0 2px 5px rgba(0,0,0,0.2); font-family: 'Source Sans Pro', sans-serif;">MASUK VIP</button>
+            </div>
+        </div>
+
+        <div class="setup-card">
+            <div class="setup-head">
+                <div style="width:100%; text-align:center;">
+                    <h3 class="setup-title">PENGATURAN KOLOM</h3>
+                    <p id="setup-instruction" class="setup-sub">Atur jenis karakter yang dipakai, acak kolom, gunakan soal sebelumnya, atau isi manual.</p>
+                </div>
+            </div>
+
+            <div class="type-grid">
+                <div class="type-card">
+                    <div>
+                        <strong>Huruf</strong>
+                        <small>Masukkan huruf ke dalam kolom otomatis.</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="chk-huruf" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="type-card">
+                    <div>
+                        <strong>Angka</strong>
+                        <small>Campurkan angka ke susunan kolom.</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="chk-angka" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="type-card">
+                    <div>
+                        <strong>Simbol</strong>
+                        <small>Tambahkan simbol untuk variasi tes.</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="chk-simbol" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setup-grid" id="input-fields"></div>
+
+            <div class="action-grid">
+                <button id="btn-acak" onclick="autoFill()" class="btn-soft">ACAK SIMBOL</button>
+                <button id="btn-prev" onclick="window.bukaModalRiwayat()" class="btn-soft blue">GUNAKAN SOAL SEBELUMNYA</button>
+                <button id="btn-reset" onclick="window.resetKolom()" class="btn-soft red">RESET</button>
+            </div>
+
+            <div class="start-wrap">
+                <button id="btn-start" onclick="window.mulai()" style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:400; cursor:pointer; font-size:1.05rem; font-family: 'Source Sans Pro', sans-serif;">MULAI UJIAN</button>
+            </div>
+
+            <div class="hint-box">
+                Centang jenis karakter yang ingin dipakai lalu tekan <b>Acak Simbol</b>.
+                Kalau ingin memakai susunan dari riwayat simbol, tekan <b>Gunakan Soal Sebelumnya</b>. 
+                Tombol <b>Reset</b> akan mengosongkan semua kolom.
+            </div>
+        </div>
+    </div>
+
+
+    <div id="screen-game" class="screen">
+        <div class="stats-bar">
+            <div id="col-title" style="font-weight: 600; font-size: 1.2rem;">KOLOM 1</div>
+            <div class="timer" id="timer">60</div>
+        </div>
+        <div class="key-row" id="key-container"></div>
+        <div id="question">----</div>
+        <div class="ans-grid">
+            <button class="btn-ans" onclick="window.jawab(0)">A</button>
+            <button class="btn-ans" onclick="window.jawab(1)">B</button>
+            <button class="btn-ans" onclick="window.jawab(2)">C</button>
+            <button class="btn-ans" onclick="window.jawab(3)">D</button>
+            <button class="btn-ans" onclick="window.jawab(4)">E</button>
+        </div>
+    </div>
+
+    <div id="screen-result" class="screen">
+        <h3>HASIL PENILAIAN</h3>
+        <div class="final-score-box">
+            <h1 style="font-size: 4rem; margin:0;" id="res-total">0</h1>
+            <h2 id="res-predikat" style="margin:0; color:white; text-transform:uppercase; font-size: 1.5rem;">-</h2>
+            <div id="aspek-list" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;"></div>
+        </div>
+        <div style="height: 300px; margin: 20px 0;"><canvas id="taliChart"></canvas></div>
+        <div style="margin-top:20px; text-align: left;">
+            <h4 style="border-bottom: 2px solid #eee; padding-bottom: 5px;">RIWAYAT SKOR ANDA</h4>
+            <table id="user-history-table" style="width: 100%;">
+                <thead><tr style="background: #eee;"><th>Waktu</th><th>Skor</th></tr></thead>
+                <tbody id="history-body"></tbody>
+            </table>
+        </div>
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
+            <button class="btn-ans" style="background:#3498db; font-size:1rem; width:200px;" onclick="window.goMain()">KEMBALI KE MAIN</button>
+            <button class="btn-ans" style="background:var(--success); font-size:1rem; width:200px;" onclick="window.resetUjian()">UJIAN BARU</button>
+        </div>
+    </div>
+</div>
+
+<div id="popup-jeda" class="overlay-jeda">
+    <div style="background:white; padding:40px; border-radius:20px; text-align:center;">
+        <h2 style="margin:0;">KOLOM SELESAI</h2>
+        <div id="jeda-countdown" style="font-size: 6rem; font-weight: 600; color: var(--danger);">3</div>
+    </div>
+</div>
+
+<div id="modal-riwayat" class="modal-riwayat">
+    <div class="modal-content">
+        <h3 id="modal-title" style="margin-top:0; border-bottom: 2px solid #eee; padding-bottom: 10px;">GUNAKAN SOAL SEBELUMNYA</h3>
+        <div id="list-riwayat-simbol">Memuat soal sebelumnya...</div>
+        <button onclick="document.getElementById('modal-riwayat').style.display='none'" style="width:100%; margin-top:15px; padding:10px; font-family: 'Source Sans Pro', sans-serif;">TUTUP</button>
+    </div>
+</div>
+
+<div id="modal-detail-grafik" class="modal-riwayat">
+    <div class="modal-content" style="max-width: 550px; border-top: 8px solid #3498db;">
+        <h3 id="det-waktu" style="margin-top:0; color:#3498db; font-size:1rem;">DETAIL SESI</h3>
+        <div id="det-stats" style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:15px;"></div>
+        <div style="height: 250px; background: #fdfdfd; padding: 10px; border-radius: 10px; border: 1px solid #eee;">
+            <canvas id="chartDetailLama"></canvas>
+        </div>
+        <button onclick="document.getElementById('modal-detail-grafik').style.display='none'" style="width:100%; margin-top:15px; padding:12px; border:none; background:#eee; border-radius:8px; font-weight:400; cursor:pointer; font-family: 'Source Sans Pro', sans-serif;">KEMBALI</button>
+    </div>
+</div>
+
+<script src="result-utils.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, push, onValue, query, orderByChild, equalTo, limitToLast, set, remove, get, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = { 
+        apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw", 
+        authDomain: "simulasi-2b93b.firebaseapp.com", 
+        databaseURL: "https://simulasi-2b93b-default-rtdb.firebaseio.com", 
+        projectId: "simulasi-2b93b", 
+        appId: "1:562508858666:web:fa63f71ec175c675e64a53" 
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    let allKeys = [], currentCol = 0, b = 0, s = 0, stats = [], timerId, correctIdx = -1, isPaused = false, timeLeft = 60, isUjianAktif = false;
+    let dataSimbolRiwayat = [];
+    let chartDetailInstance = null;
+    let isCustomMode = false;
+    
+    const currentUserEmail = localStorage.getItem('pesertaEmail');
+    const localSession = localStorage.getItem('currentSession');
+    const userId = currentUserEmail ? currentUserEmail.replace(/[.@]/g, "_") : null;
+
+    const DAFTAR_AKUN_VIP = ["akmalfauzan@gmail.com", "admin@gmail.com"]; 
+
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function() { window.history.go(1); };
+
+    window.goMain = () => {
+        if(isUjianAktif){
+            const yakin = confirm("Ujian masih berjalan. Kembali ke menu POLRI?");
+            if(!yakin) return;
+        }
+        clearInterval(timerId);
+        window.location.href = "tryout_polri.html";
+    };
+
+    window.logout = () => {
+        if(confirm("Apakah Anda ingin Logout?")) {
+            clearInterval(timerId);
+            localStorage.clear();
+            window.location.replace("index.html");
+        }
+    };
+
+    function initSecurity() {
+        if (!userId) return;
+        onValue(ref(db, `user_sessions/${userId}`), (snap) => {
+            const sessionData = snap.val();
+            if (!sessionData || (sessionData.sessionId !== localSession)) {
+                forceLogout("Sesi Anda berakhir atau login di perangkat lain!");
+            }
+        });
+        onValue(ref(db, `users/${userId}`), (snap) => {
+            const data = snap.val();
+            if (!data) {
+                forceLogout("Akun Anda telah dihapus oleh Admin!");
+                return;
+            }
+            if (data.status === "nonaktif") {
+                forceLogout("Akun Anda dinonaktifkan oleh Admin!");
+                return;
+            }
+            if(data.custom_mode === true && data.custom_rules && data.custom_rules.kolom) {
+                isCustomMode = true;
+                applyCustomFromAdmin(data.custom_rules.kolom);
+            } else {
+                isCustomMode = false;
+                resetCustomUI();
+            }
+            if (data.status === "vip" || DAFTAR_AKUN_VIP.includes(currentUserEmail)) {
+                document.getElementById('area-riwayat-khusus').style.display = 'block';
+                if (!sessionStorage.getItem('vip_popup_shown')) {
+                    document.getElementById('vip-user-name').innerText = currentUserEmail.split('@')[0].toUpperCase();
+                    document.getElementById('vip-popup').style.display = 'flex';
+                    sessionStorage.setItem('vip_popup_shown', 'true');
+                }
+            }
+        });
+    }
+
+    function applyCustomFromAdmin(kolomData) {
+        const btnStart = document.getElementById('btn-start');
+        btnStart.classList.add('btn-mulai-custom');
+        btnStart.innerText = "MULAI UJIAN (CUSTOM AKTIF)";
+        document.getElementById('setup-instruction').innerHTML = "<b style='color:var(--success)'>MODE CUSTOM AKTIF!</b>";
+        for(let i=0; i<10; i++) {
+            const el = document.getElementById(`in-${i}`);
+            if(el) {
+                el.value = kolomData['k'+(i+1)];
+                el.readOnly = true;
+                el.parentElement.style.borderColor = "var(--success)";
+            }
+        }
+    }
+
+    function resetCustomUI() {
+        const btnStart = document.getElementById('btn-start');
+        btnStart.classList.remove('btn-mulai-custom');
+        btnStart.innerText = "MULAI UJIAN";
+        for(let i=0; i<10; i++) {
+            const el = document.getElementById(`in-${i}`);
+            if(el) { el.readOnly = false; el.parentElement.style.borderColor = "#ddd"; }
+        }
+    }
+
+    function forceLogout(msg) {
+        alert(msg || "Sesi berakhir.");
+        clearInterval(timerId);
+        if(userId) remove(ref(db, 'temp_progress/' + userId));
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.replace("index.html");
+    }
+
+    if (!currentUserEmail || !localSession) {
+        window.location.replace("index.html");
+    } else {
+        document.getElementById('user-display').innerText = "PESERTA: " + currentUserEmail.split('@')[0].toUpperCase();
+        initSecurity();
+        loadUserHistory();
+        setTimeout(checkProgress, 1000); 
+    }
+
+    const inputArea = document.getElementById('input-fields');
+    for(let i=0; i<10; i++) {
+        inputArea.innerHTML += `<div class="input-group" id="g-${i}"><b>K${i+1}</b> <input type="text" id="in-${i}" maxlength="5" placeholder="ISI KOLOM"> <div class="error-msg">5 Karakter Unik!</div></div>`;
+    }
+
+    function validate(input, group) {
+        const val = input.value.toUpperCase();
+        const isDuplicate = new Set(val).size !== val.length;
+        if (isDuplicate || val.length < 5) { group.classList.add('error'); return false; }
+        group.classList.remove('error'); return true;
+    }
+
+    
+window.autoFill = () => {
+        if(isCustomMode) return alert("Mode Custom Aktif!");
+        const useHuruf = document.getElementById('chk-huruf')?.checked;
+        const useAngka = document.getElementById('chk-angka')?.checked;
+        const useSimbol = document.getElementById('chk-simbol')?.checked;
+
+        let pool = "";
+        if (useHuruf) pool += "ABCDEFGHJKLMNPQRSTUVWXYZ";
+        if (useAngka) pool += "23456789";
+        if (useSimbol) pool += "@#$%&*?!";
+
+        if (!pool) {
+            alert("Centang minimal satu jenis karakter dulu.");
+            return;
+        }
+
+        for(let i=0; i<10; i++) {
+            let chunk = Array.from(new Set(pool.split('').sort(() => Math.random() - 0.5))).slice(0, 5).join("");
+            while (chunk.length < 5) {
+                const chars = pool.split('').sort(() => Math.random() - 0.5);
+                chunk = Array.from(new Set((chunk + chars.join('')).split(''))).slice(0, 5).join('');
+            }
+            const el = document.getElementById(`in-${i}`);
+            el.value = chunk;
+            validate(el, document.getElementById(`g-${i}`));
+        }
+    };
+
+    function saveProgress(status) { 
+        if (!userId) return;
+        set(ref(db, 'temp_progress/' + userId), {
+            allKeys, stats, currentCol, status, timeLeft, currentB: b, currentS: s, lastUpdated: Date.now(), email: currentUserEmail
+        });
+    }
+
+    function checkProgress() {
+        if (!userId) return;
+        get(ref(db, 'temp_progress/' + userId)).then((snap) => {
+            const saved = snap.val();
+            if (saved && saved.status === 'running') {
+                allKeys = saved.allKeys; stats = saved.stats || []; currentCol = saved.currentCol; timeLeft = saved.timeLeft;
+                b = saved.currentB || 0; s = saved.currentS || 0;
+                allKeys.forEach((sArray, i) => { 
+                    const inp = document.getElementById(`in-${i}`);
+                    if(inp) inp.value = Array.isArray(sArray) ? sArray.join('') : sArray; 
+                });
+                isUjianAktif = true; showS('screen-game'); run(true);
+            }
+        });
+    }
+
+    window.bukaModalRiwayat = () => {
+        if(isCustomMode) return alert("Mode Custom Aktif!");
+        const modal = document.getElementById('modal-riwayat');
+        const list = document.getElementById('list-riwayat-simbol');
+        modal.style.display = 'flex'; list.innerHTML = "Memuat soal sebelumnya...";
+        const q = query(ref(db, 'rekap_skor'), orderByChild('nama'), equalTo(currentUserEmail), limitToLast(15));
+        onValue(q, (snap) => {
+            let html = ""; dataSimbolRiwayat = []; let records = [];
+            snap.forEach(child => { records.push(child.val()); });
+            records.reverse().forEach((val, counter) => {
+                if(val.kunci_kolom) {
+                    dataSimbolRiwayat[counter] = val.kunci_kolom;
+                    html += `<div class="row-simbol"><div style="display:flex; justify-content:space-between; align-items:center;"><div><b>${val.waktu}</b><br><small style="color:var(--success)">Skor: ${val.skor}</small></div><div style="display:flex; gap:5px;"><button class="btn-pilih" style="background:#3498db" onclick='window.lihatDetailGrafik(${JSON.stringify(val)})'>📊</button><button class="btn-pilih" onclick="window.terapkanSimbolRiwayat(${counter})">Gunakan</button></div></div></div>`;
+                }
+            });
+            list.innerHTML = html || "Belum ada soal sebelumnya.";
+        }, { onlyOnce: true });
+    };
+
+    window.terapkanSimbolRiwayat = (index) => {
+        const simbols = dataSimbolRiwayat[index];
+        simbols.forEach((s, i) => {
+            const inp = document.getElementById(`in-${i}`);
+            const val = Array.isArray(s) ? s.join('') : s;
+            if(inp) { inp.value = val; validate(inp, document.getElementById(`g-${i}`)); }
+        });
+        document.getElementById('modal-riwayat').style.display = 'none';
+    };
+
+    window.gunakanSoalSebelumnya = async () => {
+        if(isCustomMode) return alert("Mode Custom Aktif!");
+        const q = query(ref(db, 'rekap_skor'), orderByChild('nama'), equalTo(currentUserEmail), limitToLast(15));
+        const snap = await get(q);
+        let kandidat = [];
+        snap.forEach(child => { kandidat.push(child.val()); });
+        kandidat = kandidat.filter(item => Array.isArray(item.kunci_kolom) && item.kunci_kolom.length);
+        if (!kandidat.length) {
+            alert("Belum ada soal sebelumnya yang bisa dipakai dari riwayat simbol.");
+            return;
+        }
+        const terakhir = kandidat[kandidat.length - 1];
+        terakhir.kunci_kolom.forEach((s, i) => {
+            const inp = document.getElementById(`in-${i}`);
+            const val = Array.isArray(s) ? s.join('') : String(s || '');
+            if(inp) {
+                inp.value = val.toUpperCase();
+                validate(inp, document.getElementById(`g-${i}`));
+            }
+        });
+    };
+
+    window.resetKolom = () => {
+        if(isCustomMode) return alert("Mode Custom Aktif!");
+        for(let i=0; i<10; i++) {
+            const el = document.getElementById(`in-${i}`);
+            const group = document.getElementById(`g-${i}`);
+            if(el) el.value = "";
+            if(group) group.classList.remove('error');
+        }
+    };
+
+
+    window.mulai = () => {
+        allKeys = []; let valid = true;
+        for(let i=0; i<10; i++) {
+            const el = document.getElementById(`in-${i}`);
+            if(!validate(el, document.getElementById(`g-${i}`))) valid = false;
+            allKeys.push(el.value.toUpperCase().split(''));
+        }
+        if(!valid) { alert("Perbaiki kolom!"); return; }
+        currentCol = 0; stats = []; timeLeft = 60; b = 0; s = 0; isUjianAktif = true;
+        saveProgress('running'); showS('screen-game'); run();
+    };
+
+    function run(isResume = false) {
+        isPaused = false; 
+        if (!isResume) { timeLeft = 60; b = 0; s = 0; }
+        document.getElementById('col-title').innerText = `KOLOM ${currentCol + 1}`;
+        let h = "";
+        allKeys[currentCol].forEach((k, i) => {
+            h += `<div class="key-box"><div class="key-h">${['A','B','C','D','E'][i]}</div><div class="key-v">${k}</div></div>`;
+        });
+        document.getElementById('key-container').innerHTML = h;
+        makeQ(); startT();
+    }
+
+    function makeQ() {
+        correctIdx = Math.floor(Math.random() * 5);
+        let qArray = allKeys[currentCol].filter((_, i) => i !== correctIdx).sort(() => Math.random() - 0.5);
+        document.getElementById('question').innerText = qArray.join('');
+    }
+
+    window.jawab = (idx) => { 
+        if(!isPaused && isUjianAktif) { (idx === correctIdx) ? b++ : s++; makeQ(); saveProgress('running'); } 
+    };
+
+    function startT() {
+        document.getElementById('timer').innerText = timeLeft;
+        clearInterval(timerId);
+        timerId = setInterval(() => {
+            if(!isPaused) {
+                timeLeft--; 
+                document.getElementById('timer').innerText = timeLeft;
+                if(userId) {
+                    update(ref(db, 'temp_progress/' + userId), { timeLeft: timeLeft });
+                }
+                if(timeLeft % 3 === 0) saveProgress('running'); 
+                if(timeLeft <= 0) {
+                    clearInterval(timerId); isPaused = true;
+                    stats.push({ col: currentCol + 1, b: b, s: s });
+                    currentCol++; currentCol < 10 ? tampilkanJeda() : finish();
+                }
+            }
+        }, 1000);
+    }
+
+    function tampilkanJeda() {
+        document.getElementById('popup-jeda').style.display = 'flex';
+        let sisa = 3;
+        const intJ = setInterval(() => {
+            sisa--; document.getElementById('jeda-countdown').innerText = sisa;
+            if(sisa <= 0) { clearInterval(intJ); document.getElementById('popup-jeda').style.display = 'none'; run(); }
+        }, 1000);
+    }
+
+    function finish() {
+        isUjianAktif = false;
+        showS('screen-result');
+        const bList = stats.map(d => d.b), sList = stats.map(d => d.s);
+        const totB = bList.reduce((a,x) => a+x, 0), totS = sList.reduce((a,x) => a+x, 0), totT = totB + totS;
+        let panker = totT / 10; 
+        let tianker = totT > 0 ? (totB / totT) * 100 : 0; 
+        let trendScore = 0;
+        for(let i=1; i<10; i++) {
+            if(bList[i] >= bList[i-1]) trendScore += 4;
+            if(bList[i] > bList[i-1]) trendScore += 2;
+        }
+        let spike56 = bList[5] - bList[4];
+        let adaptasiBonus = 0;
+        if(spike56 > 3) adaptasiBonus = spike56 * 2.5;
+        let hanker = (bList[7] + bList[8] + bList[9]) / 3 * 2;
+        let rawFinal = (panker * 0.2) + (tianker * 0.3) + (trendScore * 0.25) + (adaptasiBonus * 0.1) + (hanker * 0.15);
+        let final = Math.min(rawFinal + 5, 100); 
+        let predikat = "KURANG";
+        if (final >= 80) predikat = "SANGAT BAIK";
+        else if (final >= 72) predikat = "BAIK";
+        else if (final >= 65) predikat = "CUKUP";
+        document.getElementById('res-total').innerText = final.toFixed(1);
+        document.getElementById('res-predikat').innerText = predikat;
+        document.getElementById('aspek-list').innerHTML = `
+            <div style="background:#eee;padding:5px;border-radius:5px">Kecepatan: ${panker.toFixed(1)}</div>
+            <div style="background:#eee;padding:5px;border-radius:5px">Ketelitian: ${tianker.toFixed(1)}%</div>
+            <div style="background:#eee;padding:5px;border-radius:5px">Adaptasi: ${Math.min(100, (trendScore + adaptasiBonus)).toFixed(1)}</div>
+            <div style="background:#eee;padding:5px;border-radius:5px">Ketahanan: ${Math.min(hanker,100).toFixed(1)}</div>`;
+
+        new Chart(document.getElementById('taliChart'), {
+            type: 'line',
+            data: {
+                labels: stats.map(d => "K" + d.col),
+                datasets: [
+                    { label: 'Benar', data: bList, borderColor: '#27ae60', tension: 0.4, fill: true, backgroundColor: 'rgba(39,174,96,0.1)' },
+                    { label: 'Salah', data: sList, borderColor: '#e74c3c', tension: 0.4, fill: false, borderDash: [5, 5] }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        const reviewItems = stats.map((item, idx) => ({
+            section: 'kecermatan',
+            sectionLabel: 'Kecermatan',
+            number: idx + 1,
+            type: 'column_summary',
+            text: `Kolom ${idx + 1}`,
+            options: {},
+            images: [],
+            user_answer: { benar: item.b, salah: item.s },
+            user_answer_text: `Benar ${item.b} | Salah ${item.s}`,
+            correct_answer: allKeys[idx] || [],
+            correct_answer_text: Array.isArray(allKeys[idx]) ? allKeys[idx].join('') : '-',
+            status: 'ringkasan',
+            is_correct: null,
+            points_earned: Number(item.b || 0),
+            max_points: null
+        }));
+        const payload = window.resultUtils.createExamResultPayload({
+            email: currentUserEmail || '',
+            nama: currentUserEmail || 'Peserta',
+            userId,
+            session: localStorage.getItem('currentSession') || null,
+            userStatus: localStorage.getItem('userStatus') || null,
+            examType: 'CERMAT',
+            examName: 'Kecermatan',
+            examFile: 'kecermatan.html',
+            packageCode: 'CERMAT_MAIN',
+            score: parseFloat(final.toFixed(1)),
+            predikat: predikat,
+            totalQuestions: stats.length,
+            answered: stats.length,
+            reviewItems,
+            analytics: {
+                pola_benar: bList,
+                pola_salah: sList,
+                detail_benar: bList,
+                detail_salah: sList,
+                kunci_kolom: allKeys,
+                simbol: allKeys,
+                kecepatan: Number(panker.toFixed(1)),
+                ketelitian: Number(tianker.toFixed(1)),
+                adaptasi: Number(Math.min(100, trendScore + adaptasiBonus).toFixed(1)),
+                ketahanan: Number(Math.min(hanker,100).toFixed(1))
+            },
+            waktu: new Date().toLocaleTimeString('id-ID') + " " + new Date().toLocaleDateString('id-ID'),
+            submittedAtISO: new Date().toISOString(),
+            timestamp: Date.now()
+        });
+        push(ref(db, 'rekap_skor'), payload);
+        remove(ref(db, 'temp_progress/' + userId));
+    }
+
+    window.resetUjian = () => { location.reload(); };
+    function showS(id) { 
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); 
+        document.getElementById(id).classList.add('active'); 
+    }
+    window.addEventListener('keydown', (e) => { 
+        const m = {'a':0,'b':1,'c':2,'d':3,'e':4}; 
+        if(m[e.key.toLowerCase()] !== undefined) window.jawab(m[e.key.toLowerCase()]); 
+    });
+
+    window.lihatDetailGrafik = (data) => {
+        document.getElementById('modal-detail-grafik').style.display = 'flex';
+        document.getElementById('det-waktu').innerText = "SESI: " + data.waktu;
+        document.getElementById('det-stats').innerHTML = `
+            <div style="background:#e3f2fd; padding:5px; border-radius:5px; text-align:center;"><small>Kecepatan</small><br><b>${data.kecepatan || 0}</b></div>
+            <div style="background:#e8f5e9; padding:5px; border-radius:5px; text-align:center;"><small>Ketelitian</small><br><b>${data.ketelitian || 0}%</b></div>
+            <div style="background:#fff3e0; padding:5px; border-radius:5px; text-align:center;"><small>Adaptasi</small><br><b>${data.adaptasi || 0}</b></div>
+            <div style="background:#fce4ec; padding:5px; border-radius:5px; text-align:center;"><small>Ketahanan</small><br><b>${data.ketahanan || 0}</b></div>`;
+        const ctx = document.getElementById('chartDetailLama').getContext('2d');
+        if (chartDetailInstance) chartDetailInstance.destroy();
+        chartDetailInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["K1","K2","K3","K4","K5","K6","K7","K8","K9","K10"],
+                datasets: [
+                    { label: 'Benar', data: data.pola_benar, borderColor: '#27ae60', fill: true, tension: 0.3, backgroundColor: 'rgba(39,174,96,0.1)' },
+                    { label: 'Salah', data: data.pola_salah, borderColor: '#e74c3c', borderDash: [5,5], tension: 0.3 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    };
+
+    function loadUserHistory() {
+        const q = query(ref(db, 'rekap_skor'), orderByChild('nama'), equalTo(currentUserEmail), limitToLast(10));
+        onValue(q, (snap) => {
+            let res = []; snap.forEach(c => { res.push(c.val()); });
+            document.getElementById('history-body').innerHTML = res.reverse().map(item => 
+                `<tr><td><small>${item.waktu}</small></td><td>${item.skor}</td></tr>`).join('');
+        });
+    }
+</script>
+</body>
+</html>

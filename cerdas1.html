@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paket Cerdas 1 - JAGOPSI</title>
+<style>
+:root{--primary:#0f172a;--danger:#dc2626;--success:#16a34a;--info:#2563eb;--bg:#f8fafc;--muted:#64748b;--warning:#f59e0b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:'Segoe UI',Arial,sans-serif;color:#0f172a}
+.topbar{position:sticky;top:0;z-index:10;background:linear-gradient(90deg,#0f172a,#1e293b);color:#fff;padding:14px 18px}
+.topbar-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top-timer{background:#fff;color:#991b1b;border-radius:12px;padding:10px 14px;font-weight:700}
+.wrap{max-width:1180px;margin:20px auto;padding:0 16px}.grid{display:grid;grid-template-columns:1.6fr .95fr;gap:18px}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 24px rgba(15,23,42,.08);border:1px solid #e2e8f0}
+.badge{display:inline-block;padding:6px 12px;border-radius:999px;background:#fff7ed;color:#9a3412;font-weight:700;font-size:.8rem;margin-bottom:10px}.badge-blue{background:#eff6ff;color:#1d4ed8}
+.hidden{display:none!important}.option-box{border:1px solid #ddd;padding:12px 14px;border-radius:12px;margin-bottom:10px;cursor:pointer;background:#fff;transition:.15s}.option-box:hover{border-color:#93c5fd;transform:translateY(-1px)}.option-box.selected{background:#dc2626;color:#fff;border-color:#b91c1c}.option-box.partial{background:#fff7ed;border-color:#f59e0b;color:#9a3412}.number-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.num-btn{min-height:42px;border:1px solid #cbd5e1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;background:#fff;cursor:pointer}.num-btn.active{border:2px solid var(--info);color:var(--info)}.num-btn.answered{background:var(--success);color:#fff;border-color:var(--success)}.num-btn.partial{background:#fff7ed;color:#9a3412;border-color:#f59e0b}.controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px}button,.btn{border:none;border-radius:12px;padding:12px 16px;font-family:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--info);color:#fff}.btn-outline{background:#fff;color:#334155;border:1px solid #cbd5e1}.btn-danger{background:var(--danger);color:#fff}.btn-success{background:var(--success);color:#fff}.btn-warning{background:#f59e0b;color:#fff}.qtitle{font-size:1.08rem;font-weight:700;line-height:1.7;margin-bottom:16px}.qnum{font-size:.95rem;color:#64748b;margin-bottom:6px}.center-screen{max-width:960px;margin:40px auto}.stage-line{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.stage-pill{padding:8px 12px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:700;font-size:.82rem}.img-fluid-custom{max-width:100%;height:auto;border-radius:8px;border:1px solid #ddd;background:#fff;margin-bottom:12px}.small-muted{color:#64748b;font-size:.92rem}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.stat-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:16px}.stat-card h4{margin:0 0 8px;font-size:.9rem;color:#475569}.stat-value{font-size:1.55rem;font-weight:800}.review-list{display:grid;gap:12px;margin-top:18px}.review-item{border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff}.review-option{padding:9px 11px;border-radius:10px;margin-bottom:8px;border:1px solid #e5e7eb;background:#fafafa}.review-option.correct{background:#dcfce7;border-color:#16a34a;color:#166534;font-weight:700}.review-option.picked-wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b;font-weight:700}.review-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}.pill-ok,.pill-no,.pill-empty{display:inline-flex;padding:8px 12px;border-radius:999px;font-weight:700;font-size:.82rem}.pill-ok{background:#dcfce7;color:#166534}.pill-no{background:#fee2e2;color:#991b1b}.pill-empty{background:#fef3c7;color:#92400e}@media (max-width:900px){.grid{grid-template-columns:1fr}.number-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <h1 style="margin:0;font-size:1.05rem;font-weight:700">KECERDASAN PAKET 1</h1>
+      <div id="userLine" style="font-size:.9rem;color:#cbd5e1">Memuat akun...</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div class="top-timer" id="globalTimer">--:--:--</div>
+      <button class="btn-danger" type="button" id="logoutBtn">Keluar</button>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <div id="screen-loading" class="center-screen card">
+    <div class="badge">MEMUAT</div>
+    <h2 style="margin-top:0">Menyiapkan try out...</h2>
+    <p class="small-muted">Sistem sedang menyiapkan soal dan sesi ujianmu.</p>
+  </div>
+  <div id="screen-main" class="center-screen card hidden">
+    <div class="badge" id="introBadge">TRY OUT</div>
+    <h2 style="margin-top:0" id="introTitle">Template Soal</h2>
+    <p class="small-muted" id="introText"></p>
+    <div class="stage-line"><div class="stage-pill" id="stagePill">Ujian</div></div>
+    <div class="stats-grid" style="margin-top:18px">
+      <div class="stat-card"><h4>Total Soal</h4><div class="stat-value" id="statTotal">0</div></div>
+      <div class="stat-card"><h4>Waktu</h4><div class="stat-value" id="statTime">0 Menit</div></div>
+      <div class="stat-card"><h4>Mode</h4><div class="stat-value" id="statMode">Single</div></div>
+    </div>
+    <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+      <button type="button" class="btn btn-primary" id="startMainBtn">Mulai</button>
+      <a href="tryout_polri.html" class="btn btn-outline">Kembali</a>
+    </div>
+  </div>
+  <div id="screen-section" class="hidden">
+    <div class="grid">
+      <div class="card">
+        <div class="badge badge-blue" id="sectionBadge">UJIAN</div>
+        <div class="qnum" id="sectionQno"></div>
+        <div class="qtitle" id="sectionQtext"></div>
+        <div id="sectionQImages"></div>
+        <div id="sectionOptions"></div>
+        <div class="controls">
+          <button type="button" class="btn btn-outline" id="prevBtn">Sebelumnya</button>
+          <button type="button" class="btn btn-primary" id="nextBtn">Selanjutnya</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Navigasi</h3>
+        <div class="small-muted" id="sectionHelp">Klik jawaban untuk menyimpan.</div>
+        <div style="margin:10px 0 14px;display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge badge-blue" id="categoryBadge">Materi</span>
+          <span class="badge" id="typeBadge">Single</span>
+        </div>
+        <div class="number-grid" id="numberGrid"></div>
+        <hr>
+        <button type="button" class="btn btn-danger" id="finishSectionBtn">Selesaikan Try Out</button>
+      </div>
+    </div>
+  </div>
+  <div id="screen-result" class="center-screen hidden">
+    <div id="resultHost"></div>
+  </div>
+</div>
+<script src="result-utils.js"></script>
+<script>
+window.__SOAL_TEMPLATE_CONFIG = {"title":"Paket Cerdas 1 - JAGOPSI","examType":"CERDAS","examName":"Kecerdasan Paket 1","examFile":"cerdas1.html","packageCode":"CERDAS_1","sectionLabel":"Kecerdasan","introTitle":"Template Kecerdasan","introText":"Semua halaman tes non-kecermatan kini menggunakan format yang seragam seperti soal.html.","durationMinutes":90,"scoringMode":"correct","sessionSize":100,"randomBank":false,"requireLogin":true,"requireVIP":true,"vipMessage":"Kecerdasan Paket 1 hanya untuk akun VIP.","storageKey":"cerdas1_fixed_session_v2","backUrl":"kecerdasan_list.html"};
+window.__SOAL_TEMPLATE_QUESTIONS = [
+  {
+    "number": 1,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Kopasus",
+      "B": "Densus 88",
+      "C": "Kopaska",
+      "D": "Kopaska",
+      "E": "Yontaifib"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 2,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Sederhana",
+      "B": "Hemat",
+      "C": "Boros",
+      "D": "Biasa",
+      "E": "Umum"
+    },
+    "answer": "BC"
+  },
+  {
+    "number": 3,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Defleksi",
+      "B": "Pencarian",
+      "C": "Penyimpangan",
+      "D": "Penggandaan",
+      "E": "Pengurangan"
+    },
+    "answer": "AC"
+  },
+  {
+    "number": 4,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Barometer",
+      "B": "Hubungan",
+      "C": "Ukuran",
+      "D": "Berat",
+      "E": "Acuan"
+    },
+    "answer": "CE"
+  },
+  {
+    "number": 5,
+    "type": "single",
+    "text": "1 abad – 8 windu + 4 semester = …",
+    "options": {
+      "A": "42 tahun",
+      "B": "18 tahun",
+      "C": "21 tahun",
+      "D": "38 tahun",
+      "E": "40 tahun"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 6,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Pulau Dana",
+      "B": "Pulau Tokongboro",
+      "C": "Pulau Ariaga",
+      "D": "Pulau Tabo",
+      "E": "Pulau Simping"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 7,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "20",
+      "B": "18",
+      "C": "17",
+      "D": "15",
+      "E": "12"
+    },
+    "answer": "A",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281498.png"
+    ]
+  },
+  {
+    "number": 8,
+    "type": "single",
+    "text": "Seekor kancil bisa berlari dengan kecepatan 80 km/jam. Berapa menit yang diperlukan kancil untuk menempuh jarak 8 km?",
+    "options": {
+      "A": "9 menit",
+      "B": "8 menit",
+      "C": "7 menit",
+      "D": "6 menit",
+      "E": "5 menit"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 9,
+    "type": "single",
+    "text": "198 - 32 : 8 x 5 = ...",
+    "options": {
+      "A": "178",
+      "B": "168",
+      "C": "144",
+      "D": "196",
+      "E": "210"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 10,
+    "type": "single",
+    "text": "4 minggu + 14 hari – 1 bulan = ….",
+    "options": {
+      "A": "2 minggu",
+      "B": "15 hari",
+      "C": "20 hari",
+      "D": "15 minggu",
+      "E": "3 minggu"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 11,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Kemangi",
+      "B": "Salam",
+      "C": "Jahe",
+      "D": "Kunyit",
+      "E": "Seledri"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 12,
+    "type": "single",
+    "text": "12 kodi + 3 lusin – 1 gross =...",
+    "options": {
+      "A": "124",
+      "B": "115",
+      "C": "32",
+      "D": "156",
+      "E": "164"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 13,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "SMAN Harapan 1",
+      "B": "Lapangan",
+      "C": "Terminal Bus",
+      "D": "Rumah Dika",
+      "E": "Rumah Deni"
+    },
+    "answer": "A",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281541.png"
+    ]
+  },
+  {
+    "number": 14,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Absolut",
+      "B": "Positif",
+      "C": "Abnormal",
+      "D": "Keras",
+      "E": "Mutlak"
+    },
+    "answer": "AE"
+  },
+  {
+    "number": 15,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Hotel",
+      "B": "Guesthouse",
+      "C": "Resort",
+      "D": "Villa",
+      "E": "Tenda"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 16,
+    "type": "multi",
+    "text": "Kayu : …. = … : Tambang",
+    "options": {
+      "A": "Batang",
+      "B": "Emas",
+      "C": "Eskavator",
+      "D": "Gergaji",
+      "E": "Pohon"
+    },
+    "answer": "BD"
+  },
+  {
+    "number": 17,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Banyak",
+      "B": "Sama",
+      "C": "Satu",
+      "D": "Berbeda",
+      "E": "Penuh"
+    },
+    "answer": "BD"
+  },
+  {
+    "number": 18,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "Rumah Bayu",
+      "B": "Masjid",
+      "C": "Rumah Bagas",
+      "D": "SD Brian Jaya",
+      "E": "Lapangan"
+    },
+    "answer": "B",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281544.png"
+    ]
+  },
+  {
+    "number": 19,
+    "type": "multi",
+    "text": "….. : Orkestra = Sutradara : ….",
+    "options": {
+      "A": "Penyair",
+      "B": "Lagu",
+      "C": "Konduktor",
+      "D": "Film",
+      "E": "Komedi"
+    },
+    "answer": "CD"
+  },
+  {
+    "number": 20,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Acap",
+      "B": "Jarang",
+      "C": "Besok",
+      "D": "Tadi",
+      "E": "Kapan"
+    },
+    "answer": "BE"
+  },
+  {
+    "number": 21,
+    "type": "single",
+    "text": "Semua pelapor kasus memberikan identitas lengkap. Beberapa pelapor kasus adalah korban pencurian. Tidak ada korban pencurian yang tidak memberikan identitas lengkap. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Semua korban pencurian adalah pelapor",
+      "B": "Tidak ada pelapor kasus yang korban pencurian",
+      "C": "Beberapa pelapor kasus bukan korban pencurian",
+      "D": "Beberapa korban pencurian memberikan identitas lengkap",
+      "E": "Semua pelapor kasus korban pencurian"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 22,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Deduksi",
+      "B": "Induksi",
+      "C": "Konduksi",
+      "D": "Reduksi",
+      "E": "Intuisi"
+    },
+    "answer": "AE"
+  },
+  {
+    "number": 23,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Akuntan",
+      "B": "Doktor",
+      "C": "Perawat",
+      "D": "Tentara",
+      "E": "Pilot"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 24,
+    "type": "multi",
+    "text": "Lebah : …. = ….. : Bulu",
+    "options": {
+      "A": "Cenderawasih",
+      "B": "Unta",
+      "C": "Madu",
+      "D": "Sapi",
+      "E": "Susu"
+    },
+    "answer": "BC"
+  },
+  {
+    "number": 25,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "SD Berlian Jaya",
+      "B": "Rumah Sari",
+      "C": "Balai Desa",
+      "D": "Masjid",
+      "E": "Rumah Bagas"
+    },
+    "answer": "B",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281542.png"
+    ]
+  },
+  {
+    "number": 26,
+    "type": "single",
+    "text": "Tidak ada pelanggar lalu lintas yang patuh pada aturan. Semua pengendara ugal-ugalan adalah pelanggar lalu lintas. Beberapa pengendara motor bukan pelanggar lalu lintas. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Semua pengendara motor ugal-ugalan",
+      "B": "Semua pengendara ugal-ugalan tidak patuh aturan",
+      "C": "Tidak ada pengendara motor yang patuh aturan",
+      "D": "Beberapa pengendara motor tidak patuh aturan",
+      "E": "Semua pelanggar lalu lintas adalah pengendara motor"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 27,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "2 – 4 – 3 – 1",
+      "B": "3 – 2 – 4 – 1",
+      "C": "2 – 4 – 1 – 3",
+      "D": "1 – 2 – 4 – 3",
+      "E": "3 – 2 – 1 – 4"
+    },
+    "answer": "A",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281534.png"
+    ]
+  },
+  {
+    "number": 28,
+    "type": "single",
+    "text": "Ibu dapat membuat 50 kue dalam waktu 20 menit. Berapa menit yang dibutuhkan ibu untuk membuat 35 kue?",
+    "options": {
+      "A": "14 menit",
+      "B": "15 menit",
+      "C": "18 menit",
+      "D": "20 menit",
+      "E": "24 menit"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 29,
+    "type": "single",
+    "text": "Ada lima buah balon dengan warna dan ukuran berbeda. Balon biru lebih besar daripada balon kuning. Balon ungu lebih kecil daripada balon putih. Balon kuning lebih besar daripada balon putih. Balon hijau lebih besar daripada balon kuning, tetapi lebih kecil satu balon lainnya. Balon yang paling besar berwarna …",
+    "options": {
+      "A": "Hijau",
+      "B": "Biru",
+      "C": "Kuning",
+      "D": "Ungu",
+      "E": "Putih"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 30,
+    "type": "single",
+    "text": "150.000 + 87.500 – 13.925 =…",
+    "options": {
+      "A": "189,775",
+      "B": "225,475",
+      "C": "223,575",
+      "D": "210,375",
+      "E": "209,375"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 31,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "2-1-3-4",
+      "B": "1-2-4-3",
+      "C": "3-4-2-1",
+      "D": "3-1-4-2",
+      "E": "1-3-4-2"
+    },
+    "answer": "D",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281538.png"
+    ]
+  },
+  {
+    "number": 32,
+    "type": "single",
+    "text": "2 kuintal – 89 kg – 400 hg = …",
+    "options": {
+      "A": "67",
+      "B": "52",
+      "C": "26",
+      "D": "71",
+      "E": "56"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 33,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "4",
+      "E": "5"
+    },
+    "answer": "B",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281547.png"
+    ]
+  },
+  {
+    "number": 34,
+    "type": "single",
+    "text": "Berapa nilai 6% dari 125?",
+    "options": {
+      "A": "750",
+      "B": "75",
+      "C": "7.5",
+      "D": "65",
+      "E": "30"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 35,
+    "type": "multi",
+    "text": "…. : Beras = Tape : ….",
+    "options": {
+      "A": "Padi",
+      "B": "Singkong",
+      "C": "Tape",
+      "D": "Ubi",
+      "E": "Jalar"
+    },
+    "answer": "AB"
+  },
+  {
+    "number": 36,
+    "type": "single",
+    "text": "Semua anggota patroli menggunakan seragam resmi. Beberapa anggota patroli bertugas di malam hari. Tidak ada petugas malam hari yang tanpa perlengkapan lengkap. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Semua anggota patroli bertugas malam hari",
+      "B": "Beberapa anggota patroli menggunakan perlengkapan lengkap",
+      "C": "Semua petugas malam hari menggunakan seragam resmi",
+      "D": "Tidak ada anggota patroli yang bertugas malam hari",
+      "E": "Semua yang bertugas malam hari adalah anggota patroli"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 37,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Terkenal",
+      "B": "Cendekia",
+      "C": "Spesialis",
+      "D": "Bodoh",
+      "E": "Acuh"
+    },
+    "answer": "DE"
+  },
+  {
+    "number": 38,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Adaptasi",
+      "B": "Kesepakatan",
+      "C": "Keadaan",
+      "D": "Penggabungan",
+      "E": "Penyesuaian"
+    },
+    "answer": "AE"
+  },
+  {
+    "number": 39,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": "",
+      "E": ""
+    },
+    "answer": "E",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281531.png"
+    ],
+    "optionImages": {
+      "A": "https://cat.tarunamandala.com/upload/soal/J1TMQS281531.png",
+      "B": "https://cat.tarunamandala.com/upload/soal/J2TMQS281531.png",
+      "C": "https://cat.tarunamandala.com/upload/soal/J3TMQS281531.png",
+      "D": "https://cat.tarunamandala.com/upload/soal/J4TMQS281531.png",
+      "E": "https://cat.tarunamandala.com/upload/soal/J5TMQS281531.png"
+    }
+  },
+  {
+    "number": 40,
+    "type": "single",
+    "text": "Ibu membeli 50 buah kue seharga RP 100.000,00. Kue tersebut habis terjual dan mendapatkan untung Rp50.000,00. Maka harga jual untuk satu kue adalah…",
+    "options": {
+      "A": "Rp1,500.00",
+      "B": "Rp2,000.00",
+      "C": "Rp2,500.00",
+      "D": "Rp3,000.00",
+      "E": "Rp3,500.00"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 41,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "42 dan 77",
+      "B": "44 dan 73",
+      "C": "43 dan 75",
+      "D": "41 dan 72",
+      "E": "45 dan 74"
+    },
+    "answer": "B",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281548.png"
+    ]
+  },
+  {
+    "number": 42,
+    "type": "single",
+    "text": "Tidak ada kendaraan dinas yang tidak dirawat rutin. Semua mobil patroli adalah kendaraan dinas. Beberapa mobil patroli digunakan untuk operasi malam. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Semua mobil patroli tidak dirawat rutin",
+      "B": "Beberapa mobil patroli dirawat rutin",
+      "C": "Semua kendaraan dinas digunakan operasi malam",
+      "D": "Tidak ada mobil patroli yang digunakan operasi malam",
+      "E": "Beberapa kendaraan dinas bukan mobil patroli"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 43,
+    "type": "single",
+    "text": "Toni mengendarai sepeda motor dengan kecepatan rata-rata 60 km/jam. Apabila Toni berangkat dari rumah pukul 06.30 dan tiba di sekolah pukul 07.15. Jarak tempuh yang dilalui Toni adalah...",
+    "options": {
+      "A": "20 km",
+      "B": "23 km",
+      "C": "27 km",
+      "D": "35 km",
+      "E": "45 km"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 44,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "Gedung Usaha",
+      "B": "Pos Polisi",
+      "C": "Kantor Gubernur",
+      "D": "Kantor Pajak",
+      "E": "SMK Nusantara"
+    },
+    "answer": "E",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281540.png"
+    ]
+  },
+  {
+    "number": 45,
+    "type": "single",
+    "text": "Semua siswa SPN wajib mengikuti apel pagi. Tidak ada yang mengikuti apel pagi tanpa seragam lengkap. Beberapa siswa SPN bertugas piket. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Semua siswa SPN tidak wajib apel",
+      "B": "Beberapa siswa SPN mengikuti apel tanpa seragam",
+      "C": "Beberapa siswa SPN menggunakan seragam lengkap",
+      "D": "Semua yang bertugas piket tidak ikut apel",
+      "E": "Semua yang berseragam lengkap adalah siswa SPN"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 46,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Defisit",
+      "B": "Kelebihan",
+      "C": "Perimbangan",
+      "D": "Kekurangan",
+      "E": "Pertemuan"
+    },
+    "answer": "AD"
+  },
+  {
+    "number": 47,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Mobil",
+      "B": "Sepeda",
+      "C": "Truk",
+      "D": "Bus",
+      "E": "Roda"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 48,
+    "type": "multi",
+    "text": "Data : … = Uang : …",
+    "options": {
+      "A": "Programer",
+      "B": "USB",
+      "C": "Monitor",
+      "D": "Bank",
+      "E": "Percetakan"
+    },
+    "answer": "BD"
+  },
+  {
+    "number": 49,
+    "type": "single",
+    "text": "Dari lima orang pegawai bank yaitu Hendri, Yohan, dan Pedro; suka olahraga basket. Ginting dan Jonathan tidak suka olahraga basket. Ginting dan Yohan mengenakan kaos berwarna biru. Siapakah pegawai bank yang mengenakan kaos berwarna biru saat bermain basket?",
+    "options": {
+      "A": "Yohan",
+      "B": "Hendri",
+      "C": "Pedro",
+      "D": "Ginting",
+      "E": "Jonathan"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 50,
+    "type": "multi",
+    "text": "…. : Komunikasi = Sepeda : ….",
+    "options": {
+      "A": "Cepat",
+      "B": "Udara",
+      "C": "Roda",
+      "D": "Telepon",
+      "E": "Transportasi"
+    },
+    "answer": "DE"
+  },
+  {
+    "number": 51,
+    "type": "single",
+    "text": "2.174 × 117 : 26 = …",
+    "options": {
+      "A": "9,783",
+      "B": "8,876",
+      "C": "3,674",
+      "D": "1,893",
+      "E": "8,826"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 52,
+    "type": "single",
+    "text": "Diperlukan 20 orang selama 12 hari untuk membangun jembatan yang jatuh akibat longsor. Apabila terdapat 4 tambahan relawan, berapakah waktu yang diperlukan agar jembatan itu selesai?",
+    "options": {
+      "A": "10hari",
+      "B": "8 hari",
+      "C": "14 hari",
+      "D": "15 hari",
+      "E": "9 hari"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 53,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Daun",
+      "B": "Mawar",
+      "C": "Bunga",
+      "D": "Batang",
+      "E": "Akar"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 54,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Donor",
+      "B": "Penderma",
+      "C": "Penerima",
+      "D": "Darah",
+      "E": "Pemberian"
+    },
+    "answer": "AB"
+  },
+  {
+    "number": 55,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "5 – 1 – 7 – 3 – 2 – 4 – 6",
+      "B": "6 – 4 – 7 – 1 – 3 – 2 – 5",
+      "C": "6 – 4 – 7 – 2 – 1 – 3 – 5",
+      "D": "5 – 7 – 1 – 3 – 4 – 2 – 6",
+      "E": "6 – 4 – 2 – 7 – 3 – 1 – 5"
+    },
+    "answer": "E",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281533.png"
+    ]
+  },
+  {
+    "number": 56,
+    "type": "multi",
+    "text": "Februari : Juli = …. : ….",
+    "options": {
+      "A": "Selasa",
+      "B": "Rabu",
+      "C": "Kamis",
+      "D": "Sabtu",
+      "E": "Minggu"
+    },
+    "answer": "AE"
+  },
+  {
+    "number": 57,
+    "type": "multi",
+    "text": "Lampu : Gelap = …. : ….",
+    "options": {
+      "A": "Enak",
+      "B": "Makanan",
+      "C": "Ngantuk",
+      "D": "Lapar",
+      "E": "Kenyang"
+    },
+    "answer": "BD"
+  },
+  {
+    "number": 58,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Anggaran",
+      "B": "Keuangan",
+      "C": "Laporan",
+      "D": "Aturan",
+      "E": "Pembelian"
+    },
+    "answer": "AB"
+  },
+  {
+    "number": 59,
+    "type": "single",
+    "text": "Suatu restoran akan menjamu delapan orang tamu yang memiliki pekerjaan berbeda-beda antara lain: A, B, C, D, E, F, G, H. Tiga diantara tamu tersebut adalah seorang Teller (B, F, H) dan dua orang lainnya (D, G) adalah seorang Costumer service. Tamu-tamu tersebut diatur posisi duduknya oleh pemilik restoran agar pegawai bank tidak boleh duduk berdampingan. Urutan yang paling mungkin diantara model di bawah ini adalah....",
+    "options": {
+      "A": "B – D – C – E",
+      "B": "C – D – F – G",
+      "C": "B – A – D – C",
+      "D": "C – E – B – D",
+      "E": "E – D – G – C"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 60,
+    "type": "single",
+    "text": "Hasil dari -20×7×5-18 :(-3) adalah …",
+    "options": {
+      "A": "-706",
+      "B": "-694",
+      "C": "694",
+      "D": "706",
+      "E": "736"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 61,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Rajin",
+      "B": "Mahir",
+      "C": "Malas",
+      "D": "Tua",
+      "E": "Senior"
+    },
+    "answer": "CD"
+  },
+  {
+    "number": 62,
+    "type": "single",
+    "text": "Adik ke sekolah membutuhkan waktu 30 menit dengan kecepatan 40 km/jam. Jika adik pergi dengan kecepatan 60 km/jam, berapa menit waktu yang diperlukan adik?",
+    "options": {
+      "A": "30",
+      "B": "15",
+      "C": "27",
+      "D": "20",
+      "E": "25"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 63,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Akselerasi",
+      "B": "Percepatan",
+      "C": "Kecepatan",
+      "D": "Keindahan",
+      "E": "Perpaduan"
+    },
+    "answer": "AB"
+  },
+  {
+    "number": 64,
+    "type": "single",
+    "text": "Semua barang bukti disimpan di gudang barang. Beberapa barang bukti adalah hasil sitaan narkoba. Tidak ada hasil sitaan narkoba yang tidak diperiksa. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Semua barang bukti adalah narkoba",
+      "B": "Beberapa barang bukti sudah diperiksa",
+      "C": "Tidak ada barang bukti yang diperiksa",
+      "D": "Semua hasil sitaan narkoba tidak diperiksa",
+      "E": "Beberapa barang bukti bukan hasil sitaan narkoba"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 65,
+    "type": "multi",
+    "text": "Mikroskop – Mikroba =",
+    "options": {
+      "A": "Bakteri",
+      "B": "Teleskop",
+      "C": "Bintang",
+      "D": "Stetoskop",
+      "E": "Jantung"
+    },
+    "answer": "BC"
+  },
+  {
+    "number": 66,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Akreditasi",
+      "B": "Persamaan",
+      "C": "Kelembagaan",
+      "D": "Pengakuan",
+      "E": "Persyaratan"
+    },
+    "answer": "AD"
+  },
+  {
+    "number": 67,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "6 – 5 – 1 – 4 – 3 – 7 – 2",
+      "B": "6 – 1 – 4 – 5 – 3 – 7 – 2",
+      "C": "6 – 5 – 1 – 3 – 4 – 7 – 2",
+      "D": "6 – 1 – 4 – 3 – 5 – 7 – 2",
+      "E": "6 – 5 – 7 – 1 – 4 – 3 - 2"
+    },
+    "answer": "A",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281537.png"
+    ]
+  },
+  {
+    "number": 68,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "4 – 1 – 2 – 5 – 3",
+      "B": "4 – 2 – 5 – 1 – 3",
+      "C": "4 – 1 – 5 – 2 – 3",
+      "D": "4 – 5 – 3 – 2 – 1",
+      "E": "4 – 1 – 5 – 3 – 2"
+    },
+    "answer": "C",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281536.png"
+    ]
+  },
+  {
+    "number": 69,
+    "type": "single",
+    "text": "Rico mempunyai 12 kotak yang penuh terisi pensil. Setiap kotak terdapat 53 buah pensil, total pensil yang dimiliki Rico?",
+    "options": {
+      "A": "363",
+      "B": "366",
+      "C": "636",
+      "D": "863",
+      "E": "866"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 70,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Gagal",
+      "B": "Baik",
+      "C": "Sempurna",
+      "D": "Berhasil",
+      "E": "Semua"
+    },
+    "answer": "AD"
+  },
+  {
+    "number": 71,
+    "type": "single",
+    "text": "Pada saat upacara memperingati hari Kemerdekaan Indonesia yang ke-63 para siswa harus berbaris dan dari asal sekolah yang sama harus berkumpul dalam satu banjar. Perwakilan dari SMA N 1 X hanya ada enam siswa . Tini tidak mau di belakang Santi dan Tia. Nila Ingin berbaris tepat di belakang Tia sedangkan Tini Ingin berbaris tepat dibelakang Juli. Santi harus yang terdepan dari Hartanti. Hartanti ingin jauh dari Tini. Urutan siswa yang berdiri dari depan sampai terakhir yang paling tepat adalah....",
+    "options": {
+      "A": "Juli, Tini, Santi, Tia, Nila, Hartanti",
+      "B": "Santi, Tini, Tia, Nila, Hartanti, Juli",
+      "C": "Tia, Nila, Hartanti, Juli, Tini, Santi",
+      "D": "Nila, Hartanti, Tia, Santi, Juli, Tini",
+      "E": "Tini, Juli, Santi, Tia, Nila, Hartanti"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 72,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "Barat Laut",
+      "B": "Barat Daya",
+      "C": "Utara",
+      "D": "Barat",
+      "E": "Timur Laut"
+    },
+    "answer": "E",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281539.png"
+    ]
+  },
+  {
+    "number": 73,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "10",
+      "B": "15",
+      "C": "20",
+      "D": "25",
+      "E": "30"
+    },
+    "answer": "B",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281508.png"
+    ]
+  },
+  {
+    "number": 74,
+    "type": "single",
+    "text": "Andi ingin membeli sepatu di sebuah toko yang kebetulan sedang memberikan diskon untuk produk yang dijualnya. Sepatu yang ingin dibeli Andi seharga Rp 350.000 dengan diskon 15%. Maka jumlah uang yang harus dibayarkan oleh Andi adalah…….",
+    "options": {
+      "A": "Rp275,500.00",
+      "B": "Rp297,500.00",
+      "C": "Rp325,500.00",
+      "D": "Rp348,500.00",
+      "E": "Rp407,500.00"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 75,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": "",
+      "E": ""
+    },
+    "answer": "E",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281532.png"
+    ],
+    "optionImages": {
+      "A": "https://cat.tarunamandala.com/upload/soal/J1TMQS281532.png",
+      "B": "https://cat.tarunamandala.com/upload/soal/J2TMQS281532.png",
+      "C": "https://cat.tarunamandala.com/upload/soal/J3TMQS281532.png",
+      "D": "https://cat.tarunamandala.com/upload/soal/J4TMQS281532.png",
+      "E": "https://cat.tarunamandala.com/upload/soal/J5TMQS281532.png"
+    }
+  },
+  {
+    "number": 76,
+    "type": "single",
+    "text": "Dalam seminar pendidikan ada 8 pemakalah yaitu: A, B, C, D, E, F, G, dan H. Dalam mempresentasikan makalah masing-masing ada syarat yang ditentukan panitia, yaitu: E harus presentsi sebelum C, A presentasi pada urutan ketiga dan H pada urutan kelima. Setelah empat pemakalah dari D maka E baru mempresentasikan makalahnya. Urutan nomor berapa E harus mempresentasikan makalahnya ....",
+    "options": {
+      "A": "Ketiga",
+      "B": "Keempat",
+      "C": "Kelima",
+      "D": "Keenam",
+      "E": "Kedelapan"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 77,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Bank",
+      "B": "Teller",
+      "C": "Hutang",
+      "D": "Deposito",
+      "E": "Beli"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 78,
+    "type": "single",
+    "text": "Semua laporan resmi harus ditandatangani atasan. Beberapa laporan resmi adalah laporan harian. Tidak ada laporan harian yang dibuat oleh pegawai baru. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Beberapa laporan resmi dibuat oleh pegawai baru",
+      "B": "Semua laporan harian ditandatangani atasan",
+      "C": "Semua pegawai baru membuat laporan resmi",
+      "D": "Tidak ada laporan resmi ditandatangani atasan",
+      "E": "Semua laporan resmi adalah laporan harian"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 79,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": "",
+      "E": ""
+    },
+    "answer": "D",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281546.png"
+    ],
+    "optionImages": {
+      "A": "https://cat.tarunamandala.com/upload/soal/J1TMQS281546.png",
+      "B": "https://cat.tarunamandala.com/upload/soal/J2TMQS281546.png",
+      "C": "https://cat.tarunamandala.com/upload/soal/J3TMQS281546.png",
+      "D": "https://cat.tarunamandala.com/upload/soal/J4TMQS281546.png",
+      "E": "https://cat.tarunamandala.com/upload/soal/J5TMQS281546.png"
+    }
+  },
+  {
+    "number": 80,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Hari",
+      "B": "Minggu",
+      "C": "Menit",
+      "D": "Selasa",
+      "E": "Tahun"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 81,
+    "type": "single",
+    "text": "Anto berlari lebih cepat dari Indra. Kaka berlari lebih lambat dari Ivan. Ivan berlari lebih lambat daripada Rino. Indra berlari lebih cepat dari Rino. Urutan yang benar mulai dari yang paling lambat adalah ...",
+    "options": {
+      "A": "Anto, Indra, Rino, Ivan, Kaka",
+      "B": "Anto, Kaka, Rino, Indra, Ivan",
+      "C": "Kaka, Rino, Indra, Ivan, Anto",
+      "D": "Ivan, Indra, Kaka, Anto, Rino",
+      "E": "Kaka, Ivan, Rino, Indra, Anto"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 82,
+    "type": "single",
+    "text": "228.752 : 17 – 4567 = …",
+    "options": {
+      "A": "8,889",
+      "B": "13,188",
+      "C": "9,427",
+      "D": "10,678",
+      "E": "13,456"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 83,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "Toko Buku",
+      "B": "Kafe",
+      "C": "Apartemen",
+      "D": "Kantor Desa",
+      "E": "Hotel"
+    },
+    "answer": "B",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281545.png"
+    ]
+  },
+  {
+    "number": 84,
+    "type": "single",
+    "text": "Nilai dari 8×(-6)-140 :(-5) adalah…",
+    "options": {
+      "A": "-40",
+      "B": "-20",
+      "C": "20",
+      "D": "40",
+      "E": "50"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 85,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "14",
+      "B": "13",
+      "C": "12",
+      "D": "11",
+      "E": "10"
+    },
+    "answer": "B",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281506.png"
+    ]
+  },
+  {
+    "number": 86,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "2 – 1 – 5 – 3 – 4",
+      "B": "2 – 3 – 1 – 5 – 4",
+      "C": "2 – 3 – 5 – 4 – 1",
+      "D": "2 – 1 – 3 – 4 – 5",
+      "E": "2 – 1 – 3 – 5 – 4"
+    },
+    "answer": "A",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281535.png"
+    ]
+  },
+  {
+    "number": 87,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Cepat",
+      "B": "Tinggi",
+      "C": "Pendek",
+      "D": "Laju",
+      "E": "Rendah"
+    },
+    "answer": "CE"
+  },
+  {
+    "number": 88,
+    "type": "single",
+    "text": "Semua perwira mengikuti pelatihan kepemimpinan. Tidak ada peserta pelatihan kepemimpinan yang absen tanpa izin. Beberapa perwira adalah pengampu materi. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Semua pengampu materi adalah perwira",
+      "B": "Tidak ada perwira yang absen tanpa izin",
+      "C": "Beberapa pengampu materi absen tanpa izin",
+      "D": "Semua peserta pelatihan kepemimpinan adalah perwira",
+      "E": "Semua perwira adalah pengampu materi"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 89,
+    "type": "single",
+    "text": "Semua saksi adalah orang yang hadir di lokasi kejadian. Beberapa orang yang hadir di lokasi kejadian adalah warga sekitar. Tidak ada saksi yang memberikan keterangan palsu. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Semua warga sekitar adalah saksi",
+      "B": "Beberapa warga sekitar bukan saksi",
+      "C": "Beberapa saksi adalah warga sekitar",
+      "D": "Semua saksi memberikan keterangan palsu",
+      "E": "Tidak ada warga sekitar yang saksi"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 90,
+    "type": "single",
+    "text": "Umur Yoke tiga puluh tahun, dan setengah dari umur Vera. Raka lima tahun lebih muda dari Vera, dan dua tahun lebih tua dari Reza. Umut Reza adalah … tahun.",
+    "options": {
+      "A": "30",
+      "B": "53",
+      "C": "55",
+      "D": "60",
+      "E": "63"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 91,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang sama!",
+    "options": {
+      "A": "Diferensiasi",
+      "B": "Simpangan",
+      "C": "Gabungan",
+      "D": "Pemisahan",
+      "E": "Pembedaan"
+    },
+    "answer": "AE"
+  },
+  {
+    "number": 92,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Dinas",
+      "B": "Negeri",
+      "C": "Pemerintahan",
+      "D": "Swasta",
+      "E": "Tertentu"
+    },
+    "answer": "DE"
+  },
+  {
+    "number": 93,
+    "type": "multi",
+    "text": "Diameter : ….. = Diagonal : ….",
+    "options": {
+      "A": "Bujur sangkar",
+      "B": "Segitiga",
+      "C": "Elips",
+      "D": "Lingkaran",
+      "E": "Bola"
+    },
+    "answer": "AD"
+  },
+  {
+    "number": 94,
+    "type": "multi",
+    "text": "Pilihlah 2 kata yang memiliki makna yang berbeda!",
+    "options": {
+      "A": "Maya",
+      "B": "Cita cita",
+      "C": "Angan",
+      "D": "Mimpi",
+      "E": "Nyata"
+    },
+    "answer": "AE"
+  },
+  {
+    "number": 95,
+    "type": "single",
+    "text": "Tidak ada tersangka yang bebas dari pemeriksaan. Semua pelaku kejahatan adalah tersangka. Beberapa pelaku kejahatan adalah residivis. Kesimpulan yang tepat adalah…",
+    "options": {
+      "A": "Semua residivis bebas dari pemeriksaan",
+      "B": "Tidak ada pelaku kejahatan yang residivis",
+      "C": "Beberapa residivis tidak bebas dari pemeriksaan",
+      "D": "Semua tersangka adalah residivis",
+      "E": "Beberapa tersangka bebas dari pemeriksaan"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 96,
+    "type": "single",
+    "text": "3.125 : 125 + 194 × 14 = …",
+    "options": {
+      "A": "2,256",
+      "B": "3,491",
+      "C": "2,741",
+      "D": "4,526",
+      "E": "4,713"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 97,
+    "type": "single",
+    "text": "Diperlukan 4 kg beras untuk membuat 60 pax nasi kotak, berapakah beras yang diperlukan untuk membuat 45 nasi kotak?",
+    "options": {
+      "A": "2 kg",
+      "B": "3 kg",
+      "C": "2,5 kg",
+      "D": "3,5 kg",
+      "E": "2,7 kg"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 98,
+    "type": "single",
+    "text": "Pengerjaan satu unit rumah dibutuhkan waktu 36 hari dengan 12 tenaga kerja, Lama waktu yang dibutuhkan apabila dikerjakan oleh 24 pekerja adalah…",
+    "options": {
+      "A": "14 hari",
+      "B": "15 hari",
+      "C": "16 hari",
+      "D": "17 hari",
+      "E": "18 hari"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 99,
+    "type": "single",
+    "text": "Manakah yang bukan merupakan kelompoknya?",
+    "options": {
+      "A": "Astrazeneca",
+      "B": "Modern",
+      "C": "Pfizer",
+      "D": "Sinopharm",
+      "E": "Janssen"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 100,
+    "type": "single",
+    "text": "Perhatikan gambar berikut.",
+    "options": {
+      "A": "Hotel",
+      "B": "Kantor Desa",
+      "C": "Kantor Pos",
+      "D": "Laundry Pakaian",
+      "E": "Cafe"
+    },
+    "answer": "B",
+    "images": [
+      "https://cat.tarunamandala.com/upload/soal/QTMQS281543.png"
+    ]
+  }
+];
+</script>
+<script type="module" src="soal-template-core.js"></script>
+</body>
+</html>

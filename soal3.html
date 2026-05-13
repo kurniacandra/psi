@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRY OUT FULL PAKET 3 - JAGOPSI</title>
+<style>
+:root{--primary:#0f172a;--danger:#dc2626;--success:#16a34a;--info:#2563eb;--bg:#f8fafc;--muted:#64748b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:'Segoe UI',Arial,sans-serif;color:#0f172a}
+.topbar{position:sticky;top:0;z-index:10;background:linear-gradient(90deg,#0f172a,#1e293b);color:#fff;padding:14px 18px}
+.topbar-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top-timer{background:#fff;color:#991b1b;border-radius:12px;padding:10px 14px;font-weight:700}
+.wrap{max-width:1180px;margin:20px auto;padding:0 16px}
+.grid{display:grid;grid-template-columns:1.6fr .95fr;gap:18px}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 24px rgba(15,23,42,.08);border:1px solid #e2e8f0}
+.badge{display:inline-block;padding:6px 12px;border-radius:999px;background:#fff7ed;color:#9a3412;font-weight:700;font-size:.8rem;margin-bottom:10px}
+.hidden{display:none!important}
+.option-box{border:1px solid #ddd;padding:12px 14px;border-radius:12px;margin-bottom:10px;cursor:pointer;background:#fff}
+.option-box.selected{background:#dc2626;color:#fff;border-color:#b91c1c}
+.number-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.num-btn{min-height:42px;border:1px solid #cbd5e1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;background:#fff;cursor:pointer}
+.num-btn.active{border:2px solid var(--info);color:var(--info)}
+.num-btn.answered{background:var(--success);color:#fff;border-color:var(--success)}
+.controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px}
+button,.btn{border:none;border-radius:12px;padding:12px 16px;font-family:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary{background:var(--info);color:#fff}.btn-outline{background:#fff;color:#334155;border:1px solid #cbd5e1}.btn-danger{background:var(--danger);color:#fff}.btn-success{background:var(--success);color:#fff}
+.qtitle{font-size:1.08rem;font-weight:700;line-height:1.7;margin-bottom:16px}.qnum{font-size:.95rem;color:#64748b;margin-bottom:6px}
+.center-screen{max-width:900px;margin:40px auto}.stage-line{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.stage-pill{padding:8px 12px;border-radius:999px;background:#e2e8f0;font-weight:700;font-size:.82rem}.stage-pill.active{background:#dbeafe;color:#1d4ed8}.stage-pill.done{background:#dcfce7;color:#166534}
+.kc-wrap{max-width:980px;margin:0 auto}.kc-key-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}.kc-key{border:2px solid #1f2937;border-radius:12px;overflow:hidden;background:#fff}.kc-key-h{background:#1f2937;color:#fff;padding:4px 0;text-align:center;font-size:.85rem;font-weight:700}.kc-key-v{padding:10px 0;text-align:center;font-size:2rem;font-weight:700}.kc-q{font-size:4rem;text-align:center;letter-spacing:12px;margin:24px 0;min-height:100px}.kc-ans{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.img-fluid-custom{max-width:100%;height:auto;border-radius:8px;border:1px solid #ddd;background:#fff;margin-bottom:12px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.number-grid{grid-template-columns:repeat(4,1fr)}.kc-q{font-size:2.6rem;letter-spacing:8px}}
+</style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div><h1 style="margin:0;font-size:1.05rem;font-weight:700">TRY OUT FULL - JAGOPSI</h1><div id="userLine" style="font-size:.9rem;color:#cbd5e1">Memuat akun...</div></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><div class="top-timer" id="globalTimer">--:--</div><button class="btn-danger" type="button" id="logoutBtn">Keluar</button></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="screen-loading" class="center-screen card">
+    <div class="badge">MEMUAT</div><h2 style="margin-top:0">Menyiapkan try out paket 3...</h2><p style="color:#64748b">Sistem sedang memeriksa akun VIP dan menyiapkan soal paket 3.</p>
+  </div>
+
+  <div id="screen-main" class="center-screen card hidden">
+    <div class="badge">TRY OUT PSIKOLOGI PAKET 3 • VIP</div>
+    <h2 style="margin-top:0">Alur Wajib Berurutan</h2>
+    <p style="color:#64748b">Kecerdasan → Kepribadian → Kecermatan</p>
+    <div class="stage-line" id="stageLine"></div>
+    <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap"><button type="button" class="btn btn-primary" id="startMainBtn">Mulai</button><a href="tryout_polri.html" class="btn btn-outline">Kembali</a></div>
+  </div>
+
+  
+  <div id="screen-intro-kepri" class="center-screen card hidden">
+    <div class="badge">BAGIAN BERIKUTNYA</div>
+    <h2 style="margin-top:0">Mulai Kepribadian</h2>
+    <p style="color:#64748b;line-height:1.7">
+      Pada bagian ini, setiap klik jawaban akan langsung menyimpan pilihan dan otomatis lanjut ke soal berikutnya.
+      Kamu tidak bisa kembali ke soal sebelumnya dan tidak bisa lompat soal.
+    </p>
+    <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+      <button type="button" class="btn btn-primary" id="startKepriBtn">Mulai Kepribadian</button>
+    </div>
+  </div>
+
+  <div id="screen-intro-cermat" class="center-screen card hidden">
+    <div class="badge">BAGIAN BERIKUTNYA</div>
+    <h2 style="margin-top:0">Mulai Kecermatan</h2>
+    <p style="color:#64748b;line-height:1.7">
+      Bagian Kepribadian sudah selesai. Tekan tombol di bawah untuk mulai Kecermatan.
+    </p>
+    <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+      <button type="button" class="btn btn-primary" id="startCermatBtn">Mulai Kecermatan</button>
+    </div>
+  </div>
+
+
+  <div id="screen-section" class="hidden">
+    <div class="grid">
+      <div class="card">
+        <div class="badge" id="sectionBadge">Bagian</div>
+        <div class="qnum" id="sectionQno"></div>
+        <div class="qtitle" id="sectionQtext"></div>
+        <div id="sectionQImages"></div>
+        <div id="sectionOptions"></div>
+        <div class="controls"><button type="button" class="btn btn-outline" id="prevBtn">Sebelumnya</button><button type="button" class="btn btn-primary" id="nextBtn">Selanjutnya</button></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Navigasi</h3>
+        <div style="color:#64748b" id="sectionHelp">Gunakan tombol navigasi untuk berpindah.</div>
+        <div class="number-grid" id="numberGrid"></div><hr>
+        <button type="button" class="btn btn-danger" id="finishSectionBtn">Selesaikan Bagian Ini</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="screen-cermat" class="hidden">
+    <div class="kc-wrap">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+          <div>
+            <div class="badge">KECERMATAN • 10 KOLOM</div>
+            <h2 style="margin-top:0">Bagian Kecermatan</h2>
+            <p style="color:#64748b">Menggunakan huruf custom jika tersedia. Tiap kolom 60 detik.</p>
+          </div>
+          <button class="btn btn-danger" type="button" id="finishCermatTopBtn">AKHIRI UJIAN</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px"><div style="font-weight:700" id="kcColTitle">KOLOM 1</div><div class="top-timer" id="kcTimer">60</div></div>
+        <div class="kc-key-row" id="kcKeyRow"></div>
+        <div class="kc-q" id="kcQuestion">----</div>
+        <div class="kc-ans">
+          <button class="btn btn-success" type="button" onclick="window.kcAnswer(0)">A</button>
+          <button class="btn btn-success" type="button" onclick="window.kcAnswer(1)">B</button>
+          <button class="btn btn-success" type="button" onclick="window.kcAnswer(2)">C</button>
+          <button class="btn btn-success" type="button" onclick="window.kcAnswer(3)">D</button>
+          <button class="btn btn-success" type="button" onclick="window.kcAnswer(4)">E</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="result-utils.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, get, push, set, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+const firebaseConfig={apiKey:"AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw",authDomain:"simulasi-2b93b.firebaseapp.com",databaseURL:"https://simulasi-2b93b-default-rtdb.firebaseio.com",projectId:"simulasi-2b93b",appId:"1:562508858666:web:fa63f71ec175c675e64a53"};
+const app=initializeApp(firebaseConfig); const db=getDatabase(app);
+const vipEmails=["akmalfauzan@gmail.com","admin@gmail.com"];
+const cerdasQuestions=[{"number": 1, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang sama !", "options": {"A": "Epilog", "B": "Kesimpulan", "C": "Penutup", "D": "Pembukaan", "E": "Isi"}, "answer": "AC"}, {"number": 2, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang sama !", "options": {"A": "Bisikan hati", "B": "Intuisi", "C": "Sirkulasi", "D": "Imajinasi", "E": "Institusi"}, "answer": "AB"}, {"number": 3, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang sama !", "options": {"A": "Komprehensif", "B": "Berpadu", "C": "Wawasan", "D": "Pelajaran", "E": "Lengkap"}, "answer": "AE"}, {"number": 4, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang sama !", "options": {"A": "Seniman", "B": "Seni", "C": "Prakarsa", "D": "Inisiatif", "E": "Budaya"}, "answer": "CD"}, {"number": 5, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang sama !", "options": {"A": "Pelajaran", "B": "Hukuman", "C": "Nasihat", "D": "Anjuran", "E": "Perintah"}, "answer": "CD"}, {"number": 6, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang sama !", "options": {"A": "Teman", "B": "Acara", "C": "Ikatan", "D": "Keluarga", "E": "Hubungan"}, "answer": "CE"}, {"number": 7, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang sama. Hadiah, Kompensasi, Honor, Insentif, Dividen", "options": {"A": "Hadiah", "B": "Kompensasi", "C": "Pemberian", "D": "Insentif", "E": "Dividen"}, "answer": "AC"}, {"number": 8, "type": "multi", "text": "Pilih dua kata yang memiliki makna yang sama. Usaha, Motivasi, Pasif, Keinginan, Aktif", "options": {"A": "Usaha", "B": "Giat", "C": "Pasif", "D": "Keinginan", "E": "Aktif"}, "answer": "BE"}, {"number": 9, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang berlawanan!", "options": {"A": "Menyebar", "B": "Membaur", "C": "Membagi", "D": "Melebar", "E": "Memisah"}, "answer": "BE"}, {"number": 10, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang berlawanan!", "options": {"A": "Satu", "B": "Maju", "C": "Sekutu", "D": "Asosiasi", "E": "Pisah"}, "answer": "DE"}, {"number": 11, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang berlawanan!", "options": {"A": "Lahir", "B": "Batin", "C": "Mati", "D": "Jiwa", "E": "Raga"}, "answer": "AC"}, {"number": 12, "type": "multi", "text": "KeguguranPilihlah dua kata yang memiliki makna yang berlawanan!", "options": {"A": "Langsung", "B": "Berhenti", "C": "Hambatan", "D": "Tunda", "E": "Gagal"}, "answer": "AD"}, {"number": 13, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang berlawanan!", "options": {"A": "Normatif", "B": "Taktis", "C": "Statis", "D": "Dinamis", "E": "Fluktuatif"}, "answer": "CD"}, {"number": 14, "type": "multi", "text": "Pilih dua kata yang memiliki makna yang berlawanan. Gulana, Sakit, Letih, Sedih, Ceria", "options": {"A": "Gulana", "B": "Sakit", "C": "Letih", "D": "Sehat", "E": "Ceria"}, "answer": "BD"}, {"number": 15, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang berlawanan. Rawan, Berisiko, Rahasia, Aman, Nyaman.", "options": {"A": "Terbuka", "B": "Berisiko", "C": "Rahasia", "D": "Senyap", "E": "Nyaman"}, "answer": "AC"}, {"number": 16, "type": "multi", "text": "Pilihlah dua kata yang memiliki makna yang berlawanan. Terdepan, Biasa, Modern, Natural, Konvensional", "options": {"A": "Terdepan", "B": "Biasa", "C": "Buatan", "D": "Natural", "E": "Konvensional"}, "answer": "CD"}, {"number": 17, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini! PANTAI: RESORT = ....", "options": {"A": "Bukit", "B": "Gunung", "C": "Vila", "D": "Laut", "E": "Hotel"}, "answer": "BC"}, {"number": 18, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini! GUNDUL RAMBUT = .......", "options": {"A": "Baju", "B": "Pakaian", "C": "Bugil", "D": "Bulu", "E": "Botak"}, "answer": "BC"}, {"number": 19, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini! Hakim : Hukum = … : …", "options": {"A": "Sekolah", "B": "Murid", "C": "Kurikulum", "D": "Guru", "E": "Pendidikan"}, "answer": "DE"}, {"number": 20, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini! Kuas : Melukis = … : …", "options": {"A": "Benang", "B": "Jarum", "C": "Menganyam", "D": "Menjahit", "E": "Melipat"}, "answer": "BD"}, {"number": 21, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini! Kue : Tepung = … : …", "options": {"A": "Folio", "B": "Benang", "C": "Kertas", "D": "Plastik", "E": "Kayu"}, "answer": "CE"}, {"number": 22, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini! Drum : Kendang = … : …", "options": {"A": "Gitar", "B": "Komponis", "C": "Piano", "D": "Musik", "E": "Ukulele"}, "answer": "AE"}, {"number": 23, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini! ...:... = KAYA : MISKIN", "options": {"A": "Tajam", "B": "Tumpul", "C": "Jalar", "D": "Rambat", "E": "Pandai"}, "answer": "AB"}, {"number": 24, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini. Pohon : Tumbang = … : …", "options": {"A": "Hewan", "B": "Daun", "C": "Kering", "D": "Tidur", "E": "Gugur"}, "answer": "BE"}, {"number": 25, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini. Telur : Ayam = … : …", "options": {"A": "Tunas", "B": "Pohon", "C": "Beranak", "D": "Burung", "E": "Cangkok"}, "answer": "AB"}, {"number": 26, "type": "multi", "text": "Pilihlah dua kata yang tepat untuk melengkapi soal berikut ini. Payung : Hujan = … : …", "options": {"A": "Tebal", "B": "Panas", "C": "Kulit", "D": "Jaket", "E": "Dingin"}, "answer": "DE"}, {"number": 27, "type": "single", "text": "Pilihlah satu kata yang memiliki makna paling jauh dari 4 kata lainnya!", "options": {"A": "Katun", "B": "Sutra", "C": "Rajut", "D": "Wool", "E": "Batik"}, "answer": "E"}, {"number": 28, "type": "single", "text": "Pilihlah satu kata yang memiliki makna paling jauh dari 4 kata lainnya!", "options": {"A": "Penyu", "B": "Ayam", "C": "Lumba-lumba", "D": "Komodo", "E": "Ikan mas"}, "answer": "C"}, {"number": 29, "type": "single", "text": "Pilihlah satu kata yang memiliki makna paling jauh dari 4 kata lainnya!", "options": {"A": "Mujair", "B": "Koi", "C": "Lumba-lumba", "D": "Lele", "E": "Arwana"}, "answer": "C"}, {"number": 30, "type": "single", "text": "Pilihlah satu kata yang memiliki makna paling jauh dari 4 kata lainnya!", "options": {"A": "Tembaga", "B": "Logam", "C": "Perak", "D": "Perunggu", "E": "Emas"}, "answer": "B"}, {"number": 31, "type": "single", "text": "Pilihlah satu kata yang memiliki makna paling jauh dari 4 kata lainnya!", "options": {"A": "Anting", "B": "Kalung", "C": "Cincin", "D": "Kacamata", "E": "Gelang"}, "answer": "D"}, {"number": 32, "type": "single", "text": "Tentukan kata yang tidak termasuk dalam kelompok kata berikut. Indonesia, Malaysia, Thailand, Jepang, Brunei", "options": {"A": "Indonesia", "B": "Malaysia", "C": "Thailand", "D": "Jepang", "E": "Brunei"}, "answer": "E"}, {"number": 33, "type": "single", "text": "Tentukan kata yang tidak termasuk dalam kelompok kata berikut. Segitiga, Persegi, Lingkaran, Prisma, Tabung", "options": {"A": "Segitiga", "B": "Persegi", "C": "Lingkaran", "D": "Prisma", "E": "Tabung"}, "answer": "E"}, {"number": 34, "type": "single", "text": "Tentukan kata yang tidak termasuk dalam kelompok kata berikut. Melepaskan, Mengikat, Memecahkan, Memisahkan, Menggergaji", "options": {"A": "Melepaskan", "B": "Mengikat", "C": "Memecahkan", "D": "Memisahkan", "E": "menggergaji"}, "answer": "B"}, {"number": 35, "type": "single", "text": "Pilihlah satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya. Komunisme, Fanatisme, Fasisme, Liberal, Sosialis", "options": {"A": "Komunisme", "B": "Fanatisme", "C": "Fasisme", "D": "Liberal", "E": "Sosialis"}, "answer": "B"}, {"number": 36, "type": "single", "text": "Pilihlah satu kata yang tidak menunjukan suatu kesamaan dari 4 kata lainnya. Konser, Talk Show, Kuis, Sinetron, Variety Show", "options": {"A": "Konser", "B": "Talk Show", "C": "Kuis", "D": "Sinetron", "E": "Variety show"}, "answer": "A"}, {"number": 37, "type": "single", "text": "Pilihlah satu kata yang tidak menunjukan suatu kesamaan dari 4 kata lainnya. Argentina, Bolivia, Guatemala, Ekuador, Kolombia", "options": {"A": "Argentina", "B": "Bolivia", "C": "Guatemala", "D": "Ekuador", "E": "Kolombia"}, "answer": "C"}, {"number": 38, "type": "single", "text": "Pilihlah satu kata yang tidak menunjukan suatu kesamaan dari 4 kata lainnya. Kentang, Ubi Jalar, Talas, Wortel, Bengkuang", "options": {"A": "Kentang", "B": "Ubi Jalar", "C": "Talas", "D": "Wortel", "E": "Bengkuang"}, "answer": "D"}, {"number": 39, "type": "single", "text": "Tentukan persamaan dari kata-kata berikut. Gunung Merapi, Gunung Rinjani, Gunung Semeru, Gunung Krakatau, Gunung Ijen", "options": {"A": "Gunung tertinggi", "B": "Gunung berapi", "C": "Gunung di Eropa", "D": "Gunung di Asia", "E": "Gunung di Afrika"}, "answer": "B"}, {"number": 40, "type": "single", "text": "Tentukan persamaan dari kata-kata berikut. Sapi, kambing, domba, ayam, lebah", "options": {"A": "Hewan langka", "B": "Mamalia", "C": "Hewan liar", "D": "Hewan karnivora", "E": "Hewan ternak"}, "answer": "E"}, {"number": 41, "type": "single", "text": "135 : 9 – 95 : 5 = …", "options": {"A": "2", "B": "-2", "C": "-4", "D": "4", "E": "8"}, "answer": "C"}, {"number": 42, "type": "single", "text": "35 x 25 : 25 + 20 – 30 = …", "options": {"A": "15", "B": "20", "C": "25", "D": "30", "E": "50"}, "answer": "C"}, {"number": 43, "type": "single", "text": "Berapakah 30% dari 10/6?", "options": {"A": "1/3", "B": "2/7", "C": "1/2", "D": "4/7", "E": "5/7"}, "answer": "C"}, {"number": 44, "type": "single", "text": "26% + 0,74 – 4/5 = …", "options": {"A": "0,1", "B": "0,2", "C": "0,3", "D": "0,4", "E": "0,5"}, "answer": "B"}, {"number": 45, "type": "single", "text": "3 jam 36 menit 12 detik) – (1 jam 40 menit 14 detik) – (0 jam 28 menit 20 detik) = …", "options": {"A": "(1 jam 50 menit 38 detik)", "B": "(2 jam 52 menit 38 detik)", "C": "(0 jam 55 menit 58 detik)", "D": "(1 jam 55 menit 58 detik)", "E": "(1 jam 27 menit 38 detik)"}, "answer": "E"}, {"number": 46, "type": "single", "text": "4 rim + 2 gross – 7,5 kodi – 20 lusin = …", "options": {"A": "2008 buah", "B": "1598 buah", "C": "1898 buah", "D": "1998 buah", "E": "1776 buah"}, "answer": "C"}, {"number": 47, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "89.360", "B": "90.760", "C": "97.600", "D": "893.600", "E": "907.600"}, "answer": "A", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285877.png?raw=true"]}, {"number": 48, "type": "single", "text": "4.000 mm + 300 dm + 0,4 m = ...", "options": {"A": "4304 cm", "B": "3440 cm", "C": "3404 cm", "D": "4400 cm", "E": "4440 cm"}, "answer": "B"}, {"number": 49, "type": "single", "text": "5 ton – 12 kuintal + 7.000 ons = ... kg", "options": {"A": "4.500", "B": "5.000", "C": "5.500", "D": "6.000", "E": "6.500"}, "answer": "A"}, {"number": 50, "type": "single", "text": "2,5 windu + 3 tahun - 4 bulan", "options": {"A": "22 tahun 4 bulan", "B": "22 tahun 8 bulan", "C": "22 tahun 7 bulan", "D": "22 tahun 6 bulan", "E": "22 tahun 3 bulan"}, "answer": "B"}, {"number": 51, "type": "single", "text": "Pak Harun membeli 3 kodi kaos dengan harga Rp 1.800.000. Kemudian kaos tersebut dijual lagi dengan harga Rp 420.000/lusin. Maka hasil besar keuntungan yang diperoleh Pak Harun adalah", "options": {"A": "Rp 200.000,00", "B": "Rp 225.000,00", "C": "Rp 250.000,00", "D": "Rp 300.000,00", "E": "Rp 350.000,00"}, "answer": "D"}, {"number": 52, "type": "single", "text": "Adel membeli 10 pasang sepatu seharga Rp 400.000, kemudian 7 pasang sepatu dijual dengan harga Rp 50.000/pasang dan 3 pasang dijual Rp 40.000/pasang. Persentasi keuntungan yang diperoleh adalah...", "options": {"A": "15%", "B": "17.50%", "C": "20%", "D": "22.50%", "E": "25%"}, "answer": "B"}, {"number": 53, "type": "single", "text": "Pak Egi membeli motor bekas seharga Rp 3.400.000. Motor tersebut diperbaiki dengan menghabiskan biaya Rp 200.000. Beberapa hari kemudian, motor itu dijual kepada temannya dengan harga Rp 4.350.000. Berapa rupiah keuntungan yang diperoleh Pak Egi?", "options": {"A": "Rp 750.000,00", "B": "Rp 800.000,00", "C": "Rp 850.000,00", "D": "Rp 600.000,00", "E": "Rp 650.000,00"}, "answer": "A"}, {"number": 54, "type": "single", "text": "Sebanyak 70 kg beras Cianjut dengan harag Rp. 8.250,00 per kg dicampur dengan 30 kg beras cisadane berharga Rp 7.500,00. Berapa rupiah harga per kg beras campuran?", "options": {"A": "Rp 8.025,00", "B": "Rp 8.125,00", "C": "Rp 8.500,00", "D": "Rp 9.050,00", "E": "Rp 9.250,00"}, "answer": "A"}, {"number": 55, "type": "single", "text": "Tarif parkir mobil 2 jam pertama adalah Rp. 2.000,- dan tarif selanjutnya Rp. 1.500,- per jam. Jika dewi parkir selama lima jam, maka biaya yang harus dibayar adalah ...", "options": {"A": "Rp 6.500,00", "B": "Rp 6.250,00", "C": "Rp 5.500,00", "D": "Rp 5.250,00", "E": "Rp 4.500,00"}, "answer": "A"}, {"number": 56, "type": "single", "text": "Vina akan membeli piring. Harga sebuah piring sebesar Rp 16.000. Namun jika membeli setengah lusin maka harganya Rp 84.000. Berapa persen lebih murah harga satuannya jika Vina membeli setengah lusin dibandingkan membeli satu piring saja?", "options": {"A": "50%", "B": "35%", "C": "25%", "D": "12.50%", "E": "7.50%"}, "answer": "D"}, {"number": 57, "type": "single", "text": "Rita adalah pedagang mainan yang baru memulai usaha. Pada awal usahanya Ia mendapatkan hasil penjualan sebesar Rp 500.000. Namun karena pelanggan yang masih sedikit Rita mengalami kerugian sebesar Rp 150.000. Hitunglah modal awal Rita!", "options": {"A": "Rp 600.000,00", "B": "Rp 625.000,00", "C": "Rp 650.000,00", "D": "Rp 675.000,00", "E": "Rp 700.000,00"}, "answer": "C"}, {"number": 58, "type": "single", "text": "Tama akan membuka sebuah kedai kopi. Ia memiliki modal sebanyak Rp 15.000.000. Jika harga satu karung kopi dengan berat 10 kg dijual dengan harga Rp 2.500.000. Berapa kg kopi yang bisa Tama beli?", "options": {"A": "50 kg", "B": "60 kg", "C": "70 kg", "D": "65 kg", "E": "55 kg"}, "answer": "B"}, {"number": 59, "type": "single", "text": "Ada 10 orang anggota geng Sky Castle. Tiap bertemu mereka berjabat tangan satu sama lain. Berapa banyak jabat tangan yang terjadi?", "options": {"A": "40", "B": "45", "C": "50", "D": "55", "E": "60"}, "answer": "B"}, {"number": 60, "type": "single", "text": "Ginar membeli sepotong kemeja & sepotong celana pada sebuah toko yang memberi diskon 20%. Jika harga kemeja Rp 150.000 dan harga celana Rp 175.000. yang harus dibayar ginar adalah...", "options": {"A": "Rp 260.000,00", "B": "Rp 255.000,00", "C": "Rp 243.750,00", "D": "Rp 265.500,00", "E": "Rp 300.000,00"}, "answer": "A"}, {"number": 61, "type": "single", "text": "Dalam suatu acara 6 orang duduk dalam satu barisan. Tono tidak mau bersebelahan dengan Salsa dan Tika. Nizar ingin dekat dengan Tika, Tono ingin dekat dengan July dan July ingin dekat dengan Nizar. Salsa tidak ingin didahului Hartina dan Hartina bersebelahan dengan Tono, akhirnya Tika duduk berada pada kursi urutan terakhir. Yang duduk pada urutan ketiga adalah....", "options": {"A": "Hartina", "B": "Salsa", "C": "Tono", "D": "July", "E": "Nizar"}, "answer": "C"}, {"number": 62, "type": "single", "text": "Pak Budi mengajak lima siswa laki-laki untuk mengambil bola pingpong yang masing-masing mengambil di dalam sebuah kotak yang ada di lemari kerjanya. Pertama, tiga siswa mengambil satu bola berwarna orange. Kemudian Dion dan Tomi tidak mengambil bola berwarna orange seperti yang dilakukan teman-temannya. Dion hanya mengambil bola berwarna putih. Setelah itu selain Dion, hanya Fahri dan Sandi yang tidak mengambil bola berwarna hitam. Warna bola yang banyak diambil oleh siswa , pak Budi adalah ....", "options": {"A": "Hitam", "B": "Putih", "C": "Orange", "D": "Hitam dan putih", "E": "Putih dan orange"}, "answer": "B"}, {"number": 63, "type": "single", "text": "Pak Budi mengajak lima siswa laki-laki untuk mengambil bola pingpong yang masing-masing mengambil di dalam sebuah kotak yang ada di lemari kerjanya. Pertama, tiga siswa mengambil satu bola berwarna orange. Kemudian Dion dan Tomi tidak mengambil bola berwarna orange seperti yang dilakukan teman-temannya. Dion hanya mengambil bola berwarna putih. Setelah itu selain Dion, hanya Fahri dan Sandi yang tidak mengambil bola berwarna hitam. Siswa pak Budi yang mengambil bola dengan jumlah dan warna yang sama adalah.....", "options": {"A": "Tomi dan dion", "B": "Sandi dan badu", "C": "Fahri dan sandi", "D": "Tomi dan badu", "E": "Fahri dan dion"}, "answer": "B"}, {"number": 64, "type": "single", "text": "Jarak antara rumah Abi dan Bayu dua kali jarak antara rumah Chintia dan Denisa. Rumah Elisabet terletak di tengah-tengah antara rumah Abi dan Chintia dengan jarak antara rumah Denisa dan Bayu, yaitu setengah jarak rumah Abi ke rumah Elisabet. Dua rumah di bawah ini yang jaraknya paling jauh adalah...", "options": {"A": "Rumah Abi dan Bayu", "B": "Rumah Bayu dan Elisabet", "C": "Rumah Abi dan Elisabet", "D": "Rumah Bayu dan Denisa", "E": "Rumah Abi dan Chintia"}, "answer": "C"}, {"number": 65, "type": "single", "text": "Pusat perbelanjaan di Kota A memberikan diskon besar-besaran pada setiap bulan Desember dan Maret. Tina tidak dapat pergi berbelanja karena lembur pada tiap bulan Desember dan Januari. Tina pernah mendapatkan diskon besar-besaran ketika berbelanja. Pernyataan yang tepat adalah…", "options": {"A": "Tina berbelanja di pusat perbelanjaan di Kota A tiap bulan", "B": "Tina sangat suka berbelanja", "C": "Bulan itu adalah Desember", "D": "Bulan itu adalah Maret", "E": "Tina tidak pernah berbelanja di pusat perbelanjaan di kota A"}, "answer": "D"}, {"number": 66, "type": "single", "text": "Tidak ada pemain sepak bola yang menjadi pemain tenis. Beberapa mahasiswa menjadi pemain sepak bola.", "options": {"A": "Ada mahasiswa yang menjadi pemain tenis", "B": "Beberapa mahasiswa bukan pemain tenis", "C": "Tidak ada mahasiswa yang menjadi pemain tenis", "D": "Beberapa pemain tenis bukan pemain sepak bola", "E": "Pemain sepak bola hanya bisa bermain sepak bola"}, "answer": "B"}, {"number": 67, "type": "single", "text": "Semua pegawai Dinas Kesehatan adalah PNS. Ratna seorang PNS.", "options": {"A": "Ratna pegawai Dinas Kesehatan", "B": "Ratna bukan pegawai Dinas Kesehatan", "C": "Ratna belum tentu pegawai Dinas Kesehatan", "D": "Ratna PNS dan pegawai Dinas Kesehatan", "E": "Ratna tidak mau menjadi pegawai Dinas Kesehatan"}, "answer": "C"}, {"number": 68, "type": "single", "text": "Semua hewan karnivora suka makan daging. Sebagian hewan karnivora suka makan sayuran. Sebagian yang suka makan sayuran berumur panjang.", "options": {"A": "Semua hewan karnivora suka makan daging, sayuran, dan berumur panjang", "B": "Semua hewan karnivora yang suka makan sayuran pasti berumur panjang", "C": "Sebagian hewan karnivora yang suka makan daging, belum tentu berumur panjang", "D": "Sebagian hewan karnivora yang suka makan daging pasti berumur panjang", "E": "Sebagian hewan karnivora tidak berumur panjang karena tidak makan sayuran"}, "answer": "C"}, {"number": 69, "type": "single", "text": "Semua pengendara sepeda motor wajib menggunakan helm. Sebagian pengendara sepeda motor menggunakan jaket kulit.", "options": {"A": "Semua pengendara tidak menggunakan jaket kulit", "B": "Sebagian pengendara sepeda motor tidak wajib menggunakan helm", "C": "Sebagian pengendara sepeda motor menggunakan helm dan jaket kulit", "D": "Sebagian pengendara sepeda motor tidak wajib menggunakan helm dan tidak menggunakan jaket kulit", "E": "Sebagian pengendara sepeda motor tidak menggunakan helm"}, "answer": "C"}, {"number": 70, "type": "single", "text": "Semua penyanyi adalah artis. Sebagian penyanyi adalah bintang film.", "options": {"A": "Sebagian artis bukan penyanyi", "B": "Sebagian bintang film adalah artis", "C": "Semua bintang film adalah artis", "D": "Sebagian penyanyi bukan artis", "E": "Sebagian penyanyi bukan bintang film"}, "answer": "B"}, {"number": 71, "type": "single", "text": "Semua warga negara yang berumur minimal 17 tahun berhak memiliki KTP. Semua siswa yang baru lulus SMA berusia lebih dari 17 tahun.", "options": {"A": "Semua siswa berhak memiliki KTP", "B": "Tidak semua siswa berhak memiliki KTP", "C": "Semua warga negara memiliki KTP", "D": "Tidak ada siswa yang berhak memiliki KTP", "E": "Tidak ada warga negara yang berhak memiliki KTP"}, "answer": "B"}, {"number": 72, "type": "single", "text": "Tidak satu orang pun diizinkan masuk ke dalam kawasan cagar alam kecuali memiliki tiket masuk. Sebagian mahasiswa boleh masuk kawasan cagar alam.", "options": {"A": "Sebagian mahasiswa tidak memiliki tiket masuk", "B": "Semua mahasiswa tidak diizinkan masuk ke dalam kawasan cagar alam", "C": "Tidak ada mahasiswa yang memiliki tiket masuk", "D": "Sebagian mahasiswa memiliki tiket masuk", "E": "Sebagian mahasiswa boleh masuk ke dalam kawasan cagar alam"}, "answer": "D"}, {"number": 73, "type": "single", "text": "Semua karyawan perusahaan diikutkan dalam program Jamsostek. Sebagian karyawan perusahaan diikutkan program pelatihan keterampilan kerja.", "options": {"A": "Sebagian karyawan tidak diikutkan program Jamsostek dan program pelatihan keterampilan kerja.", "B": "Sebagian karyawan yang diikutkan program Jamsostek tidak diikutkan program pelatihan keterampilan kerja.", "C": "Sebagian karyawan yang diikutkan program Jamsostek diikutkan program pelatihan keterampilan kerja.", "D": "Sebagian karyawan yang tidak diikutkan program Jamsostek, tidak diikutkan program pelatihan keterampilan kerja.", "E": "Sebagian karyawan yang tidak diikutkan program Jamsostek, diikutkan program pelatihan keterampilan kerja."}, "answer": "C"}, {"number": 74, "type": "single", "text": "Tidak ada warga di Desa Sejahtera yang menjadi anggota timses pasangan Capres dan Cawapres nomor urut 04. Semua pemuda di Gang 01 adalah anggota timses pasangan Capres dan Cawapres nomor urut 04. Simpulan yang tepat adalah ....", "options": {"A": "Beberapa warga di Desa Sejahtera menjadi anggota timses pasangan Capres dan Cawapres nomor urut 04", "B": "Semua anggota timses pasangan Capres dan Cawapres nomor urut 04 adalah warga desa lain", "C": "Sebagian anggota timses pasangan Capres dan Cawapres nomor urut 04 adalah pemuda di Gang 01", "D": "Semua anggota timses pasangan Capres dan Cawapres nomor urut 04 adalah pemuda di Gang 01", "E": "Tidak ada pemuda di Gang 01 yang menjadi warga di Desa Sejahtera"}, "answer": "E"}, {"number": 75, "type": "single", "text": "Jika Faisal rajin sekolah, maka ia akan mendapatkan banyak ilmu pengetahuan. Jika Faisal memiliki banyak ilmu pengetahuan, maka ia akan berguna bagi bangsa dan negara. Kesimpulannya adalah ....", "options": {"A": "Jika Faisal berguna bagi bangsa dan negara, pastinya ia adalah orang yang rajin", "B": "Jika Faisal rajin sekolah, maka ia akan berguna bagi bangsa dan negara", "C": "Jika Faisal rajin sekolah, maka ia akan memiliki banyak ilmu pengetahuan", "D": "Jika Faisal memiliki banyak ilmu pengetahuan, maka ia rajin sekolah", "E": "Jika Faisal berguna bagi bangsa dan negara, maka ia memiliki banyak ilmu pengetahuan"}, "answer": "B"}, {"number": 76, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "32", "B": "34", "C": "36", "D": "38", "E": "42"}, "answer": "D", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285906.png?raw=true"]}, {"number": 77, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "5", "B": "7", "C": "9", "D": "11", "E": "13"}, "answer": "B", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285907.png?raw=true"]}, {"number": 78, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "7", "B": "6", "C": "5", "D": "4", "E": "3"}, "answer": "B", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285908.png?raw=true"]}, {"number": 79, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "54", "B": "48", "C": "42", "D": "36", "E": "31"}, "answer": "E", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285909.png?raw=true"]}, {"number": 80, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "112", "B": "120", "C": "124", "D": "126", "E": "128"}, "answer": "D", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285910.png?raw=true"]}, {"number": 81, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "", "B": "", "C": "", "D": "", "E": ""}, "answer": "B", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285911.png?raw=true"], "optionImages": {"A": "https://github.com/kurniacandra/1/blob/main/J1TMQS285911.png?raw=true", "B": "https://github.com/kurniacandra/1/blob/main/J2TMQS285911.png?raw=true", "C": "https://github.com/kurniacandra/1/blob/main/J3TMQS285911.png?raw=true", "D": "https://github.com/kurniacandra/1/blob/main/J4TMQS285911.png?raw=true", "E": "https://github.com/kurniacandra/1/blob/main/J5TMQS285911.png?raw=true"}}, {"number": 82, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "", "B": "", "C": "", "D": "", "E": ""}, "answer": "C", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285912.png?raw=true"], "optionImages": {"A": "https://github.com/kurniacandra/1/blob/main/J1TMQS285912.png?raw=true", "B": "https://github.com/kurniacandra/1/blob/main/J2TMQS285912.png?raw=true", "C": "https://github.com/kurniacandra/1/blob/main/J3TMQS285912.png?raw=true", "D": "https://github.com/kurniacandra/1/blob/main/J4TMQS285912.png?raw=true", "E": "https://github.com/kurniacandra/1/blob/main/J5TMQS285912.png?raw=true"}}, {"number": 83, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "5 – 1 – 3 – 4 – 7 – 2 – 6", "B": "5 – 1 – 4 – 7 – 3 – 2 – 6", "C": "5 – 1 – 4 – 3 – 7 – 2 – 6", "D": "5 – 1 – 2 – 3 – 7 – 4 – 6", "E": "5 – 2 – 4 – 3 – 7 – 1 – 6"}, "answer": "C", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285913.png?raw=true"]}, {"number": 84, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "5 – 2 – 1 – 4 – 6 – 3", "B": "3 – 6 – 2 – 4 – 1 – 5", "C": "3 – 6 – 4 – 1 – 2 – 5", "D": "5 – 2 – 4 – 1 – 6 – 3", "E": "2 – 4 – 1 – 6 – 3 – 5"}, "answer": "D", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285914.png?raw=true"]}, {"number": 85, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "2 – 3 – 4 – 1", "B": "4 – 3 – 2 – 1", "C": "3 – 2 – 1 – 4", "D": "4 – 1 – 3 – 2", "E": "1 – 4 – 3 – 2"}, "answer": "B", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285915.png?raw=true"]}, {"number": 86, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "3 – 4 – 1 – 2", "B": "1 – 2 – 4 – 3", "C": "2 – 1 – 3 – 4", "D": "3 – 1 – 4 – 2", "E": "3 – 1 – 2 – 4"}, "answer": "D", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285916.png?raw=true"]}, {"number": 87, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "5 – 2 – 3 – 7 – 1 – 6 – 4", "B": "1 – 6 – 4 – 2 – 7 – 5 – 3", "C": "3 – 7 – 5 – 4 – 1 – 2 – 6", "D": "3 – 5 – 2 – 7 – 4 – 6 – 1", "E": "1 – 6 – 2 – 4 -5 – 7 – 3"}, "answer": "C", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285917.png?raw=true"]}, {"number": 88, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "", "B": "", "C": "", "D": "", "E": ""}, "answer": "D", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285918.png?raw=true"], "optionImages": {"A": "https://github.com/kurniacandra/1/blob/main/J1TMQS285918.png?raw=true", "B": "https://github.com/kurniacandra/1/blob/main/J2TMQS285918.png?raw=true", "C": "https://github.com/kurniacandra/1/blob/main/J3TMQS285918.png?raw=true", "D": "https://github.com/kurniacandra/1/blob/main/J4TMQS285918.png?raw=true", "E": "https://github.com/kurniacandra/1/blob/main/J5TMQS285918.png?raw=true"}}, {"number": 89, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "", "B": "", "C": "", "D": "", "E": ""}, "answer": "D", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285919.png?raw=true"], "optionImages": {"A": "https://github.com/kurniacandra/1/blob/main/J1TMQS285919.png?raw=true", "B": "https://github.com/kurniacandra/1/blob/main/J2TMQS285919.png?raw=true", "C": "https://github.com/kurniacandra/1/blob/main/J3TMQS285919.png?raw=true", "D": "https://github.com/kurniacandra/1/blob/main/J4TMQS285919.png?raw=true", "E": "https://github.com/kurniacandra/1/blob/main/J5TMQS285919.png?raw=true"}}, {"number": 90, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "45", "B": "43", "C": "41", "D": "39", "E": "37"}, "answer": "C", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285920.png?raw=true"]}, {"number": 91, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Gedung Wanita", "B": "Pos Polisi Kajen", "C": "SD IT Al – Fallah", "D": "Stadiun Mandala", "E": "Rumah Ronal"}, "answer": "D", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285921.png?raw=true"]}, {"number": 92, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Pusat Kebugaran", "B": "Museum", "C": "Kantor Arsip Nasional", "D": "RM Padang", "E": "Taman Bermain"}, "answer": "B", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285922.png?raw=true"]}, {"number": 93, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Masjid", "B": "Polsek", "C": "Masjid Attaqwa", "D": "Tugu Perahu", "E": "Rumah Sakit"}, "answer": "C", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285923.png?raw=true"]}, {"number": 94, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Apartemen", "B": "Kantor Polisi", "C": "Rumah Dina", "D": "Rumah Ayu", "E": "Taruna Mandala"}, "answer": "E", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285924.png?raw=true"]}, {"number": 95, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Barat", "B": "Barat Laut", "C": "Barat daya", "D": "Tenggara", "E": "Timur laut"}, "answer": "B", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285925.png?raw=true"]}, {"number": 96, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Apartemen dan toko cat", "B": "Apartemen dan toko plastik", "C": "Perpustakaan dan lapangan futsal", "D": "Perpustakaan dan kios C", "E": "Kios A dan Masjid"}, "answer": "B", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285926.png?raw=true"]}, {"number": 97, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Toko Sembako", "B": "Pet Shop", "C": "Taman", "D": "Kios A", "E": "Masjid"}, "answer": "E", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285927.png?raw=true"]}, {"number": 98, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Rumah Bayu", "B": "Rumah Sari", "C": "Rumah Bagas", "D": "SD Brian Jaya", "E": "Lapangan"}, "answer": "B", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285928.png?raw=true"]}, {"number": 99, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Barat Laut", "B": "Barat Daya", "C": "Utara", "D": "Barat", "E": "Timur Laut"}, "answer": "B", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285929.png?raw=true"]}, {"number": 100, "type": "single", "text": "Perhatikan gambar berikut.", "options": {"A": "Kantor pos", "B": "Bank abc", "C": "Puskesmas", "D": "Universitas", "E": "Toko F"}, "answer": "D", "images": ["https://github.com/kurniacandra/1/blob/main/QTMQS285930.png?raw=true"]}];
+const kepriQuestions=[{"number": 1, "text": "Anda sedang mengikuti proses seleksi lomba karya ilmiah tingkat nasional. Selama beberapa bulan terakhir Anda telah mempersiapkan dengan serius dan membuat jadwal riset serta presentasi yang ketat. Namun, seminggu sebelum tahap final, Anda mengalami demam tinggi dan dokter menyarankan istirahat total. Apa yang akan Anda lakukan?", "options": {"A": "Tetap menjalankan jadwal persiapan yang sudah Anda buat meski dalam kondisi sakit", "B": "Mengurangi beban jadwal dan menyesuaikan waktu riset agar tidak terlalu berat", "C": "Beristirahat penuh agar pulih total sebelum kembali berlatih secara optimal", "D": "Melanjutkan persiapan semampunya di tengah proses pemulihan meski tidak maksimal"}, "key": "C", "points": {"A": 1, "B": 3, "C": 4, "D": 2}}, {"number": 2, "text": "Anda baru saja ditegur guru karena terlambat masuk kelas. Padahal hari ini Anda dijadwalkan memimpin rapat mendadak untuk menyusun proposal kegiatan sekolah yang harus segera dik umpulkan. Apa yang akan Anda lakukan?", "options": {"A": "Menenangkan diri terlebih dahulu sebelum memimpin rapat sesuai jadwal", "B": "Tetap memimpin rapat sesuai jadwal karena tanggung jawab lebih penting", "C": "Menunda rapat sampai kondisi mental lebih tenang dan siap", "D": "Membatalkan rapat karena merasa terganggu dengan teguran guru tadi"}, "key": "B", "points": {"A": 3, "B": 4, "C": 2, "D": 1}}, {"number": 3, "text": "Anda adalah siswa kelas akhir yang dipercaya menjadi koordinator lomba karya ilmiah tingkat sekolah. Pada saat yang sama, Anda juga harus menyelesaikan tugas akhir, mempersiapkan presentasi kelulusan, dan mengikuti seleksi beasiswa ke universitas ternama. Anda mulai merasa kewalahan dengan beban tanggung jawab dan target pribadi. Apa yang akan Anda lakukan?", "options": {"A": "Mengerjakan semua tanggung jawab semampunya tanpa membuat jadwal khusus", "B": "Mengerjakan tugas-tugas yang dianggap paling mendesak terlebih dahulu sambil menunda yang lain", "C": "Menyusun prioritas dan membagi waktu secara terencana agar semua tugas dan persiapan tetap berjalan", "D": "Merasakan kebingungan dan tidak tahu harus memulai dari mana untuk menyelesaikan semuanya"}, "key": "C", "points": {"A": 2, "B": 3, "C": 4, "D": 1}}, {"number": 4, "text": "Anda menjadi panitia dalam acara sekolah dan bertugas bersama teman sekelas yang biasanya pendiam dan kurang aktif. Namun belakangan Anda menyadari bahwa ia berusaha keras untuk terlibat, meskipun hasil kerjanya belum maksimal dan sering terjadi kesalahan kecil. Beberapa teman mulai mengeluh dan mempertimbangkan untuk menggantinya. Apa yang akan Anda lakukan?", "options": {"A": "Mengusulkan pada panitia lain untuk memberinya tugas yang lebih ringan agar tidak menghambat kerja tim", "B": "Mengajak bicara secara pribadi untuk memberi dukungan dan membantunya memahami tugasnya lebih baik", "C": "Membiarkannya tanpa campur tangan karena Anda bukan ketua panitia", "D": "Memberi tahu teman-teman bahwa menggantinya bukan solusi dan mengajak mereka untuk lebih sabar"}, "key": "B", "points": {"A": 2, "B": 4, "C": 1, "D": 3}}, {"number": 5, "text": "Anda baru saja terpilih menjadi ketua kelas pada tahun ajaran baru. Dalam beberapa minggu pertama, Anda menyadari bahwa ada beberapa siswa yang sering mengejek dan mengucilkan teman yang lebih pendiam atau berbeda. Situasi ini mengingatkan Anda pada pengalaman pribadi yang kurang menyenangkan di masa lalu. Apa yang akan Anda lakukan?", "options": {"A": "Menasehati siswa untuk menghentikan perilakunya dan memantau sikap mereka ke depan", "B": "Memanggil dan berbicara langsung dengan siswa yang sering mengejek secara pribadi untuk mengetahui alasannya", "C": "Mengajak teman-teman untuk bersama-sama menegur siswa yang bersikap tidak baik kepada temannya", "D": "Menunggu hingga ada yang meminta bantuan secara langsung sebelum ikut menangani situasi tersebut"}, "key": "A", "points": {"A": 4, "B": 3, "C": 2, "D": 1}}, {"number": 6, "text": "Anda sedang menunggu giliran untuk mengikuti wawancara seleksi organisasi sekolah. Tiba-tiba Anda melihat teman satu sekolah pingsan di dekat kantin karena kelelahan dan belum makan. Sementara petugas UKS belum terlihat dan guru yang bertanggung jawab belum hadir. Apa yang akan Anda lakukan?", "options": {"A": "Segera membawa teman tersebut ke UKS dan berharap guru akan mengerti jika Anda terlambat wawancara", "B": "Mencari guru atau petugas UKS terlebih dahulu agar tidak meninggalkan antrean wawancara", "C": "Meminta teman lain untuk mengantar teman ke UKS agar Anda tetap mengikuti wawancara sesuai jadwal", "D": "Menunggu sampai guru datang sambil memastikan teman tersebut tetap sadar dan tidak dikerumuni siswa lain"}, "key": "A", "points": {"A": 4, "B": 2, "C": 1, "D": 3}}, {"number": 7, "text": "Saat menuju ruang ujian, Anda melihat seorang teman terjatuh di lorong sekolah dan kesulitan berdiri karena pergelangan kakinya terkilir. Anda tahu ujian akan dimulai dalam waktu 10 menit, dan keterlambatan bisa mengurangi waktu mengerjakan. Apa yang akan Anda lakukan?", "options": {"A": "Membantunya duduk lalu segera pergi ke ruang ujian", "B": "Memastikan ia tidak luka serius sebelum melanjutkan ke kelas", "C": "Membantu berdiri dan mengantar ke UKS sebelum ujian", "D": "Melapor ke guru piket dan langsung menuju ruang ujian"}, "key": "C", "points": {"A": 1, "B": 2, "C": 4, "D": 3}}, {"number": 8, "text": "Seorang teman di kelas Anda mendapat tugas presentasi dari guru, tetapi dia sedang demam sejak kemarin. Ia meminta Anda menggantikannya besok pagi, sementara Anda belum membaca ma terinya karena bukan tugas Anda. Apa yang akan Anda lakukan?", "options": {"A": "Membantu menyampaikan materi presentasi setelah mempelajarinya terlebih dahulu", "B": "Membantu menjelaskan sebagian materi yang sudah sempat Anda baca", "C": "Menyarankan ia izin sakit dan minta penjadwalan ulang ke guru", "D": "Menolak membantu karena itu bukan tanggung jawab Anda langsung"}, "key": "A", "points": {"A": 4, "B": 3, "C": 2, "D": 1}}, {"number": 9, "text": "Anda baru saja pindah ke kota baru karena mengikuti orang tua yang mutasi kerja. Di sekolah yang baru, sistem pembelajarannya sangat berbeda dengan sekolah lama. Di sisi lain, Anda juga sedang mengikuti seleksi lomba bidang yang Anda minati, yang membutuhkan banyak latihan. Sementara itu, Anda masih berusaha memahami lingkungan baru dan membangun pertemanan. Apa yang akan Anda lakukan?", "options": {"A": "Fokus sepenuhnya pada seleksi lomba agar tidak kehilangan kesempatan yang sudah lama Anda tunggu", "B": "Mengatur jadwal agar bisa tetap berlatih lomba sambil beradaptasi dengan pelajaran dan lingkungan sekolah baru", "C": "Minta izin keluar dari seleksi lomba agar bisa fokus sepenuhnya pada proses penyesuaian di sekolah baru", "D": "Menunda usaha membangun pertemanan agar tidak terdistraksi dari lomba dan pelajaran"}, "key": "B", "points": {"A": 3, "B": 4, "C": 2, "D": 1}}, {"number": 10, "text": "Anda mengikuti program pertukaran pelajar selama satu semester di sekolah mitra yang berada di luar provinsi. Di minggu kedua, Anda mengetahui bahwa kurikulum di sekolah tersebut berbeda cukup signifikan, terutama dalam mata pelajaran yang Anda kurang kuasai. Selain itu, Anda juga harus beradaptasi dengan gaya belajar dan budaya siswa yang berbeda. Apa yang akan Anda lakukan?", "options": {"A": "Mengatur ulang strategi belajar dan meminta bantuan dari teman atau guru agar lebih cepat menyesuaikan diri", "B": "Fokus hanya pada mata pelajaran yang Anda kuasai untuk menghindari stres dan tekanan berlebih", "C": "Menyerah dan mengajukan permohonan untuk kembali ke sekolah asal lebih awal", "D": "Mencatat semua perbedaan sistem dan meminta waktu tambahan dari guru untuk memahami materi baru"}, "key": "A", "points": {"A": 4, "B": 2, "C": 1, "D": 3}}, {"number": 11, "text": "Anda menjadi anggota baru dalam klub diskusi bahasa Inggris di sekolah. Dalam pertemuan pertama, Anda diminta mempresentasikan topik dalam bahasa Inggris secara spontan, tanpa teks. Di klub sebelumnya, Anda biasamenggunakan catatan untuk berbicara. Anda merasa kurang siap dengan metode ini, tetapi juga ingin tetap berpartisipasi aktif. Apa yang akan Anda lakukan?", "options": {"A": "Mengusulkan agar diberikan pilihan antara presentasi bebas atau dengan catatan untuk anggota baru", "B": "Memaksa tetap menggunakan catatan meskipun tidak sesuai aturan klub", "C": "Mencoba beradaptasi dengan metode baru dan meminta kesempatan latihan lebih banyak sebelum tampil", "D": "Menolak tampil dan memilih menonton dulu sampai merasa lebih percaya diri"}, "key": "C", "points": {"A": 3, "B": 1, "C": 4, "D": 2}}, {"number": 12, "text": "Anda mengikuti program pertukaran pelajar dan ditempatkan di sekolah mitra yang memiliki sua sana belajar, gaya berpakaian, serta kebiasaan yang cukup berbeda dengan sekolah asal Anda. Sebagian teman baru terlihat akrab satu sama lain dan berbicara menggunakan istilah atau kebia saan lokal yang belum Anda pahami. Anda mulai merasa canggung dan kesulitan membaur. Apa yang akan Anda lakukan?", "options": {"A": "Merasakan tekanan karena harus menyesuaikan diri dalam waktu singkat", "B": "Mengamati lingkungan sekitar dan mulai belajar kebiasaan serta tata krama setempat", "C": "Mencoba menyesuaikan diri sebisa mungkin meski belum sepenuhnya nyaman", "D": "Menumbuhkan semangat untuk mengenal teman dan budaya baru meskipun merasa canggung di awal"}, "key": "B", "points": {"A": 1, "B": 4, "C": 2, "D": 3}}, {"number": 13, "text": "Anda baru pindah sekolah dan memilih bergabung dalam ekstrakurikuler paduan suara. Di sekolah lama, Anda terbiasa menyanyi dengan teknik vokal klasik. Namun, di sekolah baru teknik yang digunakan lebih modern dan energik, serta sudah ditentukan lagu untuk kompetisi minggu depan. Anda diminta untuk segera menyesuaikan diri sebagai cadangan pengisi suara tenor. Apa yang akan Anda lakukan?", "options": {"A": "Memilih tetap menggunakan teknik vokal lama karena itu yang paling nyaman bagi Anda", "B": "Berusaha menyesuaikan teknik vokal baru dengan memperhatikan latihan teman-teman", "C": "Menerima teknik baru sebagai tantangan untuk memperkaya kemampuan", "D": "Mencoba beradaptasi perlahan dengan menyadari bahwa Anda butuh waktu untuk berproses"}, "key": "C", "points": {"A": 1, "B": 3, "C": 4, "D": 2}}, {"number": 14, "text": "Anda adalah anggota klub voli sekolah. Saat akan mengikuti kejuaraan, pelatih utama digantikan oleh pelatih muda yang lebih tegas dan disiplin. Beberapa teman mengeluh dengan metode latihannya. Apa yang akan Anda lakukan?", "options": {"A": "Mendukung teman yang menolak cara latihan pelatih baru", "B": "Mendukung teman yang menolak cara latihan pelatih baru", "C": "Memberikan masukan ke pelatih baru soal cara pendekatannya", "D": "Menghindari konflik dan mengikuti latihan tanpa banyak komentar"}, "key": "C", "points": {"A": 1, "B": 2, "C": 4, "D": 3}}, {"number": 15, "text": "Anda diminta oleh ketua OSIS untuk menjadi pembicara dalam seminar pelajar tingkat kota mengenai kepemimpinan dan organisasi. Meskipun Anda aktif dalam organisasi sekolah, ini akan menjadi kali pertama Anda tampil berbicara di depan publik dengan skala besar. Ketua OSIS yakin Anda mampu menyampaikan materi dengan baik. Apa yang akan Anda lakukan?", "options": {"A": "Menerima tawaran tersebut dan meminta kesempatan mengikuti bimbingan singkat dari guru pembina OSIS sebelum tampil", "B": "Memotivasi diri dan meminta masukan dari teman serta guru pembina agar dapat melakukan persiapan secara optimal", "C": "Menerima tawaran sambil mencari referensi mandiri, meski tanpa banyak pengalaman, dan berharap hasilnya cukup baik", "D": "Meminta waktu untuk mempertimbangkan dan mencari teman lain yang lebih berpengalaman untuk diajak berbagi tugas"}, "key": "B", "points": {"A": 3, "B": 4, "C": 1, "D": 2}}, {"number": 16, "text": "Anda terpilih sebagai anggota baru tim dokumentasi dalam kegiatan sekolah tingkat kota. Tugas Anda adalah membuat video profil kegiatan yang akan dipublikasikan. Meski Anda cukup mahir dalam editing, ini adalah proyek pertama yang akan dilihat banyak orang. Anda mulai ragu apakah bisa memenuhi ekspektasi tim. Apa yang akan Anda lakukan?", "options": {"A": "Berusaha mengikuti arahan tim meski belum sepenuhnya yakin", "B": "Mempertimbangkan ulang kemampuan diri sebelum mengambil peran lebih besar", "C": "Berpikir mundur karena khawatir tidak mampu memenuhi harapan tim", "D": "Menjadikan tantangan sebagai peluang untuk belajar dan mengembangkan diri"}, "key": "D", "points": {"A": 3, "B": 2, "C": 1, "D": 4}}, {"number": 17, "text": "Anda terpilih sebagai ketua panitia kegiatan open house sekolah yang akan diadakan secara daring. Ini merupakan kegiatan pertama yang Anda pimpin dalam format virtual, dan Anda belum memiliki pengalaman mengelola acara online yang melibatkan peserta dari luar sekolah. Apa yang akan Anda lakukan?", "options": {"A": "Menghubungi guru pembimbing serta anggota panitia yang berpengalaman untuk meminta arahan teknis pelaksanaan acara daring", "B": "Mengajak seluruh panitia untuk berdiskusi dan menentukan langkah teknis terbaik berdasarkan kesepakatan bersama", "C": "Menentukan format dan alur acara berdasarkan referensi kegiatan daring dari sekolah lain", "D": "Meminta rekomendasi dari teman dekat atau kakak kelas mengenai cara mengelola acara daring"}, "key": "B", "points": {"A": 3, "B": 4, "C": 2, "D": 1}}, {"number": 18, "text": "Anda terpilih menjadi perwakilan kelas untuk mengikuti lomba pidato antar siswa dalam rangka peringatan Hari Pendidikan Nasional. Meskipun Anda belum pernah mengikuti lomba pidato sebelumnya, guru Bahasa Indonesia dan teman-teman meyakini kemampuan Anda. Apa yang akan Anda lakukan?", "options": {"A": "Berusaha menjalankan kepercayaan tersebut dan mulai latihan secara teratur", "B": "Bertanya dan berlatih dengan teman yang berpengalaman agar lebih siap tampil", "C": "Mengusulkan agar perwakilan diganti karena belum memiliki pengalaman serupa", "D": "Menerima tugas tersebut asal diberikan naskah pidato yang bisa dihafalkan"}, "key": "B", "points": {"A": 3, "B": 4, "C": 1, "D": 2}}, {"number": 19, "text": "Anda diminta menjadi pembicara dalam sesi presentasi klub ilmiah di hadapan siswa baru dan beberapa guru. Saat mendekati hari pelaksanaan, Anda mulai merasa tidak yakin dengan kemampuan public speaking Anda karena belum pernah berbicara di depan audiens sebanyak itu. Apa yang akan Anda lakukan?", "options": {"A": "Tetap menerima tantangan dan berlatih secara intensif agar tampil maksimal saat hari-H", "B": "Meminta teman lain yang lebih berpengalaman untuk menggantikan Anda berbicara", "C": "Menyampaikan kekhawatiran Anda kepada pembina dan meminta saran atau pendampingan", "D": "Mencari video referensi presentasi serupa dan menghafal naskah tanpa memodifikasi sesuai gaya pribadi"}, "key": "A", "points": {"A": 4, "B": 1, "C": 3, "D": 2}}, {"number": 20, "text": "Mencari video referensi presentasi serupa dan menghafal naskah tanpa memodifikasi sesuai gaya pribadiAnda lolos ke tahap final lomba menulis cerpen tingkat nasional. Namun, ketika membaca karya peserta lain, Anda merasa cerita mereka lebih kompleks dan gaya bahasanya lebih matang. Anda mulai meragukan kualitas tulisan Anda sendiri. Apa yang akan Anda lakukan?", "options": {"A": "Meminta teman untuk mengedit ulang seluruh cerpen agar lebih mirip gaya penulis lain", "B": "Mengundurkan diri dari final karena merasa tidak mampu bersaing dengan peserta lain", "C": "Berkonsultasi dengan guru pembimbing untuk menilai kekuatan cerita Anda dan memperbaiki jika perlu", "D": "Mengirimkan karya Anda dengan percaya diri karena mencerminkan ide dan gaya khas Anda"}, "key": "D", "points": {"A": 2, "B": 1, "C": 3, "D": 4}}, {"number": 21, "text": "Anda tergabung dalam kelompok belajar Matematika. Saat diskusi, seorang anggota mengajukan soal sulit yang belum diketahui jawabannya. Anda merasa yakin dengan cara penyelesaian Anda, tetapi beberapa teman meragukannya karena berbeda dari metode guru. Apa yang akan Anda lakukan?", "options": {"A": "Diam saja karena tidak ingin terlihat sok tahu jika ternyata jawaban Anda salah", "B": "Mengubah jawaban Anda mengikuti teman-teman meskipun yakin cara Anda benar", "C": "Menjelaskan langkah Anda dengan percaya diri dan terbuka menerima masukan dari teman-teman", "D": "Meminta teman untuk mencoba cara Anda dan membandingkannya secara objektif"}, "key": "C", "points": {"A": 2, "B": 1, "C": 4, "D": 3}}, {"number": 22, "text": "Anda adalah ketua tim tari tradisional sekolah yang akan mengikuti tiga festival budaya dalam satu tahun. Kepala Sekolah memberikan tantangan agar tim meraih minimal posisi tiga besar di semua ajang tersebut. Namun, dua anggota inti tim mengalami cedera kaki setelah tampil dalam acara sekolah, sementara jadwal festival pertama tinggal sebulan lagi. Apa yang akan Anda lakukan?", "options": {"A": "Mendiskusikan strategi dan formasi dengan pelatih serta tim agar tetap kompetitif meski ada yang cedera", "B": "Mencari anggota baru yang memiliki kemampuan terbaik untuk menggantikan dua penari yang cedera", "C": "Merekrut anggota cadangan seadanya dan berharap bisa mengejar performa selama latihan intensif", "D": "Memaksakan anggota yang cedera tetap ikut latihan agar target dari sekolah tetap tercapai"}, "key": "A", "points": {"A": 4, "B": 3, "C": 2, "D": 1}}, {"number": 23, "text": "Anda memiliki cita-cita untuk menjadi atlet pencak silat profesional. Sekolah mengumumkan seleksi untuk mewakili lomba tingkat provinsi. Namun, Anda belum mencapai standar teknik yang ditetapkan pelatih karena selama ini jarang ikut latihan rutin. Anda merasa kesempatan ini penting karena usia Anda hampir melewati batas seleksi. Apa yang akan Anda lakukan?", "options": {"A": "Menyerah dan tidak ikut seleksi karena merasa tidak mungkin mengejar ketertinggalan dalam waktu singkat", "B": "Menunggu teman yang lebih rutin latihan mengajak latihan bersama agar Anda lebih termotivasi", "C": "Mulai mengikuti latihan secara konsisten dan memperbaiki teknik walau menyadari masih ada kekurangan", "D": "Membuat jadwal latihan, meminta masukan pelatih, dan berkomitmen penuh mengejar target sebelum seleksi"}, "key": "D", "points": {"A": 1, "B": 2, "C": 3, "D": 4}}, {"number": 24, "text": "Anda adalah siswa yang aktif mengikuti ekstrakurikuler fotografi dan baru saja mendapatkan tawaran menjadi ketua panitia pameran karya seni tingkat kota. Namun, pada waktu yang sama Anda juga sedang mempersiapkan diri untuk lomba fotografi nasional yang selama ini Anda incar. Kedua kegiatan memiliki jadwal yang cukup padat. Apa yang akan Anda lakukan?", "options": {"A": "Menerima tawaran panitia dan membagi waktu secara proporsional", "B": "Mengutamakan lomba nasional karena sesuai dengan minat dan target pribadi", "C": "Menolak tawaran panitia agar fokus penuh pada lomba fotografi", "D": "Menjalankan keduanya secara bersamaan tanpa membuat jadwal khusus"}, "key": "A", "points": {"A": 4, "B": 3, "C": 2, "D": 1}}, {"number": 25, "text": "Anda dipercaya menjadi ketua pencarian dana untuk kegiatan pentas seni sekolah. Sejumlah sponsor sudah dihubungi, namun belum ada yang menyanggupi mendukung dana. Sementara itu, waktu pelaksanaan tinggal dua bulan lagi. Apa yang akan Anda lakukan?", "options": {"A": "Mendiskusikan alternatif solusi bersama tim agar kendala cepat teratasi", "B": "Mengajak seluruh panitia untuk turut mencari peluang sponsor tambahan", "C": "Menyerahkan pencarian sponsor kepada anggota yang tersisa", "D": "Meminta ketua pelaksana mengambil alih pencarian sponsor"}, "key": "A", "points": {"A": 4, "B": 3, "C": 1, "D": 2}}, {"number": 26, "text": "Anda ikut lomba musik sekolah sebagai pemain keyboard. Setelah latihan, pelatih memberi masukan bahwa permainan Anda belum stabil dan digantikan sementara. Apa yang akan Anda lakukan?", "options": {"A": "Meminta pelatih menjelaskan alasan digantikan agar tidak salah paham", "B": "Mencari tim lain agar tetap tampil sebagai pemain utama", "C": "Mengikuti latihan seadanya tanpa ambisi jadi pemain utama lagi", "D": "Menerima masukan dan berlatih lebih giat untuk memperbaiki permainan"}, "key": "D", "points": {"A": 3, "B": 2, "C": 1, "D": 4}}, {"number": 27, "text": "Anda menjadi penanggung jawab konsumsi dalam kegiatan pelatihan kepemimpinan sekolah. Berdasarkan perjanjian, katering akan mengirimkan makanan satu jam sebelum acara dimulai. Namun, pada hari pelaksanaan, 30 menit sebelum acara, makanan belum juga datang dan nomor kontak pihak katering sulit dihubungi. Sementara para peserta sudah mulai berdatangan. Apa yang Anda lakukan?", "options": {"A": "Segera menghubungi katering berkali-kali sambil menyiapkan alternatif darurat bersama panitia lain jika makanan tidak juga datang", "B": "Menunggu selama beberapa menit dengan harapan katering akan datang sebelum acara dimulai", "C": "Menghubungi katering dan mencoba mencari tahu kendalanya sambil mengoordinasikan solusi jika perlu penjadwalan ulang pengantaran", "D": "Mencari panitia senior atau penanggung jawab lain untuk meminta arahan mengenai langkah yang sebaiknya dilakukan"}, "key": "A", "points": {"A": 4, "B": 1, "C": 3, "D": 2}}, {"number": 28, "text": "Anda dipercaya menjadi ketua pelaksana kegiatan diskusi kebangsaan yang akan melibatkan peserta dari berbagai organisasi siswa di sekolah. Topik yang diangkat cukup sensitif karena menyangkut keberagaman suku dan budaya. Di sisi lain, panitia inti hanya berjumlah empat orang dengan latar belakang yang beragam. Apa yang akan Anda lakukan?", "options": {"A": "Berkoordinasi dengan guru pembina OSIS agar membantu menjembatani komunikasi dengan pihak-pihak terkait kegiatan", "B": "Mengumpulkan informasi dan masukan dari berbagai pihak untuk dijadikan bahan pertimbangan dalam menyusun kegiatan", "C": "Melaksanakan kegiatan sebisa mungkin bersama panitia inti, meskipun dengan sumber daya terbatas", "D": "Mendiskusikan rencana kegiatan dan membagi tugas sesuai kemampuan masing-masing"}, "key": "D", "points": {"A": 2, "B": 3, "C": 1, "D": 4}}, {"number": 29, "text": "Anda adalah sekretaris panitia kelas untuk kegiatan rekreasi akhir tahun. Tugas Anda adalah merapikan data pendaftaran dan menyusun surat izin kepada orang tua. Namun di saat yang sama, Anda juga mengikuti beberapa pelatihan intensif untuk persiapan masuk sekolah kedinasan yang waktunya cukup padat. Apa yang akan Anda lakukan?", "options": {"A": "Menyerahkan sebagian tugas kepada teman panitia lain tanpa penjelasan agar bisa fokus pada pelatihan masuk kedinasan", "B": "Berusaha menyelesaikan dokumen kepanitiaan secepatnya meskipun harus mengurangi waktu istirahat", "C": "Membuat jadwal kerja yang jelas agar tugas panitia dan pelatihan bisa dijalankan tanpa saling mengganggu", "D": "Meminta bantuan ketua panitia dan teman lain untuk menyelesaikan sebagian dokumen, sambil tetap terlibat dalam proses penyusunan"}, "key": "C", "points": {"A": 1, "B": 2, "C": 4, "D": 3}}, {"number": 30, "text": "Anda terpilih menjadi panitia dalam acara pameran karya seni sekolah yang berlangsung selama seminggu. Pada saat yang sama, Anda juga sedang menjalani program magang singkat di luar sekolah yang memerlukan kehadiran harian. Keduanya penting untuk pengembangan diri Anda. Apa yang akan Anda lakukan?", "options": {"A": "Meminta guru pembimbing magang untuk mengizinkan Anda absen selama pameran berlangsung", "B": "Mengajukan cuti magang selama seminggu dan fokus penuh pada tanggung jawab sebagai panitia pameran", "C": "Mengatur waktu seefisien mungkin agar tetap menjalankan kedua tanggung jawab tersebut dengan seimbang", "D": "Menyerahkan tanggung jawab panitia kepada teman lain karena magang lebih relevan dengan rencana masa depan Anda"}, "key": "C", "points": {"A": 3, "B": 2, "C": 4, "D": 1}}, {"number": 31, "text": "Anda adalah bendahara OSIS dan ditugaskan membeli paket alat tulis untuk kegiatan seminar nasional di sekolah. Ketua OSIS menyarankan Anda memesan dari toko langganan tahun lalu karena pelayanannya baik. Namun, Anda mendapati bahwa harga alat tulis dari toko tersebut kini jauh lebih tinggi dari sebelumnya dan melebihi anggaran. Apa yang akan Anda lakukan?", "options": {"A": "Menyerahkan proses pembelian alat tulis kepada ketua OSIS karena sudah memberikan saran toko", "B": "Mengikuti saran Ketua OSIS dan tetap membeli dari toko langganan meski anggaran tidak mencukupi", "C": "Mencari toko alat tulis lain yang menawarkan harga sesuai anggaran yang tersedia", "D": "Membandingkan beberapa toko alat tulis dari segi harga dan kualitas untuk menentukan pilihan terbaik"}, "key": "D", "points": {"A": 2, "B": 1, "C": 3, "D": 4}}, {"number": 32, "text": "Anda ditunjuk sebagai penanggung jawab tim paduan suara sekolah untuk lomba antar SMA yang akan berlangsung bulan depan. Di waktu yang bersamaan, guru musik meminta Anda menjadi penata suara dalam pementasan drama sekolah karena Anda dianggap berpengalaman di bidang tersebut. Kedua kegiatan penting dan membutuhkan waktu latihan yang padat. Apa yang akan Anda lakukan?", "options": {"A": "Menerima permintaan guru dengan catatan akan mengatur waktu sebisanya dan fokus pada salah satu saat jadwal berbenturan", "B": "Membagi waktu antara paduan suara dan pementasan drama agar keduanya tetap dapat dijalankan meski dengan risiko kelelahan", "C": "Menerima tugas penata suara sepenuhnya karena ingin mencoba tantangan baru meski sudah memiliki tanggung jawab lain", "D": "Menyampaikan kepada guru bahwa Anda sudah bertanggung jawab di lomba paduan suara dan tidak dapat menangani keduanya sekaligus"}, "key": "D", "points": {"A": 2, "B": 3, "C": 1, "D": 4}}, {"number": 33, "text": "Dalam rapat OSIS, Anda membahas usulan kegiatan “Fashion Show Baju Daur Ulang” untuk memperingati Hari Lingkungan Hidup. Sebagian anggota mendukung karena inovatif, namun sebagian menolak karena dianggap tidak cocok dengan budaya sekolah. Apa yang akan Anda lakukan?", "options": {"A": "Memfasilitasi diskusi agar setiap anggota menyampaikan alasan dan masukan", "B": "Menerima pendapat anggota dan mengevaluasi manfaat kegiatan secara objektif", "C": "Menolak usulan tersebut demi menjaga citra sekolah yang sudah terbentuk", "D": "Tetap melaksanakan kegiatan karena Anda menilai ini sangat menarik"}, "key": "A", "points": {"A": 4, "B": 3, "C": 1, "D": 2}}, {"number": 34, "text": "Anda baru saja terpilih sebagai ketua panitia class meeting yang akan diselenggarakan bulan depan. Di saat bersamaan, Anda juga sedang menjalani pelatihan intensif untuk mengikuti seleksi beasiswa luar negeri yang sangat kompetitif. Kedua kegiatan membutuhkan fokus dan persiapan yang cukup besar. Apa yang akan Anda lakukan?", "options": {"A": "Melibatkan anggota panitia lain agar beban kerja bisa terbagi", "B": "Meminta izin mundur dari kepanitiaan agar fokus pada beasiswa", "C": "Menunda persiapan beasiswa agar tidak mengecewakan teman sekelas", "D": "Membuat jadwal prioritas agar dapat membagi waktu secara teratur"}, "key": "D", "points": {"A": 3, "B": 2, "C": 1, "D": 4}}, {"number": 35, "text": "Anda sudah lama aktif dalam klub seni lukis di sekolah, namun tiba-tiba pihak sekolah mengarahkan agar Anda pindah ke klub desain digital yang dianggap lebih relevan dengan perkembangan teknologi. Padahal Anda merasa menggambar manual adalah minat utama Anda. Apa yang akan Anda lakukan?", "options": {"A": "Menyampaikan kepada pembina klub alasan ketertarikan Anda pada seni lukis dan meminta pertimbangan untuk tetap di klub awal", "B": "Mengikuti saja keputusan sekolah meskipun merasa kurang tertarik dengan kegiatan yang baru", "C": "Menolak berpindah dan berhenti dari kegiatan ekstrakurikuler karena merasa tidak dihargai minatnya", "D": "Mencoba mengikuti klub desain digital sambil tetap meluangkan waktu mengembangkan keterampilan melukis secara mandiri"}, "key": "D", "points": {"A": 3, "B": 2, "C": 1, "D": 4}}, {"number": 36, "text": "Anda adalah ketua panitia acara peringatan Hari Guru di sekolah. Salah satu anggota tim dokumentasi tidak hadir dalam tiga kali rapat penting tanpa memberikan kabar, padahal ia memiliki peran utama dalam pengambilan video saat acara berlangsung. Sesuai aturan panitia, anggota yang tidak aktif akan digantikan oleh orang lain. Namun, Anda tahu bahwa ia satu-satunya yang memiliki peralatan dan kemampuan teknis yang dibutuhkan. Apa yang akan Anda lakukan?", "options": {"A": "Membebaskan anggota tersebut untuk memutuskan apakah tetap ingin berkontribusi atau tidak", "B": "Mengeluarkan anggota tersebut karena harus tegas terhadap aturan yang telah disepakati", "C": "Berdiskusi dengan panitia lain untuk mempertimbangkan dampak dan solusi terbaik", "D": "Menegur anggota tersebut karena tidak disiplin dalam mengikuti rapat"}, "key": "C", "points": {"A": 1, "B": 2, "C": 4, "D": 3}}, {"number": 37, "text": "Anda merupakan ketua divisi lingkungan di sekolah dan ditunjuk sebagai penanggung jawab kegiatan lomba taman antar kelas. Salah satu kriteria penilaian adalah tingkat partisipasi siswa dalam merawat taman tanpa pemberitahuan sebelumnya. Beberapa panitia lain meragukan Anda karena taman di depan kelas Anda belum tertata rapi. Apa yang akan Anda lakukan?", "options": {"A": "Memberitahu teman sekelas Anda terlebih dahulu agar taman kelas segera dirapikan sebelum informasi disebarkan", "B": "Memberitahu teman sekelas Anda terlebih dahulu agar taman kelas segera dirapikan sebelum informasi disebarkan", "C": "Memberikan informasi kegiatan kepada seluruh ketua kelas dan mengajak panitia ikut memantau perkembangan", "D": "Menginformasikan kriteria lomba secara terbuka kepada semua kelas agar perlombaan berjalan adil dan transparan"}, "key": "D", "points": {"A": 2, "B": 1, "C": 3, "D": 4}}, {"number": 38, "text": "Anda dipercaya menjadi ketua tim kebersihan kelas dengan tanggung jawab memastikan jadwal piket dijalankan secara adil dan konsisten. Namun, salah satu teman dekat Anda sering tidak melaksanakan tugas piketnya. Suatu hari saat Anda menegur, ia menanggapi dengan berkata bahwa sebagai teman, Anda seharusnya bisa \"memaklumi\" dan membiarkannya. Apa yang akan Anda lakukan?", "options": {"A": "Tetap mencatat pelanggarannya agar guru mengetahui tanpa perlu menegurnya langsung", "B": "Membiarkannya kali ini karena tidak enak menegur teman sendiri", "C": "Menjelaskan bahwa tanggung jawab Anda mengharuskan semua anggota diperlakukan adil, termasuk teman dekat", "D": "Membicarakan baik-baik dengannya agar ia memahami konsekuensi dan mengubah sikapnya"}, "key": "C", "points": {"A": 2, "B": 1, "C": 4, "D": 3}}, {"number": 39, "text": "Anda menjadi panitia lomba hari kemerdekaan di lingkungan tempat tinggal dan bertanggung jawab sebagai koordinator lomba. Namun beberapa hari terakhir Anda mengalami demam dan masih dalam tahap pemulihan. Sementara itu, laporan perlengkapan dan teknis lomba harus segera diselesaikan dalam waktu satu minggu. Apa yang akan Anda lakukan?", "options": {"A": "Meminta bantuan rekan panitia lain untuk menyelesaikan sebagian laporan agar beban kerja lebih ringan", "B": "Meminta keringanan waktu kepada ketua panitia karena masih dalam tahap pemulihan", "C": "Menyelesaikan laporan secara bertahap sembari tetap menjaga kesehatan agar proses pemulihan tidak terganggu", "D": "Mengabaikan laporan untuk fokus pada pemulihan agar dapat pulih lebih cepat dan kembali aktif"}, "key": "C", "points": {"A": 3, "B": 2, "C": 4, "D": 1}}, {"number": 40, "text": "Anda menjadi bagian dari tim dokumentasi dalam kegiatan bakti sosial yang diadakan OSIS. Saat hari pelaksanaan, teman dekat Anda mengajak untuk meninggalkan acara lebih awal agar bisa ikut menonton konser band favorit kalian. Padahal tim dokumentasi masih membutuhkan tenaga untuk merekap hasil kegiatan dan membuat laporan. Apa yang akan Anda lakukan?", "options": {"A": "Menolak ajakan teman dan tetap menyelesaikan tanggung jawab dokumentasi hingga tuntas", "B": "Menjelaskan kepada teman bahwa Anda akan menyusul setelah pekerjaan dokumentasi selesai", "C": "Meninggalkan tugas dengan alasan dokumentasi bisa dilanjutkan oleh anggota lain", "D": "Memilih ikut teman dan berharap ada anggota lain yang bisa menggantikan Anda"}, "key": "A", "points": {"A": 4, "B": 3, "C": 2, "D": 1}}, {"number": 41, "text": "Anda diminta membantu mempersiapkan lomba kebersihan kelas bersama tiga teman lainnya. Satu hari sebelum penilaian, dua teman tidak hadir tanpa kabar dan tugas belum selesai. Apa yang akan Anda lakukan?", "options": {"A": "Menyelesaikan sisa pekerjaan dan lapor kondisi ke guru", "B": "Menghubungi teman untuk datang menyelesaikan tugas yang belum selesai", "C": "Mengabaikan kekurangan karena bukan hanya Anda yang bertugas", "D": "Melanjutkan tugas semampunya dan berharap penilaian tetap objektif"}, "key": "A", "points": {"A": 4, "B": 3, "C": 1, "D": 2}}, {"number": 42, "text": "Anda ditunjuk sebagai bendahara dalam kegiatan kunjungan industri ke luar kota yang melibatkan seluruh siswa kelas XII. Panitia mempercayakan kepada Anda dana sebesar empat puluh juta rupiah untuk mengatur transportasi, konsumsi, dan tiket masuk lokasi kunjungan. Ini adalah pertama kalinya Anda memegang tanggung jawab keuangan dalam skala besar. Apa yang akan Anda lakukan?", "options": {"A": "Membuat catatan keuangan sendiri berdasarkan estimasi umum dan keperluan perjalanan", "B": "Melibatkan koordinator acara serta guru pembimbing untuk memantau penggunaan dana", "C": "Menyusun laporan keuangan harian dan membagikannya melalui grup panitia", "D": "Meminta bantuan dua teman dekat untuk membantu menghitung dan mencatat pengeluaran"}, "key": "B", "points": {"A": 1, "B": 4, "C": 3, "D": 2}}, {"number": 43, "text": "Anda adalah koordinator tim musik yang akan tampil dalam acara peringatan hari besar nasional di sekolah. Beberapa minggu terakhir, salah satu pemain utama jarang hadir dalam latihan, sementara anggota lain berlatih dengan serius. Ketidakhadiran ini mulai menurunkan semangat tim. Apa yang akan Anda lakukan?", "options": {"A": "Memilih fokus melatih anggota yang hadir, agar persiapan tetap berjalan baik meskipun tidak lengkap", "B": "Mengumpulkan informasi terlebih dahulu mengenai alasan ketidakhadirannya sebelum mengambil langkah berikutnya", "C": "Mengajak anggota berdiskusi secara pribadi dengan pembina untuk memahami kendala dan mencari solusi bersama", "D": "Menyampaikan masalah ini kepada pembina dan anggota senior untuk meminta saran terbaik"}, "key": "C", "points": {"A": 1, "B": 2, "C": 4, "D": 3}}, {"number": 44, "text": "Anda menjadi ketua tim dalam proyek pembuatan video profil sekolah. Waktu yang diberikan adalah satu minggu. Saat pembagian peran, salah satu anggota tidak setuju dengan bagian yang diterimanya dan meminta peran yang dirasa lebih mudah. Permintaan itu ditolak oleh anggota lain dan akhirnya terjadi perdebatan yang membuat suasana kerja terganggu. Apa yang akan Anda lakukan?", "options": {"A": "Mendorong semua anggota untuk tetap mengerjakan tugas sesuai pembagian awal tanpa banyak diskusi", "B": "Mengajak anggota yang konflik berdiskusi dan mencari solusi agar proyek tetap lancar", "C": "Menyarankan agar masing-masing anggota fokus pada tugasnya dan membantu anggota lain jika memungkinkan", "D": "Berkonsultasi dengan guru pembimbing atau kelompok lain untuk mencari jalan keluar terbaik"}, "key": "B", "points": {"A": 1, "B": 4, "C": 3, "D": 2}}, {"number": 45, "text": "Anda tergabung dalam tim seni pertunjukan sekolah yang akan tampil dalam pentas budaya tingkat kabupaten. Untuk menyempurnakan penampilan, tim sepakat menambah jadwal latihan di luar jam pelajaran. Namun, beberapa anggota tidak bisa hadir karena harus mengikuti bimbingan intensif untuk ujian nasional. Situasi ini membuat latihan tidak berjalan optimal. Apa yang akan Anda lakukan?", "options": {"A": "Mengusulkan agar anggota yang terkendala mengatur ulang jadwal bimbingannya agar bisa ikut latihan", "B": "Mengajak anggota yang terkendala berdiskusi secara pribadi untuk mencari jalan tengah bersama", "C": "Melanjutkan latihan dengan anggota yang tersedia dan memaksimalkan waktu latihan mereka", "D": "Fokus mengikuti jadwal latihan seperti biasa dan membiarkan anggota lain mencari solusinya sendiri"}, "key": "B", "points": {"A": 2, "B": 4, "C": 3, "D": 1}}, {"number": 46, "text": "Anda sebagai ketua kelas ditugaskan guru untuk mengkoordinasi pembuatan media pembelajaran yang akan dipamerkan saat kegiatan sekolah. Sementara itu, kelas Anda belum pernah mengikuti kegiatan semacam ini dan banyak siswa kurang antusias. Apa yang akan Anda lakukan?", "options": {"A": "Membagi tugas sesuai pengamatan Anda terhadap kemampuan masing-masing teman sekelas", "B": "Mengajak pengurus kelas berdiskusi dan menyusun rencana pembagian tugas secara terbuka", "C": "Menentukan kelompok secara acak agar semua siswa bisa terlibat dalam proses pembuatan media", "D": "Memilih teman-teman dekat untuk menangani tugas penting agar hasilnya maksimal"}, "key": "B", "points": {"A": 3, "B": 4, "C": 2, "D": 1}}, {"number": 47, "text": "Anda adalah bendahara dalam kegiatan aksi sosial sekolah yang bertujuan membagikan sembako ke warga sekitar. Target anggaran adalah 50 juta rupiah, namun donasi dari sponsor hanya mencapai 30 juta. Panitia meminta Anda mencari cara lain untuk menutupi kekurangan dana tersebut. Apa yang akan Anda lakukan?", "options": {"A": "Mengusulkan agar seluruh panitia menyumbangkan dana pribadi agar kegiatan tetap berjalan", "B": "Berdiskusi dengan panitia untuk menyusun strategi penggalangan dana seperti bazar atau donasi online", "C": "Mengajukan proposal tambahan ke sponsor lama dengan harapan ada bantuan susulan", "D": "Menyesuaikan jumlah penerima bantuan agar tetap sesuai dengan anggaran yang tersedia"}, "key": "B", "points": {"A": 1, "B": 4, "C": 3, "D": 2}}, {"number": 48, "text": "Anda adalah ketua seksi publikasi dalam kegiatan seminar kewirausahaan yang akan dilaksanakan keesokan harinya. Saat menyebarkan pamflet digital, Anda mengetahui bahwa seksi konsumsi kekurangan tenaga untuk menyiapkan kotak konsumsi bagi 300 peserta. Sementara waktu persiapan semakin terbatas dan anggota konsumsi hanya tiga orang. Apa yang akan Anda lakukan?", "options": {"A": "Tetap menyelesaikan tugas publikasi sesuai tenggat tanpa membantu seksi konsumsi", "B": "Menawarkan bantuan kepada seksi konsumsi apabila mereka meminta pertolongan", "C": "Mengajak anggota publikasi lain untuk membantu persiapan konsumsi setelah menyelesaikan tugas utama", "D": "Membantu persiapan konsumsi sambil tetap menjalankan tugas publikasi secara bergantian"}, "key": "C", "points": {"A": 1, "B": 2, "C": 4, "D": 3}}];
+const email=localStorage.getItem("pesertaEmail"); const session=localStorage.getItem("currentSession"); const userId=email?email.replace(/[.@]/g,"_"):null;
+document.getElementById("userLine").textContent=email?("Peserta: "+email):"Belum login";
+document.getElementById("logoutBtn").onclick=async()=>{await clearLiveStage();localStorage.clear();sessionStorage.clear();location.replace("index.html");};
+if(!email||!session||!userId) location.replace("index.html");
+
+const screens=["loading","main","intro-kepri","intro-cermat","section","cermat"];
+function show(name){screens.forEach(n=>document.getElementById("screen-"+n)?.classList.add("hidden"));document.getElementById("screen-"+name)?.classList.remove("hidden");}
+function fmt(sec){const h=String(Math.floor(sec/3600)).padStart(2,"0");const m=String(Math.floor((sec%3600)/60)).padStart(2,"0");const s=String(sec%60).padStart(2,"0");return h==="00"?`${m}:${s}`:`${h}:${m}:${s}`;}
+let globalInterval=null,globalTimeLeft=0;
+function startGlobalTimer(seconds,onDone){clearInterval(globalInterval);let left=Number(seconds||0);globalTimeLeft=left;document.getElementById("globalTimer").textContent=fmt(left);globalInterval=setInterval(()=>{left--;globalTimeLeft=Math.max(left,0);document.getElementById("globalTimer").textContent=fmt(Math.max(left,0));if(left<=0){clearInterval(globalInterval);onDone&&onDone();}},1000);}
+function cloneAnswers(v){return JSON.parse(JSON.stringify(v||[]));}
+const EXAM_PROGRESS_KEY="jagopsi_tryout_full_progress_v1";
+async function saveExamProgress(extra={}){
+  try{
+    const payload={
+      uiStage: extra.uiStage || currentSection || "main",
+      currentSection,
+      currentIndex,
+      currentAnswers: cloneAnswers(currentAnswers),
+      cerdasScore25,kepriScore50,cermatScore25,
+      globalTimeLeft,
+      kcAllKeys:Array.isArray(kcAllKeys)?kcAllKeys.map(col=>Array.isArray(col)?[...col]:[]):[],
+      kcCurrentCol,kcCorrectIdx,kcBenar,kcSalah,
+      kcStats:Array.isArray(kcStats)?kcStats.map(x=>({...x})):[],
+      kcTimeLeft,
+      customColumns,
+      ...extra
+    };
+    localStorage.setItem(EXAM_PROGRESS_KEY, JSON.stringify(payload));
+  }catch(e){}
+}
+async function clearExamProgress(){ try{ localStorage.removeItem(EXAM_PROGRESS_KEY); }catch(e){} }
+async function promptResumeProgress(){
+  try{
+    const raw=localStorage.getItem(EXAM_PROGRESS_KEY);
+    if(!raw) return false;
+    const saved=JSON.parse(raw);
+    const lanjut=confirm("Ditemukan progress ujian yang belum selesai.\n\nPilih OK untuk melanjutkan, atau Cancel untuk mulai dari awal.");
+    if(!lanjut){ await clearExamProgress(); return false; }
+
+    if(saved.customColumns) customColumns=saved.customColumns;
+    cerdasScore25=Number(saved.cerdasScore25||0);
+    kepriScore50=Number(saved.kepriScore50||0);
+    cermatScore25=Number(saved.cermatScore25||0);
+
+    const uiStage=saved.uiStage||"main";
+    if(uiStage==="cerdas"){
+      stage("cerdas"); currentSection="cerdas"; currentQuestions=cerdasQuestions;
+      currentAnswers=cloneAnswers(saved.currentAnswers||Array(cerdasQuestions.length).fill(null));
+      currentIndex=Math.min(Number(saved.currentIndex||0),currentQuestions.length-1);
+      document.getElementById("sectionHelp").textContent="Bagian Kecerdasan.";
+      show("section");
+      updateLiveStage("kecerdasan",{nomor:currentIndex+1,total:currentQuestions.length,timeLeft:Number(saved.globalTimeLeft||90*60)}).catch(()=>{});
+      startGlobalTimer(Number(saved.globalTimeLeft||90*60),finishCerdas);
+      renderSectionQuestion();
+      return true;
+    }
+    if(uiStage==="kepri"){
+      stage("kepri"); currentSection="kepri"; currentQuestions=kepriQuestions;
+      currentAnswers=cloneAnswers(saved.currentAnswers||Array(kepriQuestions.length).fill(null));
+      currentIndex=Math.min(Number(saved.currentIndex||0),currentQuestions.length-1);
+      document.getElementById("sectionHelp").textContent="Bagian Kepribadian.";
+      show("section");
+      updateLiveStage("kepribadian",{nomor:currentIndex+1,total:currentQuestions.length,timeLeft:Number(saved.globalTimeLeft||35*60)}).catch(()=>{});
+      startGlobalTimer(Number(saved.globalTimeLeft||35*60),finishKepri);
+      renderSectionQuestion();
+      return true;
+    }
+    if(uiStage==="intro-kepri"){
+      show("intro-kepri");
+      stage("kepri");
+      document.getElementById("startKepriBtn").onclick=startKepri;
+      return true;
+    }
+    if(uiStage==="intro-cermat"){
+      show("intro-cermat");
+      stage("cermat");
+      document.getElementById("startCermatBtn").onclick=startKecermatan;
+      return true;
+    }
+    if(uiStage==="cermat"){
+      stage("cermat"); currentSection="cermat";
+      kcAllKeys=(saved.kcAllKeys||[]).map(col=>[...col]); kcCurrentCol=Number(saved.kcCurrentCol||0); kcCorrectIdx=Number(saved.kcCorrectIdx??-1);
+      kcBenar=Number(saved.kcBenar||0); kcSalah=Number(saved.kcSalah||0);
+      kcStats=(saved.kcStats||[]).map(x=>({col:Number(x.col),b:Number(x.b),s:Number(x.s)}));
+      kcTimeLeft=Number(saved.kcTimeLeft||60);
+      show("cermat");
+      if(!kcAllKeys.length){ buildKcKeysFromCustom(); }
+      renderKcHeader();
+      document.getElementById("kcTimer").textContent=kcTimeLeft;
+      renderKcQuestionResume();
+      bindFinishCermat();
+      clearInterval(kcTimer);
+      kcTimer=setInterval(()=>{
+        kcTimeLeft--;
+        updateLiveStage("kecermatan",{kolom:kcCurrentCol+1,totalKolom:10,timeLeft:kcTimeLeft,currentB:kcBenar,currentS:kcSalah}).catch(()=>{});
+        document.getElementById("kcTimer").textContent=kcTimeLeft;
+        document.getElementById("globalTimer").textContent=fmt(kcTimeLeft);
+        saveExamProgress({uiStage:"cermat"});
+        if(kcTimeLeft<=0){clearInterval(kcTimer);kcStats.push({col:kcCurrentCol+1,b:kcBenar,s:kcSalah});kcCurrentCol++;if(kcCurrentCol<10){kcBenar=0;kcSalah=0;setTimeout(startKcColumn,500);}else{finishKecermatan();}}
+      },1000);
+      return true;
+    }
+    return false;
+  }catch(e){ console.error("resume gagal", e); return false; }
+}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function stage(active){const stages=[["cerdas","Kecerdasan"],["kepri","Kepribadian"],["cermat","Kecermatan"]],wrap=document.getElementById("stageLine");wrap.innerHTML="";stages.forEach(([key,label])=>{const s=document.createElement("div");s.className="stage-pill";if(key===active)s.classList.add("active");if((active==="kepri"&&key==="cerdas")||(active==="cermat"&&(key==="cerdas"||key==="kepri")))s.classList.add("done");s.textContent=label;wrap.appendChild(s);});}
+
+const liveRef = ref(db, "temp_progress/" + userId);
+async function updateLiveStage(stageName, extra={}){
+  const stageLabel =
+    stageName === "kecerdasan" ? "Kecerdasan" :
+    stageName === "kepribadian" ? "Kepribadian" :
+    stageName === "kecermatan" ? "Kecermatan" :
+    stageName === "intro_kepribadian" ? "Intro Kepribadian" :
+    stageName === "intro_kecermatan" ? "Intro Kecermatan" :
+    stageName === "belum_mulai" ? "Belum Mulai" : stageName;
+
+  const payload = {
+    email,
+    stage: stageLabel,
+    updatedAt: Date.now(),
+    waktu: new Date().toISOString(),
+    currentCol: Number(extra.kolom || 0) - 1,
+    timeLeft: Number(extra.timeLeft || 0),
+    currentB: Number(extra.currentB || 0),
+    currentS: Number(extra.currentS || 0),
+    nomor: Number(extra.nomor || 0),
+    total: Number(extra.total || 0),
+    totalKolom: Number(extra.totalKolom || 10)
+  };
+
+  try{
+    await set(liveRef, payload);
+  }catch(e){}
+}
+async function clearLiveStage(){
+  try{ await remove(liveRef); }catch(e){}
+}
+
+let currentSection=null,currentQuestions=[],currentAnswers=[],currentIndex=0,cerdasScore25=0,kepriScore50=0,cermatScore25=0,currentUserData=null,customColumns=null,cerdasReviewAnswers=[],kepriReviewAnswers=[];
+function isHalfAnsweredMulti(){const q=currentQuestions[currentIndex],ans=currentAnswers[currentIndex];return q&&q.type==="multi"&&Array.isArray(ans)&&ans.length===1;}
+function renderSectionQuestion(){
+const q=currentQuestions[currentIndex];
+const isKepri=currentSection==="kepri";
+document.getElementById("sectionBadge").textContent=currentSection==="kepri"?"KEPRIBADIAN":"KECERDASAN";
+document.getElementById("sectionQno").textContent=`Soal ${q.number} dari ${currentQuestions.length}`;
+document.getElementById("sectionQtext").textContent=q.text;
+const imgBox=document.getElementById("sectionQImages");imgBox.innerHTML="";
+if(q.images){q.images.forEach(src=>{const img=document.createElement("img");img.src=src;img.className="img-fluid-custom";imgBox.appendChild(img);});}
+const optBox=document.getElementById("sectionOptions");optBox.innerHTML="";
+const ans=currentAnswers[currentIndex];
+Object.keys(q.options).forEach(key=>{
+  const selected=Array.isArray(ans)?ans.includes(key):ans===key;
+  const div=document.createElement("div");
+  div.className="option-box"+(selected?" selected":"");
+  let content = "<strong>"+key+".</strong> ";
+  if(q.optionImages && q.optionImages[key]){
+    content += `<div style="margin-top:8px"><img src="${q.optionImages[key]}" class="img-fluid-custom" alt="opsi ${key}"></div>`;
+  }else{
+    content += (q.options[key]||"");
+  }
+  div.innerHTML=content;
+  div.onclick=()=>selectSectionOption(key);
+  optBox.appendChild(div);
+});
+const grid=document.getElementById("numberGrid");grid.innerHTML="";
+currentQuestions.forEach((item,i)=>{
+  const btn=document.createElement("div");
+  btn.className="num-btn";
+  if(i===currentIndex)btn.classList.add("active");
+  if(currentAnswers[i])btn.classList.add("answered");
+  btn.textContent=item.number;
+  btn.onclick=()=>{
+    if(isKepri){ return; }
+    if(isHalfAnsweredMulti()){alert("Soal ini harus pilih 2 jawaban dulu.");return;}
+    currentIndex=i;renderSectionQuestion();
+  };
+  grid.appendChild(btn);
+});
+document.getElementById("prevBtn").style.display=isKepri?"none":"inline-flex";
+document.getElementById("nextBtn").style.display=isKepri?"none":"inline-flex";
+document.getElementById("finishSectionBtn").style.display="inline-flex";
+document.getElementById("sectionHelp").textContent=isKepri
+  ?"Bagian Kepribadian: klik jawaban langsung ke soal berikutnya. Tombol Selesaikan Bagian Ini di bawah bisa dipakai kapan saja. Tidak bisa kembali atau lompat soal."
+  :(currentSection==="cerdas"?"Bagian Kecerdasan.":"Gunakan tombol navigasi untuk berpindah.");
+document.getElementById("prevBtn").disabled=currentIndex===0;
+document.getElementById("nextBtn").disabled=currentIndex===currentQuestions.length-1;
+if(currentSection==="cerdas"){updateLiveStage("kecerdasan",{nomor:currentIndex+1,total:currentQuestions.length}).catch(()=>{}); saveExamProgress({uiStage:"cerdas"});}
+if(currentSection==="kepri"){updateLiveStage("kepribadian",{nomor:currentIndex+1,total:currentQuestions.length}).catch(()=>{}); saveExamProgress({uiStage:"kepri"});}
+}
+function selectSectionOption(key){
+const q=currentQuestions[currentIndex];
+let ans=currentAnswers[currentIndex];
+
+if(currentSection==="cerdas"&&q.type==="multi"){
+  if(!Array.isArray(ans))ans=[];
+  if(ans.includes(key))ans=ans.filter(x=>x!==key);
+  else{
+    if(ans.length>=2)return;
+    ans=[...ans,key];
+  }
+  currentAnswers[currentIndex]=ans.length?ans:null;
+  renderSectionQuestion();
+  if(Array.isArray(currentAnswers[currentIndex]) && currentAnswers[currentIndex].length===2){
+    const isLast=currentIndex===currentQuestions.length-1;
+    if(isLast){
+      setTimeout(()=>{ if(confirm("Yakin menyelesaikan bagian Kecerdasan?")) finishCerdas(); },120);
+    }else{
+      currentIndex++;
+      setTimeout(()=>renderSectionQuestion(),120);
+    }
+  }
+  return;
+}
+
+if(currentSection==="kepri"){
+  currentAnswers[currentIndex]=key;
+  const isLast=currentIndex===currentQuestions.length-1;
+  if(isLast){
+    setTimeout(()=>{ if(confirm("Yakin menyelesaikan bagian Kepribadian?")) finishKepri(); },120);
+  }else{
+    currentIndex++;
+    setTimeout(()=>renderSectionQuestion(),120);
+  }
+  return;
+}
+
+if(currentSection==="cerdas"){
+  currentAnswers[currentIndex]=key;
+  const isLast=currentIndex===currentQuestions.length-1;
+  if(isLast){
+    setTimeout(()=>{ if(confirm("Yakin menyelesaikan bagian Kecerdasan?")) finishCerdas(); },120);
+  }else{
+    currentIndex++;
+    setTimeout(()=>renderSectionQuestion(),120);
+  }
+  return;
+}
+
+currentAnswers[currentIndex]=key;
+renderSectionQuestion();
+}
+document.getElementById("prevBtn").onclick=()=>{if(currentSection==="kepri")return;if(currentSection==="cerdas"&&isHalfAnsweredMulti()){alert("Soal ini harus pilih 2 jawaban dulu.");return;}if(currentIndex>0){currentIndex--;renderSectionQuestion();}};
+document.getElementById("nextBtn").onclick=()=>{if(currentSection==="kepri")return;if(currentSection==="cerdas"&&isHalfAnsweredMulti()){alert("Soal ini harus pilih 2 jawaban dulu.");return;}if(currentIndex<currentQuestions.length-1){currentIndex++;renderSectionQuestion();}};
+document.getElementById("finishSectionBtn").onclick=()=>{if(isHalfAnsweredMulti()){alert("Soal ini harus pilih 2 jawaban dulu.");return;} if(currentSection==="cerdas"){if(confirm("Yakin menyelesaikan bagian Kecerdasan?")) finishCerdas();return;} if(currentSection==="kepri"){if(confirm("Yakin menyelesaikan bagian Kepribadian?")) finishKepri();return;}};
+
+function isCorrectCerdas(userAns,correctAns,qType){if(!userAns)return false;if(qType==="multi"){if(!Array.isArray(userAns)||userAns.length!==2)return false;return[...userAns].sort().join("")===String(correctAns).split("").sort().join("");}return userAns===correctAns;}
+function startCerdas(){stage("cerdas");currentSection="cerdas";currentQuestions=cerdasQuestions;currentAnswers=Array(currentQuestions.length).fill(null);currentIndex=0;document.getElementById("sectionHelp").textContent="Bagian Kecerdasan.";show("section");updateLiveStage("kecerdasan",{nomor:1,total:currentQuestions.length,timeLeft:90*60}).catch(()=>{});startGlobalTimer(90*60,finishCerdas);saveExamProgress({uiStage:"cerdas"});renderSectionQuestion();}
+function finishCerdas(){clearInterval(globalInterval);cerdasReviewAnswers=cloneAnswers(currentAnswers);let correct=0;currentQuestions.forEach((q,i)=>{if(isCorrectCerdas(currentAnswers[i],q.answer,q.type))correct++;});cerdasScore25=Number(((correct/currentQuestions.length)*25).toFixed(2)); currentSection=null;currentQuestions=[];currentAnswers=[];currentIndex=0; updateLiveStage("intro_kepribadian").catch(()=>{}); show("intro-kepri"); saveExamProgress({uiStage:"intro-kepri",currentSection:null,currentQuestions:[],currentAnswers:[],currentIndex:0}); document.getElementById("startKepriBtn").onclick=startKepri;}
+function startKepri(){stage("kepri");currentSection="kepri";currentQuestions=kepriQuestions;currentAnswers=Array(currentQuestions.length).fill(null);currentIndex=0;show("section");updateLiveStage("kepribadian",{nomor:1,total:currentQuestions.length,timeLeft:35*60}).catch(()=>{});startGlobalTimer(35*60,finishKepri);saveExamProgress({uiStage:"kepri"});renderSectionQuestion();}
+function finishKepri(){clearInterval(globalInterval);kepriReviewAnswers=cloneAnswers(currentAnswers);let raw=0;const max=currentQuestions.length*4;currentQuestions.forEach((q,i)=>{const ans=typeof currentAnswers[i]==="string"?currentAnswers[i].toUpperCase():currentAnswers[i];if(ans&&q.points&&q.points[ans]!=null){raw+=Number(q.points[ans]);}});kepriScore50=max>0?Number(((raw/max)*50).toFixed(2)):0; currentSection=null;currentQuestions=[];currentAnswers=[];currentIndex=0; updateLiveStage("intro_kecermatan").catch(()=>{}); show("intro-cermat"); saveExamProgress({uiStage:"intro-cermat",currentSection:null,currentQuestions:[],currentAnswers:[],currentIndex:0}); document.getElementById("startCermatBtn").onclick=startKecermatan;}
+
+let kcAllKeys=[],kcCurrentCol=0,kcCorrectIdx=-1,kcBenar=0,kcSalah=0,kcStats=[],kcTimer=null,kcTimeLeft=60;
+function randomChunk(){const pool="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";return shuffle(pool.split("")).slice(0,5);}
+function buildKcKeysFromCustom(){kcAllKeys=[];if(customColumns){for(let i=1;i<=10;i++){const v=String(customColumns["k"+i]||"").toUpperCase();if(v.length>=5)kcAllKeys.push(v.slice(0,5).split(""));}}if(kcAllKeys.length!==10)kcAllKeys=Array.from({length:10},()=>randomChunk());}
+function renderKcHeader(){document.getElementById("kcColTitle").textContent=`KOLOM ${kcCurrentCol+1}`;const row=document.getElementById("kcKeyRow");row.innerHTML="";kcAllKeys[kcCurrentCol].forEach((k,i)=>{const div=document.createElement("div");div.className="kc-key";div.innerHTML=`<div class="kc-key-h">${["A","B","C","D","E"][i]}</div><div class="kc-key-v">${k}</div>`;row.appendChild(div);});}
+function renderKcQuestion(){kcCorrectIdx=Math.floor(Math.random()*5);const qArr=kcAllKeys[kcCurrentCol].filter((_,i)=>i!==kcCorrectIdx);document.getElementById("kcQuestion").textContent=shuffle(qArr).join(""); saveExamProgress({uiStage:"cermat"});} function renderKcQuestionResume(){const qArr=kcAllKeys[kcCurrentCol].filter((_,i)=>i!==kcCorrectIdx);document.getElementById("kcQuestion").textContent=shuffle(qArr).join("");}
+window.kcAnswer=(idx)=>{if(kcTimeLeft<=0)return;if(idx===kcCorrectIdx)kcBenar++;else kcSalah++;saveExamProgress({uiStage:"cermat"});renderKcQuestion();};
+function startKcColumn(){updateLiveStage("kecermatan",{kolom:kcCurrentCol+1,totalKolom:10}).catch(()=>{});kcTimeLeft=60;renderKcHeader();renderKcQuestion();document.getElementById("kcTimer").textContent=kcTimeLeft;clearInterval(kcTimer);kcTimer=setInterval(()=>{kcTimeLeft--;updateLiveStage("kecermatan",{kolom:kcCurrentCol+1,totalKolom:10,timeLeft:kcTimeLeft,currentB:kcBenar,currentS:kcSalah}).catch(()=>{});document.getElementById("kcTimer").textContent=kcTimeLeft;document.getElementById("globalTimer").textContent=fmt(kcTimeLeft);saveExamProgress({uiStage:"cermat"});if(kcTimeLeft<=0){clearInterval(kcTimer);kcStats.push({col:kcCurrentCol+1,b:kcBenar,s:kcSalah});kcCurrentCol++;if(kcCurrentCol<10){kcBenar=0;kcSalah=0;setTimeout(startKcColumn,500);}else{finishKecermatan();}}},1000);}
+function startKecermatan(){stage("cermat");currentSection="cermat";show("cermat");updateLiveStage("kecermatan",{kolom:1,totalKolom:10}).catch(()=>{});buildKcKeysFromCustom();kcCurrentCol=0;kcBenar=0;kcSalah=0;kcStats=[];saveExamProgress({uiStage:"cermat"});startKcColumn();}
+const bindFinishCermat = () => {
+  const handler = ()=>{ if(confirm("Akhiri ujian sekarang? Hasil akan langsung disetor dan ditampilkan.")) finishKecermatan(); };
+  const a = document.getElementById("finishCermatBtn");
+  const b = document.getElementById("finishCermatTopBtn");
+  if(a) a.onclick = handler;
+  if(b) b.onclick = handler;
+};
+bindFinishCermat();
+
+async function finishKecermatan(){
+clearInterval(kcTimer);
+if((kcBenar>0 || kcSalah>0) && kcCurrentCol < 10){
+  const currentColNumber = kcCurrentCol + 1;
+  const last = kcStats[kcStats.length-1];
+  if(!last || last.col !== currentColNumber){
+    kcStats.push({col: currentColNumber, b: kcBenar, s: kcSalah});
+  }else{
+    last.b = kcBenar;
+    last.s = kcSalah;
+  }
+}
+const bList=kcStats.map(d=>d.b),sList=kcStats.map(d=>d.s);
+const totB=bList.reduce((a,x)=>a+x,0),totS=sList.reduce((a,x)=>a+x,0),totT=totB+totS;
+const panker=totT/10;
+const tianker=totT>0?(totB/totT)*100:0;
+let trendScore=0;
+for(let i=1;i<10;i++){
+  if(bList[i]>=bList[i-1])trendScore+=4;
+  if(bList[i]>bList[i-1])trendScore+=2;
+}
+const spike56=(bList[5]||0)-(bList[4]||0);
+const adaptasiBonus=spike56>3?spike56*2.5:0;
+const hanker=(((bList[7]||0)+(bList[8]||0)+(bList[9]||0))/3)*2;
+const rawFinal=(panker*0.2)+(tianker*0.3)+(trendScore*0.25)+(adaptasiBonus*0.1)+(hanker*0.15);
+const final100=Math.min(rawFinal+5,100);
+cermatScore25=Number(((final100/100)*25).toFixed(2));
+
+const finalScore=Number((cerdasScore25+kepriScore50+cermatScore25).toFixed(2));
+const statusKelulusan=finalScore>=61?"MS":"TMS";
+
+const cerdasReviewItems = window.resultUtils.buildReviewItemsFromQuestions(cerdasQuestions, cerdasReviewAnswers, {
+  section: "kecerdasan",
+  sectionLabel: "Kecerdasan",
+  evaluate: (userAns, correctAns, q) => isCorrectCerdas(userAns, correctAns, q.type)
+});
+const kepriReviewItems = window.resultUtils.buildReviewItemsFromQuestions(kepriQuestions, kepriReviewAnswers, {
+  section: "kepribadian",
+  sectionLabel: "Kepribadian",
+  evaluate: (userAns, correctAns) => String(userAns || "").toUpperCase() === String(correctAns || "").toUpperCase(),
+  getPoints: (q, userAns) => {
+    const key = typeof userAns === "string" ? userAns.toUpperCase() : userAns;
+    return key && q.points && q.points[key] != null ? Number(q.points[key]) : 0;
+  },
+  getMaxPoints: () => 4
+});
+const cermatReviewItems = kcStats.map((item, idx) => ({
+  section: "kecermatan",
+  sectionLabel: "Kecermatan",
+  number: idx + 1,
+  type: "column_summary",
+  text: `Kolom ${idx + 1}`,
+  options: {},
+  images: [],
+  user_answer: { benar: item.b, salah: item.s },
+  user_answer_text: `Benar ${item.b} | Salah ${item.s}`,
+  correct_answer: kcAllKeys[idx] || [],
+  correct_answer_text: Array.isArray(kcAllKeys[idx]) ? kcAllKeys[idx].join("") : "-",
+  status: "ringkasan",
+  is_correct: null,
+  points_earned: Number(item.b || 0),
+  max_points: null,
+  explanation: "Ringkasan performa kecermatan per kolom"
+}));
+const payload = window.resultUtils.createExamResultPayload({
+  email,
+  nama: currentUserData?.nama || currentUserData?.name || (email ? email.split('@')[0] : 'Peserta'),
+  userId,
+  session,
+  userStatus: localStorage.getItem("userStatus") || null,
+  examType: "TRYOUT_FULL",
+  examName: "Try Out Full",
+  examFile: "soal3.html",
+  packageCode: "TO3",
+  score: finalScore,
+  status: statusKelulusan,
+  totalQuestions: cerdasQuestions.length + kepriQuestions.length + kcStats.length,
+  answered: cerdasReviewItems.filter(x => x.status !== "kosong").length + kepriReviewItems.filter(x => x.status !== "kosong").length + cermatReviewItems.length,
+  correct: cerdasReviewItems.filter(x => x.status === "benar").length,
+  wrong: cerdasReviewItems.filter(x => x.status === "salah").length,
+  empty: cerdasReviewItems.filter(x => x.status === "kosong").length,
+  reviewItems: [...cerdasReviewItems, ...kepriReviewItems, ...cermatReviewItems],
+  sections: {
+    kecerdasan: { score: cerdasScore25, totalQuestions: cerdasQuestions.length, answered: cerdasReviewItems.filter(x => x.status !== "kosong").length },
+    kepribadian: { score: kepriScore50, totalQuestions: kepriQuestions.length, answered: kepriReviewItems.filter(x => x.status !== "kosong").length },
+    kecermatan: { score: cermatScore25, totalColumns: kcStats.length }
+  },
+  analytics: {
+    pola_benar: bList,
+    pola_salah: sList,
+    simbol: kcAllKeys,
+    detail_benar: bList,
+    detail_salah: sList,
+    kunci_kolom: kcAllKeys,
+    kecepatan: Number(panker.toFixed(2)),
+    ketelitian: Number(tianker.toFixed(2)),
+    adaptasi: Number((trendScore + adaptasiBonus).toFixed(2)),
+    ketahanan: Number(hanker.toFixed(2))
+  },
+  submittedAtISO: new Date().toISOString(),
+  waktu: new Date().toLocaleString('id-ID'),
+  timestamp: Date.now()
+});
+payload.kecerdasan = cerdasScore25;
+payload.kepribadian = kepriScore50;
+payload.kecermatan = cermatScore25;
+payload.tipe = "tryout_full";
+
+try{ await push(ref(db,"rekap_skor"),payload); }catch(e){}
+await clearLiveStage();
+localStorage.setItem("hasilTryoutFull", JSON.stringify(payload));
+await clearExamProgress();
+currentSection=null; currentQuestions=[]; currentAnswers=[]; currentIndex=0;
+kcCurrentCol=0; kcBenar=0; kcSalah=0; kcStats=[]; kcCorrectIdx=-1;
+
+document.body.innerHTML = `
+<div style="max-width:900px;margin:30px auto;padding:20px;font-family:'Segoe UI',Arial,sans-serif">
+  <div style="background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;border-radius:20px;padding:24px;margin-bottom:18px">
+    <div style="font-size:.85rem;opacity:.9">HASIL TRY OUT FULL</div>
+    <h1 style="margin:8px 0 0">JAGOPSI.ONLINE</h1>
+    <div style="margin-top:6px;opacity:.9">${email || "-"}</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:20px;box-shadow:0 8px 24px rgba(15,23,42,.06)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px">
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px;text-align:center">
+        <div>Kecerdasan</div>
+        <div style="font-size:1.5rem;font-weight:700;margin-top:6px">${cerdasScore25.toFixed(2)}</div>
+      </div>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px;text-align:center">
+        <div>Kepribadian</div>
+        <div style="font-size:1.5rem;font-weight:700;margin-top:6px">${kepriScore50.toFixed(2)}</div>
+      </div>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px;text-align:center">
+        <div>Kecermatan</div>
+        <div style="font-size:1.5rem;font-weight:700;margin-top:6px">${cermatScore25.toFixed(2)}</div>
+      </div>
+      <div style="background:${statusKelulusan==="MS"?"#dcfce7":"#fee2e2"};border:1px solid ${statusKelulusan==="MS"?"#86efac":"#fca5a5"};border-radius:14px;padding:16px;text-align:center">
+        <div>Final</div>
+        <div style="font-size:1.7rem;font-weight:800;margin-top:6px">${finalScore.toFixed(2)}</div>
+        <div style="margin-top:6px;font-weight:700;color:${statusKelulusan==="MS"?"#166534":"#991b1b"}">${statusKelulusan}</div>
+      </div>
+    </div>
+
+    <div style="color:#64748b;line-height:1.7;margin-bottom:18px">
+      Batas kelulusan <b>61</b>. Nilai di bawah 61 = <b>TMS</b>, nilai 61 ke atas = <b>MS</b>.
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <button onclick="location.href='tryout_polri.html'" style="border:none;border-radius:12px;padding:12px 16px;background:#2563eb;color:#fff;font-weight:700;cursor:pointer">Kembali ke Main</button>
+      <button onclick="location.reload()" style="border:1px solid #cbd5e1;border-radius:12px;padding:12px 16px;background:#fff;color:#334155;font-weight:700;cursor:pointer">Refresh</button>
+    </div>
+  </div>
+</div>`;
+}
+
+async function init(){const userSnap=await get(ref(db,"users/"+userId));if(!userSnap.exists()){localStorage.clear();location.replace("index.html");return;}currentUserData=userSnap.val()||{};const isVip=String(currentUserData.status||"").toLowerCase()==="vip"||vipEmails.includes(email);if(!isVip){alert("Try Out Full hanya untuk akun VIP.");location.replace("tryout_polri.html");return;}if(currentUserData.custom_mode&&currentUserData.custom_rules&&currentUserData.custom_rules.kolom){customColumns=currentUserData.custom_rules.kolom;}document.getElementById("screen-loading").classList.add("hidden");const resumed=await promptResumeProgress();if(resumed)return;show("main");stage("cerdas");await updateLiveStage("belum_mulai").catch(()=>{});document.getElementById("startMainBtn").onclick=async()=>{await clearExamProgress();startCerdas();};}
+window.addEventListener("beforeunload", () => {
+  if(currentSection==="cerdas"||currentSection==="kepri"||currentSection==="cermat"){
+    saveExamProgress({uiStage: currentSection});
+  }
+});
+init();
+</script>
+</body>
+</html>

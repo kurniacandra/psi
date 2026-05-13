@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Paket Kecerdasan - JAGOPSI</title>
+<style>
+:root{--primary:#0f172a;--accent:#f59e0b;--danger:#dc2626;--bg:#f8fafc;--muted:#64748b;--card:#fff;--line:#e2e8f0;--info:#2563eb;--success:#16a34a}
+*{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#eef2ff 0%,#f8fafc 45%,#fff 100%);color:#0f172a;min-height:100vh}
+.hero{padding:28px 16px 12px}.hero-inner{max-width:1180px;margin:0 auto;background:linear-gradient(135deg,#0f172a 0%,#1e293b 60%,#334155 100%);color:#fff;border-radius:24px;padding:28px;box-shadow:0 18px 50px rgba(15,23,42,.22)}
+.badge{display:inline-block;background:rgba(245,158,11,.18);color:#fde68a;padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:700;letter-spacing:.3px}h1{margin:14px 0 8px;font-size:clamp(1.8rem,4vw,2.65rem)}.sub{max-width:780px;color:#cbd5e1;line-height:1.7;margin:0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:none;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit}.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.22)}.btn-light{background:#fff;color:#0f172a;border:1px solid #e2e8f0}.btn-primary{background:#2563eb;color:#fff}.btn-disabled{background:#e2e8f0;color:#64748b;cursor:not-allowed}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 16px 44px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:20px 0 14px;flex-wrap:wrap}.section-title{margin:0;font-size:1.22rem}.section-note{font-size:.92rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 10px 30px rgba(15,23,42,.07);transition:.15s;cursor:pointer}.card:hover{transform:translateY(-2px);box-shadow:0 18px 34px rgba(15,23,42,.1)}.card.ready{border-color:#bbf7d0}.card.soon{opacity:.72}.tag{display:inline-flex;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:800;margin-bottom:10px}.tag.ready{background:#dcfce7;color:#166534}.tag.soon{background:#f1f5f9;color:#475569}.tag.warn{background:#fef3c7;color:#92400e}.card h3{margin:0 0 8px;font-size:1.08rem}.card p{margin:0;color:var(--muted);line-height:1.55;font-size:.92rem;min-height:50px}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.mini{padding:7px 10px;border-radius:999px;background:#f8fafc;border:1px solid #e2e8f0;color:#475569;font-size:.78rem;font-weight:700}.footer-actions{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}@media(max-width:680px){.hero-inner{padding:22px}}
+</style>
+<link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+<section class="hero">
+  <div class="hero-inner">
+    <span class="badge">KECERDASAN</span>
+    <h1>Daftar Paket Kecerdasan</h1>
+    <p class="sub">Paket lama tetap ada. Paket psikologi/kecerdasan baru masuk di bawah sesuai urutan titipan.</p>
+    <div class="actions">
+      <a class="btn btn-outline" href="tryout_polri.html">Kembali ke POLRI</a>
+      <a class="btn btn-outline" href="main.html">Menu Utama</a>
+      <a class="btn btn-outline" href="riwayat.html">Riwayat TO</a>
+    </div>
+  </div>
+</section>
+<main class="wrap">
+<section>
+  <div class="section-head">
+    <h2 class="section-title">Paket Kecerdasan Lama</h2>
+    <div class="section-note">4 paket lama tetap dipertahankan</div>
+  </div>
+  <div class="grid">
+<div class="card ready" onclick="go('cerdas1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>Paket Cerdas 1</h3>
+  <p>Paket kecerdasan lama tetap dipertahankan.</p>
+  <div class="meta"><span class="mini">VIP ONLY • Kecerdasan</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cerdas2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>Paket Cerdas 2</h3>
+  <p>Paket kecerdasan lama tetap dipertahankan.</p>
+  <div class="meta"><span class="mini">VIP ONLY • Kecerdasan</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cerdas3.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>Paket Cerdas 3</h3>
+  <p>Paket kecerdasan lama tetap dipertahankan.</p>
+  <div class="meta"><span class="mini">VIP ONLY • Kecerdasan</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cerdas4.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>Paket Cerdas 4</h3>
+  <p>Paket kecerdasan lama tetap dipertahankan.</p>
+  <div class="meta"><span class="mini">VIP ONLY • Kecerdasan</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+  </div>
+</section>
+<section>
+  <div class="section-head">
+    <h2 class="section-title">Paket Psikologi / Kecerdasan Baru</h2>
+    <div class="section-note">29 paket baru sesuai urutan</div>
+  </div>
+  <div class="grid">
+<div class="card ready" onclick="go('obb1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - OBB 1</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">01 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('obb2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - OBB 2</h3>
+  <p>Kecerdasan • 60 soal</p>
+  <div class="meta"><span class="mini">02 • 60 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('pecahan1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - PECAHAN 1</h3>
+  <p>Kecerdasan • 40 soal</p>
+  <div class="meta"><span class="mini">03 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('pecahan2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - PECAHAN 2</h3>
+  <p>Kecerdasan • 45 soal</p>
+  <div class="meta"><span class="mini">04 • 45 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('desimal_prosentase1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - DESIMAL DAN PROSENTASE 1</h3>
+  <p>Kecerdasan • 40 soal</p>
+  <div class="meta"><span class="mini">05 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('desimal_prosentase2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - DESIMAL DAN PROSENTASE 2</h3>
+  <p>Kecerdasan • 30 soal</p>
+  <div class="meta"><span class="mini">06 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('pengukuran1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - PENGUKURAN 1</h3>
+  <p>Kecerdasan • 30 soal</p>
+  <div class="meta"><span class="mini">07 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('pengukuran2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - PENGUKURAN 2</h3>
+  <p>Kecerdasan • 30 soal</p>
+  <div class="meta"><span class="mini">08 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('pengukuran3.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - PENGUKURAN 3</h3>
+  <p>Kecerdasan • 30 soal</p>
+  <div class="meta"><span class="mini">09 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('jkw.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - JKW</h3>
+  <p>Kecerdasan • 40 soal</p>
+  <div class="meta"><span class="mini">10 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('perbandingan.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - PERBANDINGAN</h3>
+  <p>Kecerdasan • 30 soal</p>
+  <div class="meta"><span class="mini">11 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('perbandingan2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - PERBANDINGAN 2</h3>
+  <p>Kecerdasan • 40 soal</p>
+  <div class="meta"><span class="mini">12 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('untung_rugi.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - UNTUNG RUGI</h3>
+  <p>Kecerdasan • 38 soal</p>
+  <div class="meta"><span class="mini">13 • 38 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('tabungan_diskon.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - TABUNGAN DAN DISKON</h3>
+  <p>Kecerdasan • 40 soal</p>
+  <div class="meta"><span class="mini">14 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('kpk_fpb_venn.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - KPK, FPB, DAN DIAGRAM VENN</h3>
+  <p>Kecerdasan • 30 soal</p>
+  <div class="meta"><span class="mini">15 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('kaidah_pencacahan.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - KAIDAH PENCACAHAN</h3>
+  <p>Kecerdasan • 25 soal</p>
+  <div class="meta"><span class="mini">16 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('peluang.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKOLOGI - PELUANG</h3>
+  <p>Kecerdasan • 20 soal</p>
+  <div class="meta"><span class="mini">17 • 20 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('analogi1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>LATIHAN ANALOGI 1</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">18 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('analogi2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>LATIHAN ANALOGI 2</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">19 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('analogi3.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>LATIHAN ANALOGI 3</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">20 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('antonim1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>LATIHAN ANTONIM 1</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">21 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('antonim2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>LATIHAN ANTONIM 2</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">22 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('antonim3.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>LATIHAN ANTONIM 3</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">23 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('sinonim1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>LATIHAN SINONIM 1</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">24 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('sinonim2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>LATIHAN SINONIM 2</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">25 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('sinonim3.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>LATIHAN SINONIM 3</h3>
+  <p>Kecerdasan • 50 soal</p>
+  <div class="meta"><span class="mini">26 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('psiko_intensif_akpol1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKO INTENSIF AKPOL 1</h3>
+  <p>Kecerdasan • 75 soal</p>
+  <div class="meta"><span class="mini">27 • 75 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('psiko_intensif_akpol2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PSIKO INTENSIF AKPOL 2</h3>
+  <p>Kecerdasan • 75 soal</p>
+  <div class="meta"><span class="mini">28 • 75 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('psiko_intensif_akpol4.html')">
+  <span class="tag ready">KUNCI 73/75</span>
+  <h3>PSIKO INTENSIF AKPOL 4</h3>
+  <p>Kecerdasan • 75 soal • kunci belum lengkap</p>
+  <div class="meta"><span class="mini">29 • 75 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+  </div>
+</section>
+  <div class="footer-actions">
+    <a class="btn btn-light" href="tryout_polri.html">Kembali</a>
+    <a class="btn btn-light" href="riwayat.html">Lihat Riwayat</a>
+  </div>
+</main>
+<script>
+function go(file){ window.location.href = file; }
+function soon(msg){ alert(msg || 'Paket belum tersedia.'); }
+</script>
+</body>
+</html>

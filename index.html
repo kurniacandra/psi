@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAGOPSI.ONLINE</title>
+  <meta name="theme-color" content="#0f172a">
+  <style>
+    :root{
+      --bg:#08111f;
+      --line:rgba(255,255,255,.12);
+      --text:#e5eef9;
+      --text-dark:#0f172a;
+      --muted:#94a3b8;
+      --shadow:0 30px 80px rgba(2,6,23,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;padding:0;min-height:100%;
+      font-family:'Segoe UI',Arial,sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(245,158,11,.18), transparent 26%),
+        radial-gradient(circle at top right, rgba(59,130,246,.14), transparent 24%),
+        linear-gradient(135deg, #020617 0%, #0b1220 45%, #111827 100%);
+      color:var(--text);
+    }
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .orb{position:fixed;border-radius:999px;filter:blur(18px);pointer-events:none;opacity:.42;z-index:0}
+    .orb.one{width:230px;height:230px;left:-40px;top:-20px;background:rgba(245,158,11,.34)}
+    .orb.two{width:300px;height:300px;right:-90px;bottom:-70px;background:rgba(59,130,246,.22)}
+    .auth-shell{
+      position:relative;z-index:1;
+      width:min(960px,100%);
+      display:grid;
+      grid-template-columns:.92fr 1fr;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      backdrop-filter:blur(18px);
+      border-radius:30px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+    .hero{
+      position:relative;
+      padding:42px 34px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
+        linear-gradient(145deg, rgba(15,23,42,.95), rgba(30,41,59,.9));
+      min-height:640px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(245,158,11,.18), transparent 20%),
+        radial-gradient(circle at 90% 10%, rgba(59,130,246,.14), transparent 18%);
+      pointer-events:none;
+    }
+    .brand{position:relative;z-index:1}
+    .brand-logo{
+      display:block;
+      height:118px;
+      width:auto;
+      max-width:360px;
+      object-fit:contain;
+      margin-bottom:20px;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      margin:0 0 16px;
+      padding:9px 14px;border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:.82rem;font-weight:700;color:#fde68a;
+      width:max-content;
+    }
+    .hero h1{
+      margin:0;
+      font-size:clamp(2rem, 4vw, 3.1rem);
+      line-height:1.05;
+      letter-spacing:-.03em;
+    }
+    .hero p{
+      color:#cbd5e1;
+      font-size:1rem;
+      line-height:1.8;
+      max-width:420px;
+      margin:18px 0 0;
+    }
+
+    .auth-panel{
+      background:rgba(255,255,255,.97);
+      color:var(--text-dark);
+      padding:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:640px;
+    }
+    .card{
+      width:min(430px,100%);
+      background:#fff;
+      border:1px solid #e2e8f0;
+      border-radius:28px;
+      padding:24px;
+      box-shadow:0 22px 50px rgba(15,23,42,.10);
+    }
+    .status-pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      background:#fff7ed;color:#9a3412;font-weight:800;font-size:.78rem;
+      margin-bottom:14px;
+    }
+    .title{
+      font-size:1.75rem;line-height:1.15;letter-spacing:-.02em;
+      margin:0 0 10px;color:#0f172a;
+    }
+    .sub{color:#64748b;line-height:1.7;margin:0 0 22px;font-size:.95rem}
+    .form-mode.active{display:block}
+    .field{margin-bottom:16px}
+    .label{
+      display:block;margin-bottom:8px;font-size:.88rem;font-weight:800;color:#334155;
+    }
+    .input-wrap{position:relative}
+    .input{
+      width:100%;border:1px solid #dbe2ea;border-radius:16px;
+      padding:15px 15px;font-size:16px;outline:none;transition:.2s ease;
+      background:#fff;color:#0f172a;
+    }
+    .input:focus{
+      border-color:#f59e0b;
+      box-shadow:0 0 0 4px rgba(245,158,11,.12);
+    }
+    .toggle-pass{
+      position:absolute;right:12px;top:50%;transform:translateY(-50%);
+      border:none;background:#fff7ed;color:#b45309;
+      padding:8px 11px;border-radius:999px;font-size:.72rem;font-weight:800;cursor:pointer;
+    }
+    .helper{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:10px;flex-wrap:wrap;margin-top:6px;margin-bottom:18px;
+    }
+    .helper small{color:#64748b;line-height:1.6}
+    .btn{
+      width:100%;border:none;border-radius:18px;padding:15px 16px;
+      font-weight:800;cursor:pointer;transition:.2s ease;font-family:inherit;font-size:.97rem;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{
+      background:linear-gradient(135deg, #0f172a, #1e293b);color:#fff;
+      box-shadow:0 18px 34px rgba(15,23,42,.20);
+    }
+    .mini-note{
+      margin-top:14px;color:#94a3b8;font-size:.82rem;line-height:1.6;text-align:center;
+    }
+    .toast{
+      position:fixed;right:18px;top:18px;z-index:9999;min-width:280px;max-width:420px;
+      padding:14px 16px;border-radius:16px;color:#fff;font-weight:700;
+      box-shadow:0 16px 40px rgba(2,6,23,.25);opacity:0;transform:translateY(-10px);
+      pointer-events:none;transition:.25s ease;
+    }
+    .toast.show{opacity:1;transform:translateY(0)}
+    .toast.success{background:linear-gradient(135deg,#16a34a,#22c55e)}
+    .toast.error{background:linear-gradient(135deg,#b91c1c,#ef4444)}
+    .toast.info{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
+    @media (max-width:900px){
+      .auth-shell{grid-template-columns:1fr}
+      .hero{min-height:auto;padding:30px 24px}
+      .auth-panel{min-height:auto;padding:18px}
+    }
+    @media (max-width:560px){
+      body{padding:14px}
+      .card{padding:20px}
+      .hero h1{font-size:2rem}
+    }
+  </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+
+  <div class="auth-shell">
+    <section class="hero">
+      <div class="brand">
+        <img class="brand-logo" src="https://raw.githubusercontent.com/kurniacandra/pp/refs/heads/main/ChatGPT%20Image%2023%20Apr%202026%2C%2021.15.19.png" alt="Logo JAGOPSI">
+        <div class="eyebrow">✨ PLATFORM TRYOUT JAGOPSI</div>
+        <h1>JAGOPSI.ONLINE</h1>
+        <p>Silakan login atau daftar untuk memulai tryout.</p>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="card">
+        <div id="login-mode" class="form-mode active">
+          <div class="status-pill">🔐 Login Peserta</div>
+          <h2 class="title">Masuk ke akunmu</h2>
+          <p class="sub">Silakan login untuk melanjutkan tryout dan melihat riwayat hasil.</p>
+
+          <div class="field">
+            <label class="label" for="email">Email Peserta</label>
+            <div class="input-wrap">
+              <input class="input" type="email" id="email" placeholder="contoh@email.com">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="password">Password</label>
+            <div class="input-wrap">
+              <input class="input" type="password" id="password" placeholder="Masukkan password">
+              <button class="toggle-pass" type="button" onclick="toggleVisibility('password', this)">LIHAT</button>
+            </div>
+          </div>
+
+          <div class="helper">
+            <small>Gunakan akun yang sudah terdaftar. Jika belum punya akun, buka tab daftar.</small>
+          </div>
+
+          <button id="loginBtn" onclick="window.login()" class="btn btn-primary" type="button">MASUK SEKARANG</button>
+          <div class="mini-note">Setelah login berhasil, peserta akan diarahkan ke menu utama.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast info"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    if (localStorage.getItem('pesertaEmail') && localStorage.getItem('currentSession')) {
+      window.location.replace("main.html");
+    }
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw",
+      authDomain: "simulasi-2b93b.firebaseapp.com",
+      databaseURL: "https://simulasi-2b93b-default-rtdb.firebaseio.com",
+      projectId: "simulasi-2b93b",
+      appId: "1:562508858666:web:fa63f71ec175c675e64a53"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const toast = document.getElementById('toast');
+
+    function showToast(message, type = 'info'){
+      toast.textContent = message;
+      toast.className = `toast ${type} show`;
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    window.toggleVisibility = (id, btn) => {
+      const input = document.getElementById(id);
+      if (input.type === "password") {
+        input.type = "text";
+        if (btn) btn.innerText = "TUTUP";
+      } else {
+        input.type = "password";
+        if (btn) btn.innerText = "LIHAT";
+      }
+    };
+
+    const loginBtn = document.getElementById('loginBtn');
+
+    function setLoginLoading(isLoading){
+      if(!loginBtn) return;
+      loginBtn.disabled = isLoading;
+      loginBtn.style.opacity = isLoading ? '.72' : '1';
+      loginBtn.style.cursor = isLoading ? 'wait' : 'pointer';
+      loginBtn.textContent = isLoading ? 'MEMERIKSA AKUN...' : 'MASUK SEKARANG';
+    }
+
+    async function getIPFast(timeoutMs = 900) {
+      const timeout = new Promise(resolve => setTimeout(() => resolve('unknown'), timeoutMs));
+      const request = fetch('https://api.ipify.org?format=json')
+        .then(res => res.ok ? res.json() : null)
+        .then(data => data?.ip || 'unknown')
+        .catch(() => 'unknown');
+      return Promise.race([request, timeout]);
+    }
+
+    async function checkBlockedIPAndSaveSession(userId, sessionId){
+      const userIP = await getIPFast();
+      const updates = {};
+      updates[`user_sessions/${userId}`] = {
+        sessionId,
+        lastLogin: Date.now(),
+        lastIP: userIP
+      };
+      if(userIP && userIP !== 'unknown'){
+        const ipId = userIP.replace(/\./g, "_");
+        try{
+          const bannedSnap = await get(ref(db, 'banned_ips/' + ipId));
+          if(bannedSnap.exists()){
+            localStorage.clear();
+            alert('Akses IP Anda diblokir.');
+            window.location.replace('index.html');
+            return;
+          }
+        }catch(_e){}
+      }
+      try{ await update(ref(db), updates); }catch(_e){}
+    }
+
+    window.login = async () => {
+      const emailInput = document.getElementById('email');
+      const passInput = document.getElementById('password');
+      const email = emailInput.value.trim().toLowerCase();
+      const pass = passInput.value;
+
+      if (!email || !pass) {
+        showToast("Isi email dan password terlebih dahulu.", "error");
+        return;
+      }
+
+      setLoginLoading(true);
+      try {
+        const userId = email.replace(/[.@]/g, "_");
+        const snapshot = await get(ref(db, 'users/' + userId));
+
+        if (!snapshot.exists()) {
+          showToast("Akun tidak ditemukan. Silakan daftar dulu.", "error");
+          setLoginLoading(false);
+          return;
+        }
+
+        const userData = snapshot.val() || {};
+        const status = String(userData.status || 'aktif').toLowerCase();
+
+        if (status === 'nonaktif') {
+          showToast("Akun Anda telah dinonaktifkan oleh admin.", "error");
+          setLoginLoading(false);
+          return;
+        }
+
+        if (String(userData.password || '') !== pass) {
+          showToast("Password salah.", "error");
+          setLoginLoading(false);
+          return;
+        }
+
+        const newSessionId = "sess_" + Date.now();
+        const displayEmail = userData.email || email;
+        localStorage.setItem('pesertaEmail', displayEmail);
+        localStorage.setItem('currentSession', newSessionId);
+        localStorage.setItem('userStatus', userData.status || 'aktif');
+        localStorage.setItem('userRole', userData.role || (status === 'admin' ? 'admin' : 'user'));
+        localStorage.setItem('userName', userData.nama || userData.name || displayEmail.split('@')[0]);
+
+        try{
+          await update(ref(db), {
+            [`user_sessions/${userId}`]: {
+              sessionId: newSessionId,
+              lastLogin: Date.now(),
+              lastIP: 'pending'
+            }
+          });
+        }catch(_e){}
+
+        showToast("Login berhasil. Mengalihkan ke menu utama...", "success");
+
+        checkBlockedIPAndSaveSession(userId, newSessionId);
+        window.location.replace("main.html");
+      } catch (err) {
+        console.error(err);
+        showToast("Eror koneksi database.", "error");
+        setLoginLoading(false);
+      }
+    };
+
+    document.getElementById('password').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') window.login();
+    });
+  </script>
+</body>
+</html>

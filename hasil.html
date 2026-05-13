@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Hasil Multi Exam</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--line:#dbe2ea;--text:#0f172a;--muted:#64748b;--primary:#0f172a;--blue:#2563eb;--green:#16a34a;--red:#dc2626;--amber:#d97706}
+    *{box-sizing:border-box} body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text)}
+    body.locked .page, body.locked .modal{display:none !important}
+    .auth-screen{display:none;min-height:100vh;align-items:center;justify-content:center;padding:24px}
+    body.locked .auth-screen{display:flex}
+    .auth-card{width:min(520px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 16px 40px rgba(15,23,42,.08);padding:24px;text-align:center}
+    .auth-title{font-size:1.45rem;font-weight:800;margin:0 0 8px}
+    .auth-text{color:var(--muted);margin:0 0 18px;line-height:1.6}
+    .page{max-width:1400px;margin:0 auto;padding:18px}
+    .topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+    .left,.right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn,.btn-link{border:none;border-radius:12px;padding:11px 14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-family:inherit}
+    .btn{background:#fff;border:1px solid var(--line);color:var(--text)} .btn.danger{background:#fff1f2;border-color:#fecdd3;color:#b91c1c} .btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .header-card,.panel,.result-card,.summary-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.05)}
+    .header-card{padding:18px;margin-bottom:16px}
+    .header-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+    .filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;margin-top:16px}
+    input,select{width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--line);font:inherit;background:#fff}
+    .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:16px 0}
+    .summary-card{padding:16px}.summary-card .label{color:var(--muted);font-size:.9rem}.summary-card .value{font-size:1.7rem;font-weight:800;margin-top:8px}
+    .layout{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:start}
+    .panel{padding:16px}
+    .result-list{display:grid;gap:12px}
+    .result-card{padding:16px}
+    .result-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px}
+    .tag{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:700;background:#eff6ff;color:#1d4ed8}
+    .tag.success{background:#ecfdf5;color:#166534}.tag.warn{background:#fff7ed;color:#9a3412}.tag.gray{background:#f1f5f9;color:#475569}
+    .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}
+    .meta-box{background:#f8fafc;border:1px solid #edf2f7;border-radius:12px;padding:10px}
+    .meta-box small{display:block;color:var(--muted);margin-bottom:4px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .mini-btn{border:none;border-radius:10px;padding:9px 11px;font-weight:700;cursor:pointer;background:#eef2ff;color:#1e3a8a}
+    .mini-btn.alt{background:#f8fafc;color:#334155}.mini-btn.danger{background:#fee2e2;color:#991b1b}
+    .muted{color:var(--muted)}
+    .empty{padding:18px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted);background:#fff}
+    .chart-wrap{height:320px}
+    .breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:12px}
+    .breakdown-item{padding:10px;border-radius:12px;background:#f8fafc;border:1px solid #edf2f7}
+    .review-grid{display:grid;gap:12px;margin-top:14px}
+    .review-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+    .review-option{border:1px solid #edf2f7;background:#f8fafc;padding:8px 10px;border-radius:10px;margin-top:6px}
+    .review-option.correct{background:#ecfdf5;border-color:#bbf7d0}.review-option.wrong{background:#fef2f2;border-color:#fecaca}.review-option.picked{outline:2px solid #93c5fd}
+    .modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
+    .modal.show{display:flex}.modal-box{width:min(1100px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:22px;border:1px solid var(--line);padding:18px}
+    .modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center;position:sticky;top:0;background:#fff;padding-bottom:12px;border-bottom:1px solid #eef2f7;margin-bottom:14px}
+    .close-btn{border:none;background:#eef2f7;border-radius:12px;width:42px;height:42px;font-size:1.1rem;cursor:pointer}
+    .checkbox-wrap{display:flex;align-items:center;gap:8px}
+    @media (max-width:980px){.layout{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.chart-wrap{height:260px}}
+    @media (max-width:680px){.filters{grid-template-columns:1fr}.page{padding:12px}.modal-box{padding:14px}}
+  </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body class="locked">
+  <div class="auth-screen" id="authScreen">
+    <div class="auth-card">
+      <div class="tag gray" style="margin-bottom:12px">AREA ADMIN</div>
+      <h1 class="auth-title">Hasil hanya untuk admin</h1>
+      <p class="auth-text" id="authMessage">Memeriksa akses admin…</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a href="admin.html" class="btn primary">Login Admin</a>
+        <a href="main.html" class="btn">Kembali</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="topbar">
+      <div class="left">
+        <a href="manajemen.html" class="btn-link btn">⬅️ Kembali ke Manajemen</a>
+      </div>
+      <div class="right">
+        <button class="btn" id="refreshBtn">🔄 Refresh</button>
+        <button class="btn danger" id="deleteSelectedBtn">HAPUS (0)</button>
+        <button class="btn danger" id="clearAllBtn">🗑️ Kosongkan Semua</button>
+      </div>
+    </div>
+
+    <div class="header-card">
+      <div class="header-title">
+        <div>
+          <div class="muted">Panel hasil khusus admin</div>
+          <h1 style="margin:6px 0 0">Hasil Multi Exam Admin</h1>
+          <div class="muted" id="activeScopeText">Memuat semua hasil peserta…</div>
+        </div>
+        <div class="tag gray" id="lastSync">Sinkronisasi: -</div>
+      </div>
+      <div class="filters">
+        <input id="searchInput" type="text" placeholder="Cari email, nama, file, paket…">
+        <select id="examFilter">
+          <option value="ALL">Semua jenis ujian</option>
+          <option value="TRYOUT_FULL">Try Out Full</option>
+          <option value="WK">Wawasan Kebangsaan</option>
+          <option value="BINDO">Bahasa Indonesia</option>
+          <option value="MATEMATIKA">Matematika</option>
+          <option value="MTK">Matematika Lama</option>
+          <option value="PU">Pengetahuan Umum</option>
+          <option value="SKD">SKD Kedinasan/CPNS</option>
+          <option value="KEPRI">Kepribadian</option>
+          <option value="CERDAS">Kecerdasan</option>
+          <option value="CERMAT">Kecermatan</option>
+        </select>
+        <select id="sortFilter">
+          <option value="newest">Terbaru</option>
+          <option value="oldest">Terlama</option>
+          <option value="score_desc">Nilai tertinggi</option>
+          <option value="score_asc">Nilai terendah</option>
+        </select>
+        <select id="scopeFilter">
+          <option value="all">Semua peserta</option>
+          <option value="scoped">Hanya peserta terpilih</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="summary-grid" id="summaryGrid"></div>
+
+    <div class="layout">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+          <h2 style="margin:0">Daftar hasil</h2>
+          <div class="muted" id="resultCountText">0 hasil</div>
+        </div>
+        <div class="result-list" id="resultList"></div>
+      </div>
+      <div class="panel">
+        <h2 style="margin-top:0">Grafik peserta</h2>
+        <div class="muted" id="trendDescription">Pilih peserta lewat tombol “Riwayat Peserta” atau gunakan filter email dari manajemen.</div>
+        <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+        <div class="breakdown" id="examBreakdown"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="detailModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div>
+          <div class="muted" id="modalMeta">-</div>
+          <h2 style="margin:4px 0 0" id="modalTitle">Detail hasil</h2>
+        </div>
+        <button class="close-btn" id="closeModalBtn">×</button>
+      </div>
+      <div id="modalSummary"></div>
+      <div class="panel" style="margin-top:14px">
+        <h3 style="margin-top:0">Grafik hasil ini</h3>
+        <div class="chart-wrap"><canvas id="detailChart"></canvas></div>
+      </div>
+      <div class="panel" style="margin-top:14px">
+        <h3 style="margin-top:0">Simbol / huruf peserta</h3>
+        <div id="modalSymbols"></div>
+      </div>
+      <div class="panel" style="margin-top:14px">
+        <h3 style="margin-top:0">Review soal</h3>
+        <div id="modalReview"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="result-utils.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw",
+      authDomain: "simulasi-2b93b.firebaseapp.com",
+      databaseURL: "https://simulasi-2b93b-default-rtdb.firebaseio.com",
+      projectId: "simulasi-2b93b",
+      appId: "1:562508858666:web:fa63f71ec175c675e64a53"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+    const qs = new URLSearchParams(location.search);
+    const scopedEmail = (qs.get('email') || '').toLowerCase();
+
+    const els = {
+      searchInput: document.getElementById('searchInput'),
+      examFilter: document.getElementById('examFilter'),
+      sortFilter: document.getElementById('sortFilter'),
+      scopeFilter: document.getElementById('scopeFilter'),
+      summaryGrid: document.getElementById('summaryGrid'),
+      resultList: document.getElementById('resultList'),
+      resultCountText: document.getElementById('resultCountText'),
+      activeScopeText: document.getElementById('activeScopeText'),
+      examBreakdown: document.getElementById('examBreakdown'),
+      trendDescription: document.getElementById('trendDescription'),
+      lastSync: document.getElementById('lastSync'),
+      deleteSelectedBtn: document.getElementById('deleteSelectedBtn'),
+      clearAllBtn: document.getElementById('clearAllBtn'),
+      refreshBtn: document.getElementById('refreshBtn'),
+      modal: document.getElementById('detailModal'),
+      modalTitle: document.getElementById('modalTitle'),
+      modalMeta: document.getElementById('modalMeta'),
+      modalSummary: document.getElementById('modalSummary'),
+      modalReview: document.getElementById('modalReview'),
+      modalSymbols: document.getElementById('modalSymbols'),
+      closeModalBtn: document.getElementById('closeModalBtn'),
+      authMessage: document.getElementById('authMessage')
+    };
+
+    let allRecords = [];
+    let filteredRecords = [];
+    let trendChart = null;
+    let detailChart = null;
+
+    els.scopeFilter.value = scopedEmail ? 'scoped' : 'all';
+    if (scopedEmail) els.searchInput.value = scopedEmail;
+
+    function parseDate(value){
+      const d = new Date(value || 0);
+      return Number.isNaN(d.getTime()) ? 0 : d.getTime();
+    }
+
+    function syncScopeText(){
+      if (scopedEmail && els.scopeFilter.value === 'scoped') {
+        els.activeScopeText.textContent = `Filter peserta aktif: ${scopedEmail}`;
+      } else {
+        els.activeScopeText.textContent = 'Memuat semua hasil peserta…';
+      }
+    }
+
+    function getWorkingRecords(){
+      const search = els.searchInput.value.trim().toLowerCase();
+      const examType = els.examFilter.value;
+      const scopeOnly = els.scopeFilter.value === 'scoped' && scopedEmail;
+      let items = [...allRecords];
+      if (scopeOnly) items = items.filter(item => item.email === scopedEmail || item.userId === window.resultUtils.makeUserId(scopedEmail));
+      if (search) {
+        items = items.filter(item => {
+          const hay = [item.email, item.nama, item.examType, item.examName, item.examFile, item.packageCode].join(' ').toLowerCase();
+          return hay.includes(search);
+        });
+      }
+      if (examType !== 'ALL') items = items.filter(item => item.examType === examType);
+      const sortMode = els.sortFilter.value;
+      items.sort((a,b) => {
+        if (sortMode === 'oldest') return parseDate(a.submittedAtISO || a.waktu) - parseDate(b.submittedAtISO || b.waktu);
+        if (sortMode === 'score_desc') return b.score - a.score || parseDate(b.submittedAtISO || b.waktu) - parseDate(a.submittedAtISO || a.waktu);
+        if (sortMode === 'score_asc') return a.score - b.score || parseDate(b.submittedAtISO || b.waktu) - parseDate(a.submittedAtISO || a.waktu);
+        return parseDate(b.submittedAtISO || b.waktu) - parseDate(a.submittedAtISO || a.waktu);
+      });
+      return items;
+    }
+
+    function renderSummary(records){
+      const uniqueParticipants = new Set(records.map(r => r.email || r.userId).filter(Boolean));
+      const avgScore = records.length ? (records.reduce((sum, item) => sum + (item.score || 0), 0) / records.length).toFixed(1) : '0.0';
+      const reviewCount = records.reduce((sum, item) => sum + item.reviewItems.length, 0);
+      const best = records.length ? Math.max(...records.map(r => r.score || 0)).toFixed(1) : '0.0';
+      const cards = [
+        ['Total hasil', records.length],
+        ['Peserta unik', uniqueParticipants.size],
+        ['Rata-rata skor', avgScore],
+        ['Skor tertinggi', best],
+        ['Total review item', reviewCount]
+      ];
+      els.summaryGrid.innerHTML = cards.map(([label, value]) => `
+        <div class="summary-card">
+          <div class="label">${label}</div>
+          <div class="value">${value}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderBreakdown(records){
+      const map = {};
+      records.forEach(r => { map[r.examType] = (map[r.examType] || 0) + 1; });
+      const keys = Object.keys(map).sort();
+      els.examBreakdown.innerHTML = keys.length ? keys.map(key => `
+        <div class="breakdown-item">
+          <div class="muted">${window.resultUtils.typeLabel(key)}</div>
+          <div style="font-weight:800;font-size:1.25rem;margin-top:6px">${map[key]}</div>
+        </div>
+      `).join('') : '<div class="empty">Belum ada data grafik peserta.</div>';
+    }
+
+    function graphArraysForRecord(record){
+      const benar = record.analytics.pola_benar?.length ? record.analytics.pola_benar : record.analytics.detail_benar;
+      const salah = record.analytics.pola_salah?.length ? record.analytics.pola_salah : record.analytics.detail_salah;
+      if (!benar?.length && !salah?.length) return null;
+      const length = Math.max(benar?.length || 0, salah?.length || 0);
+      return {
+        labels: Array.from({length}, (_, i) => `K${i + 1}`),
+        benar: benar || [],
+        salah: salah || []
+      };
+    }
+
+    function symbolMarkup(record){
+      const cols = window.resultUtils.getSymbolColumns(record);
+      if (!cols.length) return '<div class="empty">Tidak ada simbol / huruf tersimpan pada hasil ini.</div>';
+      return `<div class="review-grid">${cols.map(col => `
+        <div class="review-item">
+          <div class="tags"><span class="tag gray">Kolom ${col.index}</span><span class="tag">${col.values.length} simbol</span></div>
+          <div style="font-size:1.05rem;font-weight:700;letter-spacing:.3px;line-height:1.8">${window.resultUtils.escapeHtml(col.values.join(' '))}</div>
+        </div>
+      `).join('')}</div>`;
+    }
+
+    function renderTrend(records){
+      const targetRecords = (scopedEmail && els.scopeFilter.value === 'scoped') ? records.filter(item => item.email === scopedEmail) : [];
+      if (trendChart) trendChart.destroy();
+      const ctx = document.getElementById('trendChart');
+      if (!targetRecords.length) {
+        els.trendDescription.textContent = 'Gunakan filter peserta dari manajemen atau query ?email=... untuk melihat grafik riwayat skor peserta.';
+        trendChart = new Chart(ctx, { type:'line', data:{ labels:[], datasets:[] }, options:{ responsive:true, maintainAspectRatio:false } });
+        return;
+      }
+      const series = [...targetRecords].sort((a,b) => parseDate(a.submittedAtISO || a.waktu) - parseDate(b.submittedAtISO || b.waktu));
+      els.trendDescription.textContent = `Grafik riwayat skor untuk ${scopedEmail} (${series.length} hasil).`;
+      trendChart = new Chart(ctx, {
+        type:'line',
+        data:{
+          labels: series.map((item, idx) => `${idx + 1}. ${item.examLabel}`),
+          datasets:[{ label:'Skor', data: series.map(item => item.score || 0), tension:.25, borderWidth:2, fill:false }]
+        },
+        options:{ responsive:true, maintainAspectRatio:false, scales:{ y:{ beginAtZero:true, suggestedMax:100 } } }
+      });
+    }
+
+    function imgListMarkup(list){
+      return Array.isArray(list) && list.length ? `<div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">${list.map(src => `<img src="${window.resultUtils.escapeHtml(src)}" alt="gambar soal" style="max-width:220px;border-radius:12px;border:1px solid #e2e8f0;background:#fff">`).join('')}</div>` : '';
+    }
+
+    function formatReview(record, review){
+      const options = review.options && Object.keys(review.options).length ? Object.entries(review.options).map(([key, value]) => {
+        const classes = ['review-option'];
+        if (String(review.correct_answer) === String(key)) classes.push('correct');
+        const picked = Array.isArray(review.user_answer) ? review.user_answer.includes(key) : String(review.user_answer ?? '') === String(key);
+        if (picked) classes.push('picked');
+        if (picked && String(review.correct_answer) !== String(key)) classes.push('wrong');
+        const optionImageList = review.optionImages && review.optionImages[key] ? (Array.isArray(review.optionImages[key]) ? review.optionImages[key] : [review.optionImages[key]]) : [];
+        return `<div class="${classes.join(' ')}"><strong>${key}.</strong> ${window.resultUtils.escapeHtml(value || '')}${imgListMarkup(optionImageList)}</div>`;
+      }).join('') : `<div class="review-option">Jawaban pengguna: ${window.resultUtils.escapeHtml(review.user_answer_text || '-')}</div>`;
+      return `
+        <div class="review-item">
+          <div class="tags">
+            <span class="tag gray">${review.sectionLabel || record.examLabel}</span>
+            <span class="tag ${review.status === 'benar' ? 'success' : review.status === 'salah' ? 'warn' : 'gray'}">${review.status || '-'}</span>
+          </div>
+          <div style="font-weight:800;margin-bottom:8px">Soal ${review.session_number || review.number || '-'}</div>
+          <div>${window.resultUtils.escapeHtml(review.text || '')}</div>
+          ${imgListMarkup(review.images)}
+          ${options}
+          ${review.explanation ? `<div class="review-option" style="margin-top:10px"><strong>Pembahasan:</strong> ${window.resultUtils.escapeHtml(review.explanation)}</div>` : ''}
+          ${imgListMarkup(review.explanationImages)}
+          <div class="meta" style="margin-top:10px">
+            <div class="meta-box"><small>Jawaban peserta</small><div>${window.resultUtils.escapeHtml(review.user_answer_text || '-')}</div></div>
+            <div class="meta-box"><small>Kunci</small><div>${window.resultUtils.escapeHtml(review.correct_answer_text || '-')}</div></div>
+            <div class="meta-box"><small>Poin</small><div>${review.points_earned ?? '-'}</div></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openDetail(id){
+      const record = filteredRecords.find(item => item.id === id) || allRecords.find(item => item.id === id);
+      if (!record) return;
+      els.modal.classList.add('show');
+      els.modalTitle.textContent = `${record.examLabel} • ${record.nama}`;
+      els.modalMeta.textContent = `${record.email || '-'} • ${record.waktu}`;
+      const rawScoreText = record.examType === 'SKD' && record.summary.rawPoints != null && record.summary.maxPoints != null ? `${record.summary.rawPoints} / ${record.summary.maxPoints}` : ((record.score || 0).toFixed ? record.score.toFixed(1) : record.score);
+      const skdPercent = Number(record.normalizedScore ?? record.percentageScore ?? record.nilaiPersen ?? record.summary.normalizedScore ?? record.summary.percentageScore ?? record.summary.nilaiPersen ?? 0).toFixed(1);
+      const sectionSummaryHtml = Array.isArray(record.sections) && record.sections.length ? `<div class="summary-grid" style="margin-top:10px">${record.sections.map(sec => `<div class="summary-card"><div class="label">${window.resultUtils.escapeHtml(sec.code || sec.label)}</div><div class="value">${window.resultUtils.escapeHtml(sec.rawPoints ?? 0)} / ${window.resultUtils.escapeHtml(sec.maxPoints ?? 0)}</div></div>`).join('')}</div>` : '';
+      els.modalSummary.innerHTML = `
+        <div class="summary-grid">
+          <div class="summary-card"><div class="label">${record.examType === 'SKD' ? 'Poin SKD' : 'Skor'}</div><div class="value">${rawScoreText}</div></div>
+          <div class="summary-card"><div class="label">${record.examType === 'SKD' ? 'Persentase' : 'Nilai'}</div><div class="value">${record.examType === 'SKD' ? skdPercent : Number(record.score || 0).toFixed(1)}</div></div>
+          <div class="summary-card"><div class="label">Benar/terbaik</div><div class="value">${record.summary.correct}</div></div>
+          <div class="summary-card"><div class="label">Salah/belum maksimal</div><div class="value">${record.summary.wrong}</div></div>
+          <div class="summary-card"><div class="label">Kosong</div><div class="value">${record.summary.empty}</div></div>
+          <div class="summary-card"><div class="label">Review item</div><div class="value">${record.reviewItems.length}</div></div>
+          <div class="summary-card"><div class="label">Kolom simbol</div><div class="value">${window.resultUtils.getSymbolColumns(record).length}</div></div>
+        </div>
+        ${sectionSummaryHtml}
+      `;
+      const graph = graphArraysForRecord(record);
+      if (detailChart) detailChart.destroy();
+      detailChart = new Chart(document.getElementById('detailChart'), {
+        type: graph ? 'line' : 'bar',
+        data: graph ? {
+          labels: graph.labels,
+          datasets: [
+            { label:'Benar', data: graph.benar, borderWidth:2, tension:.25 },
+            { label:'Salah', data: graph.salah, borderWidth:2, tension:.25 }
+          ]
+        } : {
+          labels: ['Skor','Benar','Salah','Kosong'],
+          datasets:[{ label:'Ringkasan', data:[record.score || 0, record.summary.correct, record.summary.wrong, record.summary.empty] }]
+        },
+        options:{ responsive:true, maintainAspectRatio:false, scales:{ y:{ beginAtZero:true } } }
+      });
+      els.modalSymbols.innerHTML = symbolMarkup(record);
+      els.modalReview.innerHTML = record.reviewItems.length ? `<div class="review-grid">${record.reviewItems.map(item => formatReview(record, item)).join('')}</div>` : '<div class="empty">Review soal belum tersimpan pada hasil ini.</div>';
+    }
+
+    function renderResults(records){
+      filteredRecords = records;
+      els.resultCountText.textContent = `${records.length} hasil`;
+      if (!records.length) {
+        els.resultList.innerHTML = '<div class="empty">Belum ada hasil yang cocok dengan filter saat ini.</div>';
+        updateDeleteCount();
+        return;
+      }
+      els.resultList.innerHTML = records.map(record => {
+        const graph = graphArraysForRecord(record);
+        return `
+          <div class="result-card">
+            <div class="result-head">
+              <div>
+                <div class="checkbox-wrap">
+                  <input class="select-result" type="checkbox" value="${record.id}">
+                  <div style="font-weight:800;font-size:1.05rem">${window.resultUtils.escapeHtml(record.nama || '-')}</div>
+                </div>
+                <div class="muted" style="margin-top:6px">${window.resultUtils.escapeHtml(record.email || '-')} • ${window.resultUtils.escapeHtml(record.waktu || '-')}</div>
+                <div class="tags">
+                  <span class="tag">${window.resultUtils.escapeHtml(record.examLabel)}</span>
+                  ${record.packageCode ? `<span class="tag gray">${window.resultUtils.escapeHtml(record.packageCode)}</span>` : ''}
+                  ${record.status ? `<span class="tag ${String(record.status).toLowerCase().includes('baik') || String(record.status).toLowerCase() === 'ms' ? 'success' : 'warn'}">${window.resultUtils.escapeHtml(record.status)}</span>` : ''}
+                </div>
+              </div>
+              <div style="text-align:right">
+                <div class="muted">${record.examType === 'SKD' ? 'Poin SKD' : 'Skor'}</div>
+                <div style="font-size:2rem;font-weight:800">${record.examType === 'SKD' && record.summary.rawPoints != null && record.summary.maxPoints != null ? `${record.summary.rawPoints}/${record.summary.maxPoints}` : Number(record.score || 0).toFixed(1)}</div>
+                ${record.examType === 'SKD' ? `<div class="muted">Persentase ${Number(record.normalizedScore ?? record.percentageScore ?? record.nilaiPersen ?? 0).toFixed(1)}</div>` : ''}
+              </div>
+            </div>
+            <div class="meta">
+              <div class="meta-box"><small>Benar</small><div>${record.summary.correct}</div></div>
+              <div class="meta-box"><small>Salah</small><div>${record.summary.wrong}</div></div>
+              <div class="meta-box"><small>Kosong</small><div>${record.summary.empty}</div></div>
+              <div class="meta-box"><small>Review</small><div>${record.reviewItems.length}</div></div>
+              <div class="meta-box"><small>Simbol/Huruf</small><div style="font-size:.82rem">${window.resultUtils.escapeHtml(window.resultUtils.symbolPreview(record))}</div></div>
+            </div>
+            <div class="actions">
+              <button class="mini-btn" data-open-detail="${record.id}">Review Soal</button>
+              <button class="mini-btn alt" data-open-symbols="${record.id}">Simbol/Huruf</button>
+              <button class="mini-btn alt" data-open-graph="${record.email}">${graph ? 'Grafik Hasil' : 'Grafik Peserta'}</button>
+              <a class="mini-btn alt" href="hasil.html?email=${encodeURIComponent(record.email || '')}">Riwayat Peserta</a>
+              <button class="mini-btn danger" data-delete-one="${record.id}">Hapus</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      bindResultActions();
+      updateDeleteCount();
+    }
+
+    function updateDeleteCount(){
+      const selected = document.querySelectorAll('.select-result:checked').length;
+      els.deleteSelectedBtn.textContent = `HAPUS (${selected})`;
+    }
+
+    async function removeResultEverywhere(id){
+      const cleanId = String(id || '');
+      const key = cleanId.split('/').pop();
+      if (!key) return;
+      await Promise.all([
+        remove(ref(db, 'rekap_skor/' + key)),
+        remove(ref(db, 'hasil_kepri/' + key)),
+        remove(ref(db, 'hasil_skd/' + key))
+      ]);
+    }
+
+    async function deleteOne(id){
+      if (!confirm('Hapus hasil ini?')) return;
+      await removeResultEverywhere(id);
+    }
+
+    async function deleteSelected(){
+      const ids = [...document.querySelectorAll('.select-result:checked')].map(el => el.value);
+      if (!ids.length) return alert('Pilih hasil dulu.');
+      if (!confirm(`Hapus ${ids.length} hasil terpilih?`)) return;
+      for (const id of ids) {
+        await removeResultEverywhere(id);
+      }
+    }
+
+    async function clearAll(){
+      if (!confirm('Kosongkan semua riwayat hasil?')) return;
+      await Promise.all([remove(ref(db, 'rekap_skor')), remove(ref(db, 'hasil_kepri')), remove(ref(db, 'hasil_skd'))]);
+    }
+
+    function bindResultActions(){
+      document.querySelectorAll('.select-result').forEach(el => el.onchange = updateDeleteCount);
+      document.querySelectorAll('[data-open-detail]').forEach(btn => btn.onclick = () => openDetail(btn.dataset.openDetail));
+      document.querySelectorAll('[data-open-symbols]').forEach(btn => btn.onclick = () => openDetail(btn.dataset.openSymbols));
+      document.querySelectorAll('[data-open-graph]').forEach(btn => btn.onclick = () => {
+        const email = (btn.dataset.openGraph || '').toLowerCase();
+        if (!email) return;
+        location.href = `hasil.html?email=${encodeURIComponent(email)}`;
+      });
+      document.querySelectorAll('[data-delete-one]').forEach(btn => btn.onclick = () => deleteOne(btn.dataset.deleteOne));
+    }
+
+    function rerender(){
+      syncScopeText();
+      const records = getWorkingRecords();
+      renderSummary(records);
+      renderBreakdown(records);
+      renderResults(records);
+      renderTrend(records);
+    }
+
+    const sourceBuckets = { rekap_skor: [], hasil_kepri: [], hasil_skd: [] };
+
+    function mergeSources(){
+      const seen = new Set();
+      const merged = [];
+      Object.values(sourceBuckets).flat().forEach(item => {
+        const key = [item.resultId || item.raw?.resultId || item.raw?._id || String(item.id || '').split('/').pop(), item.email, item.examType, item.packageCode, item.submittedAtISO || item.waktu, item.score].join('|');
+        if (seen.has(key)) return;
+        seen.add(key);
+        merged.push(item);
+      });
+      allRecords = merged;
+      els.lastSync.textContent = `Sinkronisasi: ${new Date().toLocaleTimeString('id-ID')}`;
+      rerender();
+    }
+
+    function loadData(){
+      onValue(ref(db, 'rekap_skor'), snap => {
+        sourceBuckets.rekap_skor = window.resultUtils.flattenResultRecords(snap.val() || {}, 'rekap_skor');
+        mergeSources();
+      });
+      onValue(ref(db, 'hasil_kepri'), snap => {
+        sourceBuckets.hasil_kepri = window.resultUtils.flattenResultRecords(snap.val() || {}, 'hasil_kepri');
+        mergeSources();
+      });
+      onValue(ref(db, 'hasil_skd'), snap => {
+        sourceBuckets.hasil_skd = window.resultUtils.flattenResultRecords(snap.val() || {}, 'hasil_skd');
+        mergeSources();
+      });
+    }
+
+    [els.searchInput, els.examFilter, els.sortFilter, els.scopeFilter].forEach(el => el.addEventListener('input', rerender));
+    els.refreshBtn.onclick = () => location.reload();
+    els.deleteSelectedBtn.onclick = deleteSelected;
+    els.clearAllBtn.onclick = clearAll;
+    els.closeModalBtn.onclick = () => els.modal.classList.remove('show');
+    els.modal.onclick = (e) => { if (e.target === els.modal) els.modal.classList.remove('show'); };
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') els.modal.classList.remove('show'); });
+
+    function allowAdminPage(){
+      document.body.classList.remove('locked');
+      loadData();
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        allowAdminPage();
+        return;
+      }
+      els.authMessage.textContent = 'Kamu harus login admin untuk membuka halaman hasil ini.';
+      setTimeout(() => {
+        if (document.body.classList.contains('locked')) location.href = 'admin.html';
+      }, 900);
+    });
+  </script>
+</body>
+</html>

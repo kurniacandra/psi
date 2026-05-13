@@ -1,0 +1,1434 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cerdas 3 - JAGOPSI</title>
+<style>
+:root{--primary:#0f172a;--danger:#dc2626;--success:#16a34a;--info:#2563eb;--bg:#f8fafc;--muted:#64748b;--warning:#f59e0b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:'Segoe UI',Arial,sans-serif;color:#0f172a}
+.topbar{position:sticky;top:0;z-index:10;background:linear-gradient(90deg,#0f172a,#1e293b);color:#fff;padding:14px 18px}
+.topbar-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top-timer{background:#fff;color:#991b1b;border-radius:12px;padding:10px 14px;font-weight:700}
+.wrap{max-width:1180px;margin:20px auto;padding:0 16px}.grid{display:grid;grid-template-columns:1.6fr .95fr;gap:18px}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 24px rgba(15,23,42,.08);border:1px solid #e2e8f0}
+.badge{display:inline-block;padding:6px 12px;border-radius:999px;background:#fff7ed;color:#9a3412;font-weight:700;font-size:.8rem;margin-bottom:10px}.badge-blue{background:#eff6ff;color:#1d4ed8}
+.hidden{display:none!important}.option-box{border:1px solid #ddd;padding:12px 14px;border-radius:12px;margin-bottom:10px;cursor:pointer;background:#fff;transition:.15s}.option-box:hover{border-color:#93c5fd;transform:translateY(-1px)}.option-box.selected{background:#dc2626;color:#fff;border-color:#b91c1c}.option-box.partial{background:#fff7ed;border-color:#f59e0b;color:#9a3412}.number-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.num-btn{min-height:42px;border:1px solid #cbd5e1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;background:#fff;cursor:pointer}.num-btn.active{border:2px solid var(--info);color:var(--info)}.num-btn.answered{background:var(--success);color:#fff;border-color:var(--success)}.num-btn.partial{background:#fff7ed;color:#9a3412;border-color:#f59e0b}.controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px}button,.btn{border:none;border-radius:12px;padding:12px 16px;font-family:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--info);color:#fff}.btn-outline{background:#fff;color:#334155;border:1px solid #cbd5e1}.btn-danger{background:var(--danger);color:#fff}.btn-success{background:var(--success);color:#fff}.btn-warning{background:#f59e0b;color:#fff}.qtitle{font-size:1.08rem;font-weight:700;line-height:1.7;margin-bottom:16px}.qnum{font-size:.95rem;color:#64748b;margin-bottom:6px}.center-screen{max-width:960px;margin:40px auto}.stage-line{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.stage-pill{padding:8px 12px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:700;font-size:.82rem}.img-fluid-custom{max-width:100%;height:auto;border-radius:8px;border:1px solid #ddd;background:#fff;margin-bottom:12px}.small-muted{color:#64748b;font-size:.92rem}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.stat-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:16px}.stat-card h4{margin:0 0 8px;font-size:.9rem;color:#475569}.stat-value{font-size:1.55rem;font-weight:800}.review-list{display:grid;gap:12px;margin-top:18px}.review-item{border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff}.review-option{padding:9px 11px;border-radius:10px;margin-bottom:8px;border:1px solid #e5e7eb;background:#fafafa}.review-option.correct{background:#dcfce7;border-color:#16a34a;color:#166534;font-weight:700}.review-option.picked-wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b;font-weight:700}.review-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}.pill-ok,.pill-no,.pill-empty{display:inline-flex;padding:8px 12px;border-radius:999px;font-weight:700;font-size:.82rem}.pill-ok{background:#dcfce7;color:#166534}.pill-no{background:#fee2e2;color:#991b1b}.pill-empty{background:#fef3c7;color:#92400e}@media (max-width:900px){.grid{grid-template-columns:1fr}.number-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <h1 style="margin:0;font-size:1.05rem;font-weight:700">TRY OUT KECERDASAN 3</h1>
+      <div id="userLine" style="font-size:.9rem;color:#cbd5e1">Memuat akun...</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div class="top-timer" id="globalTimer">--:--:--</div>
+      <button class="btn-danger" type="button" id="logoutBtn">Keluar</button>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <div id="screen-loading" class="center-screen card">
+    <div class="badge">MEMUAT</div>
+    <h2 style="margin-top:0">Menyiapkan try out...</h2>
+    <p class="small-muted">Sistem sedang menyiapkan soal dan sesi ujianmu.</p>
+  </div>
+  <div id="screen-main" class="center-screen card hidden">
+    <div class="badge" id="introBadge">TRY OUT</div>
+    <h2 style="margin-top:0" id="introTitle">Try Out Kecerdasan 4</h2>
+    <p class="small-muted" id="introText"></p>
+    <div class="stage-line"><div class="stage-pill" id="stagePill">Ujian</div></div>
+    <div class="stats-grid" style="margin-top:18px">
+      <div class="stat-card"><h4>Total Soal</h4><div class="stat-value" id="statTotal">0</div></div>
+      <div class="stat-card"><h4>Waktu</h4><div class="stat-value" id="statTime">0 Menit</div></div>
+      <div class="stat-card"><h4>Mode</h4><div class="stat-value" id="statMode">Single</div></div>
+    </div>
+    <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+      <button type="button" class="btn btn-primary" id="startMainBtn">Mulai</button>
+      <a href="tryout_polri.html" class="btn btn-outline">Kembali</a>
+    </div>
+  </div>
+  <div id="screen-section" class="hidden">
+    <div class="grid">
+      <div class="card">
+        <div class="badge badge-blue" id="sectionBadge">UJIAN</div>
+        <div class="qnum" id="sectionQno"></div>
+        <div class="qtitle" id="sectionQtext"></div>
+        <div id="sectionQImages"></div>
+        <div id="sectionOptions"></div>
+        <div class="controls">
+          <button type="button" class="btn btn-outline" id="prevBtn">Sebelumnya</button>
+          <button type="button" class="btn btn-primary" id="nextBtn">Selanjutnya</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Navigasi</h3>
+        <div class="small-muted" id="sectionHelp">Klik jawaban untuk menyimpan.</div>
+        <div style="margin:10px 0 14px;display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge badge-blue" id="categoryBadge">Materi</span>
+          <span class="badge" id="typeBadge">Single</span>
+        </div>
+        <div class="number-grid" id="numberGrid"></div>
+        <hr>
+        <button type="button" class="btn btn-danger" id="finishSectionBtn">Selesaikan Try Out</button>
+      </div>
+    </div>
+  </div>
+  <div id="screen-result" class="center-screen hidden">
+    <div id="resultHost"></div>
+  </div>
+</div>
+<script src="result-utils.js"></script>
+<script>
+window.__SOAL_TEMPLATE_CONFIG = {"title":"Cerdas 3 - JAGOPSI","examType":"CERDAS","examName":"Try Out Kecerdasan 3","examFile":"cerdas3.html","packageCode":"CERDAS3","sectionLabel":"Kecerdasan","introTitle":"Try Out Kecerdasan 3","introText":"Paket kecerdasan 3 berisi 100 soal dengan template try out yang sama, review tersimpan ke hasil, dan siap dipakai seperti paket kecerdasan lainnya.","durationMinutes":90,"scoringMode":"correct","sessionSize":100,"randomBank":false,"requireLogin":true,"requireVIP":true,"vipMessage":"Try Out Kecerdasan 3 hanya untuk akun VIP.","storageKey":"cerdas3_fixed_session_v2","backUrl":"kecerdasan_list.html"};
+window.__SOAL_TEMPLATE_QUESTIONS = [
+  {
+    "number": 1,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "1-2-4-3",
+      "B": "4-3-1-2",
+      "C": "4-2-3-1",
+      "D": "4-3-2-1",
+      "E": "1-4-3-2"
+    },
+    "answer": "D",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q01.png"
+    ]
+  },
+  {
+    "number": 2,
+    "type": "single",
+    "text": "Bujur Sangkar : Kardus = ... : ...",
+    "options": {
+      "A": "Bujur Sangkar : Prisma",
+      "B": "Bundar : Bola",
+      "C": "Kubus : Volume",
+      "D": "Bulat : Bola",
+      "E": "Oval : Bola"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 3,
+    "type": "single",
+    "text": "Seorang pedagang telur mula-mula mempunyai 120 butir, kemudian dijual sebanyak 75 butir. Pedagang membeli lagi sebanyak 65 butir, Berapa butir telur pedagang sekarang?",
+    "options": {
+      "A": "110 butir",
+      "B": "115 butir",
+      "C": "120 butir",
+      "D": "105 butir",
+      "E": "100 butir"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 4,
+    "type": "single",
+    "text": "3 triwulan + 2 semester + 1,5 lustrum = ...",
+    "options": {
+      "A": "81 bulan",
+      "B": "101 hari",
+      "C": "111 bulan",
+      "D": "91 minggu",
+      "E": "110 minggu"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 5,
+    "type": "single",
+    "text": "Korban yang memiliki tabungan kurang dari tiga juta rupiah mendapat bantuan dan hadiah Ichigo menerima bantuan, tetapi tidak menerima hadiah Kesimpulan yang tepat adalah...",
+    "options": {
+      "A": "Ichigo adalah korban yang tabungannya lebih dari tiga juta rupiah",
+      "B": "Ichigo adalah korban yang tabungannya kurang dari tiga juta rupiah",
+      "C": "Ichigo adalah korban yang berhak menerima hadiah",
+      "D": "Ichigo adalah bukan korban yang berhak menerima hadiah",
+      "E": "Ichigo adalah korban yang tabungannya dua juta rupiah"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 6,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Sesaat",
+      "B": "Sebelum",
+      "C": "Tatkala",
+      "D": "Ketika",
+      "E": "Sekejap"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 7,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "4-1-3-2",
+      "B": "3-4-2-1",
+      "C": "1-4-3-2",
+      "D": "1-3-4-2",
+      "E": "3-2-1-4"
+    },
+    "answer": "C",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q07.png"
+    ]
+  },
+  {
+    "number": 8,
+    "type": "single",
+    "text": "Pilih kata yang memiliki arti berlawanan",
+    "options": {
+      "A": "Pergi dan datang",
+      "B": "Berdiri dan Tegak",
+      "C": "Datang dan Tiba",
+      "D": "Beristirahat dan Rehat",
+      "E": "Berdiri dan Berenang"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 9,
+    "type": "single",
+    "text": "Sebuah truk yang mengangkut pasir dan empat orang penumpang mempunyai berat total sebesar 3500 kg. Berapa kg beban pasir yang diangkut oleh truk tersebut apabila berat rata-rata penumpang adalah 53 kg?",
+    "options": {
+      "A": "8020 kg",
+      "B": "5280 kg",
+      "C": "3288 kg",
+      "D": "820 kg",
+      "E": "810 kg"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 10,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Anting",
+      "B": "Cincin",
+      "C": "Kalung",
+      "D": "Kacamata",
+      "E": "Gelang"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 11,
+    "type": "single",
+    "text": "Semua yang berbunga adalah tanaman Sebagian tanaman warnanya indah Kesimpulan yang tepat adalah...",
+    "options": {
+      "A": "Semua yang berbunga warnanya tidak indah",
+      "B": "Semua yang warnanya tidak indah adalah tanaman",
+      "C": "Semua tanaman adalah berbunga",
+      "D": "Sebagian yang berbunga warnanya tidak indah",
+      "E": "Semua yang warnanya tidak indah, tidak berbunga"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 12,
+    "type": "single",
+    "text": "Pilih kata yang memiliki arti berlawanan",
+    "options": {
+      "A": "Parsial dan Bagian",
+      "B": "Komunal dan Eksternal",
+      "C": "Total dan Parsial",
+      "D": "Eksternal dan Internal",
+      "E": "Internal dan Komunal"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 13,
+    "type": "single",
+    "text": "Semua gerbong kereta api dilengkapi dengan toilet Televisi hanya ada pada gerbong kereta luxury Kesimpulan yang paling tepat adalah...",
+    "options": {
+      "A": "Gerbong kereta api luxury dilengkapi toilet dan televisi",
+      "B": "Gerbong kereta api luxury tidak dilengkapi toilet dan televisi",
+      "C": "Gerbong kereta api luxury dilengkapi toilet tanpa televisi",
+      "D": "Gerbong kereta api luxury dilengkapi televisi tanpa toilet",
+      "E": "Gerbong kereta api luxury sebagian dilengkapi toilet"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 14,
+    "type": "single",
+    "text": "Senapan : Berburu = ... : ...",
+    "options": {
+      "A": "Memotong : Pisau",
+      "B": "Pensil : Penggaris",
+      "C": "Pensil : Menulis",
+      "D": "Mengasah : Tipis",
+      "E": "Mengasah : Pensil"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 15,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Kereta Api",
+      "B": "Motor",
+      "C": "Helikopter",
+      "D": "Mobil",
+      "E": "Bus"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 16,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "5-2-1-4-6-3",
+      "B": "3-6-2-4-1-5",
+      "C": "3-6-4-1-2-5",
+      "D": "5-2-4-1-6-3",
+      "E": "2-4-1-6-3-5"
+    },
+    "answer": "D",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q16.png"
+    ]
+  },
+  {
+    "number": 17,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "1-4-3-2",
+      "B": "4-3-2-1",
+      "C": "1-3-4-2",
+      "D": "1-2-4-3",
+      "E": "1-3-2-4"
+    },
+    "answer": "C",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q17.png"
+    ]
+  },
+  {
+    "number": 18,
+    "type": "single",
+    "text": "(-0,65) + 117 : 9 - 3 = ...",
+    "options": {
+      "A": "10,35",
+      "B": "9,65",
+      "C": "9,35",
+      "D": "10,65",
+      "E": "11,35"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 19,
+    "type": "single",
+    "text": "Koperasi sekolah mempunyai persediaan 8 buah spidol dan 11 pak spidol. Setiap pak berisi 12 buah spidol. Lima belas orang siswa membeli spidol di koperasi tersebut sama banyak. Jika di koperasi tersebut tersisa 5 buah spidol, berapa spidol yang dibeli setiap siswa?",
+    "options": {
+      "A": "9 buah",
+      "B": "7 buah",
+      "C": "6 buah",
+      "D": "8 buah",
+      "E": "4 buah"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 20,
+    "type": "single",
+    "text": "Tidak seorangpun pengunjung museum diizinkan memotret Sebagian mahasiswa mengisi liburan dengan mengunjungi museum Kesimpulan yang tepat adalah...",
+    "options": {
+      "A": "Sebagian mahasiswa tidak diizinkan memotret di dalam museum",
+      "B": "Semua mahasiswa tidak diizinkan memotret di dalam museum",
+      "C": "Sebagian mahasiswa diizinkan memotret ketika mengunjungi museum",
+      "D": "Hanya mahasiswa yang berlibur ke museum yang tidak dilarang memotret",
+      "E": "Tidak ada pengunjung museum yang berstatus mahasiswa"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 21,
+    "type": "single",
+    "text": "634 + 8 x 125 - 2048 : 64 = ...",
+    "options": {
+      "A": "1112",
+      "B": "1221",
+      "C": "1602",
+      "D": "1604",
+      "E": "1222"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 22,
+    "type": "single",
+    "text": "Bu Santi mempunyai Rp 60.000. Bu Santi membagikan uang tersebut kepada ketiga anaknya sama banyak. Kemudian, masing-masing anak mendapatkan tambahan Rp 5.000 dari pamannya. Tiap anak membeli buku seharga Rp 6.500. Uang tersisa pada setiap anak adalah...",
+    "options": {
+      "A": "Rp 7.500",
+      "B": "Rp 15.000",
+      "C": "Rp 18.500",
+      "D": "Rp 48.500",
+      "E": "Rp 71.500"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 23,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Mengapa",
+      "B": "Dimana",
+      "C": "Manakala",
+      "D": "Siapa",
+      "E": "Kapan"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 24,
+    "type": "single",
+    "text": "Nilai rata-rata ulangan matematika 6 orang siswa adalah 81. Kemudian ada seorang siswa yang mengikuti ujian susulan karena sakit sehingga rata-ratanya menjadi 76. Berapa nilai yang diperoleh oleh siswa yang mengikuti ujian susulan tersebut?",
+    "options": {
+      "A": "88",
+      "B": "76",
+      "C": "66",
+      "D": "56",
+      "E": "46"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 25,
+    "type": "single",
+    "text": "Harga sebuah buku tulis Rp 3.250,00 dan harga sebuah bolpen Rp 2.750. Jika Dino membeli 24 buku tulis dan 12 bulpen, berapa rupiah yang harus Dino bayar?",
+    "options": {
+      "A": "Rp 111.250",
+      "B": "Rp 111.050",
+      "C": "Rp 111.200",
+      "D": "Rp 111.000",
+      "E": "Rp 111.500"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 26,
+    "type": "single",
+    "text": "1 windu + 1,5 tahun - 5 triwulan - 6 caturwulan = ...",
+    "options": {
+      "A": "99 bulan",
+      "B": "67 bulan",
+      "C": "50 bulan",
+      "D": "75 bulan",
+      "E": "58 bulan"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 27,
+    "type": "single",
+    "text": "Stasiun : Kereta = ... : ...",
+    "options": {
+      "A": "Kapal : Terminal",
+      "B": "Pelabuhan : Kapal",
+      "C": "Lautan : Pelabuhan",
+      "D": "Bus : Stasiun",
+      "E": "Mobil : Darat"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 28,
+    "type": "single",
+    "text": "Semua pengarang mengarang dengan komputer Sebagian pengarang mengarang cerita novel Kesimpulan yang tepat adalah...",
+    "options": {
+      "A": "Pengarang yang tidak menggunakan komputer tidak mengarang cerita novel",
+      "B": "Tidak semua pengarang mengarang cerita novel dan tidak menggunakan komputer",
+      "C": "Tidak semua pengarang mengarang cerita novel namun menggunakan komputer",
+      "D": "Sebagian pengarang mengarang cerita novel dengan tidak menggunakan komputer",
+      "E": "Tidak semua pengarang mengarang dengan komputer"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 29,
+    "type": "single",
+    "text": "Didalam sebuah gedung pertemuan terdapat 273 kursi yang belum dipergunakan. Panitia tersebut merencanakan susunan kursinya adalah 12 deret dan 17 baris. Setelah kursi disusun oleh panitia, maka ada berapa kursi yang tersisa?",
+    "options": {
+      "A": "65 kursi",
+      "B": "66 kursi",
+      "C": "67 kursi",
+      "D": "68 kursi",
+      "E": "69 kursi"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 30,
+    "type": "single",
+    "text": "(882 + 115)^2 = ...",
+    "options": {
+      "A": "994003",
+      "B": "994004",
+      "C": "994009",
+      "D": "894003",
+      "E": "894009"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 31,
+    "type": "single",
+    "text": "26 x 5 - 23 x 4 = ...",
+    "options": {
+      "A": "38",
+      "B": "28",
+      "C": "48",
+      "D": "58",
+      "E": "68"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 32,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "4-3-2-1-5",
+      "B": "4-3-1-5-2",
+      "C": "4-3-5-1-2",
+      "D": "4-5-1-3-2",
+      "E": "4-1-3-5-2"
+    },
+    "answer": "B",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q32.png"
+    ]
+  },
+  {
+    "number": 33,
+    "type": "single",
+    "text": "Lurus : ... = ... : Bola",
+    "options": {
+      "A": "Lengkung : kubus",
+      "B": "Persegi : Lengkung",
+      "C": "Balon : Bujur sangkar",
+      "D": "Bundar : Kotak",
+      "E": "Lengkung : Miring"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 34,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "2-4-3-1",
+      "B": "2-1-4-3",
+      "C": "2-1-3-4",
+      "D": "2-3-1-4",
+      "E": "1-2-3-4"
+    },
+    "answer": "C",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q34.png"
+    ]
+  },
+  {
+    "number": 35,
+    "type": "single",
+    "text": "Jarak antara kota A ke kota Z adala 360 km. Jika ditempuh dengan sepeda motor berkecepatan 90 km/jam, maka lama perjalanan...",
+    "options": {
+      "A": "160 menit",
+      "B": "180 menit",
+      "C": "200 menit",
+      "D": "220 menit",
+      "E": "240 menit"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 36,
+    "type": "single",
+    "text": "Jarak desa Bacandoko ke desa Palamea adalah 60 km. Sheren mampu menempuh jarak dari Desa Bacandoko ke Desa Palamea selama 45 menit. Apabila Sheren ingin menuju Desa Kecubung, Sheren harus terus berjalan karena jarak desa Bacandoko ke Desa Kecubung adalah 140 km. Maka berapa lama perjalanan Sheren dari Desa Bacandoko ke Desa Kecubung?",
+    "options": {
+      "A": "1 jam 45 Menit",
+      "B": "1 Jam 40 Menit",
+      "C": "1 Jam 50 Menit",
+      "D": "1 Jam 35 Menit",
+      "E": "1 Jam 55 Menit"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 37,
+    "type": "single",
+    "text": "Pilih kata yang memiliki arti berlawanan",
+    "options": {
+      "A": "Biadab dan kurang ajar",
+      "B": "Biadab dan Beradab",
+      "C": "Rajin dan Pandai",
+      "D": "Plural dan Rajin",
+      "E": "Beradab dan sopan"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 38,
+    "type": "single",
+    "text": "Tidak seorang pun boleh mengendarai motor tanpa memiliki SIM C. Sebagian mahasiswa bekerja sebagai pengemudi ojek online. Kesimpulan yang tepat adalah...",
+    "options": {
+      "A": "Sebagian mahasiswa adalah pengemudi ojek online yang tidak memiliki SIM C",
+      "B": "Sebagian mahasiswa memiliki SIM C",
+      "C": "Sebagian mahasiswa yang tidak memiliki SIM C adalah pengemudi ojek online",
+      "D": "Tidak ada mahasiswa yang memiliki SIM C sebagai pengemudi ojek online",
+      "E": "Sebagian mahasiswa yang berprofesi sebagai pengemudi ojek online tidak memiliki SIM C"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 39,
+    "type": "single",
+    "text": "Pilih kata yang memiliki persamaan arti paling dekat",
+    "options": {
+      "A": "Nilai dan Kualitas",
+      "B": "Kaidah dan Paradigma",
+      "C": "Paradigma dan Peraturan",
+      "D": "Kebiasaan dan Nilai",
+      "E": "Kaidah dan Peraturan"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 40,
+    "type": "single",
+    "text": "Empat tahun lalu, Joshua membeli motor sport dengan harga Rp 45.000.000,00. Setiap tahunnya nilai motor tersebut berkurang 15% dari harga aslinya. Berapakah harga motor tersebut saat ini?",
+    "options": {
+      "A": "Rp 12.000.000,00",
+      "B": "Rp 16.000.000,00",
+      "C": "Rp 18.000.000,00",
+      "D": "Rp 27.000.000,00",
+      "E": "Rp 32.000.000,00"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 41,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Pasir",
+      "B": "Kerikil",
+      "C": "Batu",
+      "D": "Gula",
+      "E": "Garam"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 42,
+    "type": "single",
+    "text": "Semua orang yang korupsi dihukum Sebagian pejabat terbukti melakukan korupsi Kesimpulan yang paling tepat adalah...",
+    "options": {
+      "A": "Tidak ada pejabat yang terbukti korupsi",
+      "B": "Tidak ada pejabat yang dihukum karena korupsi",
+      "C": "Pejabat yang tidak terbukti korupsi tidak dihukum",
+      "D": "Pejabat yang tidak terbukti korupsi dihukum",
+      "E": "Pejabat tidak dihukum meskipun terbukti korupsi"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 43,
+    "type": "single",
+    "text": "Pilih kata yang memiliki persamaan arti paling dekat",
+    "options": {
+      "A": "Jujur dan Munaﬁk",
+      "B": "Faedah dan Manfaat",
+      "C": "Faedah dan Tujuan",
+      "D": "Sikap dan Baik",
+      "E": "Dekat dan Mirip"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 44,
+    "type": "single",
+    "text": "Didalam dua peti terdapat 43 buah piring. Di dalam peti yang satu terdapat 9 buah piring lebih daripada di dalam peti yang lain. Berapa buah piring terdapat di dalam peti yang lebih kecil",
+    "options": {
+      "A": "34",
+      "B": "12",
+      "C": "17",
+      "D": "16",
+      "E": "9"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 45,
+    "type": "single",
+    "text": "Pilih kata yang memiliki persamaan arti paling dekat",
+    "options": {
+      "A": "Acara dan Agenda",
+      "B": "Rapat dan Bersama",
+      "C": "Hubungan dan Persamaan",
+      "D": "Daftar dan Lampiran",
+      "E": "Agenda dan Rapat"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 46,
+    "type": "single",
+    "text": "Jika Nairobi rajin masuk kerja, maka Nairobi akan mendapatkan bonus dari pimpinan Nairobi tidak mendapatkan bonus dari pimpinan Kesimpulan yang paling tepat adalah...",
+    "options": {
+      "A": "Nairobi rajin masuk kerja dan tidak dapat bonus",
+      "B": "Nairobi tidak rajin masuk kerja dan mendapatkan bonus",
+      "C": "Nairobi rajin masuk kerja",
+      "D": "Nairobi tidak rajin masuk kerja",
+      "E": "Nairobi kadang-kadang tidak dapat bonus"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 47,
+    "type": "single",
+    "text": "75 x 15 + 125 : 5 = ...",
+    "options": {
+      "A": "1150",
+      "B": "103",
+      "C": "250",
+      "D": "1350",
+      "E": "1450"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 48,
+    "type": "single",
+    "text": "Sebuah tempat pencucian mobil mempunyai 3 orang karyawan, dalam 1 hari Ichigo dapat mengerjakan 9 mobil, Krito dapat mengerjakan 7 mobil sedangkan Eren hanya dapat mengerjakan 5 mobil. Dalam waktu 1 minggu tempat cucian tersebut telah mengerjakan berapa mobil?",
+    "options": {
+      "A": "145 mobil",
+      "B": "146 mobil",
+      "C": "147 mobil",
+      "D": "148 mobil",
+      "E": "149 mobil"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 49,
+    "type": "single",
+    "text": "Semua anak kecil suka orang yang memberikan permen Denver tidak pernah membelikan adiknya permen tetapi sering membelikannya balon Kesimpulan yang paling tepat adalah...",
+    "options": {
+      "A": "Denver sayang kepada adiknya",
+      "B": "Denver tidak disukai adiknya",
+      "C": "Denver tidak suka permen",
+      "D": "Adik Denver suka balon",
+      "E": "Adik Denver tidak suka permen dan balon"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 50,
+    "type": "single",
+    "text": "Kakek memiliki 56 pohon rambutan. Setiap pohon berbuah 236 buah. Buah-buahan tersebut dibagikan kepada 32 tetangganya. Setiap tetangga mendapatkan ... buah rambutan.",
+    "options": {
+      "A": "413",
+      "B": "525",
+      "C": "826",
+      "D": "1625",
+      "E": "1020"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 51,
+    "type": "single",
+    "text": "Pilih kata yang memiliki persamaan arti",
+    "options": {
+      "A": "Seni dan Seniman",
+      "B": "Budaya dan Kebudayaan",
+      "C": "Prakarsa dan Inisiatif",
+      "D": "Budaya dan Upaya",
+      "E": "Inisiatif dan Kreatif"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 52,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "1-4-3-2",
+      "B": "4-2-3-1",
+      "C": "4-2-1-3",
+      "D": "1-3-4-2",
+      "E": "1-4-2-3"
+    },
+    "answer": "E",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q52.png"
+    ]
+  },
+  {
+    "number": 53,
+    "type": "single",
+    "text": "1547 : 6 + 7 = ...",
+    "options": {
+      "A": "264,8",
+      "B": "267,8",
+      "C": "26,48",
+      "D": "26,78",
+      "E": "268,8"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 54,
+    "type": "single",
+    "text": "Bu Mikasa membeli 15 botol sirup manis di sebuah agen. Harga satu botol sirup Rp 16.000,00. Bu Mikasa menjual sirup tersebut secara eceran dengan harga Rp 17.500,00 per botol. Berapa keuntungan yang diperoleh Bu Mikasa jika semua sirup habis terjual?",
+    "options": {
+      "A": "Rp 26.500",
+      "B": "Rp 24.500",
+      "C": "Rp 20.500",
+      "D": "Rp 25.500",
+      "E": "Rp 22.500"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 55,
+    "type": "single",
+    "text": "(17 x 125 + 83 x 125) : 25 = ...",
+    "options": {
+      "A": "11040",
+      "B": "200",
+      "C": "320",
+      "D": "500",
+      "E": "10040"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 56,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Melepaskan",
+      "B": "Mengikat",
+      "C": "Memecahkan",
+      "D": "Memisahkan",
+      "E": "Menggergaji"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 57,
+    "type": "single",
+    "text": "Semua toko di blok M menjual buku dan parfum Sebagian toko di blok M yang menjual buku mempekerjakan karyawan perempuan Kesimpulan dari kalimat di atas adalah...",
+    "options": {
+      "A": "Semua karyawan yang bekerja di toko parfum adalah perempuan",
+      "B": "Tidak ada perempuan yang bekerja di toko parfum dan toko buku",
+      "C": "Semua karyawan yang bekerja di toko buku adalah laki-laki",
+      "D": "Sebagian karyawan toko di blok M adalah perempuan",
+      "E": "Sebagian toko di blok M tidak mempekerjakan karyawan"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 58,
+    "type": "single",
+    "text": "241 x 37 - 379 + 789 = ...",
+    "options": {
+      "A": "9327",
+      "B": "9328",
+      "C": "7749",
+      "D": "9237",
+      "E": "9238"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 59,
+    "type": "single",
+    "text": "Nilai rata-rata ulangan matematika 22 siswa Kelas VI SD Merdeka adalah 86. Dayu, Bintang, dan Rani belum mengikuti ulangan karena tidak masuk saat ulangan. Setelah mereka bertiga mengikuti ulangan susulan, nilai rata-rata menjadi 85. Dayu dan Rani mendapat nilai yang sama yaitu 75. Nilai yang diperoleh Bintang adalah...",
+    "options": {
+      "A": "93",
+      "B": "75",
+      "C": "85",
+      "D": "83",
+      "E": "86"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 60,
+    "type": "single",
+    "text": "Wawan mempunyai potongan kawat sepanjang 125 cm sebanyak 35 potong. Budi mempunyai potongan kawat sepanjang 175 cm sebanyak 42 potong. Wawan dan Budi masing-masing memberikan 8 potong kawat pada Nino. Berapa meter jumlah kawat Wawan dan Budi sekarang?",
+    "options": {
+      "A": "3475 dan 5980 cm",
+      "B": "3375 dan 5950 cm",
+      "C": "3365 dan 5950 cm",
+      "D": "3375 dan 5850 cm",
+      "E": "3378 dan 6950 cm"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 61,
+    "type": "single",
+    "text": "Pada permulaan pertandingan olahraga catur, badai hujan mulai mendekati arena dengan kecepatan 45 km/jam. Ronde ke enam telah selesai ketika hujan mulai turun. Jika satu ronde membutuhkan waktu 50 menit, berapa jauh jarak badai hujan saat pertandingan dimulai?",
+    "options": {
+      "A": "120 km",
+      "B": "135 km",
+      "C": "180 km",
+      "D": "225 km",
+      "E": "245 km"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 62,
+    "type": "single",
+    "text": "Siswa yang disiplin akan selalu masuk sekolah tepat waktu Nairobi hanya pernah terlambat masuk sekolah dua kali Kesimpulan yang paling tepat adalah...",
+    "options": {
+      "A": "Nairobi adalah seorang siswa yang rajin",
+      "B": "Nairobi bukan siswa yang datang tepat waktu",
+      "C": "Nairobi bukan siswa yang disiplin",
+      "D": "Nairobi adalah siswa disiplin yang beberapa kali terlambat masuk sekolah",
+      "E": "Nairobi selalu masuk tepat waktu"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 63,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Singkong",
+      "B": "Timun",
+      "C": "Talas",
+      "D": "Wortel",
+      "E": "Kentang"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 64,
+    "type": "single",
+    "text": "152 : 8 x 3 = ...",
+    "options": {
+      "A": "55",
+      "B": "56",
+      "C": "57",
+      "D": "58",
+      "E": "59"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 65,
+    "type": "single",
+    "text": "Di sebuah pasar daging, dijual kaki hewan yaitu 120 kaki kambing dan 200 kaki ayam. Berapa ekor kambing dan ayam yang dipotong di pasar itu?",
+    "options": {
+      "A": "30 dan 100 ekor",
+      "B": "40 dan 90 ekor",
+      "C": "30 dan 90 ekor",
+      "D": "40 dan 100 ekor",
+      "E": "30 dan 110 ekor"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 66,
+    "type": "single",
+    "text": "1900 dam + 1300 m + 70 hm - 3,6 km = ...",
+    "options": {
+      "A": "27,3 km",
+      "B": "24,3 km",
+      "C": "25,7 km",
+      "D": "23,7 km",
+      "E": "26,3 km"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 67,
+    "type": "single",
+    "text": "Seorang petani mempunyai 15 sawah yang ditanami pepaya masing-masing sebanyak 365 pohon tiap sawah. Jika dari ke-15 sawah tersebut terdapat 236 pohon yang mati diserang hama, berapakan jumlah pohon yang masih hidup?",
+    "options": {
+      "A": "5.239 pohon",
+      "B": "5.339 pohon",
+      "C": "5.139 pohon",
+      "D": "5.237 pohon",
+      "E": "5.249 pohon"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 68,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Pinguin",
+      "B": "Gagak",
+      "C": "Dara",
+      "D": "Elang",
+      "E": "Kutilang"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 69,
+    "type": "single",
+    "text": "Ichigo mempunyai potongan kawat sepanjang 125cm sebanyak 35 potong. Krito mempunyai potongan kawat sepanjang 175cm sebanyak 42 potong. Ichigo dan Krito masing-masing memberikan 8 potong kawat kepada Eren. Berapa meter jumlah kawat Ichigo dan Krito sekarang?",
+    "options": {
+      "A": "3.475 dan 5.980cm",
+      "B": "3.375 dan 5.950cm",
+      "C": "3.365 dan 5.950cm",
+      "D": "3.375 dan 5.850cm",
+      "E": "3.378 dan 6.950cm"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 70,
+    "type": "single",
+    "text": "325 - 125 : 5 + 100 x 3 = ...",
+    "options": {
+      "A": "0",
+      "B": "340",
+      "C": "600",
+      "D": "800",
+      "E": "1000"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 71,
+    "type": "single",
+    "text": "Pop : Musik = ... : ...",
+    "options": {
+      "A": "Patologi : Penyakit",
+      "B": "Farmakologi : Ilmu",
+      "C": "Ilmu : Psikologi",
+      "D": "Psikologi : Kejiwaan",
+      "E": "Antropologi : Manusia"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 72,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "6-5-1-4-3-7-2",
+      "B": "6-1-4-5-3-7-2",
+      "C": "6-5-1-3-4-7-2",
+      "D": "6-1-4-3-5-7-2",
+      "E": "6-5-7-1-4-3-2"
+    },
+    "answer": "A",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q72.png"
+    ]
+  },
+  {
+    "number": 73,
+    "type": "single",
+    "text": "500 x 10 : 2 = ...",
+    "options": {
+      "A": "1500",
+      "B": "2500",
+      "C": "3500",
+      "D": "4500",
+      "E": "5500"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 74,
+    "type": "single",
+    "text": "Tidak ada bunga mawar kecuali berwarna putih dan merah Jimin menerima bunga bukan putih, bukan merah Kesimpulan yang paling tepat adalah...",
+    "options": {
+      "A": "Bunga yang diterima oleh Jimin bunga mawar putih",
+      "B": "Bunga yang diterima oleh Jimin adalah bunga mawar ungu",
+      "C": "Bunga yang diterima oleh Jimin adalah bunga bukan mawar",
+      "D": "Bunga yang diterima oleh Jimin adalah bunga bukan mawar putih",
+      "E": "Bunga yang diterima oleh Jimin adalah bunga bukan mawar bukan ungu dan putih"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 75,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "1-4-3-5-2",
+      "B": "1-2-5-3-4",
+      "C": "4-2-3-1-5",
+      "D": "5-2-4-1-3",
+      "E": "5-2-3-4-1"
+    },
+    "answer": "E",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q75.png"
+    ]
+  },
+  {
+    "number": 76,
+    "type": "single",
+    "text": "1548 : 6 + 47 x 13 - 839 = ...",
+    "options": {
+      "A": "30",
+      "B": "32",
+      "C": "2126",
+      "D": "3126",
+      "E": "36"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 77,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "3-5-1-2-4",
+      "B": "1-2-3-4-5",
+      "C": "5-3-1-4-2",
+      "D": "5-3-2-1-4",
+      "E": "5-2-3-4-1"
+    },
+    "answer": "D",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q77.png"
+    ]
+  },
+  {
+    "number": 78,
+    "type": "single",
+    "text": "(1/2 x 3) : 0,25 = ...",
+    "options": {
+      "A": "6",
+      "B": "4",
+      "C": "0,5",
+      "D": "2",
+      "E": "0,6"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 79,
+    "type": "single",
+    "text": "28 adalah berapa persen dari 70 = ...",
+    "options": {
+      "A": "50",
+      "B": "40",
+      "C": "30",
+      "D": "25",
+      "E": "35"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 80,
+    "type": "single",
+    "text": "Pilih dua kata yang tepat untuk melengkapi soal berikut Januari : Desember = ... : ...",
+    "options": {
+      "A": "Awal : Akhir",
+      "B": "Awal : kemarin",
+      "C": "Akhir : Besok",
+      "D": "Besok : Lusa",
+      "E": "Kemarin : Akhir"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 81,
+    "type": "single",
+    "text": "120 x 20 : 5 = ...",
+    "options": {
+      "A": "250",
+      "B": "340",
+      "C": "480",
+      "D": "240",
+      "E": "225"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 82,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Rajin",
+      "B": "Malas",
+      "C": "Belajar",
+      "D": "Pintar",
+      "E": "Baik"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 83,
+    "type": "single",
+    "text": "Fahri akan menggambar dua buah kubus dengan ukuran yang berbeda. Kubus pertama mempunyai volume 13824 cm³. Kubus kedua volumenya 12324 cm³. Selisih kedua volume kubus tersebut adalah...",
+    "options": {
+      "A": "1500 cm",
+      "B": "1500 cm³",
+      "C": "1500 cm²",
+      "D": "1500 mm³",
+      "E": "1500 mm"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 84,
+    "type": "single",
+    "text": "Denver ingin membuat kandang jerapah di belakang rumahnya. Untuk membangun kandang jerapah, dibutuhkan 10 orang pekerja selama seminggu. Berapa orang yang dibutuhkan Denver unutk menyelesaikan kandang jerapah hanya dalam 2 hari?",
+    "options": {
+      "A": "30",
+      "B": "32",
+      "C": "36",
+      "D": "35",
+      "E": "37"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 85,
+    "type": "single",
+    "text": "10 km² + 6 hm² = ... ha",
+    "options": {
+      "A": "106",
+      "B": "1006",
+      "C": "1060",
+      "D": "1600",
+      "E": "6100"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 86,
+    "type": "single",
+    "text": "Toko furniture menurunkan harga sofa sebesar 25% pada saat obral. Berapa harga asli sofa tersebut jika Joshua membayar sebesar Rp 225.000,00?",
+    "options": {
+      "A": "Rp 270.000,00",
+      "B": "Rp 300.000,00",
+      "C": "Rp 370.000,00",
+      "D": "Rp 400.000,00",
+      "E": "Rp 450.000,00"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 87,
+    "type": "single",
+    "text": "Dalam ujian, Mikasa mendapat nilai 60 setelah menjawab benar 3 soal pilihan ganda dan 2 soal esai, sedangkan Ichigo mendapat nilai 32 setelah menjawab benar 4 soal pilihan ganda dan 1 soal esai. Urutkan nilai Mikasa, ichigo, dan Kirito dari yang tertinggi jika Kirito menjawab benar 8 soal pilihan ganda dan 3 soal esai",
+    "options": {
+      "A": "Kirito-Ichigo-Mikasa",
+      "B": "Mikasa-Kirito-Ichigo",
+      "C": "Mikasa-Ichogo-Kirito",
+      "D": "Kirito-Mikasa-Ichigo",
+      "E": "Ichigo-Mikasa-Kirito"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 88,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "3-4-2-1",
+      "B": "3-1-2-4",
+      "C": "3-4-1-2",
+      "D": "2-1-4-3",
+      "E": "3-1-4-2"
+    },
+    "answer": "E",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q88.png"
+    ]
+  },
+  {
+    "number": 89,
+    "type": "single",
+    "text": "Pilih kata yang memiliki persamaan arti paling dekat",
+    "options": {
+      "A": "Bangunan dan Atap",
+      "B": "Material dan Paku",
+      "C": "Pondasi dan Dasar",
+      "D": "Dasar dan Tanah",
+      "E": "Atap dan Pohon"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 90,
+    "type": "single",
+    "text": "Kardiologi : Jantung = ... : ...",
+    "options": {
+      "A": "Patologi : Laut",
+      "B": "Farmakologi : Obat",
+      "C": "Psikologi : Tumbuhan",
+      "D": "Astronomi : Manusia",
+      "E": "Farmakologi : Ilmu"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 91,
+    "type": "single",
+    "text": "Pilih satu kata yang tidak menunjukkan suatu kesamaan dari 4 kata lainnya",
+    "options": {
+      "A": "Mendorong",
+      "B": "Menenteng",
+      "C": "Memanggul",
+      "D": "Memikul",
+      "E": "Menjinjing"
+    },
+    "answer": "A"
+  },
+  {
+    "number": 92,
+    "type": "single",
+    "text": "13 x 5 : 1 - 3 = ...",
+    "options": {
+      "A": "63",
+      "B": "61",
+      "C": "62",
+      "D": "60",
+      "E": "64"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 93,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "2-4-1-3",
+      "B": "3-2-1-4",
+      "C": "4-2-3-1",
+      "D": "4-2-1-3",
+      "E": "3-4-1-2"
+    },
+    "answer": "D",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q93.png"
+    ]
+  },
+  {
+    "number": 94,
+    "type": "single",
+    "text": "Untuk membuat 35 patung pak Joshua membutuhkan waktu selama 5 hari. Sedangkan pak Thor membutuhkan waktu 7 hari. Apabila mereka bekerja secara bergantian berapa hari yang dibutuhkan untuk membuat 60 patung?",
+    "options": {
+      "A": "8 hari",
+      "B": "8,5 hari",
+      "C": "9 hari",
+      "D": "12 hari",
+      "E": "10 hari"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 95,
+    "type": "single",
+    "text": "Semua penipu pandai bicara dan ramah Joshua tidak ramah tetapi pandai bicara Kesimpulan yang paling tepat adalah...",
+    "options": {
+      "A": "Joshua seorang penipu yang pandai bicara",
+      "B": "Joshua seorang penipu yang tidak ramah",
+      "C": "Joshua seorang penipu yang pandai bicara dan tidak ramah",
+      "D": "Joshua bukan seorang penipu meskipun pandai bicara",
+      "E": "Joshua bukan seorang penipu yang ramah"
+    },
+    "answer": "D"
+  },
+  {
+    "number": 96,
+    "type": "single",
+    "text": "Seorang pemborong dapat menyelesaikan sebuah rumah dalam waktu 1 bulan dengan jumlah pekerja sebanyak 6 orang tenaga. Bila pemborong ingin menyelesaikan dalam 15 hari, berapa tenaga yang dibutuhkan?",
+    "options": {
+      "A": "8 orang",
+      "B": "9 orang",
+      "C": "10 orang",
+      "D": "11 orang",
+      "E": "12 orang"
+    },
+    "answer": "E"
+  },
+  {
+    "number": 97,
+    "type": "single",
+    "text": "Semua narapidana pasti pernah melakukan kejahatan Sejumlah orang yang melakukan kejahatan menyesali perbuatannya dan bertaubat Kesimpulan yang tepat adalah...",
+    "options": {
+      "A": "Sejumlah narapidana bukan orang yang melakukan kejahatan",
+      "B": "Sejumlah orang yang melakukan kejahatan adalah narapidana",
+      "C": "Sejumlah narapidana menyesali perbuatannya dan bertaubat",
+      "D": "Semua orang yang menyesali perbuatannya dan bertaubat adalah narapidana",
+      "E": "Semua orang yang menyesali perbuatannya dan bertaubat bukan narapidana"
+    },
+    "answer": "C"
+  },
+  {
+    "number": 98,
+    "type": "single",
+    "text": "Urutkanlah potongan gambar berikut menjadi gambar yang utuh.",
+    "options": {
+      "A": "3-2-5-1-6-4",
+      "B": "2-1-3-6-5-4",
+      "C": "2-1-3-5-6-4",
+      "D": "3-2-1-5-6-4",
+      "E": "3-2-6-5-1-4"
+    },
+    "answer": "E",
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/gambar/refs/heads/main/q98.png"
+    ]
+  },
+  {
+    "number": 99,
+    "type": "single",
+    "text": "Manakah kata yang tidak termasuk kedalam kelompoknya",
+    "options": {
+      "A": "Berdiri",
+      "B": "Berjalan",
+      "C": "Duduk",
+      "D": "Jongkok",
+      "E": "Berbaring"
+    },
+    "answer": "B"
+  },
+  {
+    "number": 100,
+    "type": "single",
+    "text": "19 adalah berapa persen dari 380?",
+    "options": {
+      "A": "0,5%",
+      "B": "0,15%",
+      "C": "0,05%",
+      "D": "5,5%",
+      "E": "5%"
+    },
+    "answer": "E"
+  }
+];
+</script>
+<script type="module" src="soal-template-core.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"192a13f0e74a426d9248c835c94a00a3","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

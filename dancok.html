@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simulasi Kecermatan - Pilih Kolom</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://pintarpsi.com/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://pintarpsi.com/dist/css/adminlte.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background-color: #f4f6f9; user-select: none; }
+        .text-blue { color: #007bff; }
+        .card-title-custom { font-weight: bold; font-size: 1.2rem; }
+        .img-soal { width: 80px; height: 80px; object-fit: contain; }
+        .img-persoalan { width: 50px; height: 50px; object-fit: contain; }
+        .btn-success-custom { background-color: #28a745; border-color: #28a745; color: white; width: 100%; font-weight: bold; }
+        .screen { display: none; }
+        .active { display: block; }
+        .overlay-jeda { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); display: none; flex-direction: column; 
+            justify-content: center; align-items: center; z-index: 9999; color: white; 
+        }
+        .select-kolom { max-width: 200px; margin: 10px auto; font-weight: bold; }
+    </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+    <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+        <div class="container">
+            <a href="#" class="navbar-brand">
+                <span class="brand-text font-weight-light h4"><strong>pintar</strong>psi.com</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="content">
+            <br>
+            <div class="container">
+                
+                <div id="screen-setup" class="screen active">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <h3>Persiapan Materi Sebelas</h3>
+                            <p>Pilih kolom yang ingin kamu kerjakan:</p>
+                            
+                            <select id="pilih-kolom-start" class="form-control select-kolom">
+                                <option value="0">Kolom 1</option>
+                                <option value="1">Kolom 2</option>
+                                <option value="2" selected>Kolom 3</option>
+                                <option value="3">Kolom 4</option>
+                                <option value="4">Kolom 5</option>
+                                <option value="5">Kolom 6</option>
+                                <option value="6">Kolom 7</option>
+                                <option value="7">Kolom 8</option>
+                                <option value="8">Kolom 9</option>
+                                <option value="9">Kolom 10</option>
+                            </select>
+
+                            <button onclick="window.mulaiUjian()" class="btn btn-primary btn-lg mt-3">MULAI SEKARANG</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen-game" class="screen">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title-custom">Materi Sebelas</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="text-center">
+                                <small>Sisa Waktu</small>
+                                <h1><label id="countdown" class="text-blue">00:00:00</label></h1>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body table-responsive">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <strong>Petunjuk</strong>
+                                            <table class="table table-bordered">
+                                                <tr><td colspan="5" class="text-center pt-0 pb-0"><strong id="col-label">KOLOM 1</strong></td></tr>
+                                                <tr id="key-display-row"></tr>
+                                                <tr class="text-center"><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td></tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-4 mt-3">
+                                            <table class="table table-bordered">
+                                                <tr><td colspan="4" class="pt-0 pb-0"><strong>Persoalan:</strong></td></tr>
+                                                <tr id="question-row"></tr>
+                                            </table>
+                                            <table class="table table-borderless">
+                                                <tr>
+                                                    <td><button class="btn btn-success-custom" onclick="window.jawab(0)">a</button></td>
+                                                    <td><button class="btn btn-success-custom" onclick="window.jawab(1)">b</button></td>
+                                                    <td><button class="btn btn-success-custom" onclick="window.jawab(2)">c</button></td>
+                                                    <td><button class="btn btn-success-custom" onclick="window.jawab(3)">d</button></td>
+                                                    <td><button class="btn btn-success-custom" onclick="window.jawab(4)">e</button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen-result" class="screen">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h1>HASIL SIMULASI</h1>
+                            <h3>Skor Rata-rata: <span id="final-total" class="text-blue">0</span></h3>
+                            <canvas id="resultChart" style="max-height: 350px;"></canvas>
+                            <button onclick="location.reload()" class="btn btn-primary mt-3">ULANGI DARI AWAL</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jeda-layer" class="overlay-jeda">
+    <h1>KOLOM SELESAI</h1>
+    <div id="jeda-timer" style="font-size: 5rem; font-weight: 900; color: #f39c12">3</div>
+    <p>Siapkan mata untuk kolom berikutnya!</p>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = { 
+        apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw", 
+        databaseURL: "https://simulasi-2b93b-default-rtdb.firebaseio.com",
+        projectId: "simulasi-2b93b", appId: "1:562508858666:web:fa63f71ec175c675e64a53" 
+    };
+    const db = getDatabase(initializeApp(firebaseConfig));
+
+    const materiData = [];
+    for(let k=1; k<=10; k++) {
+        let kolom = [];
+        ['a','b','c','d','e'].forEach(char => {
+            kolom.push(`https://raw.githubusercontent.com/kurniacandra/gambar/main/materisebelas.1.kolom${k}.${char}.png`);
+        });
+        materiData.push(kolom);
+    }
+
+    let currentCol = 0, b = 0, s = 0, stats = [], timerId, correctIdx = -1;
+
+    window.mulaiUjian = () => {
+        // Mengambil nilai kolom awal dari dropdown
+        currentCol = parseInt(document.getElementById('pilih-kolom-start').value);
+        stats = [];
+        
+        // Jika mulai dari tengah (misal kolom 3), kita isi kolom sebelumnya dengan skor 0
+        // agar grafik tetap menampilkan urutan yang benar
+        for(let i=0; i < currentCol; i++) {
+            stats.push({b: 0, s: 0});
+        }
+
+        document.getElementById('screen-setup').classList.remove('active');
+        document.getElementById('screen-game').classList.add('active');
+        startStep();
+    };
+
+    function startStep() {
+        b = 0; s = 0;
+        document.getElementById('col-label').innerText = `KOLOM ${currentCol + 1}`;
+        
+        let keyHtml = "";
+        materiData[currentCol].forEach(link => {
+            keyHtml += `<td class="text-center"><img src="${link}" class="img-soal"></td>`;
+        });
+        document.getElementById('key-display-row').innerHTML = keyHtml;
+        
+        newQuest();
+        startTimer();
+    }
+
+    function newQuest() {
+        correctIdx = Math.floor(Math.random() * 5);
+        let questImgs = materiData[currentCol].filter((_, i) => i !== correctIdx).sort(() => Math.random() - 0.5);
+        
+        let questHtml = "";
+        questImgs.forEach(link => {
+            questHtml += `<td class="text-center"><img src="${link}" class="img-persoalan"></td>`;
+        });
+        document.getElementById('question-row').innerHTML = questHtml;
+    }
+
+    window.jawab = (idx) => {
+        if(idx === correctIdx) b++; else s++;
+        newQuest();
+    };
+
+    function startTimer() {
+        let t = 60;
+        updateTimerDisplay(t);
+        timerId = setInterval(() => {
+            t--;
+            updateTimerDisplay(t);
+            if(t <= 0) {
+                clearInterval(timerId);
+                stats.push({b, s});
+                currentCol++;
+                // Berhenti di kolom 10 (index 9)
+                if(currentCol < 10) showJeda(); else finish();
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay(sec) {
+        let m = Math.floor(sec / 60);
+        let s = sec % 60;
+        document.getElementById('countdown').innerHTML = `00:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+    }
+
+    function showJeda() {
+        const layer = document.getElementById('jeda-layer');
+        let sisa = 3;
+        layer.style.display = 'flex';
+        const jInt = setInterval(() => {
+            sisa--;
+            document.getElementById('jeda-timer').innerText = sisa;
+            if(sisa <= 0) {
+                clearInterval(jInt);
+                layer.style.display = 'none';
+                startStep();
+            }
+        }, 1000);
+    }
+
+    function finish() {
+        document.getElementById('screen-game').classList.remove('active');
+        document.getElementById('screen-result').classList.add('active');
+        
+        // Hanya menghitung rata-rata berdasarkan kolom yang dikerjakan
+        let kolomDikerjakan = stats.filter(d => d.b > 0 || d.s > 0).length || 1;
+        let totalB = stats.reduce((acc, curr) => acc + curr.b, 0);
+        document.getElementById('final-total').innerText = (totalB / kolomDikerjakan).toFixed(1);
+
+        push(ref(db, 'rekap_skor'), {
+            nama: "GUEST_PINTAR_STYLE",
+            kolom_mulai: parseInt(document.getElementById('pilih-kolom-start').value) + 1,
+            skor_rata: totalB / kolomDikerjakan,
+            waktu: new Date().toLocaleString()
+        });
+
+        new Chart(document.getElementById('resultChart'), {
+            type: 'line',
+            data: {
+                labels: stats.map((_, i) => "K"+(i+1)),
+                datasets: [
+                    { label: 'Benar', data: stats.map(d => d.b), borderColor: '#28a745', tension: 0.3, fill: true, backgroundColor: 'rgba(40, 167, 69, 0.1)' },
+                    { label: 'Salah', data: stats.map(d => d.s), borderColor: '#dc3545', tension: 0.3, fill: true, backgroundColor: 'rgba(220, 53, 69, 0.1)' }
+                ]
+            }
+        });
+    }
+
+    window.addEventListener('keydown', (e) => {
+        const map = {'a':0,'b':1,'c':2,'d':3,'e':4};
+        if(map[e.key.toLowerCase()] !== undefined) window.jawab(map[e.key.toLowerCase()]);
+    });
+</script>
+</body>
+</html>

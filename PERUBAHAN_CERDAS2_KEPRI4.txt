@@ -1,0 +1,7 @@
+Perubahan tambahan:
+- Tambah cerdas2.html
+- Tambah Paket Cerdas 2 di kecerdasan_list.html
+- Buat ulang kepri4.html dengan template konsisten seperti soal.html
+- Tambah Paket Kepri 4 di kepribadian_list.html
+- cerdas2.html sekarang simpan hasil pusat + review_items ke rekap_skor
+- kepri4.html sekarang simpan hasil pusat + review_items ke rekap_skor dan hasil_kepri

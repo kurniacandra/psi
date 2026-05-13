@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Paket Matematika &amp; Numerik - JAGOPSI</title>
+<style>
+:root{--primary:#0f172a;--accent:#f59e0b;--danger:#dc2626;--bg:#f8fafc;--muted:#64748b;--card:#fff;--line:#e2e8f0;--info:#2563eb;--success:#16a34a}
+*{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#eef2ff 0%,#f8fafc 45%,#fff 100%);color:#0f172a;min-height:100vh}
+.hero{padding:28px 16px 12px}.hero-inner{max-width:1180px;margin:0 auto;background:linear-gradient(135deg,#0f172a 0%,#1e293b 60%,#334155 100%);color:#fff;border-radius:24px;padding:28px;box-shadow:0 18px 50px rgba(15,23,42,.22)}
+.badge{display:inline-block;background:rgba(245,158,11,.18);color:#fde68a;padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:700;letter-spacing:.3px}h1{margin:14px 0 8px;font-size:clamp(1.8rem,4vw,2.65rem)}.sub{max-width:780px;color:#cbd5e1;line-height:1.7;margin:0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:none;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit}.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.22)}.btn-light{background:#fff;color:#0f172a;border:1px solid #e2e8f0}.btn-primary{background:#2563eb;color:#fff}.btn-disabled{background:#e2e8f0;color:#64748b;cursor:not-allowed}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 16px 44px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:20px 0 14px;flex-wrap:wrap}.section-title{margin:0;font-size:1.22rem}.section-note{font-size:.92rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 10px 30px rgba(15,23,42,.07);transition:.15s;cursor:pointer}.card:hover{transform:translateY(-2px);box-shadow:0 18px 34px rgba(15,23,42,.1)}.card.ready{border-color:#bbf7d0}.card.soon{opacity:.72}.tag{display:inline-flex;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:800;margin-bottom:10px}.tag.ready{background:#dcfce7;color:#166534}.tag.soon{background:#f1f5f9;color:#475569}.tag.warn{background:#fef3c7;color:#92400e}.card h3{margin:0 0 8px;font-size:1.08rem}.card p{margin:0;color:var(--muted);line-height:1.55;font-size:.92rem;min-height:50px}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.mini{padding:7px 10px;border-radius:999px;background:#f8fafc;border:1px solid #e2e8f0;color:#475569;font-size:.78rem;font-weight:700}.footer-actions{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}@media(max-width:680px){.hero-inner{padding:22px}}
+</style>
+<link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+<section class="hero">
+  <div class="hero-inner">
+    <span class="badge">MATEMATIKA</span>
+    <h1>Daftar Paket Matematika &amp; Numerik</h1>
+    <p class="sub">Paket Matematika lama tetap ada. Paket CAT, Try Out PM, Simulasi PM, dan Penalaran Numerik masuk sesuai urutan titipan.</p>
+    <div class="actions">
+      <a class="btn btn-outline" href="tryout_polri.html">Kembali ke POLRI</a>
+      <a class="btn btn-outline" href="main.html">Menu Utama</a>
+      <a class="btn btn-outline" href="riwayat.html">Riwayat TO</a>
+    </div>
+  </div>
+</section>
+<main class="wrap">
+<section>
+  <div class="section-head">
+    <h2 class="section-title">Paket Matematika Lama</h2>
+    <div class="section-note">Paket lama tetap dipertahankan</div>
+  </div>
+  <div class="grid">
+<div class="card ready" onclick="go('mtk.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>Matematika TO 1</h3>
+  <p>Bank soal Matematika TO 1 tetap dipertahankan.</p>
+  <div class="meta"><span class="mini">MATEMATIKA • Random 50</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card soon" onclick="soon('Matematika TO 2 belum tersedia.')">
+  <span class="tag soon">SEGERA</span>
+  <h3>Matematika TO 2</h3>
+  <p>Slot paket tambahan lama, belum aktif.</p>
+  <div class="meta"><span class="mini">MATEMATIKA</span><span class="mini">Belum Aktif</span></div>
+  <div style="margin-top:14px"><button class="btn btn-disabled" type="button">Belum Aktif</button></div>
+</div>
+  </div>
+</section>
+<section>
+  <div class="section-head">
+    <h2 class="section-title">CAT Penalaran Matematika</h2>
+    <div class="section-note">25 paket CAT</div>
+  </div>
+  <div class="grid">
+<div class="card ready" onclick="go('cat1_akpol_spldv.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 1 AKPOL - SPLDV</h3>
+  <p>Penalaran Matematika • 20 soal</p>
+  <div class="meta"><span class="mini">01 • 20 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat2_akpol_program_linier.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 2 AKPOL - PROGRAM LINIER</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">02 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat3_akpol_persamaan_kuadrat.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 3 AKPOL - PERSAMAAN KUADRAT</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">03 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat4_akpol_pertidaksamaan_kuadrat.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 4 AKPOL - PERTIDAKSAMAAN KUADRAT</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">04 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat5_akpol_nilai_mutlak.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 5 AKPOL - PERSAMAAN &amp; PERTIDAKSAMAAN NILAI MUTLAK</h3>
+  <p>Penalaran Matematika • 30 soal</p>
+  <div class="meta"><span class="mini">05 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat6_akpol_eksponen.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 6 AKPOL - EKSPONEN</h3>
+  <p>Penalaran Matematika • 30 soal</p>
+  <div class="meta"><span class="mini">06 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat7_akpol_logaritma.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 7 AKPOL - LOGARITMA</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">07 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat8_akpol_fungsi.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 8 AKPOL - FUNGSI</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">08 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat9_akpol_fungsi2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 9 AKPOL - FUNGSI 2</h3>
+  <p>Penalaran Matematika • 35 soal</p>
+  <div class="meta"><span class="mini">09 • 35 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat10_akpol_matriks.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 10 AKPOL - MATRIKS</h3>
+  <p>Penalaran Matematika • 30 soal</p>
+  <div class="meta"><span class="mini">10 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat11_akpol_barisan_deret_aritmatika.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 11 AKPOL - BARISAN DAN DERET ARITMATIKA</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">11 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat12_akpol_barisan_deret_geometri.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 12 AKPOL - BARISAN DAN DERET GEOMETRI</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">12 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat13_akpol_statistika_data_tunggal.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 13 AKPOL - STATISTIKA DATA TUNGGAL</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">13 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat14_akpol_statistika_data_kelompok.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 14 AKPOL - STATISTIKA DATA KELOMPOK</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">14 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat15_akpol_trigonometri1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 15 AKPOL - TRIGONOMETRI 1</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">15 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat16_akpol_trigonometri2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 16 AKPOL - TRIGONOMETRI 2</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">16 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat17_akpol_dimensi3_jarak_sudut.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 17 AKPOL - DIMENSI 3 JARAK DAN SUDUT</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">17 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat18_akpol_turunan_biasa_trigonometri.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 18 AKPOL - TURUNAN BIASA DAN TURUNAN TRIGONOMETRI</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">18 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat19_akpol_aplikasi_turunan.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 19 AKPOL - APLIKASI TURUNAN</h3>
+  <p>Penalaran Matematika • 30 soal</p>
+  <div class="meta"><span class="mini">19 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat20_akpol_limit_tentu_tak_hingga.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 20 AKPOL - LIMIT TENTU &amp; LIMIT TAK HINGGA</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">20 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat21_akpol_limit_trigonometri.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 21 AKPOL - LIMIT TRIGONOMETRI</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">21 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat22_akpol_integral.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 22 AKPOL - INTEGRAL</h3>
+  <p>Penalaran Matematika • 30 soal</p>
+  <div class="meta"><span class="mini">22 • 30 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat23_akpol_integral_trigonometri.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 23 AKPOL - INTEGRAL TRIGONOMETRI</h3>
+  <p>Penalaran Matematika • 20 soal</p>
+  <div class="meta"><span class="mini">23 • 20 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat24_akpol_polinomial.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 24 AKPOL - POLINOMIAL</h3>
+  <p>Penalaran Matematika • 25 soal</p>
+  <div class="meta"><span class="mini">24 • 25 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('cat25_akpol_lingkaran.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>CAT 25 AKPOL - LINGKARAN</h3>
+  <p>Penalaran Matematika • 20 soal</p>
+  <div class="meta"><span class="mini">25 • 20 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+  </div>
+</section>
+<section>
+  <div class="section-head">
+    <h2 class="section-title">Try Out &amp; Simulasi Penalaran Matematika</h2>
+    <div class="section-note">5 paket PM</div>
+  </div>
+  <div class="grid">
+<div class="card ready" onclick="go('to_penalaran_matematika_paket1_akpol.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>TRY OUT PENALARAN MATEMATIKA PAKET 1 AKPOL</h3>
+  <p>Penalaran Matematika • 40 soal</p>
+  <div class="meta"><span class="mini">26 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('to_penalaran_matematika_paket2_akpol.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>TRY OUT PENALARAN MATEMATIKA PAKET 2 AKPOL</h3>
+  <p>Penalaran Matematika • 40 soal</p>
+  <div class="meta"><span class="mini">27 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('simulasi1_penalaran_matematika_akpol_paket1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>SIMULASI 1 PENALARAN MATEMATIKA AKPOL PAKET 1</h3>
+  <p>Penalaran Matematika • 40 soal</p>
+  <div class="meta"><span class="mini">28 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('simulasi1_penalaran_matematika_akpol_paket2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>SIMULASI 1 PENALARAN MATEMATIKA AKPOL PAKET 2</h3>
+  <p>Penalaran Matematika • 40 soal</p>
+  <div class="meta"><span class="mini">29 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('simulasi3_penalaran_matematika_akpol_paket1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>SIMULASI 3 PENALARAN MATEMATIKA AKPOL PAKET 1</h3>
+  <p>Penalaran Matematika • 40 soal</p>
+  <div class="meta"><span class="mini">30 • 40 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+  </div>
+</section>
+<section>
+  <div class="section-head">
+    <h2 class="section-title">Penalaran Numerik AKPOL</h2>
+    <div class="section-note">5 paket Numerik</div>
+  </div>
+  <div class="grid">
+<div class="card ready" onclick="go('penalaran_numerik_akpol1.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PENALARAN NUMERIK AKPOL 1</h3>
+  <p>Penalaran Numerik • 50 soal</p>
+  <div class="meta"><span class="mini">31 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('penalaran_numerik_akpol2.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PENALARAN NUMERIK AKPOL 2</h3>
+  <p>Penalaran Numerik • 50 soal</p>
+  <div class="meta"><span class="mini">32 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('penalaran_numerik_akpol_paket3.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PENALARAN NUMERIK AKPOL PAKET 3</h3>
+  <p>Penalaran Numerik • 50 soal</p>
+  <div class="meta"><span class="mini">33 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('penalaran_numerik_akpol_paket4.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PENALARAN NUMERIK AKPOL PAKET 4</h3>
+  <p>Penalaran Numerik • 35 soal</p>
+  <div class="meta"><span class="mini">34 • 35 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+<div class="card ready" onclick="go('penalaran_numerik_akpol_paket5.html')">
+  <span class="tag ready">SIAP</span>
+  <h3>PENALARAN NUMERIK AKPOL PAKET 5</h3>
+  <p>Penalaran Numerik • 50 soal</p>
+  <div class="meta"><span class="mini">35 • 50 Soal</span></div>
+  <div style="margin-top:14px"><button class="btn btn-primary" type="button">Mulai</button></div>
+</div>
+  </div>
+</section>
+  <div class="footer-actions">
+    <a class="btn btn-light" href="tryout_polri.html">Kembali</a>
+    <a class="btn btn-light" href="riwayat.html">Lihat Riwayat</a>
+  </div>
+</main>
+<script>
+function go(file){ window.location.href = file; }
+function soon(msg){ alert(msg || 'Paket belum tersedia.'); }
+</script>
+</body>
+</html>

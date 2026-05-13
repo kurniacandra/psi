@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ADMIN</title>
+    <style>
+        :root { --primary: #1a252f; --accent: #f39c12; --bg: #f4f7f6; }
+        
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: var(--primary); 
+            margin: 0; 
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px; /* Jarak aman agar tidak mepet di layar HP */
+            box-sizing: border-box;
+        }
+        
+        .login-box { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            text-align: center; 
+            width: 100%; /* Agar fleksibel */
+            max-width: 350px; /* Ukuran maksimal di desktop */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
+        }
+        
+        input { 
+            width: 100%; 
+            padding: 14px; /* Sedikit lebih besar agar mudah ditekan jari */
+            margin: 10px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 16px; /* Mencegah auto-zoom di iPhone */
+        }
+        
+        .btn-login { 
+            background: var(--accent); 
+            color: white; 
+            border: none; 
+            width: 100%; 
+            padding: 14px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 1rem; 
+            margin-top: 10px;
+        }
+        
+        .btn-login:hover { background: #e67e22; }
+
+        /* Optimasi khusus HP */
+        @media (max-width: 480px) {
+            .login-box { padding: 25px 20px; }
+            h2 { font-size: 1.5rem; }
+        }
+    </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+
+<div class="login-box">
+    <h2 style="color:var(--primary); margin-bottom:20px;">ADMIN LOGIN</h2>
+    <input type="email" id="email_admin" placeholder="Email">
+    <input type="password" id="pass_admin" placeholder="Password">
+    <button class="btn-login" id="klik_login">LOGIN</button>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const config = {
+        apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw",
+        authDomain: "simulasi-2b93b.firebaseapp.com",
+        projectId: "simulasi-2b93b"
+    };
+
+    const app = initializeApp(config);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) window.location.href = "manajemen.html";
+    });
+
+    document.getElementById('klik_login').onclick = () => {
+        const email = document.getElementById('email_admin').value;
+        const pass = document.getElementById('pass_admin').value;
+        signInWithEmailAndPassword(auth, email, pass)
+            .then(() => window.location.href = "manajemen.html")
+            .catch(err => alert("Email/Password Salah!"));
+    };
+</script>
+</body>
+</html>

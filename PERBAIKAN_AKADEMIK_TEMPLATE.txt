@@ -1,0 +1,29 @@
+PERBAIKAN AKADEMIK & TEMPLATE SERAGAM
+
+Yang diperbaiki:
+1. bindo2.html sudah dimasukkan ke mapel Bahasa Indonesia melalui bahasa_indonesia_list.html.
+2. File list yang sebelumnya belum ada sudah dibuat:
+   - bahasa_indonesia_list.html
+   - bahasa_inggris_list.html
+3. Link akademik di main.html sekarang tidak ada yang 404.
+4. Template ujian akademik diseragamkan mengikuti pola bindo2.html:
+   - bindo1.html
+   - mtk.html
+   - pu1.html
+   - pu2.html
+   - pu3.html
+5. cerdas4.html juga disamakan ke template core karena sebelumnya masih memakai mesin sendiri.
+6. Matematika TO 1 tetap memakai bank 180 soal dan sesi acak 50 soal.
+7. Bahasa Indonesia Kata Baku tetap memakai bank 1000 soal dan sesi acak 50 soal.
+8. PU Paket 1, 2, dan 3 sudah masuk template core, review tersimpan, dan riwayat memakai struktur result-utils.
+9. Kecerdasan dan Kepribadian sekarang diproteksi VIP langsung dari file paket, bukan hanya dari menu.
+10. soal-template-core.js diperbaiki agar:
+    - requireLogin bisa dipakai.
+    - requireVIP tetap berjalan.
+    - gambar soal dan gambar opsi lebih aman ditampilkan.
+    - optionImages berbentuk array tetap muncul.
+
+Hasil cek:
+- Semua file template core berhasil dibaca config dan bank soalnya.
+- Semua link lokal antar halaman sudah dicek, tidak ada link file yang hilang.
+- File PU tidak lagi memanggil site-common.js yang sebelumnya tidak ada.

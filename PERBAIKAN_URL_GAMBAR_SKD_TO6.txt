@@ -1,0 +1,15 @@
+PERBAIKAN URL GAMBAR SKD TO 6
+
+Path gambar di skd_to6.html sudah diganti dari lokal:
+assets/skd_to6/skd_to6_img_001.png
+
+Menjadi GitHub raw sesuai pola:
+https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_001.png
+
+Berlaku untuk skd_to6_img_001.png sampai skd_to6_img_045.png.
+
+Pastikan semua file gambar sudah diupload ke repository GitHub:
+kurniacandra/1
+branch main
+dengan nama file yang sama, contoh:
+skd_to6_img_045.png

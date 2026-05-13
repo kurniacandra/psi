@@ -1,0 +1,26 @@
+PERUBAHAN SKD TO 6 2026
+
+1. Menambahkan file try out baru: skd_to6.html
+   - Total 110 soal
+   - TWK: 30 soal
+   - TKP: 45 soal
+   - TIU: 35 soal
+
+2. Menambahkan soal ke menu SKD Full
+   - skd_full_list.html sekarang punya kartu aktif: Try Out 6 SKD 2026
+
+3. Gambar soal TIU sudah diekstrak ke folder:
+   - assets/skd_to6/
+
+4. Template memakai pola soal-template-core.js seperti file akademik lain.
+   - Login wajib
+   - VIP aktif
+   - Riwayat dan review tersimpan
+   - Hasil juga dikirim ke path hasil_skd
+
+5. Scoring SKD dibuat mode poin 0-5.
+   - TWK/TIU: benar 5, salah 0
+   - TKP: opsi kunci terbaik 5, opsi lain 1 karena file sumber hanya menampilkan pilihan terbaik, bukan seluruh bobot opsi TKP.
+   - Skor maksimal: 550 poin
+
+6. soal-template-core.js diperbaiki agar mode poin bisa memakai nilai maksimal dinamis, tidak tetap 4.

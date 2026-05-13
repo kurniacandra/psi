@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riwayat Tryout Peserta</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--line:#dbe2ea;--text:#0f172a;--muted:#64748b;--primary:#0f172a}
+    *{box-sizing:border-box} body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .page{max-width:1180px;margin:0 auto;padding:18px}
+    .topbar,.head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+    .btn{border:1px solid var(--line);background:#fff;color:var(--text);border-radius:12px;padding:11px 14px;text-decoration:none;font-weight:700;display:inline-flex;gap:8px;align-items:center;cursor:pointer;font-family:inherit}
+    .head-card,.panel,.card,.summary-card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.05)}
+    .head-card,.panel,.card{padding:16px}
+    .filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-top:16px}
+    input,select{width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--line);font:inherit;background:#fff}
+    .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
+    .summary-card{padding:15px}.summary-card .label{color:var(--muted);font-size:.9rem}.summary-card .value{font-size:1.6rem;font-weight:800;margin-top:8px}
+    .layout{display:grid;grid-template-columns:1fr .95fr;gap:16px;align-items:start}
+    .list{display:grid;gap:12px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.tag{padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:700;background:#eef2ff;color:#1e3a8a}.tag.gray{background:#f1f5f9;color:#475569}
+    .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:10px}.meta-box{background:#f8fafc;border:1px solid #edf2f7;border-radius:12px;padding:10px}.meta-box small{display:block;color:var(--muted);margin-bottom:4px}
+    .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.mini{border:none;border-radius:10px;padding:9px 11px;font-weight:700;cursor:pointer;background:#eef2ff;color:#1e3a8a}
+    .chart-wrap{height:320px}.muted{color:var(--muted)} .empty{padding:18px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted)}
+    .review-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;margin-top:12px}.review-option{border:1px solid #edf2f7;background:#f8fafc;padding:8px 10px;border-radius:10px;margin-top:6px}.review-option.correct{background:#ecfdf5}.review-option.wrong{background:#fef2f2}.review-option.picked{outline:2px solid #93c5fd}
+    .modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}.modal.show{display:flex}.modal-box{width:min(1100px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:22px;border:1px solid var(--line);padding:18px}
+    .modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center;position:sticky;top:0;background:#fff;padding-bottom:12px;border-bottom:1px solid #eef2f7;margin-bottom:14px}.close-btn{border:none;background:#eef2f7;border-radius:12px;width:42px;height:42px;font-size:1.1rem;cursor:pointer}
+    @media (max-width:960px){.layout{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}} @media (max-width:680px){.filters{grid-template-columns:1fr}.page{padding:12px}}
+  </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+  <div class="page">
+    <div class="topbar" style="margin-bottom:14px">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn" href="main.html">⬅️ Kembali ke Menu</a>
+      </div>
+      <button class="btn" id="refreshBtn">🔄 Refresh</button>
+    </div>
+
+    <div class="head-card">
+      <div class="head">
+        <div>
+          <div class="muted">Riwayat peserta</div>
+          <h1 style="margin:6px 0 0">Riwayat Hasil + Review + Grafik</h1>
+          <div class="muted" id="identityText">Memuat akun…</div>
+        </div>
+        <div class="tag gray" id="syncText">Sinkronisasi: -</div>
+      </div>
+      <div class="filters">
+        <input id="searchInput" type="text" placeholder="Cari jenis ujian, file, paket…">
+        <select id="examFilter">
+          <option value="ALL">Semua ujian</option>
+          <option value="TRYOUT_FULL">Try Out Full</option>
+          <option value="WK">Wawasan Kebangsaan</option>
+          <option value="BINDO">Bahasa Indonesia</option>
+          <option value="MATEMATIKA">Matematika</option>
+          <option value="MTK">Matematika Lama</option>
+          <option value="PU">Pengetahuan Umum</option>
+          <option value="SKD">SKD Kedinasan/CPNS</option>
+          <option value="KEPRI">Kepribadian</option>
+          <option value="CERDAS">Kecerdasan</option>
+          <option value="CERMAT">Kecermatan</option>
+        </select>
+        <select id="sortFilter">
+          <option value="newest">Terbaru</option>
+          <option value="score_desc">Nilai tertinggi</option>
+          <option value="oldest">Terlama</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="summary" id="summaryBox"></div>
+
+    <div class="layout">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+          <h2 style="margin:0">Riwayat hasil saya</h2>
+          <div class="muted" id="countText">0 hasil</div>
+        </div>
+        <div class="list" id="historyList"></div>
+      </div>
+      <div class="panel">
+        <h2 style="margin-top:0">Grafik perkembangan skor</h2>
+        <div class="muted" id="trendText">Grafik akan muncul setelah data ditemukan.</div>
+        <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="detailModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div>
+          <div class="muted" id="modalMeta">-</div>
+          <h2 style="margin:4px 0 0" id="modalTitle">Detail hasil</h2>
+        </div>
+        <button class="close-btn" id="closeModalBtn">×</button>
+      </div>
+      <div id="modalSummary"></div>
+      <div class="panel" style="margin-top:14px">
+        <h3 style="margin-top:0">Grafik hasil ini</h3>
+        <div class="chart-wrap"><canvas id="detailChart"></canvas></div>
+      </div>
+      <div class="panel" style="margin-top:14px">
+        <h3 style="margin-top:0">Simbol / huruf yang digunakan</h3>
+        <div id="modalSymbols"></div>
+      </div>
+      <div class="panel" style="margin-top:14px">
+        <h3 style="margin-top:0">Review soal</h3>
+        <div id="modalReview"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="result-utils.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const config = {
+      apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw",
+      authDomain: "simulasi-2b93b.firebaseapp.com",
+      databaseURL: "https://simulasi-2b93b-default-rtdb.firebaseio.com",
+      projectId: "simulasi-2b93b",
+      appId: "1:562508858666:web:fa63f71ec175c675e64a53"
+    };
+    const app = initializeApp(config);
+    const db = getDatabase(app);
+
+    const currentEmail = (new URLSearchParams(location.search).get('email') || localStorage.getItem('pesertaEmail') || '').toLowerCase();
+    const els = {
+      identityText: document.getElementById('identityText'),
+      searchInput: document.getElementById('searchInput'),
+      examFilter: document.getElementById('examFilter'),
+      sortFilter: document.getElementById('sortFilter'),
+      summaryBox: document.getElementById('summaryBox'),
+      historyList: document.getElementById('historyList'),
+      countText: document.getElementById('countText'),
+      trendText: document.getElementById('trendText'),
+      syncText: document.getElementById('syncText'),
+      refreshBtn: document.getElementById('refreshBtn'),
+      modal: document.getElementById('detailModal'),
+      closeModalBtn: document.getElementById('closeModalBtn'),
+      modalMeta: document.getElementById('modalMeta'),
+      modalTitle: document.getElementById('modalTitle'),
+      modalSummary: document.getElementById('modalSummary'),
+      modalReview: document.getElementById('modalReview'),
+      modalSymbols: document.getElementById('modalSymbols')
+    };
+
+    let allRecords = [];
+    let filtered = [];
+    let trendChart = null;
+    let detailChart = null;
+
+    if (!currentEmail) els.identityText.textContent = 'Email peserta tidak ditemukan. Silakan login lagi dari menu utama.';
+    else els.identityText.textContent = `Peserta: ${currentEmail}`;
+
+    function parseDate(value){ const d = new Date(value || 0); return Number.isNaN(d.getTime()) ? 0 : d.getTime(); }
+    function graphArraysForRecord(record){
+      const benar = record.analytics.pola_benar?.length ? record.analytics.pola_benar : record.analytics.detail_benar;
+      const salah = record.analytics.pola_salah?.length ? record.analytics.pola_salah : record.analytics.detail_salah;
+      if (!benar?.length && !salah?.length) return null;
+      const len = Math.max(benar?.length || 0, salah?.length || 0);
+      return { labels: Array.from({length: len}, (_, i) => `K${i+1}`), benar: benar || [], salah: salah || [] };
+    }
+
+    function symbolMarkup(record){
+      const cols = window.resultUtils.getSymbolColumns(record);
+      if (!cols.length) return '<div class="empty">Tidak ada simbol / huruf tersimpan pada hasil ini.</div>';
+      return cols.map(col => `
+        <div class="review-item">
+          <div class="tags"><span class="tag gray">Kolom ${col.index}</span><span class="tag">${col.values.length} simbol</span></div>
+          <div style="font-size:1.02rem;font-weight:700;letter-spacing:.3px;line-height:1.8">${window.resultUtils.escapeHtml(col.values.join(' '))}</div>
+        </div>
+      `).join('');
+    }
+
+    function workingRecords(){
+      const search = els.searchInput.value.trim().toLowerCase();
+      const exam = els.examFilter.value;
+      let items = [...allRecords];
+      if (search) items = items.filter(item => [item.examLabel,item.examFile,item.packageCode].join(' ').toLowerCase().includes(search));
+      if (exam !== 'ALL') items = items.filter(item => item.examType === exam);
+      const sort = els.sortFilter.value;
+      items.sort((a,b) => sort === 'oldest' ? parseDate(a.submittedAtISO || a.waktu) - parseDate(b.submittedAtISO || b.waktu) : (sort === 'score_desc' ? (b.score - a.score || parseDate(b.submittedAtISO || b.waktu) - parseDate(a.submittedAtISO || a.waktu)) : parseDate(b.submittedAtISO || b.waktu) - parseDate(a.submittedAtISO || a.waktu)));
+      return items;
+    }
+
+    function renderSummary(records){
+      const avg = records.length ? (records.reduce((sum, item) => sum + (item.score || 0), 0) / records.length).toFixed(1) : '0.0';
+      const best = records.length ? Math.max(...records.map(item => item.score || 0)).toFixed(1) : '0.0';
+      const reviewCount = records.reduce((sum, item) => sum + item.reviewItems.length, 0);
+      els.summaryBox.innerHTML = [
+        ['Jumlah hasil', records.length],
+        ['Rata-rata skor', avg],
+        ['Skor terbaik', best],
+        ['Total review', reviewCount]
+      ].map(([label,value]) => `<div class="summary-card"><div class="label">${label}</div><div class="value">${value}</div></div>`).join('');
+    }
+
+    function renderTrend(records){
+      if (trendChart) trendChart.destroy();
+      const ctx = document.getElementById('trendChart');
+      if (!records.length) {
+        els.trendText.textContent = 'Belum ada data hasil untuk akun ini.';
+        trendChart = new Chart(ctx,{type:'line',data:{labels:[],datasets:[]},options:{responsive:true,maintainAspectRatio:false}});
+        return;
+      }
+      const series = [...records].sort((a,b) => parseDate(a.submittedAtISO || a.waktu) - parseDate(b.submittedAtISO || b.waktu));
+      els.trendText.textContent = `Total ${series.length} hasil tersimpan untuk akun ini.`;
+      trendChart = new Chart(ctx,{type:'line',data:{labels:series.map((item,idx)=>`${idx+1}. ${item.examLabel}`),datasets:[{label:'Skor',data:series.map(item=>item.score||0),tension:.25,borderWidth:2,fill:false}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,suggestedMax:100}}}});
+    }
+
+    function imgListMarkup(list){
+      return Array.isArray(list) && list.length ? `<div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">${list.map(src => `<img src="${window.resultUtils.escapeHtml(src)}" alt="gambar soal" style="max-width:220px;border-radius:12px;border:1px solid #e2e8f0;background:#fff">`).join('')}</div>` : '';
+    }
+
+    function reviewMarkup(record, review){
+      const options = review.options && Object.keys(review.options).length ? Object.entries(review.options).map(([key, value]) => {
+        const cls = ['review-option'];
+        if (String(review.correct_answer) === String(key)) cls.push('correct');
+        const picked = Array.isArray(review.user_answer) ? review.user_answer.includes(key) : String(review.user_answer ?? '') === String(key);
+        if (picked) cls.push('picked');
+        if (picked && String(review.correct_answer) !== String(key)) cls.push('wrong');
+        const optionImageList = review.optionImages && review.optionImages[key] ? (Array.isArray(review.optionImages[key]) ? review.optionImages[key] : [review.optionImages[key]]) : [];
+        return `<div class="${cls.join(' ')}"><strong>${key}.</strong> ${window.resultUtils.escapeHtml(value || '')}${imgListMarkup(optionImageList)}</div>`;
+      }).join('') : `<div class="review-option">Jawaban peserta: ${window.resultUtils.escapeHtml(review.user_answer_text || '-')}</div>`;
+      return `
+        <div class="review-item">
+          <div class="tags"><span class="tag">${review.sectionLabel || record.examLabel}</span><span class="tag gray">${review.status || '-'}</span></div>
+          <div style="font-weight:800;margin-bottom:8px">Soal ${review.session_number || review.number || '-'}</div>
+          <div>${window.resultUtils.escapeHtml(review.text || '')}</div>
+          ${imgListMarkup(review.images)}
+          ${options}
+          ${review.explanation ? `<div class="review-option" style="margin-top:10px"><strong>Pembahasan:</strong> ${window.resultUtils.escapeHtml(review.explanation)}</div>` : ''}
+          ${imgListMarkup(review.explanationImages)}
+          <div class="meta" style="margin-top:10px">
+            <div class="meta-box"><small>Jawaban saya</small><div>${window.resultUtils.escapeHtml(review.user_answer_text || '-')}</div></div>
+            <div class="meta-box"><small>Kunci</small><div>${window.resultUtils.escapeHtml(review.correct_answer_text || '-')}</div></div>
+            <div class="meta-box"><small>Poin</small><div>${review.points_earned ?? '-'}</div></div>
+          </div>
+        </div>`;
+    }
+
+    function openDetail(id){
+      const record = filtered.find(item => item.id === id) || allRecords.find(item => item.id === id);
+      if (!record) return;
+      els.modal.classList.add('show');
+      els.modalMeta.textContent = `${record.waktu} • ${record.examLabel}`;
+      const skdPercent = Number(record.normalizedScore ?? record.percentageScore ?? record.nilaiPersen ?? record.summary.normalizedScore ?? record.summary.percentageScore ?? record.summary.nilaiPersen ?? 0).toFixed(1);
+      const rawScoreText = record.examType === 'SKD' && record.summary.rawPoints != null && record.summary.maxPoints != null ? `${record.summary.rawPoints} / ${record.summary.maxPoints}` : Number(record.score || 0).toFixed(1);
+      els.modalTitle.textContent = record.examType === 'SKD' ? `${record.examLabel} • Poin ${rawScoreText}` : `${record.examLabel} • Skor ${Number(record.score || 0).toFixed(1)}`;
+      const sectionSummaryHtml = Array.isArray(record.sections) && record.sections.length ? `<div class="summary" style="margin-top:10px">${record.sections.map(sec => `<div class="summary-card"><div class="label">${window.resultUtils.escapeHtml(sec.code || sec.label)}</div><div class="value">${window.resultUtils.escapeHtml(sec.rawPoints ?? 0)} / ${window.resultUtils.escapeHtml(sec.maxPoints ?? 0)}</div></div>`).join('')}</div>` : '';
+      els.modalSummary.innerHTML = `<div class="summary">${[
+        [record.examType === 'SKD' ? 'Poin SKD' : 'Skor', rawScoreText],
+        [record.examType === 'SKD' ? 'Persentase' : 'Nilai', record.examType === 'SKD' ? skdPercent : Number(record.score || 0).toFixed(1)],
+        ['Benar/terbaik', record.summary.correct],
+        ['Salah/belum maksimal', record.summary.wrong],
+        ['Kosong', record.summary.empty],
+        ['Review', record.reviewItems.length],
+        ['Kolom simbol', window.resultUtils.getSymbolColumns(record).length]
+      ].map(([label,value]) => `<div class="summary-card"><div class="label">${label}</div><div class="value">${value}</div></div>`).join('')}</div>${sectionSummaryHtml}`;
+      const graph = graphArraysForRecord(record);
+      if (detailChart) detailChart.destroy();
+      detailChart = new Chart(document.getElementById('detailChart'), {
+        type: graph ? 'line' : 'bar',
+        data: graph ? {labels:graph.labels,datasets:[{label:'Benar',data:graph.benar,borderWidth:2,tension:.25},{label:'Salah',data:graph.salah,borderWidth:2,tension:.25}]} : {labels:['Skor','Benar','Salah','Kosong'],datasets:[{label:'Ringkasan',data:[record.score||0,record.summary.correct,record.summary.wrong,record.summary.empty]}]},
+        options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
+      });
+      els.modalSymbols.innerHTML = symbolMarkup(record);
+      els.modalReview.innerHTML = record.reviewItems.length ? record.reviewItems.map(item => reviewMarkup(record,item)).join('') : '<div class="empty">Review soal belum tersimpan pada hasil ini.</div>';
+    }
+
+    function renderList(records){
+      filtered = records;
+      els.countText.textContent = `${records.length} hasil`;
+      if (!records.length) {
+        els.historyList.innerHTML = '<div class="empty">Belum ada riwayat tryout tersimpan untuk akun ini.</div>';
+        return;
+      }
+      els.historyList.innerHTML = records.map(record => `
+        <div class="card">
+          <div class="head">
+            <div>
+              <div style="font-weight:800;font-size:1.05rem">${window.resultUtils.escapeHtml(record.examLabel)}</div>
+              <div class="muted" style="margin-top:6px">${window.resultUtils.escapeHtml(record.waktu || '-')}</div>
+              <div class="tags">
+                <span class="tag">${window.resultUtils.escapeHtml(record.examType)}</span>
+                ${record.packageCode ? `<span class="tag gray">${window.resultUtils.escapeHtml(record.packageCode)}</span>` : ''}
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div class="muted">${record.examType === 'SKD' ? 'Poin SKD' : 'Skor'}</div>
+              <div style="font-size:2rem;font-weight:800">${record.examType === 'SKD' && record.summary.rawPoints != null && record.summary.maxPoints != null ? `${record.summary.rawPoints}/${record.summary.maxPoints}` : Number(record.score || 0).toFixed(1)}</div>
+              ${record.examType === 'SKD' ? `<div class="muted">Persentase ${Number(record.normalizedScore ?? record.percentageScore ?? record.nilaiPersen ?? 0).toFixed(1)}</div>` : ''}
+            </div>
+          </div>
+          <div class="meta">
+            <div class="meta-box"><small>Benar</small><div>${record.summary.correct}</div></div>
+            <div class="meta-box"><small>Salah</small><div>${record.summary.wrong}</div></div>
+            <div class="meta-box"><small>Kosong</small><div>${record.summary.empty}</div></div>
+            <div class="meta-box"><small>Review</small><div>${record.reviewItems.length}</div></div>
+            <div class="meta-box"><small>Simbol/Huruf</small><div style="font-size:.82rem">${window.resultUtils.escapeHtml(window.resultUtils.symbolPreview(record))}</div></div>
+          </div>
+          <div class="actions">
+            <button class="mini" data-open-detail="${record.id}">Lihat Review</button>
+            <button class="mini" data-open-symbols="${record.id}">Simbol/Huruf</button>
+          </div>
+        </div>
+      `).join('');
+      document.querySelectorAll('[data-open-detail]').forEach(btn => btn.onclick = () => openDetail(btn.dataset.openDetail));
+      document.querySelectorAll('[data-open-symbols]').forEach(btn => btn.onclick = () => openDetail(btn.dataset.openSymbols));
+    }
+
+    function rerender(){
+      const records = workingRecords();
+      renderSummary(records);
+      renderList(records);
+      renderTrend(records);
+    }
+
+    const sourceBuckets = { rekap_skor: [], hasil_kepri: [], hasil_skd: [] };
+
+    function mergeSources(){
+      const targetUserId = window.resultUtils.makeUserId(currentEmail || '');
+      const merged = [];
+      const seen = new Set();
+      Object.values(sourceBuckets).flat().forEach(item => {
+        if (currentEmail && !(item.email === currentEmail || item.userId === targetUserId)) return;
+        const key = [item.resultId || item.raw?.resultId || item.raw?._id || String(item.id || '').split('/').pop(), item.email, item.examType, item.packageCode, item.submittedAtISO || item.waktu, item.score].join('|');
+        if (seen.has(key)) return;
+        seen.add(key);
+        merged.push(item);
+      });
+      allRecords = merged;
+      els.syncText.textContent = `Sinkronisasi: ${new Date().toLocaleTimeString('id-ID')}`;
+      rerender();
+    }
+
+    function load(){
+      onValue(ref(db, 'rekap_skor'), snap => {
+        sourceBuckets.rekap_skor = window.resultUtils.flattenResultRecords(snap.val() || {}, 'rekap_skor');
+        mergeSources();
+      });
+      onValue(ref(db, 'hasil_kepri'), snap => {
+        sourceBuckets.hasil_kepri = window.resultUtils.flattenResultRecords(snap.val() || {}, 'hasil_kepri');
+        mergeSources();
+      });
+      onValue(ref(db, 'hasil_skd'), snap => {
+        sourceBuckets.hasil_skd = window.resultUtils.flattenResultRecords(snap.val() || {}, 'hasil_skd');
+        mergeSources();
+      });
+    }
+
+    [els.searchInput, els.examFilter, els.sortFilter].forEach(el => el.addEventListener('input', rerender));
+    els.refreshBtn.onclick = () => location.reload();
+    els.closeModalBtn.onclick = () => els.modal.classList.remove('show');
+    els.modal.onclick = (e) => { if (e.target === els.modal) els.modal.classList.remove('show'); };
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') els.modal.classList.remove('show'); });
+    load();
+  </script>
+</body>
+</html>

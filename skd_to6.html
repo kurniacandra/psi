@@ -1,0 +1,2737 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Try Out 6 SKD 2026 - JAGOPSI</title>
+<style>
+:root{--primary:#0f172a;--danger:#dc2626;--success:#16a34a;--info:#2563eb;--bg:#f8fafc;--muted:#64748b;--warning:#f59e0b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:'Segoe UI',Arial,sans-serif;color:#0f172a}
+.topbar{position:sticky;top:0;z-index:10;background:linear-gradient(90deg,#0f172a,#1e293b);color:#fff;padding:14px 18px}
+.topbar-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top-timer{background:#fff;color:#991b1b;border-radius:12px;padding:10px 14px;font-weight:700}
+.wrap{max-width:1180px;margin:20px auto;padding:0 16px}.grid{display:grid;grid-template-columns:1.6fr .95fr;gap:18px}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 24px rgba(15,23,42,.08);border:1px solid #e2e8f0}
+.badge{display:inline-block;padding:6px 12px;border-radius:999px;background:#fff7ed;color:#9a3412;font-weight:700;font-size:.8rem;margin-bottom:10px}.badge-blue{background:#eff6ff;color:#1d4ed8}
+.hidden{display:none!important}.option-box{border:1px solid #ddd;padding:12px 14px;border-radius:12px;margin-bottom:10px;cursor:pointer;background:#fff;transition:.15s;white-space:pre-line;line-height:1.55}.option-box:hover{border-color:#93c5fd;transform:translateY(-1px)}.option-box.selected{background:#dc2626;color:#fff;border-color:#b91c1c}.option-box.partial{background:#fff7ed;border-color:#f59e0b;color:#9a3412}.number-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.num-btn{min-height:42px;border:1px solid #cbd5e1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;background:#fff;cursor:pointer}.num-btn.active{border:2px solid var(--info);color:var(--info)}.num-btn.answered{background:var(--success);color:#fff;border-color:var(--success)}.num-btn.partial{background:#fff7ed;color:#9a3412;border-color:#f59e0b}.controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px}button,.btn{border:none;border-radius:12px;padding:12px 16px;font-family:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--info);color:#fff}.btn-outline{background:#fff;color:#334155;border:1px solid #cbd5e1}.btn-danger{background:var(--danger);color:#fff}.btn-success{background:var(--success);color:#fff}.btn-warning{background:#f59e0b;color:#fff}.qtitle{font-size:1.08rem;font-weight:700;line-height:1.7;margin-bottom:16px;white-space:pre-line}.qnum{font-size:.95rem;color:#64748b;margin-bottom:6px}.center-screen{max-width:960px;margin:40px auto}.stage-line{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.stage-pill{padding:8px 12px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:700;font-size:.82rem}.img-fluid-custom{max-width:100%;height:auto;border-radius:8px;border:1px solid #ddd;background:#fff;margin-bottom:12px}.small-muted{color:#64748b;font-size:.92rem}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.stat-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:16px}.stat-card h4{margin:0 0 8px;font-size:.9rem;color:#475569}.stat-value{font-size:1.55rem;font-weight:800}.review-list{display:grid;gap:12px;margin-top:18px}.review-item{border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff}.review-option{padding:9px 11px;border-radius:10px;margin-bottom:8px;border:1px solid #e5e7eb;background:#fafafa;white-space:pre-line;line-height:1.55}.review-option.correct{background:#dcfce7;border-color:#16a34a;color:#166534;font-weight:700}.review-option.picked-wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b;font-weight:700}.review-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}.pill-ok,.pill-no,.pill-empty{display:inline-flex;padding:8px 12px;border-radius:999px;font-weight:700;font-size:.82rem}.pill-ok{background:#dcfce7;color:#166534}.pill-no{background:#fee2e2;color:#991b1b}.pill-empty{background:#fef3c7;color:#92400e}@media (max-width:900px){.grid{grid-template-columns:1fr}.number-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <h1 style="margin:0;font-size:1.05rem;font-weight:700">TRY OUT 6 SKD 2026</h1>
+      <div id="userLine" style="font-size:.9rem;color:#cbd5e1">Memuat akun...</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div class="top-timer" id="globalTimer">--:--:--</div>
+      <button class="btn-danger" type="button" id="logoutBtn">Keluar</button>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <div id="screen-loading" class="center-screen card">
+    <div class="badge">MEMUAT</div>
+    <h2 style="margin-top:0">Menyiapkan try out...</h2>
+    <p class="small-muted">Sistem sedang menyiapkan soal dan sesi ujianmu.</p>
+  </div>
+  <div id="screen-main" class="center-screen card hidden">
+    <div class="badge" id="introBadge">TRY OUT</div>
+    <h2 style="margin-top:0" id="introTitle">Bahasa Indonesia Paket 2</h2>
+    <p class="small-muted" id="introText"></p>
+    <div class="stage-line"><div class="stage-pill" id="stagePill">Ujian</div></div>
+    <div class="stats-grid" style="margin-top:18px">
+      <div class="stat-card"><h4>Total Soal</h4><div class="stat-value" id="statTotal">0</div></div>
+      <div class="stat-card"><h4>Waktu</h4><div class="stat-value" id="statTime">0 Menit</div></div>
+      <div class="stat-card"><h4>Mode</h4><div class="stat-value" id="statMode">Single</div></div>
+    </div>
+    <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+      <button type="button" class="btn btn-primary" id="startMainBtn">Mulai</button>
+      <a href="skd_full_list.html" class="btn btn-outline">Kembali</a>
+    </div>
+  </div>
+  <div id="screen-section" class="hidden">
+    <div class="grid">
+      <div class="card">
+        <div class="badge badge-blue" id="sectionBadge">UJIAN</div>
+        <div class="qnum" id="sectionQno"></div>
+        <div class="qtitle" id="sectionQtext"></div>
+        <div id="sectionQImages"></div>
+        <div id="sectionOptions"></div>
+        <div class="controls">
+          <button type="button" class="btn btn-outline" id="prevBtn">Sebelumnya</button>
+          <button type="button" class="btn btn-primary" id="nextBtn">Selanjutnya</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Navigasi</h3>
+        <div class="small-muted" id="sectionHelp">Klik jawaban untuk menyimpan.</div>
+        <div style="margin:10px 0 14px;display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge badge-blue" id="categoryBadge">Materi</span>
+          <span class="badge" id="typeBadge">Single</span>
+        </div>
+        <div class="number-grid" id="numberGrid"></div>
+        <hr>
+        <button type="button" class="btn btn-danger" id="finishSectionBtn">Selesaikan Try Out</button>
+      </div>
+    </div>
+  </div>
+  <div id="screen-result" class="center-screen hidden">
+    <div id="resultHost"></div>
+  </div>
+</div>
+<script src="result-utils.js"></script>
+<script>
+window.__SOAL_TEMPLATE_CONFIG = {"title":"Try Out 6 SKD 2026 - JAGOPSI","examType":"SKD","examName":"Try Out 6 SKD 2026","examFile":"skd_to6.html","packageCode":"SKD_TO6_2026","sectionLabel":"SKD Full","introTitle":"Try Out 6 SKD 2026","introText":"Paket SKD Full berisi 110 soal: TWK 30 soal, TIU 35 soal, dan TKP 45 soal.","durationMinutes":100,"scoringMode":"points","pointsLabel":"Poin 0–5","pointsHelp":"TWK/TIU bernilai 5 untuk benar dan 0 untuk salah. TKP memakai bobot 1–5 sesuai opsi; kunci terbaik bernilai 5.","defaultMaxPoints":5,"sessionSize":110,"randomBank":false,"storageKey":"skd_to6_2026_full_session_v2_ordered","requireVIP":true,"vipMessage":"Try Out 6 SKD 2026 hanya untuk akun VIP.","requireLogin":true,"backUrl":"skd_full_list.html","extraPaths":["hasil_skd"]};
+window.__SOAL_TEMPLATE_QUESTIONS = [
+  {
+    "number": 1,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Pemerintah daerah berencana menetapkan Peraturan Daerah mengenai jam malam bagi remaja untuk menekan kenakalan di wilayahnya. Agar kebijakan tersebut tetap sejalan dengan prinsip negara hukum dan otonomi daerah, langkah yang paling tepat adalah …",
+    "options": {
+      "A": "Memastikan rancangan peraturan daerah disusun berdasarkan hukum dan melalui proses kajian yang cermat",
+      "B": "Menetapkan peraturan daerah tersebut karena pegaturan ketertiban umum termasuk dalam kewenangan hukum pemerintah daerah otonom",
+      "C": "Menjalankan kebijakan tersebut berdasarkan asas desentralisasi sebagai wujud kemandirian hukum daerah",
+      "D": "Menyesuaikan isi peraturan daerah sesuai dengan kondisi sosial daerah agar tidak menimbulkan keberatan masyarakat",
+      "E": "Memastikan rancangan peraturan daerah dapat dukungan publik agar penerapannya berjalan efektif di masyarakat."
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Jawaban yang tepat adalah A, karena penyusunan Perda harus berlandaskan dasar hukum yang kuat dan melalui kajian yuridis yang cermat agar tidak bertentangan dengan konstitusi dan peraturan perundang-undangan yang lebih tinggi. Prinsip negara hukum menuntut semua kebijakan daerah didasarkan pada asas legalitas, sementara otonomi daerah memberi ruang bagi pemerintah daerah untuk berinisiatif dalam koridor hukum nasional. Opsi B tampak benar karena menyebut kewenangan daerah, tetapi tergesa tanpa memastikan kesesuaian dengan aturan yang lebih tinggi. Opsi C menonjolkan asas desentralisasi, namun keliru karena kemandirian daerah tetap harus tunduk pada norma hukum pusat. Opsi D tampak adaptif terhadap kondisi sosial, namun hukum tidak boleh diubah hanya demi penerimaan masyarakat. Opsi E terdengar demokratis, tetapi legitimasi publik tidak dapat menggantikan legitimasi hukum. Dengan demikian, A paling tepat karena mencerminkan langkah konstitusional, hati-hati, dan sesuai prinsip negara hukum dalam pelaksanaan otonomi daerah."
+  },
+  {
+    "number": 2,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Berdasarkan Pasal 12 UUD NRI Tahun 1945, Presiden memiliki kewenangan menyatakan perang dengan persetujuan DPR. Dalam konteks kenegaraan modern, hal ini berarti bahwa tindakan perang..",
+    "options": {
+      "A": "Dapat ditempuh sewaktu-waktu jika Presiden menilai situasi politik Internasional mengancam stabilitas nasional",
+      "B": "Menjadi langkah strategis pemerintah dalam memperluas pengaruh ekonomi dan diplomasi di kawasan regional",
+      "C": "D\niperbolehkan dilakukan secara sepihak oleh Presiden demi kecepatan dan kerahasiaan operasi pertahanan",
+      "D": "Hanya boleh dilakukan untuk mempertahankan kedaulatan negara dan harus melalui persetujuan lembaga perwakilan masyarakat",
+      "E": "Dapat digunakan untuk memperkuat posisi dan wibawa Indonesia dalam hubungan internasional bila disetujui kabinet"
+    },
+    "answer": "D",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 5,
+      "E": 0
+    },
+    "explanation": "Jawaban yang tepat adalah D, karena Pasal 12 UUD NRI Tahun 1945 menegaskan bahwa Presiden hanya dapat menyatakan perang dengan persetujuan DPR, dan tindakan tersebut harus bersifat defensif, yaitu untuk mempertahankan kedaulatan, keselamatan bangsa, dan keutuhan wilayah negara. Hal ini sejalan dengan semangat perdamaian dunia dalam Pembukaan UUD 1945, yang menolak segala bentuk agresi atau perang ofensif. Opsi A tampak logis karena menyinggung ancaman stabilitas, tetapi membuka peluang keputusan sepihak yang bertentangan dengan prinsip pengawasan DPR. Opsi B terlihat strategis, namun perang tidak dapat dijadikan alat ekspansi pengaruh ekonomi. Opsi C tampak realistis secara militer, namun melanggar mekanisme konstitusional. Opsi E terdengar diplomatis, tetapi kabinet tidak memiliki kewenangan formal dalam menyetujui perang tanpa persetujuan DPR. Dengan demikian, D paling tepat karena menggambarkan batas konstitusional dan moral dalam pelaksanaan perang sesuai Pasal 12 UUD NRI Tahun 1945."
+  },
+  {
+    "number": 3,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Seorang terpidana kasus korupsi besar dijatuhi hukuman penjara seumur hidup oleh pengadilan. Dalam konteks prinsip negara hukum dan perlindungan hak asasi manusia, penerapan hukuman tersebut harus …",
+    "options": {
+      "A": "Didasarkan pada rasa keadilan masyarakat agar menimbulkan efek jera bagi pelaku lain",
+      "B": "Menjadi contoh tegas bahwa negara tidak menoleransi tindak pidana berat seperti korupsi",
+      "C": "Dijatuhi melalui hukum yang adil dengan bukti sah dan tetap menghormati hak asasi dasar terpidana",
+      "D": "Disesuaikan dengan tekanan publik agar keputusan mencerminkan aspirasi rakyat",
+      "E": "Dipertimbangkan dengan menyeimbangkan korban, pelaku, dan citra kemanusiaan negara di mata publik"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Jawaban yang tepat adalah C, karena penerapan hukuman seumur hidup wajib berlandaskan\nasas due process of law\n, yaitu melalui proses hukum yang adil, bukti yang sah, dan penghormatan terhadap hak asasi manusia sesuai Pasal 28D ayat (1) dan Pasal 1 ayat (3) UUD 1945. Prinsip negara hukum menuntut bahwa keadilan tidak boleh diukur dari opini publik, citra, atau tekanan sosial, melainkan dari mekanisme hukum yang sah. Opsi A tampak benar karena menyinggung rasa keadilan masyarakat, tetapi hukum tidak boleh berdasar persepsi publik. Opsi B menegaskan sikap tegas negara, namun fokus pada efek jera, bukan legalitas proses. Opsi D jelas keliru karena menempatkan tekanan publik di atas independensi peradilan. Opsi E tampak paling menipu menyeimbangkan korban, pelaku, dan citra negara terdengar bijak dan humanis, tetapi justru keluar dari prinsip asas legalitas karena hukum tidak boleh mempertimbangkan “citra” atau opini publik dalam menjatuhkan vonis. Dengan demikian, C paling tepat karena mencerminkan penerapan hukum yang objektif, adil, dan konstitusional."
+  },
+  {
+    "number": 4,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Kantor pelayanan publik sedang merancang program “Humanity Week” untuk menumbuhkan empati dan kepedulian antarsesama. Tiap divisi bebas menentukan kegiatannya. Rencana program yang paling mencerminkan nilai Pancasila kemanusiaan yang adil dan beradab adalah…",
+    "options": {
+      "A": "Mengadakan lomba donasi antar pegawai agar tumbuh semangat berlomba dalam kebaikan dan solidaritas",
+      "B": "Memberikan bantuan finansial kepada rekan kerja yang sedang mengalami kesulitan hidup",
+      "C": "Mengembangkan platform donasi secara transparan bagi seluruh pegawai untuk membantu panti asuhan terdekat",
+      "D": "Mengumpulkan pakain bekas untuk dibagikan kepada masyarakat yang ada di pinggir jalan",
+      "E": "Menggunakan hasil penggalangan dana untuk memperbaiki fasilitas kantor demi pelayanan publik yang manusiawi"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Nilai kemanusiaan yang adil dan beradab menuntut setiap tindakan sosial didasari keikhlasan, rasa hormat terhadap martabat manusia, serta penerapan keadilan tanpa diskriminasi. Dalam konteks ASN, nilai ini tercermin dari program sosial yang terbuka, akuntabel, dan benar-benar berpihak pada kemanusiaan, bukan pada citra atau kepentingan internal. Opsi C merupakan pilihan yang paling tepat karena menggambarkan prinsip adil setiap pegawai memiliki kesempatan setara untuk berpartisipasi dalam kegiatan sosial dan beradab donasi dilakukan secara transparan dan diarahkan untuk membantu pihak yang membutuhkan dengan cara yang bermartabat. Opsi A tampak positif karena mengajak berbagi, tetapi kata “lomba” menonjolkan kompetisi, bukan empati. Opsi B menunjukkan kepedulian internal, namun skalanya terbatas pada lingkungan kerja sehingga tidak mencerminkan kemanusiaan universal. Opsi D menjebak secara halus, karena terlihat sosial dan mulia, tetapi pembagian pakaian bekas tanpa memperhatikan kondisi, kelayakan, dan cara penyampaian dapat mengabaikan nilai penghormatan terhadap martabat penerima bantuan, sehingga belum sepenuhnya beradab. Sedangkan E salah arah karena menggunakan dana sosial untuk kepentingan fasilitas kantor, bukan untuk membantu sesama manusia."
+  },
+  {
+    "number": 5,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Dalam Alinea ke-4 Pembukaan UUD NRI Tahun 1945, Indonesia berkomitmen “ikut melaksanakan ketertiban dunia yang berdasarkan kemerdekaan, perdamaian abadi, dan keadilan sosial”. Kebijakan luar negeri Indonesia yang paling mencerminkan komitmen tersebut adalah…",
+    "options": {
+      "A": "Menjalin kerja sama pertahanan dengan negara besar untuk menciptakan stabilitas kawasan",
+      "B": "Mengedepankan dukungan diplomatik terhadap upaya perdamaian di organisasi internasional.",
+      "C": "Memberikan bantuan kemanusiaan kepada negara yang dilanda perang",
+      "D": "Menjalin kerja sama perdagangan dengan negara maju untuk mendorong stabilitas ekonomi global",
+      "E": "Mengirimkan pasukan dalam misi perdamaian PBB untuk menjaga stabilitas dan melindungi warga sipil"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "explanation": "Alinea ke-4 Pembukaan UUD 1945 menegaskan peran Indonesia untuk ikut menjaga ketertiban dunia berdasarkan kemerdekaan, perdamaian abadi, dan keadilan sosial. Komitmen ini mengarahkan politik luar negeri Indonesia pada prinsip bebas aktif, yaitu tidak memihak blok kekuatan tertentu tetapi tetap berkontribusi nyata bagi keamanan internasional. Opsi E paling tepat karena merupakan tindakan langsung melalui pengerahan pasukan penjaga perdamaian PBB (peacekeeping) yang berperan menjaga stabilitas, melindungi warga sipil, serta mengurangi potensi konflik lanjutan. Opsi B mendukung perdamaian, tetapi bersifat diplomatik sehingga tidak sekuat kontribusi konkret. Opsi C bersifat kemanusiaan pascakonflik, bukan pemeliharaan ketertiban dunia. Opsi A berpotensi bertentangan dengan politik bebas aktif, dan D lebih fokus pada kerja sama ekonomi sehingga tidak terkait langsung dengan misi menjaga perdamaian dunia sebagaimana dimaksud dalam Pembukaan UUD 1945."
+  },
+  {
+    "number": 6,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Di sebuah sekolah, seorang siswa rutin membantu teman sekelasnya yang kesulitan memahami pelajaran tanpa mengharapkan imbalan. Ia juga berusaha mencegah ejekan terhadap teman yang berbeda latar belakang sosial. Tindakan tersebut mencerminkan penerapan sila ke-2 Pancasila karena…",
+    "options": {
+      "A": "Menumbuhkan semangat kebersamaan agar semua siswa memilki kesempatan belajar yang sama",
+      "B": "Mendorong kerja sama antar siswa untuk mencapai hasil belajar yang maksimal",
+      "C": "Menghargai setiap teman tanpa mebeda-bedakan latar belakang sosial maupun kemampuan",
+      "D": "Membiasakan siswa untuk saling membantu dalam menyelesaikan tugas kelompok",
+      "E": "Menunjukkan kepedulian dengan membantu teman yang mengalami kesulitan akademik"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Jawaban yang paling tepat adalah C, karena mencerminkan nilai kemanusiaan yang adil dan beradab dengan menghargai setiap individu tanpa diskriminasi. Sikap ini menunjukkan pengakuan atas martabat manusia yang setara, sejalan dengan sila ke-2 Pancasila. Opsi A baik karena menonjolkan kebersamaan, namun lebih dekat dengan semangat persatuan (sila ke-3). Opsi B dan D berfokus pada kerja sama akademik, bukan penghargaan terhadap nilai kemanusiaan. Opsi E menggambarkan kepedulian, tetapi belum menegaskan aspek keadilan dan penghormatan terhadap martabat sesama. Dengan demikian, C paling sesuai karena menampilkan sikap kemanusiaan yang adil dan beradab dalam kehidupan sehari-hari."
+  },
+  {
+    "number": 7,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Dalam pembahasan sebuah RUU, salah satu pasal dianggap berpotensi menimbulkan ketidakadilan. Untuk memastikan apakah pasal tersebut sesuai dengan nilai dasar bangsa, Pancasila dalam konteks ini digunakan sebagai…",
+    "options": {
+      "A": "Dasar filosofis tertinggi yang menjadi sumber dari segala sumber hukum dalam menilai kesesuaian pasal RUU",
+      "B": "Pedoman ideologi negara yang mengarahkan agar kebijakan selalu berpihak kepada kepentingan rakyat.",
+      "C": "Landasan moral bagi pembentuk undang-undang untuk menjaga integritas dan etika legislasi",
+      "D": "Falsafah hidup bangsa yang mengarahkan pembangunan hukum jangka panjang",
+      "E": "Nilai dasar yang menginspirasi penyusunan kebijakan publik yang adil"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Jika suatu pasal dalam RUU dipersoalkan karena diduga tidak mencerminkan nilai keadilan, maka penilaiannya harus merujuk pada kedudukan Pancasila sebagai sumber dari segala sumber hukum. Kedudukan ini menempatkan Pancasila sebagai dasar filosofis tertinggi yang digunakan untuk memastikan setiap pasal dalam peraturan perundang-undangan tidak bertentangan dengan nilai-nilai dasar bangsa. Oleh sebab itu, opsi A merupakan jawaban yang paling tepat. Opsi B menekankan fungsi Pancasila sebagai ideologi negara, tetapi tidak secara langsung berkaitan dengan proses pengujian substansi pasal. Opsi C lebih mengarah pada etika penyusun undang-undang, bukan fungsi Pancasila dalam menilai materi sebuah pasal. Opsi D bersifat sangat umum dan tidak menjawab kebutuhan pengujian pasal dalam RUU. Adapun opsi E relevan dalam konteks perumusan kebijakan publik, tetapi tidak spesifik terhadap proses penilaian apakah suatu pasal RUU selaras dengan nilai dasar Pancasila. Dengan demikian, hanya A yang tepat untuk konteks soal ini"
+  },
+  {
+    "number": 8,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Seorang pegawai negeri menolak ajakan rekannya untuk ikut menyebarkan isu provokatif tentang kebijakan pemerintah yang belum pasti kebenarannya. Dalam konteks bela negara, sikap tersebut menunjukkan…",
+    "options": {
+      "A": "Kesiapsiagaan dalam menjaga keamanan informasi agar stabilitas nasional tetap terjaga",
+      "B": "Semangat nasionalisme dengan tidak terpengaruh pada perbedaan pandangan politik",
+      "C": "Kesetiaan kepada pemerintah sebagai bentuk dukungan terhadap kebijakan negara",
+      "D": "Kepatuhan terhadap etika profesi dan perintah atasan dalam menjaga citra institusi",
+      "E": "Kesadaran untuk melindungi kepentingan bangsa dengan menolak tindakan yang dapat memecah persatuan"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "explanation": "Jawaban yang tepat adalah E, karena bela negara bukan hanya tentang pertahanan fisik, tetapi juga mencakup upaya menjaga keutuhan dan persatuan bangsa dari ancaman ideologis, disinformasi, dan provokasi. Menolak penyebaran isu provokatif mencerminkan kesadaran bela negara yang konstitusional sebagaimana tercantum dalam Pasal 27 ayat (3) UUD 1945, yaitu kewajiban setiap warga negara untuk membela negara dengan cara menjaga stabilitas dan persatuan nasional. Opsi A tampak benar karena menyinggung keamanan informasi, namun konteksnya lebih teknis daripada nilai bela negara. Opsi B menekankan nasionalisme, tapi terlalu sempit karena bela negara melampaui sikap politik. Opsi C menekankan kesetiaan pada pemerintah, padahal bela negara berarti loyal pada negara dan konstitusi, bukan individu atau rezim. Opsi D juga positif secara etika profesi, tetapi lebih administratif daripada konstitusional. Dengan demikian, E paling tepat karena mencerminkan esensi bela negara dalam bentuk kesadaran warga menjaga keutuhan bangsa dari ancaman nonmiliter."
+  },
+  {
+    "number": 9,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Dalam kehidupan bernegara, membayar pajak termasuk wujud bela negara nonfisik karena …",
+    "options": {
+      "A": "Menunjukan kepatuhan terhadap aturan hukum yang berlaku di negara Indonesia",
+      "B": "Menjadi kewajiban moral warga negara untuk mendukung program pembangunan yang berkelanjutan",
+      "C": "Membantu pemerintah menyediakan pelayanan publik seperti pendidikan dan kesehatan masyarakat",
+      "D": "Menggambarkan rasa tanggung jawab terhadap pelaksanaan fungsi pemerintahan",
+      "E": "Menjadi bentuk kontribusi warga negara dalam menjaga kemandirian dan ketahanan ekonomi nasional"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "explanation": "Jawaban paling tepat adalah E, karena membayar pajak merupakan bentuk nyata bela negara nonfisik di bidang ekonomi yang memperkuat kemandirian dan ketahanan nasional. Pajak menjadi sumber utama pembiayaan negara untuk pembangunan, pertahanan, dan kesejahteraan rakyat, sehingga warga yang taat pajak turut menjaga keberlangsungan negara tanpa harus berjuang secara militer. Opsi A benar karena menunjukkan kepatuhan hukum, tetapi tidak menegaskan makna kontribusi strategis terhadap ketahanan negara. Opsi B positif karena menyinggung aspek moral, namun bersifat individual dan belum menyentuh aspek sistemik bela negara. Opsi C relevan dalam konteks sosial, namun lebih menggambarkan fungsi pajak secara administratif. Opsi D tampak benar, tetapi terlalu umum karena semua kewajiban warga negara termasuk di dalamnya. Dengan demikian, E paling tepat karena mengandung nilai bela negara yang aktif, strategis, dan berorientasi pada kemandirian ekonomi bangsa."
+  },
+  {
+    "number": 10,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Perhatikan pernyataan-pernyataan berikut ini! 1) Peneliti mengembangkan teknologi ramah lingkungan untuk kebutuhan nasional. 2) Pelajar menciptakan aplikasi edukasi untuk membantu belajar daring. 3) Guru mengadakan seminar nasional untuk menanamkan nilai kebangsaan. 4) ASN mengikuti pelatihan keamanan siber untuk meningkatkan kesiapsiagaan dan perlindungan data nasional 5) Mahasiswa menggalang aksi sosial untuk membantu korban bencana alam. 6) Warga lebih memilih produk lokal agar mampu bersaing dengan produk impor. Cara yang paling efektif mewujudkan bela negara nonfisik di bidang IPTEK ditunjukkan oleh pernyataan…",
+    "options": {
+      "A": "1,2, dan 6",
+      "B": "1,3, dan 5",
+      "C": "1,2, dan 4",
+      "D": "3,4, dan 5",
+      "E": "2,4, dan 6"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": ": Jawaban yang tepat adalah C, karena bela negara nonfisik di bidang IPTEK (Ilmu Pengetahuan dan Teknologi) diwujudkan melalui penguasaan, pemanfaatan, dan pengembangan teknologi untuk kepentingan nasional. Pernyataan (1) menunjukkan peran peneliti dalam inovasi ramah lingkungan untuk kemandirian bangsa, pernyataan (2) menggambarkan kontribusi pelajar dalam pendidikan berbasis teknologi, dan pernyataan (4) menegaskan kesiapsiagaan ASN dalam menjaga keamanan siber dan melindungi data nasional sebagai bagian dari pertahanan nonmiliter. Pernyataan (3) lebih menonjolkan pembinaan karakter kebangsaan, pernyataan (5) merupakan bela negara nonfisik di bidang sosial, dan pernyataan (6) mendukung ekonomi nasional, bukan aspek penguasaan IPTEK. Dengan demikian, 1, 2, dan 4 paling tepat menggambarkan cara efektif mewujudkan bela negara nonfisik di bidang IPTEK."
+  },
+  {
+    "number": 11,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Dalam menghadapi kesenjangan sosial dan ekonomi antarwarga, sikap yang paling mencerminkan hubungan antara bela negara dan sila kelima Pancasila adalah …",
+    "options": {
+      "A": "Menumbuhkan rasa empati terhadap kelompok kurang mampu sebagai wujud kepeduliaan sosial",
+      "B": "Berpartisipasi aktif dalam kegiatan pembangunan agar menfaatnya dirasakan seluruh lapisan masyarakat",
+      "C": "Mendukung setiap program pemerintah sebagai bentuk loyalitas terhadap negara",
+      "D": "Menumbuhkan semangat kebersamaan agar masyarakat tetap harmonis di tengah perbedaan ekonomi",
+      "E": "Menjaga persatuan masyarakat dengan menghindari pembahasan isu kesenjangan sosial yang sensitif"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Jawaban yang paling tepat adalah B, karena bela negara yang selaras dengan sila kelima Pancasila (Keadilan Sosial bagi Seluruh Rakyat Indonesia) menuntut keterlibatan aktif warga dalam mewujudkan kesejahteraan dan pemerataan pembangunan bagi seluruh lapisan masyarakat. Berpartisipasi dalam kegiatan pembangunan mencerminkan tanggung jawab warga negara untuk memperjuangkan keadilan sosial secara nyata, bukan sekadar simbolik. Opsi A menunjukkan sikap empati yang baik, tetapi belum sampai pada tahap tindakan konkret yang berdampak luas. Opsi C tampak nasionalis, namun bersifat pasif dan tidak selalu menjamin keadilan sosial. Opsi D positif karena menonjolkan nilai persatuan yang mencerminkan sila ketiga, tetapi fokusnya pada keharmonisan, bukan pemerataan kesejahteraan. Opsi E terlihat menjaga stabilitas, namun justru menghindari dialog dan solusi atas ketimpangan sosial. Dengan demikian, B paling tepat karena menggambarkan bela negara nonfisik yang aktif dan berpihak pada keadilan sosial bagi seluruh rakyat Indonesia."
+  },
+  {
+    "number": 12,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Pidato 1 Juni 1945 oleh Soekarno dalam sidang BPUPKI menjadi salah satu tahap awal penting dalam perkembangan konsep dasar negara. Peran pidato tersebut adalah, kecuali …",
+    "options": {
+      "A": "Memberikan gagasan awal yang menjadi dasar pembahasan lanjutan mengenai dasar negara.",
+      "B": "Memberikan kerangka pemikiran pertama yang memengaruhi arah perumusan dasar negara",
+      "C": "Mendorong munculnya diskusi lebih mendalam untuk menyempurnakan nilai-nilai dasar negara.",
+      "D": "Menyajikan konsep yang dipandang telah final dan siap dijadikan dasar negara Indonesia",
+      "E": "Menjadi salah satu referensi awal yang turut membentuk rumusan Pancasila pada tahap berikutnya."
+    },
+    "answer": "D",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 5,
+      "E": 0
+    },
+    "explanation": "Pidato 1 Juni 1945 oleh Soekarno merupakan langkah awal yang memperkenalkan kerangka konseptual pertama mengenai dasar negara yang kelak berkembang menjadi Pancasila. Isi pidato tersebut menghadirkan gagasan awal yang kemudian dibahas, diuji, dan disempurnakan kembali dalam rangkaian sidang BPUPKI dan PPKI. Karena itu, opsi A, B, C, dan E semuanya tepat menggambarkan fungsi pidato 1 Juni sebagai pemicu diskusi lanjutan dan sebagai referensi awal dalam proses panjang perumusan dasar negara. Sebaliknya, opsi D tidak tepat karena pidato Soekarno tidak pernah dianggap sebagai rumusan final yang langsung dapat dijadikan dasar negara Indonesia. Gagasan dalam pidato tersebut masih mengalami sejumlah perubahan, termasuk penyusunan Piagam Jakarta dan revisi sila pertama sebelum akhirnya disahkan pada 18 Agustus 1945"
+  },
+  {
+    "number": 13,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Panitia Persiapan Kemerdekaan Indonesia (PPKI) mengesahkan UUD 1945 sebagai landasan resmi penyelenggaraan negara bagi seluruh rakyat Indonesia. Dalam kebijakan publik masa kini, semangat keputusan tersebut paling tepat diwujudkan melalui …",
+    "options": {
+      "A": "Menyusun kebijakan yang menampung aspirasi masyarakat secara luas.",
+      "B": "Merancang regulasi yang mempertimbangkan nilai-nilai sosial dan pertahanan.",
+      "C": "Menetapkan aturan yang menyeimbangkan aspirasi kelompok dengan konstitusi.",
+      "D": "Mengembangkan kebijakan yang responsif terhadap perubahan sosial",
+      "E": "Menghasilkan kebijakan yang berlaku adil bagi seluruh warga dalam kerangka konstitusi"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "explanation": "Pengesahan UUD 1945 oleh Panitia Persiapan Kemerdekaan Indonesia (PPKI) bertujuan menjadikan konstitusi sebagai landasan bersama yang berlaku adil bagi seluruh rakyat Indonesia. Semangat ini menuntut kebijakan publik masa kini dirancang dengan prinsip kesetaraan konstitusional sehingga setiap warga memperoleh perlakuan yang sama tanpa membedakan latar belakang sosial, budaya, atau kelompok mana pun. Opsi A tampak benar karena mendorong partisipasi publik, tetapi belum memastikan bahwa kebijakan tersebut adil bagi semua. Opsi B positif karena menghargai soial dan pertahanan, namun tidak menegaskan aspek keadilan universal yang menjadi inti UUD. Opsi C membahas keseimbangan kelompok, tetapi terlalu terbatas pada aspirasi antar-golongan dan tidak secara langsung mencerminkan prinsip dasar UUD 1945 sebagai pedoman umum penyelenggaraan negara. Opsi D adaptif terhadap perubahan sosial, namun bersifat administratif dan tidak langsung berkaitan dengan prinsip keadilan konstitusional. Dengan demikian, E paling tepat karena paling mencerminkan esensi pengesahan UUD 1945 oleh PPKI sebagai landasan negara yang mengikat seluruh warga secara setara."
+  },
+  {
+    "number": 14,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Di era globalisasi dan kemajuan teknologi digital, penerapan nasionalisme modern di kalangan generasi muda akan memberikan dampak positif bagi masa depan Indonesia, terutama dalam hal …",
+    "options": {
+      "A": "Meningkatkan daya saing individu agar mampu beradaptasi di lingkungan kerja internasional.",
+      "B": "Menumbuhkan sikap kritis dan kontribusi terhadap setiap kebijakan pemerintah di bidang teknologi",
+      "C": "Mendorong pertumbuhan ekonomi kreatif dengan meniru tren budaya luar yang populer.",
+      "D": "Memperkuat identitas dan karakter bangsa agar tetap kokoh di tengah pengaruh global",
+      "E": "Membangun citra positif Indonesia di dunia melalui gaya hidup global yang modern dan terbuka"
+    },
+    "answer": "D",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 5,
+      "E": 0
+    },
+    "explanation": "Jawaban yang paling tepat adalah D, karena nasionalisme modern di era digital bukan sekadar kebanggaan simbolik, tetapi komitmen untuk menjaga identitas dan karakter bangsa di tengah arus globalisasi. Generasi muda yang memiliki nasionalisme adaptif akan mampu mengintegrasikan kemajuan teknologi dengan nilai-nilai luhur bangsa, sehingga Indonesia tetap dikenal sebagai negara yang maju namun berkepribadian kuat. Opsi A tampak positif karena menekankan daya saing, tetapi fokusnya lebih individualistik dan belum menggambarkan semangat kebangsaan secara kolektif. Opsi B menonjolkan kesadaran kritis yang baik, namun lebih berorientasi pada partisipasi warga negara, bukan makna nasionalisme yang utuh. Opsi C terdengar kreatif tetapi meniru budaya luar justru berpotensi mengikis nilai keaslian bangsa. Opsi E sangat menjebak karena tampak modern dan terbuka, namun lebih menekankan pencitraan global daripada penguatan nilai kebangsaan dari dalam. Dengan demikian, D merupakan pilihan paling tepat karena mencerminkan nasionalisme progresif yang memperkuat karakter dan jati diri bangsa sekaligus menyiapkan generasi muda menghadapi tantangan global secara beretika, kreatif, dan berkepribadian Indonesia."
+  },
+  {
+    "number": 15,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Dalam ajang olahraga internasional, sebagian pendukung Indonesia menunjukkan semangat tinggi membela tim nasional, tetapi juga mengejek tim lawan di media sosial. Sikap tersebut mencerminkan …",
+    "options": {
+      "A": "Keberanian menunjukkan rasa cinta tanah air tanpa peduli pendapat bangsa lain.",
+      "B": "Kebanggaan nasional yang kuat meski disertai sikap emosional terhadap lawan",
+      "C": "Chauvunisme karena kebanggaan berlebihan membuat mereka merendahkan bangsa lain",
+      "D": "Semangat membela kehormatan bangsa dengan cara menekan lawan secara psikologis.",
+      "E": "Upaya menunjukan loyalitas kepada bangsa dengan menolak keunggulan tim lain."
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Jawaban yang paling tepat adalah C, karena perilaku yang merendahkan bangsa lain menunjukkan rasa cinta tanah air yang berlebihan hingga berubah menjadi chauvinisme. Nasionalisme sejati menumbuhkan rasa bangga tanpa kehilangan sikap hormat dan empati terhadap bangsa lain. Opsi A menonjolkan keberanian, namun bernuansa arogan dan tertutup terhadap kerja sama internasional. Opsi B tampak wajar, tetapi membenarkan ekspresi emosional yang melanggar etika kebangsaan. Opsi D menganggap tekanan terhadap pihak lain sebagai strategi, padahal bertentangan dengan sportivitas. Opsi E terlihat loyal, namun justru mencerminkan sikap antipati terhadap bangsa lain. Dengan demikian, C paling tepat karena menggambarkan bentuk cinta tanah air yang berlebihan (chauvinisme), bukan nasionalisme sehat yang menjunjung nilai Persatuan Indonesia (sila ke-3 Pancasila)."
+  },
+  {
+    "number": 16,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Pemerintah membuka impor bahan baku industri untuk menjaga kelancaran produksi dalam negeri. Dalam konteks nasionalisme ekonomi, sikap yang paling tepat terhadap kebijakan tersebut adalah …",
+    "options": {
+      "A": "Mengkritik kebijakan impor karena dapat mengurangi semangat masyarakat untuk mengutamakan produk dalam negeri.",
+      "B": "Mendukung kebijakan tersebut sepenuhnya sebagai bukti keterbukaan ekonomi indonesia terhadap dunia",
+      "C": "Menolak impor agar Idonesia segara mencapai kemandirian ekonomi tanpa ketergantungan luar negeri",
+      "D": "Menganggap impor sebagai bentuk kerja sama ekonomi yang perlu diterapkan tanpa memperhatikan dampak bagi industri lokal",
+      "E": "Memandang impor sebagai langkah realistis untuk menjaga staibilitas industri nasional sambil memperkuat kapasitas produksi dalam negeri"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "explanation": "Dalam konteks nasionalisme ekonomi, impor bahan baku tidak dipandang semata-mata sebagai ancaman, tetapi sebagai langkah strategis yang diperlukan ketika industri nasional belum mampu memenuhi kebutuhan produksinya secara mandiri. Sikap yang paling tepat adalah mendukung impor secara selektif dan terukur, selama tujuannya untuk menjaga kelancaran produksi dalam negeri serta memperkuat daya saing nasional. Karena itu, opsi E merupakan pilihan paling tepat, sebab menggambarkan pandangan yang realistis: impor diperlukan untuk menjaga stabilitas industri, namun tetap diarahkan untuk memperkuat kapasitas nasional. Opsi A terlalu reaktif karena hanya menyoroti dampak pada semangat penggunaan produk lokal tanpa mempertimbangkan kebutuhan industri. Opsi B menekankan keterbukaan ekonomi secara penuh, tetapi tidak mempertimbangkan perlindungan kepentingan nasional. Opsi C bersifat ekstrem karena menolak impor sama sekali, padahal kondisi industri nasional mungkin belum siap. Opsi D juga kurang tepat karena mengabaikan dampak impor terhadap industri lokal. Dengan demikian, hanya opsi E yang mencerminkan nasionalisme ekonomi yang rasional dan berorientasi pada kepentingan bangsa."
+  },
+  {
+    "number": 17,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Sekelompok mahasiswa membuat inovasi teknologi pengolahan limbah plastik menjadi bahan bakar alternatif yang dapat digunakan masyarakat. Tindakan tersebut menunjukkan …",
+    "options": {
+      "A": "Dorongan untuk membuktikan bahwa karya anak bangsa mampu bersaing di tingkat global",
+      "B": "Cinta tanah air yang diwujudkan melalui kontribusi nyata untuk kemajuan bangsa",
+      "C": "Keinginan generasi muda untuk memperlihatkan potensi diri sebagai penerus pembangunan nasional",
+      "D": "Semangat berinovasi agar Indonesia tidak tertinggal dari negara lain dalam bidang teknologi",
+      "E": "Nasionalisme yang terlihat dari upaya memanfaatkan waktu luang dengan kegiatan yang bermanfaat"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Inovasi teknologi pengolahan limbah plastik menjadi bahan bakar alternatif merupakan bentuk kontribusi nyata yang memiliki dampak langsung bagi masyarakat dan pembangunan bangsa. Kegiatan tersebut mencerminkan cinta tanah air dalam arti substantif, yaitu sikap yang tidak hanya berupa perasaan, tetapi diwujudkan melalui tindakan yang memberikan manfaat bagi lingkungan, mendorong kemandirian energi, serta mendukung kemajuan nasional. Oleh karena itu, opsi B paling tepat karena menekankan aspek kontribusi nyata demi kemajuan bangsa. Opsi A dan D tampak relevan, namun lebih menekankan orientasi kompetitif dan pembandingan dengan negara lain, bukan inti sikap kebangsaan. Opsi C hanya menyoroti potensi diri tanpa menunjukkan dimensi pengabdian kepada bangsa. Adapun opsi E terlalu umum dan tidak menggambarkan nilai nasionalisme secara substansial."
+  },
+  {
+    "number": 18,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Perbedaan gaya hidup antara warga pendatang dan warga asli di kota besar sering menimbulkan salah paham. Dalam semangat Bhinneka Tunggal Ika, sikap yang sebaiknya ditunjukkan adalah…",
+    "options": {
+      "A": "Menjaga budaya sendiri sambil tetap terbuka terhadap kebiasaan baru dari luar",
+      "B": "Menyesuaikan diri dengan budaya mayoritas agar tercipta suasana yang seragam dan tertib",
+      "C": "Menghargai perbedaan dan membangun kebersamaan tanpa menonjolkan budaya tertentu",
+      "D": "Mendorong perubahan sosial agar masyarakat lebih modern dan mudah beradaptasi.",
+      "E": "Mempertahankan nilai tradisional agar jati diri budaya lokal tidak hilang oleh pengaruh luar"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Semangat Bhinneka Tunggal Ika menekankan pentingnya menghargai keberagaman sekaligus membangun kebersamaan di tengah perbedaan. Dalam konteks perbedaan gaya hidup antara warga pendatang dan warga asli, sikap yang paling sesuai adalah menciptakan ruang interaksi yang saling menghormati tanpa mengutamakan atau menonjolkan identitas budaya tertentu. Opsi C merupakan pilihan yang paling tepat karena menggambarkan sikap menghargai perbedaan dan membangun harmoni sosial sebagai esensi dari persatuan dalam keberagaman. Opsi A terlihat positif, tetapi masih menempatkan kedua budaya secara terpisah sehingga tidak sepenuhnya mencerminkan integrasi sosial. Opsi B tidak sesuai karena menuntut keseragaman, yang bertentangan dengan makna keberagaman. Opsi D terlalu berorientasi pada modernisasi dan tidak membahas penghormatan terhadap perbedaan budaya. Opsi E menekankan pelestarian budaya, namun kurang mencerminkan semangat kebersamaan di tengah keberagaman."
+  },
+  {
+    "number": 19,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Dalam sebuah rapat warga, muncul perbedaan pendapat karena latar belakang budaya yang berbeda. Agar keputusan tetap dapat diterima semua pihak, nilai Bhinneka Tunggal Ika berperan sebagai landasan untuk…",
+    "options": {
+      "A": "Menjadi dasar dalam mengelola perbedaan pendapat secara terbuka sehingga keputusan yang diambil mencerminkan mufakat yang adil bagi seluruh pihak",
+      "B": "Mendorong peserta musyawarah unutk mencari titik persamaan agar keputusan dapat diterima tanpa menimbulkan perdebatan lanjutan.",
+      "C": "Mengarahkan jalannya rapat untuk segera berfokus pada keputusan akhir demi menjaga suasana tetap harmonis.",
+      "D": "Menjamin kebebasan menyampaikan pendapat tanpa memperhatikan proses penyelarasan perbedaan",
+      "E": "Mendorong warga menerima pendapat pihak yang dianggap lebih memahami persoalan demi kelancaran musyawarah"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Bhinneka Tunggal Ika menegaskan bahwa keberagaman merupakan bagian yang tidak dapat dipisahkan dari kehidupan bermasyarakat. Dalam konteks musyawarah, nilai ini berfungsi sebagai landasan untuk mengelola perbedaan pendapat secara terbuka dan menghargai setiap pandangan, sehingga keputusan yang dihasilkan mencerminkan rasa keadilan bagi seluruh pihak. Oleh karena itu, opsi A menjadi pilihan paling tepat karena secara langsung menggambarkan peran Bhinneka Tunggal Ika dalam menciptakan musyawarah yang inklusif dan berkeadilan. Opsi B masih relevan namun hanya menekankan pencarian persamaan tanpa menyoroti pentingnya pengelolaan perbedaan secara menyeluruh. Opsi C terlalu berorientasi pada hasil akhir, bukan proses musyawarah yang partisipatif. Opsi D menonjolkan kebebasan berpendapat namun tidak menggambarkan tujuan mencapai kesepakatan bersama. Sedangkan opsi E menunjukkan penerimaan pasif yang tidak sesuai dengan prinsip kesetaraan dan penghargaan terhadap perbedaan dalam musyawarah."
+  },
+  {
+    "number": 20,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Semangat pendidikan Ki Hajar Dewantara menekankan pembentukan karakter dan kemandirian peserta didik. Dalam menghadapi perkembangan teknologi saat ini, semangat tersebut dapat diwujudkan melalui upaya…",
+    "options": {
+      "A": "Menyesuaikan kurikulum dengan standar internasional agar peserta didik lebih kompetitif",
+      "B": "Mendorong peserta didik mengejar prestasi akademik sebagai kontribusi bagi bangsa",
+      "C": "Memperluas kerja sama pendidikan dengan dunia industri untuk meningkatkan daya saing nasional",
+      "D": "Mengembangkan pembelajaran digital yang mendorong karakter, kreativitas, dan kemandirian belajar",
+      "E": "Menyeragamkan metode pengajaran agar pemerataan mutu pendidikan dapat terjamin"
+    },
+    "answer": "D",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 5,
+      "E": 0
+    },
+    "explanation": "Pemikiran Ki Hajar Dewantara menempatkan pendidikan sebagai proses pemerdekaan, yaitu upaya membentuk karakter, kemandirian, dan kemampuan berpikir peserta didik secara utuh. Dalam konteks perkembangan teknologi saat ini, pendekatan tersebut paling tepat diwujudkan melalui pemanfaatan pembelajaran digital yang tetap berorientasi pada penguatan karakter dan kemandirian belajar. Hal ini sejalan dengan prinsip pendidikan yang memerdekakan, karena teknologi digunakan sebagai sarana untuk mengembangkan potensi peserta didik, bukan sekadar mengejar standar akademik atau penyeragaman metode. Oleh sebab itu, opsi D menjadi pilihan paling tepat. Opsi A dan B menekankan capaian akademik dan standar global, namun kurang mencerminkan esensi pendidikan yang memerdekakan. Opsi C lebih berorientasi pada kebutuhan industri dan daya saing ekonomi, bukan pada karakter peserta didik. Sementara opsi E menekankan penyeragaman, yang tidak sejalan dengan prinsip pendidikan humanis Ki Hajar Dewantara yang menekankan keberagaman serta perkembangan peserta didik secara individual."
+  },
+  {
+    "number": 21,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Indische Partij adalah organisasi nasional yang didirikan pada tahun 1912 yang memperjuangkan persamaan hak dan persatuan tanpa diskriminasi. Dalam kehidupan sosial masa kini, semangat perjuangan tersebut dapat diwujudkan dengan cara…",
+    "options": {
+      "A": "Dini rutin mengadakan kegiatan sosial budaya untuk melestarikan adat budaya daerahnya agar tetap dikenal generasi muda",
+      "B": "Kevin berpartisipasi mengikuti kegiatan bakti sosial untuk membantu korban bencana",
+      "C": "Salsa membangun kerja sama antar warga dengan mengutamakan adat dan tradisi lingkungan",
+      "D": "Ardi mengikuti kegiatan sosial untuk menanamkan pentingnya kesamaan cara pandang demi ketertiban bersama",
+      "E": "Rafa mengajak warga dari berbagai latar belakang untuk bergotong royong membangun taman lingkungan"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "explanation": "Jawaban yang paling tepat adalah E, karena Rafa menunjukkan sikap inklusif dan kolaboratif yang sejalan dengan semangat Indische Partij dalam memperjuangkan persatuan tanpa diskriminasi. Ia melibatkan semua warga tanpa melihat perbedaan latar belakang sosial, agama, atau budaya, mencerminkan nilai kesetaraan dan gotong royong dalam kehidupan sosial modern. Opsi A baik karena berfokus pada pelestarian budaya, tetapi masih terbatas pada komunitas tertentu dan belum menggambarkan inklusivitas lintas kelompok. Opsi B menunjukkan kepedulian sosial, namun sifatnya reaktif dan tidak berkaitan langsung dengan prinsip kesetaraan sosial yang universal. Opsi C menonjolkan kerja sama, tetapi cenderung eksklusif karena hanya berlandaskan nilai tradisi kelompoknya. Opsi D tampak nasionalis, namun menekankan kesamaan pandangan yang justru mengabaikan keberagaman yang harus dihargai. Dengan demikian, E adalah pilihan yang paling tepat karena menggambarkan semangat persatuan, kesetaraan, dan solidaritas sosial tanpa diskriminasi, sesuai cita-cita Indische Partij."
+  },
+  {
+    "number": 22,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Semangat “bertanah air satu, tanah air Indonesia”dalam sumpah pemuda sejalan dengan Pasal 25A UUD 1945 tentang keutuhan wilayah Indonesia sebagai negara kepulauan. Dalam kehidupan masa kini, semangat tersebut dapat diwujudkan dengan cara…",
+    "options": {
+      "A": "Mendukung otonomi daerah agar setiap wilayah dapat berkembang sesuai potensi masing-masing",
+      "B": "Mengutamakan kepentingan nasional di atas kepentingan daerah untuk mejaga keutuhan NKRI",
+      "C": "Menigkatkan kesiapsiagaan masyarakat dalam menjaga keamanan wilayah masing-masing",
+      "D": "Mengoptimalkan pemerataan alokasi dana pembangunan antar wilayah agar tidak terjadi kesenjangan",
+      "E": "Melestarikan kehidupan masyarakat maritim sebagai ciri khas negara kepulauan Indonesia"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Jawaban yang paling tepat adalah B, karena mencerminkan semangat Sumpah Pemuda dan amanat Pasal 25A UUD 1945 tentang keutuhan wilayah NKRI sebagai negara kepulauan. Mengutamakan kepentingan nasional di atas kepentingan daerah berarti menempatkan persatuan bangsa sebagai prioritas utama di tengah keberagaman wilayah dan kepentingan lokal. Sikap ini menegaskan bahwa seluruh wilayah Indonesia merupakan satu kesatuan yang harus dijaga bersama tanpa membedakan asal daerah. Opsi A baik karena mendukung perkembangan daerah, tetapi bila diterapkan tanpa keseimbangan dapat memperkuat ego kedaerahan. Opsi C terlihat positif karena menekankan kesiapsiagaan masyarakat, namun konteksnya lebih teknis dan tidak menyentuh nilai ideologis persatuan. Opsi D relevan dengan pemerataan pembangunan, tetapi fokusnya administratif bukan nilai kebangsaan. Opsi E menggambarkan identitas geografis Indonesia sebagai negara maritim, namun tidak secara langsung mencerminkan semangat “bertanah air satu” yang menekankan kesatuan dan integrasi nasional. Dengan demikian, B merupakan pilihan paling tepat karena menggambarkan sikap nasionalisme sejati yang menempatkan kepentingan bangsa di atas kepentingan daerah demi menjaga keutuhan NKRI."
+  },
+  {
+    "number": 23,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Soekarno tetap teguh memperjuangkan kemerdekaan Indonesia meski ditentang dan dipenjara oleh pemerintah kolonial. Ia menolak menyerah dan terus menyuarakan semangat persatuan demi kebebasan bangsa. Nilai integritas utama yang dapat diteladani dari sikap Soekarno tersebut adalah…",
+    "options": {
+      "A": "Berani memperjuangkan kebenaran demi kepentingan bangsa meskipun menghadapi risiko besar",
+      "B": "Peduli terhadap rekan seperjuangan yang mendukung cita-cita kemerdekaan",
+      "C": "Disiplin dalam menjalankan strategi perjuangan secara konsisten hingga tercapai hasil",
+      "D": "Kerja keras memimpin rakyat menuju arah kemerdekaan dan kemajuan bangsa",
+      "E": "Tanggung jawab dalam menepati janji perjuangan kepada rakyat Indonesia"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Jawaban paling tepat adalah A, karena Soekarno menunjukkan keberanian moral yang merupakan inti dari integritas sejati ia teguh pada kebenaran dan cita-cita kemerdekaan meskipun dihadapkan pada penjara, tekanan politik, dan ancaman dari penjajah. Tindakannya menegaskan bahwa pemimpin berintegritas tidak mudah goyah oleh kepentingan pribadi atau rasa takut. Opsi B baik karena menunjukkan kepedulian, tetapi nilai utamanya bukan relasi sosial melainkan keteguhan prinsip. Opsi C menonjolkan kedisiplinan, namun konteks soal menekankan pada perjuangan menghadapi tekanan, bukan konsistensi operasional. Opsi D menggambarkan etos kerja, tetapi lebih relevan untuk masa kepemimpinannya setelah merdeka. Opsi E menyinggung tanggung jawab, namun tidak mencakup sikap pantang menyerah yang menjadi inti dari keteguhan Soekarno. Dengan demikian, A paling tepat karena mencerminkan keberanian moral dan komitmen terhadap nilai kebenaran serta kepentingan bangsa di atas segalanya."
+  },
+  {
+    "number": 24,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Muhammad Yamin tetap memperjuangkan gagasan persatuan bangsa dan penggunaan bahasa Indonesia sebagai bahasa nasional meskipun menghadapi tekanan dan penolakan dari berbagai pihak pada masanya. Ia tidak mengubah pendiriannya dan terus mempertahankan keyakinannya demi masa depan bangsa. Nilai integritas yang paling tepat untuk menggambarkan sikap tersebut adalah…",
+    "options": {
+      "A": "Keberanian moral dalam mempertahankan prinsip yang diyakini benar meskipun menghadapi tekanan, penolakan, dan berbagai risiko",
+      "B": "Komitmen kuat dalam meperjuangkan visi kebangsaan agar dapat diterima oleh seluruh lapisan masyarakat",
+      "C": "Rasa tanggung jawab terhadap perjuangan nasional dengan terus menyampaikan gagasanya secara konsisten",
+      "D": "Keteladanan dalam menunjukkan keterbukaan terhadap kritik demi menjaga suasana musyawarah",
+      "E": "Kerja keras dalam memperjuangkan gagasan melalui dialog dan kegiatan sosial di berbagai kalangan"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Keteguhan Muhammad Yamin dalam memperjuangkan gagasan persatuan dan penggunaan bahasa Indonesia sebagai bahasa nasional meskipun menghadapi tekanan dan penolakan menunjukkan nilai integritas berupa keberanian moral, yaitu keberanian mempertahankan prinsip yang diyakini benar meskipun menghadapi risiko, tekanan politik, maupun penolakan dari lingkungan sekitarnya. Oleh karena itu, opsi A merupakan pilihan yang paling tepat karena secara langsung menggambarkan nilai integritas tersebut. Opsi B menonjolkan komitmen terhadap visi kebangsaan, namun tidak menekankan unsur keberanian menghadapi tekanan. Opsi C mencerminkan tanggung jawab dan konsistensi, tetapi tidak menggambarkan aspek mempertahankan prinsip dalam situasi sulit. Opsi D menekankan keterbukaan terhadap kritik, yang tidak relevan sebagai nilai utama dalam konteks ini. Opsi E menunjukkan kerja keras, namun tidak menggambarkan keberanian moral yang menjadi inti dari sikap Yamin. Dengan demikian, hanya opsi A yang paling tepat."
+  },
+  {
+    "number": 25,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "(1) Anak-anak muda sekarang tampak lebih akrab dengan budaya pop dari luar negeri dibandingkan dengan kesenian tradisional daerahnya sendiri. (2) Permainan tradisional seperti congklak dan egrang semakin ditinggalkan, tergantikan oleh permainan daring di gawai mereka. (3) Tata krama dan sopan santun lokal juga perlahan terkikis oleh gaya hidup yang lebih individualistis. (4) Bahkan, banyak bahasa daerah kini terancam punah karena generasi baru enggan menggunakannya dalam percakapan sehari-hari. (5) Fenomena-fenomena tersebut menjadi bukti nyata bahwa arus globalisasi telah menggerus eksistensi kearifan lokal di tengah masyarakat. Paragraf di atas memiliki pokok pikiran yaitu…",
+    "options": {
+      "A": "Tergantikannya permainan tradisional dengan permainan daring",
+      "B": "Ancaman kepunahan bahasa daerah di kalangan generasi baru",
+      "C": "Penggerusan kearifan lokal oleh arus globalisasi",
+      "D": "Ketertarikan anak muda terhadap budaya pop luar negeri",
+      "E": "Terkikisnya tata krama dan sopan santun di tengah masyarakat"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Paragraf di atas adalah paragraf induktif, di mana pokok pikiran atau kesimpulannya berada di akhir paragraf, yaitu pada kalimat (5). Kalimat (1), (2), (3), dan (4) menyajikan data, fakta, dan contoh spesifik (ditinggalkannya budaya, permainan, sopan santun, dan bahasa). Kalimat (5) kemudian merangkum semua fenomena tersebut menjadi satu kesimpulan umum: \"arus globalisasi telah menggerus eksistensi kearifan lokal\"."
+  },
+  {
+    "number": 26,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "(1) Meskipun Indonesia tidak memiliki musim panas seperti negara-negara subtropis, bulan Oktober sering kali terasa sangat terik dan panas di berbagai wilayah. (2) Fenomena ini umumnya disebabkan oleh posisi matahari yang berada di sekitar garis khatulistiwa, sehingga radiasi yang diterima permukaan bumi menjadi maksimal. (3) Selain itu, bulan ini sering menjadi puncak musim kemarau atau masa transisi (pancaroba) menuju musim hujan, di mana tutupan awan masih sangat minim. (4) Akibatnya, suhu udara dapat meningkat drastis pada siang hari dan menyebabkan risiko dehidrasi jika tidak diantisipasi. (5) Masyarakat pun diimbau untuk mengurangi aktivitas di luar ruangan selama periode ini. Kalimat utama pada paragraf di atas terdapat pada kalimat nomo…",
+    "options": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "4",
+      "E": "5"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Paragraf di atas berjenis deduktif yang ide utamanya diletakkan di awal untuk kemudian dijelaskan lebih lanjut. Kalimat (1) memperkenalkan topik utama yang akan dibahas, yaitu fenomena cuaca panas di bulan Oktober di Indonesia meskipun secara teknis tidak ada musim panas. Kalimat-kalimat berikutnya, yaitu (2) dan (3) menjelaskan penyebabnya, kalimat (4) menjelaskan akibatnya, dan kalimat (5) memberikan imbauan terkait fenomena tersebut. Semua kalimat penjelas ini mengacu pada gagasan yang telah disampaikan di kalimat (1)."
+  },
+  {
+    "number": 27,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Penulisan angka yang tepat sesuai kaidah Bahasa Indonesia terdapat pada kalimat…",
+    "options": {
+      "A": "Dua puluh lima orang tewas dalam kecelakaan itu",
+      "B": "Ia menonton film itu sampai 3 kali.",
+      "C": "Panitia membutuhkan 1.000. buah kursi",
+      "D": "Harga buku itu adalah Rp 50.000,-",
+      "E": "Acara akan dimulai pukul 08:00. WIB"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Penulisan angka yang tepat terdapat pada opsi (A) karena bilangan yang berada di awal kalimat wajib ditulis dengan huruf. - Opsi (B) Salah karena bilangan yang dapat dinyatakan dengan satu kata (seperti 'tiga') harus ditulis dengan huruf, kecuali jika dipakai secara berurutan seperti dalam perincian. Seharusnya: \"...sampai tiga kali.\" - Opsi (C) Salah karena angka yang menyatakan jumlah tidak diakhiri dengan tanda titik. Seharusnya: \"...sekitar 1.000 buah kursi.\" - Opsi (D) Salah karena penulisan mata uang tidak diakhiri tanda hubung dan koma nol nol (,-) jika nilainya pas. Seharusnya: \"Rp50.000,00\". - Opsi (E) Salah karena penulisan jam yang tepat menggunakan tanda titik. Seharusnya: \"pukul 08.00 WIB\"."
+  },
+  {
+    "number": 28,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "(1) Kecerdasan buatan atau Artificial Intelligence (AI) telah berkembang pesat dalam satu dekade terakhir. (2) Penerapannya dalam berbagai praktek industri, mulai dari otomotif hingga kesehatan, telah mengubah cara kerja manusia. (3) Teknologi AI mampu melakukan analisis data dalam jumlah besar dengan kecepatan yang tidak mungkin dicapai oleh manusia. (4) Meskipun menawarkan banyak kemudahan, pengembangan AI juga diiringi tantangan etis yang perlu diatur dengan saksama. (5) Masa depan peradaban manusia akan sangat dipengaruhi oleh bagaimana kita memanfaatkan teknologi canggih ini. Manakah kalimat yang mengandung kata tidak baku …",
+    "options": {
+      "A": "Kalimat 1",
+      "B": "Kalimat 2",
+      "C": "Kalimat 3",
+      "D": "Kalimat 4",
+      "E": "Kalimat 5"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Kalimat yang mengandung kata tidak baku terdapat pada kalimat (2) yaitu kata “praktek”. Dalam KBBI, kata serapan yang benar dari bahasa Inggris 'practice' adalah praktik. Bentuk 'praktek' adalah bentuk yang tidak baku namun sering digunakan dalam percakapan"
+  },
+  {
+    "number": 29,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Manakah di bawah ini yang merupakan kalimat efektif …",
+    "options": {
+      "A": "Bagi seluruh peserta yang belum mengumpulkan tugas, harap segera menyerahkannya di meja panitia sebelum jam istirahat",
+      "B": "Rapat pimpinan pagi ini membahas tentang evaluasi kinerja karyawan dan rencana strategis perusahaan untuk kuartal berikutnya",
+      "C": "Kepada Bapak Kepala Sekolah, waktu dan tempat kami persilahkan untuk menyampaikan pidato pembukaan acara pagi ini",
+      "D": "Tahapan dalam proses produksi itu meliputi persiapan bahan baku, proses percetakan, dan bagaimana melakukan pengemasan akhir",
+      "E": "Pemerintah akan meninjau kembali regulasi ekspor komoditas nonmigas dan menyederhanakan prosedur birokrasi yang ada"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "explanation": "Kalimat efektif terdapat pada opsi E yang memiliki struktur kalimat yang jelas, logis, dan tidak ambigu. - Opsi A salah karena kalimat ini tidak memiliki subjek yang jelas. Penggunaan kata depan \"Bagi\" di awal kalimat membuat frasa \"seluruh peserta yang belum mengumpulkan tugas\" berubah fungsi menjadi Keterangan, bukan Subjek. Seharusnya: \"Seluruh peserta yang belum mengumpulkan tugas harap segera menyerahkannya...\" - Opsi B salah karena kalimat ini tidak hemat kata. Kata kerja \"membahas\" adalah verba transitif yang tidak memerlukan kata depan \"tentang\". Seharusnya: \"Rapat pimpinan pagi ini membahas evaluasi kinerja karyawan...\" - Opsi C salah karena kalimat ini tidak logis. Subjek kalimat ini adalah \"waktu dan tempat\", namun yang dipersilakan seharusnya adalah \"Bapak Kepala Sekolah\", bukan \"waktu dan tempat\". Seharusnya: \"Bapak Kepala Sekolah kami persilakan untuk menyampaikan pidato...\" - Opsi D salah karena kalimat ini tidak paralel (tidak sejajar). Rincian \"tahapan\" tidak konsisten. \"Persiapan bahan baku\" (nomina), \"proses pencetakan\" (nomina), tetapi yang ketiga adalah \"bagaimana melakukan pengemasan akhir\" (klausa/frasa kerja). Seharusnya: \"...persiapan bahan baku, proses pencetakan, dan pengemasan akhir.\""
+  },
+  {
+    "number": 30,
+    "type": "single",
+    "category": "TWK",
+    "categoryLabel": "Tes Wawasan Kebangsaan",
+    "text": "Lahan perkotaan yang semakin sempit dan ketergantungan pada rantai pasok pangan jarak jauh menjadi tantangan serius bagi ketahanan pangan. Namun, sebuah solusi inovatif bernama urban farming atau pertanian perkotaan kini semakin populer sebagai jawaban atas masalah tersebut. Dengan memanfaatkan ruang terbatas seperti atap gedung dan dinding, metode seperti hidroponik dan vertikultur memungkinkan warga kota untuk menanam sendiri sumber pangannya. Praktik ini tidak hanya menyediakan akses terhadap sayuran segar dan sehat bagi masyarakat urban. Lebih jauh lagi, pertanian perkotaan juga turut mengurangi jejak karbon dari proses distribusi pangan dan memperkuat kemandirian komunitas lokal.\nKesimpulan paragraf di atas adalah…",
+    "options": {
+      "A": "Pertanian perkotaan merupakan solusi inovatif yang tidak hanya meningkatkan ketahanan pangan tetapi juga memberikan menfaat lingkungan dan sosial bagi masyarakat kota",
+      "B": "Metode hidroponik dan holtikultural adalah cara paling efektif untuk bercocok tanam di lahan sempit seperti atap gedung dan balkon",
+      "C": "Tantangan masyarakat kota adalah sempitnya lahan dan ketergantungan pada rantai pasok pangan yang panjang",
+      "D": "Semua masyarakat kota seharusnya beralih ke\nUrban Farming\nuntuk mengatasi potensi krisis pangan di masa depan",
+      "E": "Manfaat utama dari pertanian perkotaan adalah kemampuannya dalam mengurangi jejak karbon dari proses distribusi pangan"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Kesimpulan adalah rangkuman dari seluruh ide yang disajikan. Paragraf di atas dimulai dengan menyajikan masalah (tantangan ketahanan pangan kota), kemudian memperkenalkan solusi\n(urban farming),\ndan diakhiri dengan menjelaskan berbagai manfaatnya (akses pangan, pengurangan jejak karbon, kemandirian komunitas).\nOpsi A berhasil merangkum semua poin kunci tersebut:\nurban farming\nsebagai solusi inovatif (kalimat 2) yang meningkatkan ketahanan pangan (kalimat 4) serta memberikan manfaat lingkungan (jejak karbon) dan sosial (kemandirian komunitas) (kalimat 5)."
+  },
+  {
+    "number": 31,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "1.\nProlog : Epilog = Awal : …",
+    "options": {
+      "A": "Pembukaan",
+      "B": "khir",
+      "C": "erita",
+      "D": "Tengah",
+      "E": "paragraf"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Prolog\nadalah bagian pembuka dan epilog adalah penutup (akhir) sehingga hubungan ini\nsangat tepat"
+  },
+  {
+    "number": 32,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Anggota\n: Regu : Peleton",
+    "options": {
+      "A": "Pemain\n: Tim : Liga",
+      "B": "Siswa\n: Kelas : Sekolah",
+      "C": "Pohon\n: Hutan : Kayu",
+      "D": "Karyawan\n: Kantor : Gaji",
+      "E": "uku\n: Rak : Perpustakaan"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Kumpulan\nindividu membentuk unit kecil, unit kecil membentuk menengah Dimana siswa\nmembentu kelas, kelas-kelas membentuk sekolah."
+  },
+  {
+    "number": 33,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "“Negara\nIndonesia Berdasarkan Pancasila.” Kalimat di bawah ini memiliki pola yang sama\ndengan kalimat berikut adalah ..",
+    "options": {
+      "A": "Kakak\nmembelikan saya buku",
+      "B": "Penjelasan\nguru sangat jelas",
+      "C": "ia\nmerasa Sedih",
+      "D": "yah\nbeternak Ayam",
+      "E": "Kehidupan\nmenyerupai sebuah drama"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "explanation": "Negara\nIndonesia\n(S)\nberdasarkan\n(P)\nPancasila\n(Pel)\n. Pola:\nS-P-Pel\n.\n(Pancasila adalah pelengkap karena kalimat tidak bisa dipasifkan). Maka jawaban\nyang tepat dan sesuai adalah E. Kehidupannya (S) menyerupai (P) sebuah drama\n(Pel)."
+  },
+  {
+    "number": 34,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Kalimat\n“Pencuri itu lari” memiliki pola yang\nsama dengan",
+    "options": {
+      "A": "Pencuri\nitu lari ke hutan",
+      "B": "Polisi\nmenangkap pencuri",
+      "C": "Ibu\nGuru Datang",
+      "D": "ia\nSangat Ketakutan",
+      "E": "Rani\nKe Pasar"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Pencuri\n(S)\nitu lari\n(P)\nKeduanya memiliki pola S-P yang terdiri dari\npelaku dan perbuatannya saja."
+  },
+  {
+    "number": 35,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "1.\nSemua karyawan swasta mendapat\nbonus tahunan\nSebagian penerima bonus tahunan tidak bekerja di\nbagian lapangan. Kesimpulan yang tepat Adalah",
+    "options": {
+      "A": "Semua\nkaryawan swasta bekerja di bagian lapangan",
+      "B": "Sebagian\nkaryawan swasta tidak bekerja di bagian lapangan",
+      "C": "Sebagian\norang yang bekerja di bagian lapangan bukan keryawan swasta",
+      "D": "Semua\nyang tidak mendapat bonus Adalah pekerja lapangan",
+      "E": "Keryawan\nswasta pasti bekerja di bagian lapangan"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Semua\nkaryawan swasta mendapat bonus tahunan. Sebagian penerima bonus\ntahunan tidak bekerja di bagian lapangan. Jika ada kata “semua” bertemu\n“Sebagian”, hasilnya akhirnya akan “Sebagian”. Sehingga Sebagian karyawan\nswasta tida keberja di bagian lapangan."
+  },
+  {
+    "number": 36,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "1.\nSemua sayuran organik tidak\nmengandung pestisida kimia.\nSemua bahan makanan yang tidak mengandung pestisida kimia sangat\nmenyehatkan\nSebagian\nmenu di restoran \"Sehat Selalu\" adalah sayuran organik.\nKesimpulan yang paling tepat adalah…",
+    "options": {
+      "A": "Semua\nmenu di restoran \"Sehat Selalu\" sangat menyehatkan.",
+      "B": "Semua\nsayuran organik adalah menu di restoran \"Sehat Selalu\".",
+      "C": "Sebagian\nmenu di restoran \"Sehat Selalu\" sangat menyehatkan.",
+      "D": "Sebagian\nbahan makanan yang menyehatkan bukan sayuran organik",
+      "E": "Restoran\n\"Sehat Selalu\" hanya menjual sayuran organik"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Semua\nsayuran organik\ntidak mengandung pestisida kimia.\nSemua bahan makanan yang tidak mengandung pestisida kimia sangat menyehatkan.\nSebagian menu di restoran \"Sehat Selalu\" adalah\nsayuran organik\n. Jika ada kata “semua” bertemu\n“Sebagian”, hasilnya akhirnya akan “Sebagian”. Sehingga Sebagian menu\ndirestoran “Sehat Selalu” sangat menyehatkan."
+  },
+  {
+    "number": 37,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Enam\norang panitia futsal (Dani, Erna, Fajar, Gita, Heru, dan Isma) sedang rapat\npenentuan pemenang dengan duduk mengelilingi sebuah meja bundar dengan aturan\nposisi duduk sebagai berikut:\n-\nDani duduk tepat di hadapan\nGita.\n-\nFajar duduk tepat di antara\nDani dan Isma.\n-\nErna duduk dua kursi di sebelah\nkanan Dani.\nHeru tidak duduk di samping Gita.\nPertanyaan:\nSiapakah yang duduk tepat di sebelah kiri\nGita\n?",
+    "options": {
+      "A": "ani",
+      "B": "rna",
+      "C": "Fajar",
+      "D": "Heru",
+      "E": "Isma"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "explanation": "Untuk\nmeja bundar, cara termudah adalah menggambar sebuah lingkaran dan menentukan\nsatu titik sebagai titik awal yang searah jarum jam."
+  },
+  {
+    "number": 38,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "Urutan\nkedua, Kuning",
+      "B": "Urutan\nkedua, Biru",
+      "C": "Urutan\nkeempat, Merah",
+      "D": "Urutan\nkelima, Biru",
+      "E": "Urutan\nkedua, Hijau"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_001.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_002.png"
+    ]
+  },
+  {
+    "number": 39,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "C,\nF, E, I, G, L, I, ...",
+    "options": {
+      "A": "O,\nK",
+      "B": "P,\nL",
+      "C": "O, M",
+      "D": "N, K",
+      "E": "P, M"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Deret\nini memiliki\ndua pola selang-seling\n(lompat satu):\nPola 1 (posisi ganjil): C, E, G, I (+2 huruf) -> Huruf berikutnya\nadalah\nK\n.\nPola\n2 (posisi genap): F, I, L (+3 huruf) -> Huruf berikutnya adalah\nO\n.\nUrutan selanjutnya adalah pola 2 dulu baru pola\n1"
+  },
+  {
+    "number": 40,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "A,\n4, D, 9, G, 16, J, ...",
+    "options": {
+      "A": "20, N",
+      "B": "25, M",
+      "C": "21, O",
+      "D": "24, L",
+      "E": "18, P"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanation": "Huruf:\nA, D, G, J (Loncat 2 huruf: B-C, E-F, H-I) -> M\nAngka:\n4, 9, 16 (\n,\n,\n).\nMaka angka berikutnya adalah\n= 25"
+  },
+  {
+    "number": 41,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_003.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_004.png"
+    ]
+  },
+  {
+    "number": 42,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Berapakah\nini berikutnya : 256, 128, 64, 32 , … , ...",
+    "options": {
+      "A": "16,\n4",
+      "B": "20,\n10",
+      "C": "16,\n8",
+      "D": "24\n16",
+      "E": "8,\n4"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_005.png"
+    ]
+  },
+  {
+    "number": 43,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_006.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_007.png"
+    ]
+  },
+  {
+    "number": 44,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_008.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_009.png"
+    ]
+  },
+  {
+    "number": 45,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_010.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_011.png"
+    ]
+  },
+  {
+    "number": 46,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Nila\ndari 0.875 dari 64 dikurangi 33,33% dari 27 adalah ..",
+    "options": {
+      "A": "45",
+      "B": "47",
+      "C": "49",
+      "D": "51",
+      "E": "60"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_012.png"
+    ]
+  },
+  {
+    "number": 47,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_013.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_014.png"
+    ]
+  },
+  {
+    "number": 48,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_015.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_016.png"
+    ]
+  },
+  {
+    "number": 49,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_017.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_018.png"
+    ]
+  },
+  {
+    "number": 50,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_019.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_020.png"
+    ]
+  },
+  {
+    "number": 51,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_021.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_022.png"
+    ]
+  },
+  {
+    "number": 52,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_023.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_024.png"
+    ]
+  },
+  {
+    "number": 53,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_025.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_026.png"
+    ]
+  },
+  {
+    "number": 54,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "D",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 5,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_027.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_028.png"
+    ]
+  },
+  {
+    "number": 55,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_029.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_030.png"
+    ]
+  },
+  {
+    "number": 56,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_031.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_032.png"
+    ]
+  },
+  {
+    "number": 57,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "C",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_033.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_034.png"
+    ]
+  },
+  {
+    "number": 58,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_035.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_036.png"
+    ]
+  },
+  {
+    "number": 59,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "D",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 5,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_037.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_038.png"
+    ]
+  },
+  {
+    "number": 60,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "D",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 5,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_039.png"
+    ],
+    "explanationImages": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_040.png"
+    ]
+  },
+  {
+    "number": 61,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "B",
+    "points": {
+      "A": 0,
+      "B": 5,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_041.png"
+    ],
+    "explanation": "Pola dari gambar di atas dalah\narah segitiga akan berubah arah dari kanan ke kiri kemudian ke kanan lagi dan\nseterusnya, selain itu warn abagun sefitiga juga mempunyai pola dari hitam\nkemudian putih kemudian hitam lagi begitu seterusnya. Lanjutan dari gambar di\natas dapat dipastikan yaitu pada pola gambar B"
+  },
+  {
+    "number": 62,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_042.png"
+    ],
+    "explanation": "Pola\ndari gambar di atas adalah kotak yang berwarna hitam akan bertambah satu pada\npola selanjutnya. Selanjutya kotak yang berwarna hitam pada kolom paling atas\nakan bergeser ke kolom di bawagnya kemudian ke kolom berikutnya lagi pada baris\nberikutnya begitu seterusnya. Gambara selanjutnya yaitu pola gambar A"
+  },
+  {
+    "number": 63,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_043.png"
+    ],
+    "explanation": "Pola\ndari gambar di atas adalah noktah hitam akan bergeser ke atas dan akan Kembali\nke bawah lagi. Sedangkan persegi Panjang hitam akan bergeser dari atas kembalik\nke bawah dan akan Kembali ke atas lagi. Gambar selanjutnya dari deret diatas\nyaitu A"
+  },
+  {
+    "number": 64,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "E",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 5
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_044.png"
+    ],
+    "explanation": "Pola\ndari gambar di atas adalah bangun yang menyerupai bulan sabit berwarna putih.\nBangun tersebut berpindah satu-satu ke arah kanan dan berbelok kekiri setelah\npada baris atas. Lanjutan dari deret di atas adalah E"
+  },
+  {
+    "number": 65,
+    "type": "single",
+    "category": "TIU",
+    "categoryLabel": "Tes Intelegensi Umum",
+    "text": "Perhatikan gambar berikut, lalu pilih jawaban yang paling tepat.",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "answer": "D",
+    "points": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 5,
+      "E": 0
+    },
+    "images": [
+      "https://raw.githubusercontent.com/kurniacandra/1/refs/heads/main/skd_to6_img_045.png"
+    ],
+    "explanation": "Pola\ndarii gambar di atas adalah pada tiap lingkaran akan berisi huruf yang\nberkelanjutan pad apila berikutnya. Pada lingkaran putih dimulai dengan huruf D\ndan akan berlanjut pada huruf berikutnya. Sedangkan, pada lingkaran berwarna\nhitam dimulai dengan huruf K dan akan berlanjut pada baris berikutnya .\nlanjutan dari pola di atas yaitu gambar E"
+  },
+  {
+    "number": 66,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Seorang manajer pemasaran ingin memperkenalkan produk baru ke pasar. Namun, ia merasa sulit untuk membuat strategi pemasaran yang tepat dan berbicara dengan konsumen potensial dengan cara yang efektif. Apa yang sebaiknya dilakukan oleh manajer pemasaran tersebut? (jejaring kerja)",
+    "options": {
+      "A": "Menerapkan strategi pemasaran yang sama seperti produk sebelumnya dan tidak mempertimbangkan masukan dari konsumen potensial",
+      "B": "Mengurangi biaya promosi untuk menghemat anggaran pemasaran",
+      "C": "Mempelajari perilaku konsumen potensial dan membuat strategi pemasaran yang lebih tepat sasaran",
+      "D": "Mengabaikan strategi pemasaran dan mengandalkan faktor keberuntungan",
+      "E": "Menggantikan peran manajer pemasaran dengan orang yang lebih mampu dalam berkomunikasi dan membuat strategi pemasaran"
+    },
+    "answer": "C",
+    "points": {
+      "A": 4,
+      "B": 3,
+      "C": 5,
+      "D": 1,
+      "E": 2
+    },
+    "explanation": "CABED\nManajer pemasaran sebaiknya mempelajari perilaku konsumen potensial dan membuat strategi pemasaran yang lebih tepat sasaran. Hal ini akan membantu memahami kebutuhan dan preferensi konsumen, sehingga dapat menentukan strategi pemasaran yang efektif. Menerapkan strategi pemasaran yang sama seperti produk sebelumnya tanpa mempertimbangkan masukan dari konsumen potensial dapat menyebabkan produk yang tidak laku di pasaran. Mengurangi biaya promosi untuk menghemat anggaran pemasaran juga tidak disarankan karena promosi yang efektif dapat membantu menarik minat konsumen dan meningkatkan penjualan produk. Menggantikan peran manajer pemasaran dengan orang yang lebih mampu dalam berkomunikasi dan membuat strategi pemasaran mungkin dapat membantu, namun tetap diperlukan pemahaman yang baik tentang perilaku konsumen. Mengabaikan strategi pemasaran dan mengandalkan faktor keberuntungan tentu saja tidak disarankan karena keberhasilan produk harus didukung oleh strategi pemasaran yang tepat."
+  },
+  {
+    "number": 67,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Setelah kalah dalam beberapa pertandingan, tim sepakbola Universitas B mulai merasa frustasi dan terjadi konflik antara pemain di dalam tim. Sebagai kapten tim, apa yang sebaiknya dilakukan oleh Andi untuk meningkatkan keterampilan interpersonal dan kemampuan berkomunikasi di antara pemain tim? (jejaring kerja)",
+    "options": {
+      "A": "Membuat peraturan yang lebih ketat untuk menghindari terjadinya konflik di dalam tim.",
+      "B": "Melakukan pertemuan dengan anggota tim dan membicarakan masalah yang sedang terjadi",
+      "C": "Mengabaikan konflik dan fokus pada latihan fisik tim.",
+      "D": "Mengganti beberapa pemain yang dianggap menjadi sumber konflik di dalam tim.",
+      "E": "Meningkatkan intensitas latihan untuk menghindari terjadinya waktu luang yang dapat memicu konflik di antara pemain"
+    },
+    "answer": "B",
+    "points": {
+      "A": 3,
+      "B": 5,
+      "C": 1,
+      "D": 2,
+      "E": 4
+    },
+    "explanation": "BEADC\nmengatasi konflik di antara pemain tim sepakbola memerlukan pendekatan yang tepat dan terstruktur. Pertama-tama, penting untuk membicarakan masalah secara terbuka dan mendengarkan perspektif masing-masing pemain untuk mencari solusi bersama. Selain itu, meningkatkan intensitas latihan dapat membantu mengurangi waktu luang pemain dan memperkuat rasa solidaritas dalam tim. Namun, perlu diingat bahwa membuat peraturan yang lebih ketat atau mengganti pemain tidak selalu menjadi solusi terbaik, karena dapat memicu konflik baru atau merusak keseimbangan tim"
+  },
+  {
+    "number": 68,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Rina adalah seorang atlet basket yang ingin memperluas jejaring kerjanya dengan menghadiri acara seminar tentang olahraga basket. Selain itu, dia ingin mencari sponsor untuk membantunya dalam karir basketnya. Pilihan tindakan yang terbaik adalah … (jejaring kerja)",
+    "options": {
+      "A": "Tidak menghadiri seminar karena merasa sudah ahli dalam olahraga basket",
+      "B": "Menjalin hubungan dengan para peserta seminar dan mengirimkan email follow-up setelah acara berakhir.",
+      "C": "Mencari sponsor karena penting dalam karir basketnya",
+      "D": "Meminta bantuan orang lain untuk mencari sponsor.",
+      "E": "Membagikan pamflet dan menawarkan dirinya sebagai atlet basket kepada peserta seminar"
+    },
+    "answer": "B",
+    "points": {
+      "A": 2,
+      "B": 5,
+      "C": 4,
+      "D": 1,
+      "E": 3
+    },
+    "explanation": "BCEAD\nSebagai atlet basket yang ingin memperluas jejaring kerjanya dan mencari sponsor, sebaiknya Rina menghadiri seminar dan menjalin hubungan dengan peserta seminar. Kemudian, ia dapat mencari sponsor dan membagikan pamflet serta menawarkan dirinya sebagai atlet basket. Sebaiknya ia tidak mengabaikan seminar karena bisa mendapatkan informasi dan koneksi baru. Tidak perlu meminta bantuan orang lain untuk mencari sponsor karena Rina sendiri yang lebih tahu dan mengenal dirinya sebagai atlet basket."
+  },
+  {
+    "number": 69,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Andi adalah seorang manajer tim sepakbola yang terdiri dari anggota dengan beragam latar belakang dan budaya. Saat ini sedang memasuki bulan puasa, yang merupakan waktu penting bagi beberapa anggota tim yang beragama Islam. Pilihan tindakan terbaik bagi Andi adalah … (jejaring kerja)",
+    "options": {
+      "A": "Tidak memperdulikan puasa dan meminta anggota tim yang beragama Islam untuk tetap berlatih dan bermain seperti biasa.",
+      "B": "Memperbolehkan anggota tim yang beragama Islam untuk tidak berpartisipasi dalam latihan dan pertandingan selama bulan puasa.",
+      "C": "Menghormati dan memahami praktik puasa anggota tim yang beragama Islam dengan memperpendek jadwal latihan saat bulan puasa.",
+      "D": "Mengganti anggota tim yang beragama Islam dengan pemain lain yang tidak berpuasa selama bulan puasa untuk memastikan kinerja tim tetap optimal",
+      "E": "Mengadakan pertemuan dengan anggota tim untuk membahas dampak puasa pada performa mereka dan mencari solusi bersama"
+    },
+    "answer": "E",
+    "points": {
+      "A": 2,
+      "B": 3,
+      "C": 4,
+      "D": 1,
+      "E": 5
+    },
+    "explanation": "CEBAD\nSebagai manajer tim sepakbola yang memiliki anggota tim dengan latar belakang dan budaya yang beragam, sebaiknya Andi harus menghormati dan memahami praktik agama anggota tim dan berusaha menyesuaikan jadwal latihan dan pertandingan selama bulan puasa. Hal ini menunjukkan bahwa Andi memperhatikan kebutuhan dan hak asasi dari anggota tim. Selain itu, mengadakan pertemuan untuk membahas dampak puasa pada performa anggota tim dan mencari solusi bersama juga merupakan tindakan yang baik untuk mencapai kesepakatan terbaik bagi semua anggota tim"
+  },
+  {
+    "number": 70,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Ardi adalah seorang pemain sepakbola yang baru saja bergabung dengan tim baru. Dia merasa kesulitan untuk berbaur dengan anggota tim yang lain karena kurangnya kemampuan dalam membangun hubungan interpersonal yang efektif. Pilihan tindakan yang terbaik adalah … (jejaring kerja)",
+    "options": {
+      "A": "Menghindari interaksi dengan anggota tim yang lain dan fokus pada latihan sepakbola.",
+      "B": "Mengajukan diri untuk menjadi kapten tim agar dapat lebih mudah mengatur strategi tim",
+      "C": "Mencoba berbincang-bincang dan bertanya tentang minat atau hobi anggota tim yang lain agar dapat membangun hubungan yang lebih baik.",
+      "D": "Mencari klub sepakbola lain yang lebih sesuai dengan kepribadiannya.",
+      "E": "Mengabaikan kebutuhan sosialnya dan fokus pada kemampuan bermain sepakbola yang lebih baik."
+    },
+    "answer": "C",
+    "points": {
+      "A": 3,
+      "B": 2,
+      "C": 5,
+      "D": 1,
+      "E": 4
+    },
+    "explanation": "CEABD\nTindakan terbaik bagi Ardi adalah mencoba berbincang-bincang dan bertanya tentang minat atau hobi anggota tim yang lain agar dapat membangun hubungan yang lebih baik. Hal ini dapat membantu Ardi untuk lebih memahami anggota tim yang lain dan menemukan kesamaan atau minat yang sama, sehingga dapat memperkuat hubungan interpersonal di antara mereka"
+  },
+  {
+    "number": 71,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Sofia adalah seorang pengusaha muda yang sibuk dengan banyak pekerjaan dan proyek baru. Meskipun ia ingin memperluas jejaring kerjanya, dia merasa sulit untuk menemukan waktu untuk menghadiri acara networking atau membangun hubungan dengan rekan bisnis baru. Jika anda menjadi Sofia apa yang akan lakukan? (jejaring kerja)",
+    "options": {
+      "A": "Tetap fokus pada pekerjaan dan proyek yang sedang berjalan dan tidak mencari peluang baru.",
+      "B": "Mengalokasikan waktu khusus setiap minggu untuk menghadiri acara networking atau menghubungi rekan bisnis baru secara online.",
+      "C": "Mengabaikan rekan bisnis yang baru dan hanya bekerja dengan rekan bisnis yang sudah dikenal",
+      "D": "Mendelegasikan tugas untuk mengembangkan jejaring kepada karyawan atau rekan bisnis lainnya.",
+      "E": "Mencari sumber daya atau aplikasi yang dapat membantu memperluas jejaring secara efektif dengan sedikit waktu yang tersedia."
+    },
+    "answer": "E",
+    "points": {
+      "A": 2,
+      "B": 4,
+      "C": 1,
+      "D": 3,
+      "E": 5
+    },
+    "explanation": "BEDAC\nMenjadi pengusaha yang sukses membutuhkan keterampilan dalam membangun jejaring dan mengembangkan hubungan bisnis yang efektif. Meskipun Sofia sibuk dengan banyak proyek, ia harus tetap memprioritaskan waktu untuk memperluas jejaring kerjanya. Pilihan terbaik adalah dengan mengalokasikan waktu khusus setiap minggu untuk menghadiri acara networking atau menghubungi rekan bisnis baru secara online. Sofia juga dapat mencari sumber daya atau aplikasi yang dapat membantu memperluas jejaringnya secara efektif dengan sedikit waktu yang tersedia. Jika memungkinkan, Sofia juga dapat mendelegasikan tugas untuk mengembangkan jejaring kepada karyawan atau rekan bisnis lainnya. Namun, ia tidak boleh mengabaikan rekan bisnis yang baru dan hanya bekerja dengan rekan bisnis yang sudah dikenal karena dapat mengurangi peluang bisnis yang lebih luas."
+  },
+  {
+    "number": 72,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Adam merasa keterbatasan jaringan yang dimilikinya membuatnya sulit untuk berkembang dalam karirnya. Salah satu hal yang bisa dilakukan Adam adalah ... (jejaring kerja)",
+    "options": {
+      "A": "Mencoba untuk berinteraksi dengan orang baru di media sosial",
+      "B": "Mengabaikan kesempatan untuk mengikuti seminar atau acara industri",
+      "C": "Menunggu datangnya kesempatan dari perusahaan atau kolega",
+      "D": "Fokus pada kerja keras dan meninggalkan jejaring yang lebih luas",
+      "E": "Mengandalkan kolega atau atasan untuk membantunya memperluas jaringan"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 4,
+      "C": 2,
+      "D": 3,
+      "E": 1
+    },
+    "explanation": "AEBDC\nMemperluas jaringan adalah hal yang penting untuk berkembang dalam karir. Salah satu tindakan yang dapat dilakukan adalah dengan mencoba untuk berinteraksi dengan orang baru di media sosial. Namun, tidak hanya bergantung pada interaksi di media sosial, tetapi juga dapat mengandalkan kolega atau atasan untuk membantunya memperluas jaringan. Mengabaikan kesempatan untuk mengikuti seminar atau acara industri adalah tindakan yang tidak tepat, karena dapat memperluas jaringan dengan bertemu orang-orang baru dan mendapatkan informasi terbaru di bidangnya. Fokus pada kerja keras penting, tetapi harus disertai dengan membangun jejaring yang lebih luas. Terakhir, menunggu datangnya kesempatan dari perusahaan atau kolega bukanlah tindakan yang efektif, karena seseorang harus aktif mencari peluang untuk memperluas jaringan."
+  },
+  {
+    "number": 73,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Sebuah perusahaan sedang mengadakan diskusi kelompok untuk memperbaiki efisiensi kerja di kantor. Ada beberapa peserta yang cenderung diam dan tidak aktif berpartisipasi. Seorang moderator dihadirkan untuk memfasilitasi diskusi agar semua peserta dapat terlibat secara aktif, Sebagai peserta diskusi, sikap yang seharusnya diambil ketika ada peserta lain yang cenderung diam dan tidak aktif berpartisipasi adalah … (sosial budaya)",
+    "options": {
+      "A": "Terus melakukan pembicaraan dengan peserta yang aktif, sambil mengabaikan peserta yang diam.",
+      "B": "Mendorong peserta yang diam untuk ikut berpartisipasi, dengan meminta pendapat atau tanggapan mereka.",
+      "C": "Melaporkan peserta yang diam kepada moderator, agar moderator dapat menyelesaikan masalah tersebut.",
+      "D": "Menunggu peserta yang diam untuk mulai berbicara, tanpa melakukan tindakan apapun.",
+      "E": "Membuat kesimpulan sendiri tanpa mempertimbangkan pendapat peserta yang diam."
+    },
+    "answer": "B",
+    "points": {
+      "A": 4,
+      "B": 5,
+      "C": 1,
+      "D": 3,
+      "E": 2
+    },
+    "explanation": "BADEC\nDalam situasi seperti ini, penting bagi peserta diskusi untuk mendorong peserta lain yang diam untuk ikut berpartisipasi. Hal ini dapat dilakukan dengan meminta pendapat atau tanggapan mereka. Namun, peserta diskusi harus tetap menghargai keputusan mereka yang mungkin memilih untuk tidak berbicara. Memperhatikan dan mendengarkan semua peserta diskusi dapat membantu menciptakan lingkungan yang inklusif dan kolaboratif. Mengabaikan atau membuat kesimpulan sendiri tanpa mempertimbangkan pendapat peserta yang diam bisa merugikan diskusi dan membuat peserta lain merasa tidak dihargai. Jika situasinya memang sulit diatasi, laporan kepada moderator bisa menjadi solusi, namun hal ini harus dilakukan sebagai upaya terakhir dan dengan tetap memperhatikan hak privasi peserta yang diam."
+  },
+  {
+    "number": 74,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Kamu menjadi anggota diskusi kelompok tentang masalah-masalah sosial yang berkaitan dengan keragaman etnis, agama, dan budaya di sebuah organisasi masyarakat. Saat diskusi berlangsung, salah satu anggota kelompok mengungkapkan pandangannya bahwa seharusnya hanya orang-orang yang berasal dari kelompok etnis mayoritas yang boleh menentukan kebijakan organisasi masyarakat tersebut. Bagaimana sikap yang seharusnya kamu ambil? (sosial budaya)",
+    "options": {
+      "A": "Menolak pandangan tersebut dan menyarankan agar setiap anggota organisasi masyarakat memiliki hak yang sama dalam menentukan kebijakan",
+      "B": "Setuju dengan pandangan tersebut dan menyarankan agar organisasi masyarakat mengikuti kebijakan yang diambil oleh kelompok etnis mayoritas",
+      "C": "Menjelaskan bahwa setiap individu memiliki hak yang sama dalam menentukan kebijakan, dan menyarankan agar setiap anggota organisasi masyarakat dapat saling menghormati dan menghargai perbedaan etnis.",
+      "D": "Mengabaikan pandangan tersebut dan melanjutkan diskusi ke topik berikutnya",
+      "E": "Menyarankan agar kelompok mengundang ahli dalam bidang multikulturalisme untuk memberikan pemahaman yang lebih dalam tentang masalah-masalah sosial yang berkaitan dengan keragaman etnis, agama, dan budaya."
+    },
+    "answer": "C",
+    "points": {
+      "A": 4,
+      "B": 1,
+      "C": 5,
+      "D": 2,
+      "E": 3
+    },
+    "explanation": "ACEDB\nSikap yang seharusnya diambil ketika anggota kelompok mengungkapkan pandangan bahwa hanya orang-orang yang berasal dari kelompok etnis mayoritas yang boleh menentukan kebijakan organisasi masyarakat adalah dengan menolak pandangan tersebut dan menyatakan bahwa setiap anggota organisasi masyarakat harus memiliki hak yang sama dalam menentukan kebijakan. Selanjutnya, menjelaskan bahwa setiap individu memiliki hak yang sama dan perlu saling menghormati dan menghargai perbedaan etnis, dan menyarankan agar kelompok mengundang ahli dalam bidang multikulturalisme untuk memberikan pemahaman yang lebih dalam tentang masalah-masalah sosial yang berkaitan dengan keragaman etnis, agama, dan budaya. Sebaliknya, mengabaikan pandangan tersebut atau setuju dengan pandangan tersebut hanya akan memperburuk situasi dan tidak menghargai keragaman etnis dan budaya dalam organisasi masyarakat."
+  },
+  {
+    "number": 75,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Dalam diskusi kelompok, ada anggota kelompok yang mengeluarkan pernyataan yang menyinggung agama atau etnis tertentu. Apa yang seharusnya dilakukan oleh anggota kelompok yang lain? (Sosial Budaya)",
+    "options": {
+      "A": "Membantah pernyataan tersebut dengan argumen yang kuat",
+      "B": "Menghindari konflik dengan tidak menanggapi pernyataan tersebut",
+      "C": "Mencoba mengubah topik pembicaraan",
+      "D": "Menegur anggota kelompok yang membuat pernyataan tersebut secara halus",
+      "E": "Meninggalkan kelompok diskusi untuk menghindari konflik"
+    },
+    "answer": "D",
+    "points": {
+      "A": 4,
+      "B": 2,
+      "C": 3,
+      "D": 5,
+      "E": 1
+    },
+    "explanation": "DACBE\nDalam situasi tersebut, sikap yang seharusnya diambil oleh anggota kelompok yang lain adalah menegur anggota kelompok yang membuat pernyataan tersebut secara halus. Hal ini dilakukan agar anggota kelompok yang membuat pernyataan menyadari bahwa pernyataannya bisa menyinggung agama atau etnis tertentu dan agar anggota kelompok yang lain merasa dihargai dan dihormati. Membantah pernyataan tersebut dengan argumen yang kuat juga bisa dilakukan sebagai alternatif dari menegur secara halus. Namun, perlu diingat bahwa hal ini dapat memicu konflik atau perdebatan yang lebih intens. Mencoba mengubah topik pembicaraan juga bisa dilakukan sebagai cara untuk mengalihkan perhatian dari pernyataan yang menyinggung tersebut, namun hal ini tidak akan menyelesaikan masalah dan bisa dianggap sebagai tindakan menghindari masalah. Menghindari konflik dengan tidak menanggapi pernyataan tersebut atau meninggalkan kelompok diskusi untuk menghindari konflik sebenarnya tidak akan menyelesaikan masalah dan bisa dianggap sebagai tindakan yang kurang menghargai anggota kelompok yang merasa tersinggung."
+  },
+  {
+    "number": 76,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Selama diskusi, kamu merasa tertantang dengan beberapa pandangan kelompok diskusi yang berbeda denganmu. Sikap apa yang sebaiknya kamu ambil? (sosial budaya)",
+    "options": {
+      "A": "Membantah semua pandangan yang berbeda denganmu",
+      "B": "Menerima semua pandangan yang berbeda denganmu tanpa berpikir lebih lanjut",
+      "C": "Mencoba mencari informasi lebih lanjut tentang pandangan tersebut",
+      "D": "Menghindari diskusi dan keluar dari kelompok",
+      "E": "Mengabaikan pandangan mereka dan fokus pada pendapatmu sendiri."
+    },
+    "answer": "C",
+    "points": {
+      "A": 2,
+      "B": 4,
+      "C": 5,
+      "D": 1,
+      "E": 3
+    },
+    "explanation": "CBEAD\nDalam situasi di mana kamu merasa tertantang dengan beberapa pandangan kelompok diskusi yang berbeda denganmu, kamu harus mencoba mencari informasi lebih lanjut tentang pandangan tersebut dan mengajukan pertanyaan yang lebih spesifik untuk memperjelas pemahamanmu. Namun, tetaplah berhati-hati dan jangan terburu-buru menerima segala sesuatu tanpa melakukan pengecekan dan analisis yang lebih mendalam."
+  },
+  {
+    "number": 77,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Saat mengunjungi situs warisan budaya dan religius, Anda melihat ada beberapa orang yang kurang menghargai nilai-nilai keragaman di sekitar mereka. Sikap yang tepat untuk mengatasi hal ini adalah … (sosial budaya)",
+    "options": {
+      "A": "Mengabaikan mereka dan fokus pada kunjungan Anda",
+      "B": "Menegur mereka dengan tegas dan mengajarkan nilai-nilai toleransi",
+      "C": "Membuat kelompok diskusi untuk membahas perbedaan dan keragaman di masyarakat",
+      "D": "Menjauhi mereka agar tidak merusak pengalaman kunjungan Anda",
+      "E": "Membuat pengaduan kepada pihak berwenang"
+    },
+    "answer": "C",
+    "points": {
+      "A": 2,
+      "B": 4,
+      "C": 5,
+      "D": 1,
+      "E": 3
+    },
+    "explanation": "BCEAD\nMenegur mereka dengan tegas dan mengajarkan nilai-nilai toleransi merupakan tindakan yang tepat untuk menyampaikan bahwa perilaku mereka tidak dapat diterima dan memberikan kesempatan untuk belajar dan meningkatkan pemahaman tentang nilai-nilai keragaman. Membuat kelompok diskusi untuk membahas perbedaan dan keragaman di masyarakat juga merupakan tindakan yang positif untuk meningkatkan kesadaran tentang pentingnya toleransi dan penghargaan terhadap keragaman. Membuat pengaduan kepada pihak berwenang mungkin perlu dilakukan jika perilaku mereka melanggar aturan atau undang-undang tertentu, tetapi sebaiknya dilakukan setelah mencoba untuk menyelesaikan masalah secara damai terlebih dahulu. Mengabaikan mereka atau menjauh dari situasi mungkin tidak memberikan solusi yang baik, terutama jika hal ini terus berlanjut atau merusak pengalaman kunjungan orang lain."
+  },
+  {
+    "number": 78,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Anda menemukan bahwa situs warisan budaya dan religius yang Anda kunjungi kurang terawat dan perlu diperbaiki. Sikap yang tepat untuk mengatasi hal ini adalah … (sosial budaya)",
+    "options": {
+      "A": "Mengabaikan kondisi situs tersebut dan hanya fokus pada pembelajaran tentang nilai-nilai budaya dan religius",
+      "B": "Membuat kelompok diskusi untuk membahas cara memperbaiki situs tersebut",
+      "C": "Mengajukan proposal kepada pihak berwenang untuk memperbaiki situs tersebut",
+      "D": "Mengambil tindakan sendiri untuk memperbaiki situs tersebut",
+      "E": "Menyalahkan pihak berwenang atas kondisi situs yang buruk"
+    },
+    "answer": "B",
+    "points": {
+      "A": 1,
+      "B": 5,
+      "C": 4,
+      "D": 3,
+      "E": 2
+    },
+    "explanation": "CBDEA\nKetika menemukan situs warisan budaya dan religius yang kurang terawat dan perlu diperbaiki, sikap yang tepat adalah dengan mengajukan proposal kepada pihak berwenang untuk memperbaiki situs tersebut. Hal ini karena pihak berwenang yang memiliki kewenangan dan sumber daya untuk melakukan perbaikan secara tepat dan efektif. Jika tidak memungkinkan untuk mengajukan proposal, maka membuat kelompok diskusi untuk membahas cara memperbaiki situs tersebut atau mengambil tindakan sendiri juga dapat menjadi pilihan yang baik. Namun, menyalahkan pihak berwenang atas kondisi situs yang buruk tidak akan membantu memperbaiki situasi dan justru dapat memperburuk hubungan dengan pihak berwenang. Mengabaikan kondisi situs dan hanya fokus pada pembelajaran tentang nilai-nilai budaya dan religius juga tidak akan membantu memperbaiki kondisi situs yang kurang terawat."
+  },
+  {
+    "number": 79,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Saat mengunjungi situs warisan budaya dan religius, Anda menemukan beberapa informasi yang tidak akurat atau tidak sesuai dengan sejarah. Sikap yang tepat untuk mengatasi hal ini adalah … (sosial budaya)",
+    "options": {
+      "A": "Mengabaikan informasi tersebut dan hanya fokus pada pengalaman kunjungan",
+      "B": "Membuat kelompok diskusi untuk membahas informasi yang tidak akurat tersebut",
+      "C": "Menyampaikan keluhan Anda kepada pihak berwenang dan meminta perbaikan informasi yang tidak akurat",
+      "D": "Mencari sumber informasi yang akurat dan membandingkan dengan informasi yang ada di situs tersebut",
+      "E": "Menyebarluaskan informasi yang tidak akurat kepada orang lain untuk memperbaiki situs tersebut"
+    },
+    "answer": "C",
+    "points": {
+      "A": 2,
+      "B": 3,
+      "C": 5,
+      "D": 4,
+      "E": 1
+    },
+    "explanation": "DCBAE\nSaat mengunjungi situs warisan budaya dan religius, penting untuk mendapatkan informasi yang akurat dan sesuai dengan sejarah. Jika menemukan informasi yang tidak akurat, maka tindakan yang paling tepat adalah mencari sumber informasi yang akurat dan membandingkan dengan informasi yang ada di situs tersebut. Selanjutnya, jika menemukan bahwa informasi tersebut tidak akurat, maka keluhan dapat disampaikan kepada pihak berwenang dan meminta perbaikan informasi yang tidak akurat. Membuat kelompok diskusi untuk membahas informasi yang tidak akurat dapat menjadi solusi untuk menyelesaikan masalah ini secara bersama-sama. Namun, mengabaikan informasi tersebut dan hanya fokus pada pengalaman kunjungan atau menyebarluaskan informasi yang tidak akurat kepada orang lain untuk memperbaiki situs tersebut bukanlah solusi yang tepat."
+  },
+  {
+    "number": 80,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Saat mengunjungi situs warisan budaya dan religius, Anda menemukan sekelompok orang yang sedang merusak atau mengambil benda-benda bersejarah. Sikap yang tepat untuk mengatasi hal ini adalah … (sosial budaya)",
+    "options": {
+      "A": "Mengabaikan tindakan mereka dan hanya fokus pada pengalaman kunjungan Anda",
+      "B": "Melaporkan tindakan mereka kepada pihak berwenang",
+      "C": "Membuat kelompok diskusi untuk membahas tindakan mereka",
+      "D": "Mencoba membujuk mereka untuk menghentikan tindakan tersebut",
+      "E": "Mencoba mengambil tindakan sendiri untuk menghentikan tindakan mereka"
+    },
+    "answer": "D",
+    "points": {
+      "A": 1,
+      "B": 4,
+      "C": 2,
+      "D": 5,
+      "E": 3
+    },
+    "explanation": "BDECA\nMengambil tindakan yang tepat saat menemukan tindakan merusak atau mengambil benda-benda bersejarah di situs warisan budaya dan religius sangat penting. Melaporkan tindakan tersebut kepada pihak berwenang merupakan tindakan terbaik yang dapat dilakukan, karena mereka memiliki kewenangan untuk menindaklanjuti tindakan tersebut dan menjaga keamanan situs tersebut. Membujuk mereka untuk menghentikan tindakan tersebut juga bisa dilakukan, tetapi harus dilakukan dengan hati-hati untuk menghindari konfrontasi. Mencoba mengambil tindakan sendiri hanya sebagai pilihan terakhir jika tidak ada pilihan lain yang tersedia. Membuat kelompok diskusi dan mengabaikan tindakan mereka bukan merupakan tindakan yang tepat untuk mengatasi situasi ini."
+  },
+  {
+    "number": 81,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Arief adalah seorang pegawai di sebuah kantor pemerintah yang belum terbiasa menggunakan teknologi informasi. Salah satu tugasnya adalah membuat laporan keuangan dengan menggunakan program komputer. Sebagai rekan kerja yang peduli, apa yang bisa kamu lakukan untuk membantu Arief? (TIK)",
+    "options": {
+      "A": "Menjelaskan cara menggunakan program komputer dengan cepat dan langsung menyelesaikan laporannya.",
+      "B": "Memberi tahu bos bahwa Arief tidak mampu menyelesaikan tugasnya dan meminta agar tugas tersebut dialihkan ke orang lain.",
+      "C": "Mengajak Arief belajar secara intensif dan terus menerus tentang program komputer.",
+      "D": "Memberikan Arief tautan ke video tutorial online tentang cara menggunakan program komputer.",
+      "E": "Minta Arief untuk meminta bantuan dari IT helpdesk kantor"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 1,
+      "C": 2,
+      "D": 4,
+      "E": 3
+    },
+    "explanation": "DECAB\nKetika membantu seseorang yang belum terbiasa dengan teknologi informasi, penting untuk menawarkan sumber daya yang bermanfaat, seperti video tutorial online atau bantuan langsung dari IT helpdesk kantor. Dalam jangka waktu tertentu, individu mungkin perlu mengambil waktu untuk belajar dan memahami program komputer yang digunakan. Menjelaskan cara penggunaan program komputer dengan cepat dan langsung menyelesaikan tugasnya mungkin tidak efektif dan dapat menimbulkan masalah tambahan. Selain itu, tidak bijaksana untuk langsung memberi tahu bos bahwa seseorang tidak mampu menyelesaikan tugasnya tanpa mencoba memecahkan masalah terlebih dahulu."
+  },
+  {
+    "number": 82,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Pada saat ini, terdapat banyak peluang pekerjaan yang membutuhkan kemampuan IT. Bagaimana menurutmu caranya untuk meningkatkan literasi teknologi informasi dan komunikasi di kalangan masyarakat yang lebih tua? (TIK)",
+    "options": {
+      "A": "Mengadakan seminar dan lokakarya di pusat komunitas untuk mengajarkan teknologi informasi dasar.",
+      "B": "Mengharuskan setiap orang untuk membuat akun media sosial agar mereka bisa terbiasa dengan teknologi.",
+      "C": "Mengadakan kelas online terstruktur dengan metode belajar yang menarik",
+      "D": "Membuat buku panduan teknologi informasi dan komunikasi yang mudah dipahami dan tersedia di perpustakaan",
+      "E": "Memberikan subsidi kepada orang yang ingin mengikuti kursus teknologi informasi dan komunikasi"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 1,
+      "C": 3,
+      "D": 4,
+      "E": 2
+    },
+    "explanation": "DCAEB\nKita harus memperhatikan bahwa setiap orang memiliki cara belajar yang berbeda-beda, sehingga tidak semua orang akan terbantu dengan metode yang sama. Buku panduan teknologi informasi dan komunikasi yang mudah dipahami dapat membantu orang yang lebih suka belajar secara mandiri. Kelas online terstruktur dengan metode belajar yang menarik dapat membantu orang yang lebih suka belajar secara terstruktur dan lebih interaktif. Seminar dan lokakarya di pusat komunitas dapat membantu orang yang lebih suka belajar dari pengalaman orang lain. Memberikan subsidi kepada orang yang ingin mengikuti kursus teknologi informasi dan komunikasi dapat membantu orang yang tidak memiliki sumber daya untuk mengikuti kursus tersebut. Namun, mengharuskan setiap orang untuk membuat akun media sosial tidak efektif karena teknologi yang digunakan pada media sosial tidak selalu sama dengan teknologi yang dibutuhkan di tempat kerja atau dalam kehidupan sehari-hari."
+  },
+  {
+    "number": 83,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Seseorang ingin membeli smartphone baru dan berbelanja di toko online. Namun, ia tidak yakin apakah harus memilih merek smartphone yang sudah dikenal atau merek yang belum pernah ia dengar sebelumnya. Bagaimana menurutmu ia harus mengambil keputusan? (TIK)",
+    "options": {
+      "A": "Membeli smartphone merek yang sudah dikenal karena sudah terbukti kualitasnya",
+      "B": "Membeli smartphone merek yang belum pernah dikenal sebelumnya karena harganya lebih murah.",
+      "C": "Mencari informasi tentang kedua merek smartphone di internet dan membandingkannya",
+      "D": "Mencari rekomendasi dari orang yang telah menggunakan merek smartphone tersebut sebelumnya.",
+      "E": "EMencoba mengunjungi toko fisik untuk mencoba dan membandingkan kedua merek smartphone."
+    },
+    "answer": "C",
+    "points": {
+      "A": 2,
+      "B": 1,
+      "C": 5,
+      "D": 4,
+      "E": 3
+    },
+    "explanation": "CDEAB\nPenting bagi pembeli untuk mencari informasi dan melakukan riset terlebih dahulu sebelum membeli smartphone baru. Dengan begitu, pembeli bisa membuat keputusan yang lebih baik dan cerdas berdasarkan informasi yang akurat dan terbaru. Hal ini juga bisa membantu mencegah pembeli membeli produk yang kurang baik atau tidak sesuai dengan harapan."
+  },
+  {
+    "number": 84,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Sebagai kepala sekolah di sebuah sekolah menengah, Anda ingin meningkatkan fasilitas teknologi informasi dan komunikasi di sekolah tersebut. Namun, dana yang tersedia terbatas. Langkah yang paling tepat untuk memperoleh teknologi informasi dan komunikasi terbaru adalah … (TIK)",
+    "options": {
+      "A": "Membeli perangkat teknologi informasi dan komunikasi terbaru dari toko komputer terdekat.",
+      "B": "Melakukan kerjasama dengan institusi atau organisasi terkait untuk memperoleh teknologi informasi dan komunikasi terbaru.",
+      "C": "Meminjam perangkat teknologi informasi dan komunikasi dari institusi atau organisasi terkait.",
+      "D": "Mengajukan proposal pengadaan teknologi informasi dan komunikasi terbaru kepada pemerintah.",
+      "E": "Menggunakan dana sekolah untuk memperoleh teknologi informasi dan komunikasi terbaru."
+    },
+    "answer": "D",
+    "points": {
+      "A": 1,
+      "B": 4,
+      "C": 3,
+      "D": 5,
+      "E": 2
+    },
+    "explanation": "BCDEA\nkerjasama dengan institusi atau organisasi terkait dan meminjam perangkat dari mereka dapat menjadi solusi yang baik jika dana terbatas. Namun, jika memungkinkan, mengajukan proposal pengadaan kepada pemerintah bisa menjadi opsi yang lebih baik. Dan terakhir, menggunakan dana sekolah sebaiknya hanya menjadi pilihan terakhir karena bisa merugikan kebutuhan lain di sekolah."
+  },
+  {
+    "number": 85,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Sebagai manajer di sebuah perusahaan teknologi informasi, Anda ingin mengembangkan bisnis dengan menjalin kerjasama dengan institusi atau organisasi terkait. Langkah yang paling tepat untuk melakukan hal tersebut adalah … (TIK)",
+    "options": {
+      "A": "Mengirim email atau surat permohonan kerjasama ke beberapa institusi atau organisasi terkait.",
+      "B": "Membuat presentasi yang menarik dan memperkenalkan perusahaan pada beberapa institusi atau organisasi terkait.",
+      "C": "Menyewa iklan di media massa untuk memperkenalkan perusahaan kepada institusi atau organisasi terkait.",
+      "D": "Mengajak pihak institusi atau organisasi terkait untuk mengunjungi kantor perusahaan dan melihat produk yang ditawarkan.",
+      "E": "Menyediakan hadiah atau insentif bagi pihak institusi atau organisasi terkait yang bekerja sama dengan perusahaan."
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 4,
+      "C": 1,
+      "D": 3,
+      "E": 2
+    },
+    "explanation": "BDAEC\nCara terbaik untuk membangun kerjasama dengan institusi atau organisasi terkait adalah dengan membuat presentasi yang menarik dan memperkenalkan perusahaan pada beberapa institusi atau organisasi terkait. Hal ini akan membantu institusi atau organisasi terkait memahami lebih baik mengenai perusahaan dan produk yang ditawarkan. Selain itu, mengajak pihak institusi atau organisasi terkait untuk mengunjungi kantor perusahaan dan melihat produk yang ditawarkan juga akan memberikan kesempatan untuk menjelaskan lebih lanjut mengenai produk dan layanan yang tersedia."
+  },
+  {
+    "number": 86,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Sebagai anggota komunitas lokal, Anda ingin mengembangkan proyek untuk memperbaiki infrastruktur teknologi informasi dan komunikasi di daerah Anda. Langkah yang paling tepat untuk memulai proyek tersebut adalah … (TIK)",
+    "options": {
+      "A": "Mengadakan acara penggalangan dana untuk membeli perangkat teknologi informasi dan komunikasi baru.",
+      "B": "Membentuk tim kerja yang terdiri dari anggota komunitas dan bekerja sama dengan institusi atau organisasi terkait.",
+      "C": "Mengajukan proposal proyek ke pemerintah dan meminta bantuan untuk memperoleh teknologi informasi dan komunikasi baru.",
+      "D": "Meminta sumbangan perangkat teknologi informasi dan komunikasi dari perusahaan-perusahaan terkait.",
+      "E": "Membeli perangkat teknologi informasi dan komunikasi bekas dengan harga murah dari toko komputer terdekat"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 4,
+      "C": 3,
+      "D": 2,
+      "E": 1
+    },
+    "explanation": "BCADE\nUntuk meningkatkan infrastruktur TIK di daerah, diperlukan kerjasama dengan banyak pihak. Langkah yang tepat antara lain membentuk tim kerja, mengajukan proposal proyek ke pemerintah, dan melakukan penggalangan dana. Meminta sumbangan dari perusahaan-perusahaan terkait juga dapat membantu, tetapi membeli perangkat TIK bekas sebaiknya dihindari karena dapat menimbulkan masalah kualitas dan keamanan."
+  },
+  {
+    "number": 87,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Chandra adalah seorang kepala departemen IT yang ingin meningkatkan keamanan data di perusahaannya. Ia ingin membuat kebijakan yang menjamin data perusahaan terlindungi dari ancaman virus atau malware. Sikap kepala departemen IT Chandra yang tepat untuk mengatasi masalah tersebut adalah … (TIK)",
+    "options": {
+      "A": "Menginstal anti-virus dan anti-malware pada komputer karyawan",
+      "B": "Memaksa karyawan untuk hanya menggunakan situs-situs web yang telah disetujui.",
+      "C": "Melakukan backup data secara teratur.",
+      "D": "Menghapus akses ke situs-situs web tertentu yang dianggap berbahaya.",
+      "E": "Memberikan pelatihan keamanan kepada karyawan agar mereka memahami cara menghindari serangan virus atau malware."
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 1,
+      "C": 4,
+      "D": 2,
+      "E": 3
+    },
+    "explanation": "CAEDB\nUntuk meningkatkan keamanan data di perusahaan, tidak hanya cukup dengan menginstal anti-virus dan anti-malware pada komputer karyawan. Backup data secara teratur sangat penting untuk menghindari kehilangan data saat terjadi serangan virus atau malware. Selain itu, memberikan pelatihan keamanan kepada karyawan agar mereka memahami cara menghindari serangan virus atau malware juga penting untuk mencegah serangan virus atau malware. Namun, menghapus akses ke situs-situs web tertentu harus dilakukan secara selektif agar tidak mengganggu produktivitas karyawan. Memaksa karyawan untuk hanya menggunakan situs-situs web yang telah disetujui juga tidak disarankan karena dapat mengganggu produktivitas karyawan."
+  },
+  {
+    "number": 88,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Dini adalah seorang manajer di perusahaan yang ingin meningkatkan efisiensi kerja karyawannya. Ia ingin membuat kebijakan yang mendorong penggunaan teknologi informasi dan komunikasi untuk memudahkan komunikasi antar departemen. Sikap manajer Dini yang tepat untuk mengatasi masalah tersebut adalah … (TIK)",
+    "options": {
+      "A": "Membuat aturan yang memperbolehkan karyawan hanya berkomunikasi melalui email",
+      "B": "Memasang sistem kolaborasi online yang dapat diakses oleh semua karyawan.",
+      "C": "Memberikan smartphone kepada setiap karyawan agar mereka dapat berkomunikasi dengan mudah.",
+      "D": "Menggunakan sistem telepon konferensi untuk rapat antar departemen",
+      "E": "Menggunakan aplikasi pesan instan seperti WhatsApp untuk berkomunikasi antar departemen."
+    },
+    "answer": "E",
+    "points": {
+      "A": 2,
+      "B": 4,
+      "C": 1,
+      "D": 3,
+      "E": 5
+    },
+    "explanation": "BEDAC\nDengan menggunakan sistem kolaborasi online, semua karyawan dapat bekerja sama secara efektif dan menghemat waktu dalam proses komunikasi dan kolaborasi."
+  },
+  {
+    "number": 89,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Seorang manajer bernama Budi yang merasa tidak nyaman dengan persaingan antara departemen yang berbeda di perusahaannya. Budi merasa terjebak dalam dilema antara memprioritaskan kepentingan departemennya sendiri atau bekerja sama dengan departemen lain untuk meningkatkan kinerja perusahaan secara keseluruhan. Apa yang sebaiknya dilakukan oleh Budi dalam situasi ini? (Profesionalisme)",
+    "options": {
+      "A": "Memaksimalkan kinerja departemen sendiri dengan mengabaikan kerja sama dengan departemen lain",
+      "B": "Berkomunikasi dengan atasan dan meminta dipindahkan ke departemen yang tidak bersaing dengan departemennya sendiri",
+      "C": "Mengambil inisiatif untuk membangun hubungan baik dengan departemen lain dan mencari cara untuk bekerja sama secara efektif",
+      "D": "Menghindari berinteraksi dengan departemen lain untuk mencegah konflik",
+      "E": "Mengundurkan diri dari perusahaan dan mencari pekerjaan di perusahaan lain yang tidak memiliki persaingan internal"
+    },
+    "answer": "C",
+    "points": {
+      "A": 4,
+      "B": 3,
+      "C": 5,
+      "D": 2,
+      "E": 1
+    },
+    "explanation": "CABDE\nSebagai seorang manajer, Budi perlu memahami bahwa persaingan antar departemen mungkin tidak selalu menguntungkan perusahaan secara keseluruhan. Sebagai gantinya, dia harus mencari cara untuk membangun hubungan yang baik dengan departemen lain dan mencari cara untuk bekerja sama secara efektif. Ini dapat meningkatkan kinerja perusahaan secara keseluruhan dan membantu menciptakan lingkungan kerja yang lebih sehat dan produktif."
+  },
+  {
+    "number": 90,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Seorang ahli teknologi bernama Dian yang bekerja di sebuah perusahaan besar. Dian merasa tertekan dengan persaingan antara perusahaan sejenis dan merasa kesulitan untuk menghasilkan produk yang lebih baik daripada kompetitornya. Apa yang sebaiknya dilakukan oleh Dian dalam situasi ini? (Profesionalisme)",
+    "options": {
+      "A": "Menghindari setiap bentuk kompetisi dan fokus pada peningkatan kinerja pribadi saja",
+      "B": "Menyalahkan kompetitor atas kesulitan yang dihadapinya dan berhenti berusaha",
+      "C": "Mencari tahu tentang produk dan teknologi terbaru, mengikuti perkembangan industri dan berusaha menghasilkan produk yang lebih baik",
+      "D": "Meniru produk kompetitor dan mengklaim sebagai produk baru buatan sendiri",
+      "E": "Meninggalkan perusahaan dan memulai bisnis sendiri dengan produk yang sama dengan kompetitor"
+    },
+    "answer": "C",
+    "points": {
+      "A": 4,
+      "B": 3,
+      "C": 5,
+      "D": 2,
+      "E": 1
+    },
+    "explanation": "CABDE\nDalam menghadapi persaingan di industri, penting untuk selalu mengikuti perkembangan terbaru dan berusaha meningkatkan kualitas produk. Dian harus mencari tahu tentang produk dan teknologi terbaru agar dapat menghasilkan produk yang lebih baik daripada kompetitornya. Namun, dia juga tidak boleh terlalu fokus pada kompetisi dan melupakan peningkatan kinerja pribadi. Sementara itu, menyalahkan kompetitor atas kesulitan yang dihadapi tidak akan membawa solusi dan dapat merugikan citra perusahaan. Meniru produk kompetitor juga tidak etis dan dapat merusak reputasi perusahaan. Meninggalkan perusahaan dan memulai bisnis sendiri dengan produk yang sama dengan kompetitor juga bukanlah solusi terbaik. Sebelum memutuskan untuk memulai bisnis sendiri, Dian harus mempertimbangkan faktor-faktor seperti modal, risiko, dan kelayakan bisnis"
+  },
+  {
+    "number": 91,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Bambang adalah seorang kepala dinas di sebuah kota. Belakangan ini, ia merasa tertekan oleh berbagai kelompok masyarakat yang menuntut pelayanan yang lebih baik dari dinas yang ia pimpin. Kelompok-kelompok tersebut seringkali membuat protes dan aksi unjuk rasa yang membuat Bambang merasa kesulitan dalam menjalankan tugasnya. Bagaimana seharusnya Bambang menangani tekanan dari kelompok-kelompok masyarakat tersebut? (profesionalisme)",
+    "options": {
+      "A": "Mengabaikan tuntutan kelompok masyarakat dan fokus pada tugas-tugas yang diemban oleh dinasnya.",
+      "B": "Menolak tuntutan kelompok masyarakat dengan alasan bahwa dinasnya sudah melakukan yang terbaik.",
+      "C": "Membuat program-program yang dapat memenuhi tuntutan kelompok masyarakat dan melibatkan mereka dalam proses pembuatan kebijakan",
+      "D": "Menggunakan tindakan represif terhadap kelompok-kelompok masyarakat yang melakukan protes dan aksi unjuk rasa.",
+      "E": "Membuat persekutuan dengan kelompok-kelompok masyarakat tersebut agar dapat bekerja sama dalam mencapai tujuan bersama."
+    },
+    "answer": "C",
+    "points": {
+      "A": 3,
+      "B": 2,
+      "C": 5,
+      "D": 1,
+      "E": 4
+    },
+    "explanation": "CEABD\nSebagai seorang kepala dinas, Bambang harus mempertimbangkan tuntutan kelompok masyarakat dan mencari cara untuk memenuhi kebutuhan mereka. Namun demikian, Bambang juga harus memastikan bahwa ia dapat menjalankan tugas-tugasnya sebagai kepala dinas dengan efektif. Oleh karena itu, membuat program-program yang memenuhi tuntutan kelompok masyarakat dan melibatkan mereka dalam proses pembuatan kebijakan bisa menjadi solusi terbaik untuk menangani tekanan dari kelompok masyarakat tersebut. Selain itu, mencoba untuk membuat persekutuan dengan kelompok-kelompok masyarakat tersebut juga dapat membantu Bambang untuk bekerja sama dengan mereka dan mencapai tujuan bersama. Namun, mengabaikan tuntutan kelompok masyarakat atau menolak tuntutan mereka dengan alasan yang tidak tepat, menggunakan tindakan represif terhadap kelompok-kelompok masyarakat yang melakukan protes dan aksi unjuk rasa dapat memperburuk situasi dan memicu konflik yang lebih besar."
+  },
+  {
+    "number": 92,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Seorang guru merasa bahwa dirinya tidak mendapatkan pengakuan yang layak dari kepala sekolahnya meskipun telah berhasil membawa murid-muridnya meraih prestasi yang baik dalam bidang akademik dan non-akademik. Apa yang seharusnya dilakukan oleh guru tersebut? (profesionalisme)",
+    "options": {
+      "A": "Menunjukkan ketidakpuasan dan kekecewaan kepada kepala sekolah.",
+      "B": "Mengurangi tugas-tugas yang dilakukan dan kurang memberikan perhatian pada murid-murid.",
+      "C": "Mencari pekerjaan di tempat lain yang dapat memberikan pengakuan yang layak.",
+      "D": "Mencari dukungan dari rekan kerja dan mempertahankan kinerja terbaiknya",
+      "E": "Mencari alasan untuk menjustifikasi kinerjanya yang kurang memuaskan dan menyalahkan orang lain atas kegagalan tersebut"
+    },
+    "answer": "D",
+    "points": {
+      "A": 4,
+      "B": 2,
+      "C": 1,
+      "D": 5,
+      "E": 3
+    },
+    "explanation": "DAEBC\nDalam situasi ini, seorang guru seharusnya mempertahankan kinerjanya yang terbaik dan mencari dukungan dari rekan kerja untuk mendapatkan pengakuan yang layak. Menunjukkan ketidakpuasan dan kekecewaan secara langsung kepada kepala sekolah sebaiknya dilakukan dengan cara yang sopan dan konstruktif. Sementara itu, mengurangi tugas-tugas dan memberikan perhatian kurang pada murid-murid justru dapat merugikan mereka. Memutarbalikkan kinerjanya dengan menyalahkan orang lain atau mencari alasan hanya akan membuat situasi semakin buruk. Mencari pekerjaan di tempat lain juga bukan solusi yang baik karena masalah ini mungkin terulang kembali di tempat kerja yang baru."
+  },
+  {
+    "number": 93,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Ibu Dewi adalah seorang manajer di sebuah perusahaan konstruksi. Ia merasa keterbatasan sumber daya menjadi kendala dalam menjalankan tugasnya. Ia perlu membuat keputusan untuk memilih salah satu di antara beberapa pilihan berikut ini. Manakah tindakan yang paling tepat diambil oleh Ibu Dewi dalam menghadapi masalah tersebut? (Profesionalisme)",
+    "options": {
+      "A": "Mengurangi kualitas pekerjaan agar sesuai dengan keterbatasan sumber daya yang tersedia.",
+      "B": "Menunda pekerjaan hingga sumber daya yang cukup tersedia.",
+      "C": "Mencari sumber daya tambahan dengan cara meminjam dari pihak lain atau melakukan outsourcing.",
+      "D": "Melakukan pekerjaan sesuai dengan waktu yang tersedia, meskipun kurang maksimal",
+      "E": "Mengurangi jangka waktu pelaksanaan proyek agar sesuai dengan sumber daya yang tersedia."
+    },
+    "answer": "C",
+    "points": {
+      "A": 3,
+      "B": 1,
+      "C": 5,
+      "D": 2,
+      "E": 4
+    },
+    "explanation": "CEADB\nOpsi C adalah tindakan yang paling tepat karena mencari sumber daya tambahan dapat membantu memenuhi kebutuhan sumber daya yang kurang. Outsourcing juga bisa membantu dalam hal ini. Namun, opsi E dapat memengaruhi kualitas pekerjaan dan produktivitas tim, sehingga perlu dipertimbangkan dengan hati-hati. Opsi A dapat merugikan kepercayaan pelanggan dan reputasi perusahaan, sehingga sebaiknya dihindari. Opsi D dapat memengaruhi kualitas pekerjaan dan produktivitas tim. Opsi B juga bukan solusi terbaik karena menunda pekerjaan dapat memengaruhi waktu penyelesaian proyek dan dapat merugikan perusahaan"
+  },
+  {
+    "number": 94,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Siti adalah seorang karyawan di sebuah perusahaan swasta yang bekerja sebagai akuntan. Sejak awal bekerja, Siti merasa tuntutan kerja yang diberikan oleh atasan sangat berlebihan dan tidak sesuai dengan kapasitas dirinya. Siti merasa stress dan kelelahan setiap hari karena harus bekerja hingga larut malam. Tentu saja, Siti harus melakukan beberapa tindakan untuk mengatasi situasi yang ia hadapi. Manakah di antara tindakan berikut yang paling tepat dilakukan oleh Siti? (profesionalisme)",
+    "options": {
+      "A": "Mengajukan cuti panjang untuk sementara waktu",
+      "B": "Mencari pekerjaan baru yang lebih sesuai dengan kapasitas dirinya",
+      "C": "Mengeluh kepada atasan tentang tuntutan kerja yang berlebihan",
+      "D": "Memaksakan diri untuk bekerja lebih keras agar bisa menyelesaikan tugas-tugas",
+      "E": "Mengabaikan tuntutan kerja dan fokus pada kegiatan di luar pekerjaan"
+    },
+    "answer": "D",
+    "points": {
+      "A": 2,
+      "B": 4,
+      "C": 3,
+      "D": 5,
+      "E": 1
+    },
+    "explanation": "BCADE\nJawaban terbaik adalah opsi B, yaitu mencari pekerjaan baru yang lebih sesuai dengan kapasitas dirinya. Dengan mencari pekerjaan baru, Siti dapat menemukan pekerjaan yang lebih sesuai dengan keahlian dan kapasitasnya sehingga ia dapat bekerja dengan lebih efektif dan produktif. Selain itu, dengan mencari pekerjaan baru, Siti juga dapat menemukan lingkungan kerja yang lebih sehat dan mendukung."
+  },
+  {
+    "number": 95,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Seorang manajer proyek sedang mengalami konflik dengan seorang anggota timnya. Anggota tim tersebut selalu menolak ide-ide manajer dan membuat keputusan tanpa berkonsultasi terlebih dahulu. Manajer proyek merasa frustrasi karena ini menghambat proyek. Bagaimana seharusnya manajer proyek menangani situasi ini? (profesionalisme)",
+    "options": {
+      "A": "Memecat anggota tim tersebut untuk menghindari masalah lebih lanjut",
+      "B": "Mengabaikan masalah dan berharap anggota tim tersebut akan berubah dengan sendirinya",
+      "C": "Mencari jalan tengah dengan anggota tim dan mencari solusi yang memuaskan kedua belah pihak",
+      "D": "Mengalihkan proyek kepada orang lain untuk menyelesaikan masalah",
+      "E": "Mempertahankan pendapat dan keputusannya karena sebagai manajer, dia memiliki kekuasaan untuk membuat keputusan yang tepat"
+    },
+    "answer": "C",
+    "points": {
+      "A": 1,
+      "B": 2,
+      "C": 5,
+      "D": 3,
+      "E": 4
+    },
+    "explanation": "CEDBA\nSeorang manajer proyek harus selalu berusaha mencari jalan tengah dalam menangani konflik dengan anggota tim. Mengabaikan masalah atau memaksakan kehendak hanya akan memperburuk situasi dan meningkatkan risiko kegagalan proyek. Namun, jika tidak ada cara lain, maka mengalihkan proyek atau memecat anggota tim tertentu mungkin harus dipertimbangkan."
+  },
+  {
+    "number": 96,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Asep adalah seorang mahasiswa yang baru saja bergabung dengan sebuah organisasi yang diketahui memiliki afiliasi dengan kelompok radikal. Asep menyadari bahwa keanggotaannya dalam organisasi tersebut dapat membahayakan dirinya sendiri dan orang lain. Apa yang seharusnya dilakukan oleh Asep? (anti radikalisme)",
+    "options": {
+      "A": "Tetap menjadi anggota organisasi tersebut dan memperkuat keyakinannya",
+      "B": "Meninggalkan organisasi dan melaporkan aktivitasnya ke pihak berwenang",
+      "C": "Memilih untuk diam dan tidak terlibat dalam aktivitas organisasi",
+      "D": "Mencari dukungan dari keluarga atau teman untuk membantu keluar dari organisasi tersebut",
+      "E": "Melakukan aksi balasan terhadap kelompok radikal untuk menunjukkan ketidaksetujuannya"
+    },
+    "answer": "B",
+    "points": {
+      "A": 2,
+      "B": 5,
+      "C": 3,
+      "D": 4,
+      "E": 1
+    },
+    "explanation": "BDCAE\nJika seseorang menyadari bahwa keanggotaannya dalam organisasi dapat membahayakan dirinya sendiri dan orang lain, langkah yang tepat adalah meninggalkan organisasi dan melaporkan aktivitasnya ke pihak berwenang. Sebagai tindakan tambahan, dapat mencari dukungan dari keluarga atau teman untuk membantu keluar dari organisasi tersebut. Memilih untuk diam dan tidak terlibat dalam aktivitas organisasi juga dapat menjadi pilihan, tetapi ini tidak akan menyelesaikan masalah dan masih mengakibatkan risiko bagi diri sendiri dan orang lain. Tetap menjadi anggota organisasi atau melakukan aksi balasan terhadap kelompok radikal bukanlah solusi yang baik dan dapat memperburuk situasi."
+  },
+  {
+    "number": 97,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Ali adalah seorang warga yang tinggal di sebuah kampung yang baru saja mendapatkan bantuan dari kelompok ekstremis. Bantuan tersebut membantu membangun infrastruktur di kampung, namun Ali menyadari bahwa kelompok tersebut berusaha untuk mempengaruhi dan merekrut warga kampung agar bergabung dengan pemikirannya. Apa yang seharusnya dilakukan oleh Ali? (anti radikalisme)",
+    "options": {
+      "A": "Menerima bantuan tersebut tanpa memikirkan dampak jangka panjangnya",
+      "B": "Memberikan dukungan penuh dan bergabung dengan kelompok tersebut",
+      "C": "Mengabaikan tindakan kelompok tersebut karena bantuan yang diberikan sangat berguna",
+      "D": "Mengadakan pertemuan dengan warga kampung dan membahas mengenai dampak negatif dari bergabung dengan kelompok radikal",
+      "E": "Mencari dukungan dari kelompok radikal lain untuk memerangi kelompok ekstremis tersebut"
+    },
+    "answer": "D",
+    "points": {
+      "A": 4,
+      "B": 2,
+      "C": 3,
+      "D": 5,
+      "E": 1
+    },
+    "explanation": "DACBE\nSebagai warga yang bertanggung jawab, Ali harus mempertimbangkan dampak jangka panjang dari menerima bantuan kelompok ekstremis tersebut. Ali sebaiknya mengadakan pertemuan dengan warga kampung dan membahas mengenai dampak negatif dari bergabung dengan kelompok radikal. Hal ini penting agar warga kampung tidak mudah terpengaruh dan terlibat dalam aksi-aksi yang bertentangan dengan nilai-nilai kebangsaan dan kemanusiaan. Sebaliknya, menerima bantuan tanpa memikirkan dampak jangka panjangnya atau memberikan dukungan penuh dan bergabung dengan kelompok radikal akan membahayakan diri sendiri dan orang lain serta merugikan kepentingan masyarakat secara keseluruhan."
+  },
+  {
+    "number": 98,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Taufik adalah seorang pemuda yang baru saja pulang dari belajar di luar negeri. Ia merasa sangat terpukul setelah mengetahui bahwa sahabatnya yang dulu merupakan sosok yang baik dan santun, kini telah terpapar oleh pemikiran radikal dan bahkan berusaha merekrut Taufik untuk bergabung dengan kelompoknya. Apa yang seharusnya dilakukan oleh Taufik dalam situasi ini? (anti radikalisme)",
+    "options": {
+      "A": "Menerima tawaran untuk bergabung dengan kelompok radikal tersebut karena ingin mempertahankan hubungannya dengan sahabatnya",
+      "B": "Menolak tawaran tersebut dan mencoba untuk mengajak sahabatnya untuk keluar dari kelompok radikal tersebut",
+      "C": "Menerima tawaran tersebut dan berusaha mengubah pandangan kelompok tersebut dari dalam",
+      "D": "Menjauh dari sahabatnya dan tidak mempertahankan hubungan tersebut karena takut terpapar oleh pemikiran radikal",
+      "E": "Melaporkan sahabatnya ke pihak berwenang untuk diambil tindakan yang tepat"
+    },
+    "answer": "B",
+    "points": {
+      "A": 2,
+      "B": 5,
+      "C": 3,
+      "D": 4,
+      "E": 1
+    },
+    "explanation": "BDCAE\nPilihan terbaik adalah B, karena Taufik tidak seharusnya mempertahankan hubungan dengan sahabatnya yang terpapar pemikiran radikal, namun mencoba untuk mengajak sahabatnya untuk keluar dari kelompok radikal tersebut. Menjauh dari sahabatnya (D) dapat menjadi pilihan yang sulit, terutama jika mereka memiliki hubungan yang erat. Namun, Taufik harus memastikan bahwa ia tidak terpapar oleh pemikiran radikal dan tidak mempertahankan hubungan yang merugikan dirinya sendiri."
+  },
+  {
+    "number": 99,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Di media sosial, seorang teman membagikan video yang berisi narasi yang sangat provokatif tentang isu agama. Bagaimana seseorang yang memiliki sikap kritis terhadap narasi radikalisme dapat menanggapi hal tersebut? (anti radikalisme)",
+    "options": {
+      "A": "Menyebarkan video tersebut untuk mengetahui pendapat orang lain.",
+      "B": "Mengabaikan video tersebut karena tidak ingin terlibat dalam konflik",
+      "C": "Memberikan komentar dengan argumen dan fakta yang jelas dan berimbang",
+      "D": "Memberikan balasan provokatif dan merendahkan pihak yang berbeda pendapat",
+      "E": "Melaporkan video tersebut kepada pihak berwenang karena dianggap mengandung unsur radikalisme."
+    },
+    "answer": "E",
+    "points": {
+      "A": 2,
+      "B": 3,
+      "C": 4,
+      "D": 1,
+      "E": 5
+    },
+    "explanation": "CEBAD\nKetika menanggapi narasi radikalisme di media sosial, penting untuk menggunakan sikap kritis dan memberikan komentar dengan argumen dan fakta yang jelas dan berimbang. Jika dianggap mengandung unsur radikalisme, video tersebut dapat dilaporkan kepada pihak berwenang. Jika tidak ingin terlibat dalam konflik, maka bisa mengabaikan video tersebut. Namun, menyebarkan video tersebut untuk mengetahui pendapat orang lain atau memberikan balasan provokatif dan merendahkan pihak yang berbeda pendapat tidaklah disarankan karena dapat memperburuk situasi."
+  },
+  {
+    "number": 100,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Rara adalah seorang mahasiswa yang memiliki teman-teman dengan latar belakang yang berbeda-beda, termasuk agama, budaya, dan suku bangsa. Suatu hari, di kelas Rara, ada temannya yang mengungkapkan pandangannya yang kurang menghargai perbedaan Apa yang sebaiknya dilakukan Rara ketika temannya mengeluarkan pandangan yang kurang menghargai perbedaan? (anti radikalisme)",
+    "options": {
+      "A": "Rara sebaiknya mengabaikan pandangan temannya",
+      "B": "Rara sebaiknya mengatakan bahwa pandangan temannya salah",
+      "C": "Rara sebaiknya menghargai pandangan temannya meskipun tidak sejalan dengan pandangannya",
+      "D": "Rara sebaiknya meminta temannya untuk menjelaskan lebih lanjut mengenai pandangannya",
+      "E": "Rara sebaiknya memutuskan hubungan pertemanannya dengan temannya yang memiliki pandangan tersebut"
+    },
+    "answer": "B",
+    "points": {
+      "A": 1,
+      "B": 5,
+      "C": 3,
+      "D": 4,
+      "E": 2
+    },
+    "explanation": "DCBEA\nDalam menghadapi teman yang memiliki pandangan kurang menghargai perbedaan, sebaiknya kita mencoba untuk mengatasi perbedaan tersebut dengan cara yang baik dan santun. Salah satu cara yang dapat dilakukan adalah dengan meminta teman untuk menjelaskan lebih lanjut pandangannya. Hal ini dapat membantu kita untuk memahami pandangan teman kita dengan lebih baik dan mencari solusi yang tepat dalam menghadapi perbedaan. Selain itu, kita juga harus menghargai pandangan orang lain meskipun tidak sejalan dengan pandangan kita sendiri."
+  },
+  {
+    "number": 101,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Andi adalah seorang pengurus organisasi mahasiswa di kampusnya. Suatu hari, dia mengetahui bahwa salah satu anggotanya terpapar oleh paham radikalisme dan bahkan sering membagikan konten yang mengajarkan paham tersebut kepada anggota lainnya. Apa yang seharusnya dilakukan Andi sebagai pengurus organisasi dalam menghadapi anggotanya yang terpapar radikalisme? (anti radikalisme)",
+    "options": {
+      "A": "Merekrut anggota baru untuk menggantikan anggota yang terpapar radikalisme",
+      "B": "Mengeluarkan anggota yang terpapar radikalisme dari organisasi",
+      "C": "Membuat pernyataan resmi bahwa organisasi tidak mendukung paham radikalisme",
+      "D": "Membungkam anggota yang terpapar radikalisme agar tidak menyebarkan paham tersebut",
+      "E": "Membuat pernyataan bahwa organisasi mendukung kebebasan berpendapat termasuk paham radikalisme"
+    },
+    "answer": "B",
+    "points": {
+      "A": 2,
+      "B": 5,
+      "C": 4,
+      "D": 1,
+      "E": 3
+    },
+    "explanation": "CEBAD\nSebagai pengurus organisasi, Andi memiliki tanggung jawab untuk mencegah penyebaran paham radikalisme di dalam organisasi. Untuk menghadapi anggota yang terpapar radikalisme, Andi sebaiknya membuat pernyataan resmi bahwa organisasi tidak mendukung paham radikalisme dan memastikan semua anggota mengetahui hal ini. Namun, Andi juga sebaiknya menghindari untuk membungkam atau melarang anggota untuk berpendapat, karena ini tidak sesuai dengan prinsip kebebasan berpendapat yang harus dijunjung tinggi dalam organisasi mahasiswa. Jika anggota yang terpapar radikalisme tetap bersikeras untuk menyebarkan paham tersebut dan tidak menunjukkan perubahan sikap setelah diingatkan, maka Andi harus mempertimbangkan untuk mengeluarkan anggota tersebut dari organisasi. Selain itu, Andi juga dapat merekrut anggota baru yang memiliki sikap dan pandangan yang lebih sejalan dengan nilai-nilai organisasi untuk menggantikan posisi anggota yang terpapar radikalisme"
+  },
+  {
+    "number": 102,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Ketika terjadi tindakan radikalisme di suatu daerah, sebagai aparat keamanan, tindakan yang paling tepat adalah ... (anti radikalisme)",
+    "options": {
+      "A": "Mengambil tindakan tegas dan menghukum pelaku secara langsung",
+      "B": "Menyelidiki akar permasalahan dan mengambil tindakan preventif",
+      "C": "Membiarkan tindakan radikalisme terjadi dan menunggu reaksi masyarakat",
+      "D": "Mengabaikan tindakan radikalisme karena dianggap tidak berdampak besar",
+      "E": "Menangkap dan mengeksekusi pelaku radikalisme tanpa pengadilan"
+    },
+    "answer": "B",
+    "points": {
+      "A": 4,
+      "B": 5,
+      "C": 2,
+      "D": 1,
+      "E": 3
+    },
+    "explanation": "BAECD\nSebagai aparat keamanan, tindakan yang paling tepat adalah dengan menyelidiki akar permasalahan dan mengambil tindakan preventif, seperti melakukan pendekatan sosial dan membangun kerja sama dengan masyarakat setempat. Namun, jika tindakan radikalisme sudah terjadi, maka tindakan tegas dan menghukum pelaku secara langsung juga diperlukan. Namun, harus diingat bahwa mengeksekusi pelaku radikalisme tanpa melalui pengadilan merupakan tindakan yang tidak sah dan tidak etis. Membiarkan tindakan radikalisme terjadi atau mengabaikannya juga bukanlah solusi yang tepat. Oleh karena itu, perlu dilakukan upaya-upaya untuk mencegah dan menanggulangi tindakan radikalisme secara sistematis dan berkelanjutan."
+  },
+  {
+    "number": 103,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Ketika melakukan pelatihan penanganan kasus radikalisme, seorang instruktur seharusnya ... (anti radikalisme)",
+    "options": {
+      "A": "Membentuk pandangan stereotip tentang kelompok tertentu",
+      "B": "Menganjurkan aparat keamanan dan masyarakat untuk menghindari kontak dengan kelompok radikal",
+      "C": "Memberikan pemahaman yang objektif dan tidak memihak kepada kelompok manapun",
+      "D": "Mempromosikan pandangan-pandangan yang ekstrem",
+      "E": "Mengabaikan peran masyarakat dalam mencegah dan menangani kasus radikalisme"
+    },
+    "answer": "C",
+    "points": {
+      "A": 3,
+      "B": 4,
+      "C": 5,
+      "D": 2,
+      "E": 1
+    },
+    "explanation": "CBADE\nSeorang instruktur pelatihan penanganan kasus radikalisme seharusnya memberikan pemahaman yang objektif dan tidak memihak kepada kelompok manapun. Ini penting untuk mencegah terbentuknya pandangan stereotip dan diskriminatif terhadap kelompok tertentu yang dapat memperburuk situasi. Selain itu, instruktur seharusnya juga menganjurkan aparat keamanan dan masyarakat untuk menghindari kontak dengan kelompok radikal, karena hal ini dapat memperkecil kemungkinan terpapar ideologi radikal. Sebaliknya, mempromosikan pandangan-pandangan ekstrem dan mengabaikan peran masyarakat dalam mencegah dan menangani kasus radikalisme dapat meningkatkan risiko terjadinya tindakan radikalisme"
+  },
+  {
+    "number": 104,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Di sebuah toko buku, seorang pelanggan mengeluhkan tentang kualitas buku yang dijual. Ia mengatakan bahwa beberapa buku memiliki cacat dan mengajukan saran untuk meningkatkan kualitas produk. Bagaimana sikap yang tepat untuk menanggapi keluhan dan saran pelanggan tersebut? (pelayanan publik)",
+    "options": {
+      "A": "Mengabaikan keluhan dan saran pelanggan karena itu tidak akan menghasilkan keuntungan.",
+      "B": "Menerima keluhan dan saran pelanggan dengan cuek dan berusaha untuk segera menyelesaikan masalah tanpa memperdulikan kualitas produk.",
+      "C": "Mendengarkan keluhan dan saran pelanggan dengan baik, lalu memberikan penjelasan mengenai langkah-langkah yang diambil untuk meningkatkan kualitas produk di masa depan.",
+      "D": "Menolak keluhan dan saran pelanggan karena dianggap tidak benar atau tidak masuk akal",
+      "E": "Menerima keluhan dan saran pelanggan dengan baik, lalu menawarkan diskon pada pembelian buku selanjutnya sebagai ganti rugi."
+    },
+    "answer": "E",
+    "points": {
+      "A": 2,
+      "B": 3,
+      "C": 4,
+      "D": 1,
+      "E": 5
+    },
+    "explanation": "CEBAD\nSebagai penyedia layanan publik, penting bagi sebuah toko buku untuk menghargai dan menanggapi keluhan dan saran pelanggan dengan baik. Salah satu sikap yang tepat dalam menanggapi keluhan dan saran pelanggan mengenai kualitas buku yang dijual adalah dengan mendengarkan keluhan dan saran pelanggan dengan baik, lalu memberikan penjelasan mengenai langkah-langkah yang diambil untuk meningkatkan kualitas produk di masa depan. Selain itu, memberikan ganti rugi dalam bentuk diskon pada pembelian buku selanjutnya juga bisa menjadi tindakan yang baik untuk memperbaiki citra toko dan menjaga kepuasan pelanggan. Sebaliknya, mengabaikan atau menolak keluhan dan saran pelanggan justru dapat merugikan toko buku dan menurunkan kepercayaan pelanggan."
+  },
+  {
+    "number": 105,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Seorang guru bahasa Inggris merasa kesulitan dalam mengajar siswa-siswinya yang kurang berminat dalam belajar bahasa Inggris. Ia merasa frustasi dan sering kehilangan motivasi. Sikap yang tepat bagi guru tersebut adalah … (pelayanan publik)",
+    "options": {
+      "A": "Mengadakan tes setiap minggu untuk menekan siswa agar belajar dengan lebih serius",
+      "B": "Mengubah strategi pengajaran untuk menarik minat siswa, misalnya dengan menggunakan metode pembelajaran yang lebih interaktif.",
+      "C": "Mengabaikan siswa-siswa yang kurang berminat dalam belajar dan memfokuskan diri pada siswa yang sudah berprestasi.",
+      "D": "Menolak tanggapan negatif dari siswa dan tetap mengajar sesuai dengan cara yang sudah diajarkan",
+      "E": "Mengevaluasi kekuatan dan kelemahan setiap siswa, dan membantu mereka dalam mencapai tujuan belajar masing-masing"
+    },
+    "answer": "B",
+    "points": {
+      "A": 3,
+      "B": 5,
+      "C": 2,
+      "D": 1,
+      "E": 4
+    },
+    "explanation": "EBACD\nSikap yang tepat bagi guru tersebut adalah mengambil langkah-langkah untuk membantu siswa-siswa yang kurang berminat dalam belajar. Guru harus mengevaluasi kekuatan dan kelemahan setiap siswa, dan membantu mereka dalam mencapai tujuan belajar masing-masing. Hal ini dapat dilakukan dengan memberikan strategi pengajaran yang lebih menarik dan interaktif. Guru tidak boleh mengabaikan siswa-siswa yang kurang berminat, dan juga tidak seharusnya mengadakan tes setiap minggu untuk menekan siswa agar belajar lebih serius. Selain itu, menolak tanggapan negatif dari siswa dan tetap mengajar sesuai dengan cara yang sudah diajarkan tidak akan memberikan solusi yang baik dalam menghadapi situasi tersebut."
+  },
+  {
+    "number": 106,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Di sebuah instansi pemerintah, pegawai yang sedang sibuk melayani tamu datang dihadang oleh seorang warga yang meminta tolong agar surat izinnya cepat keluar karena ia sangat membutuhkannya. Apa yang seharusnya dilakukan oleh pegawai tersebut? (pelayanan publik)",
+    "options": {
+      "A": "Menolak permintaan warga karena tugasnya sedang menumpuk",
+      "B": "Meminta warga untuk kembali keesokan harinya karena ia sedang sibuk",
+      "C": "Melayani warga dengan cepat dan memberikan penjelasan jika terjadi keterlambatan",
+      "D": "Mengabaikan warga dan melanjutkan tugasnya",
+      "E": "Membentak warga karena terlalu banyak menuntut"
+    },
+    "answer": "C",
+    "points": {
+      "A": 3,
+      "B": 4,
+      "C": 5,
+      "D": 2,
+      "E": 1
+    },
+    "explanation": "CBADE\nSebagai pegawai pelayanan publik, seharusnya pegawai tersebut memberikan pelayanan yang baik dan memperhatikan kebutuhan warga yang datang untuk meminta bantuan. Jika pegawai sedang sibuk dan tidak dapat langsung melayani, maka sebaiknya pegawai tersebut memberikan penjelasan yang baik dan meminta warga untuk kembali pada waktu yang lain. Namun, jika situasi memungkinkan, sebaiknya pegawai tersebut segera membantu warga agar dapat selesai dengan cepat dan memberikan penjelasan jika terjadi keterlambatan. Menolak permintaan warga atau mengabaikannya tidaklah tepat dalam pelayanan publik dan dapat menimbulkan ketidakpuasan warga terhadap instansi tersebut."
+  },
+  {
+    "number": 107,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Sebuah perusahaan ingin meningkatkan kemampuan komunikasi dan kerja sama tim para karyawan, sehingga menyelenggarakan pelatihan selama 2 hari. Namun, ada beberapa karyawan yang merasa tidak perlu mengikuti pelatihan karena mereka sudah ahli dalam bidang tersebut. Apa yang seharusnya dilakukan oleh perusahaan? (pelayanan publik)",
+    "options": {
+      "A": "Memaksa karyawan untuk ikut pelatihan walaupun mereka tidak merasa perlu",
+      "B": "Memberi sanksi kepada karyawan yang tidak mengikuti pelatihan",
+      "C": "Mencari pengganti untuk karyawan yang tidak ikut pelatihan",
+      "D": "Memberikan insentif bagi karyawan yang mengikuti pelatihan dan memberikan nilai positif pada penilaian kinerja",
+      "E": "Mengabaikan karyawan yang tidak ikut pelatihan dan hanya memfokuskan pada karyawan yang mengikuti"
+    },
+    "answer": "D",
+    "points": {
+      "A": 2,
+      "B": 4,
+      "C": 1,
+      "D": 5,
+      "E": 3
+    },
+    "explanation": "DBEAC\nUntuk meningkatkan kemampuan komunikasi dan kerja sama tim di antara seluruh karyawan, sebaiknya perusahaan memberikan insentif bagi karyawan yang mengikuti pelatihan dan memberikan nilai positif pada penilaian kinerja. Memberi sanksi kepada karyawan yang tidak mengikuti pelatihan tidak disarankan karena dapat menimbulkan ketidakadilan dan menurunkan motivasi karyawan. Mengabaikan karyawan yang tidak ikut pelatihan juga tidak efektif dalam meningkatkan kemampuan komunikasi dan kerja sama tim di antara seluruh karyawan. Memaksa karyawan untuk ikut pelatihan walaupun mereka tidak merasa perlu tidak disarankan karena dapat menimbulkan ketidaknyamanan dan tidak efektif dalam meningkatkan kinerja karyawan. Mencari pengganti untuk karyawan yang tidak ikut pelatihan juga tidak efektif dalam memecahkan masalah utama dan dapat menimbulkan biaya tambahan."
+  },
+  {
+    "number": 108,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Sebagai seorang staf restoran, Anda diberi tugas untuk memberikan layanan yang ramah dan baik kepada pelanggan. Ketika sedang sibuk melayani meja, salah seorang pelanggan mengeluh bahwa pesanannya belum tiba, sementara piring kosongnya sudah menumpuk di atas meja. Dalam situasi ini, tindakan apa yang seharusnya dilakukan oleh seorang staf restoran? (Pelayanan Publik)",
+    "options": {
+      "A": "Meminta maaf dan memberi tahu pelanggan bahwa pesanannya akan segera diproses",
+      "B": "Menatap pelanggan dengan tatapan tajam dan menegur pelanggan atas keluhan yang tidak perlu",
+      "C": "Mengabaikan keluhan pelanggan dan tetap melayani meja yang lain",
+      "D": "Membentak rekan kerja di dapur karena lambat mengirimkan pesanan",
+      "E": "Mengucilkan diri dan menghindari pelanggan selama sisa waktu makanannya"
+    },
+    "answer": "A",
+    "points": {
+      "A": 5,
+      "B": 4,
+      "C": 3,
+      "D": 2,
+      "E": 1
+    },
+    "explanation": "DBAEC\nPada situasi ini, staf restoran seharusnya mengambil tindakan yang proaktif dan merespon keluhan pelanggan dengan baik. Menunjukkan permintaan maaf dan memberi tahu pelanggan bahwa pesanannya akan segera diproses merupakan tindakan yang tepat untuk menenangkan pelanggan dan menyelesaikan masalah dengan cepat. Mengabaikan keluhan pelanggan dapat memberikan kesan buruk pada restoran, sedangkan membentak rekan kerja di dapur atau menghindari pelanggan justru dapat memperburuk situasi. Menatap pelanggan dengan tatapan tajam dan menegur pelanggan atas keluhan yang tidak perlu juga tidak akan membantu menyelesaikan masalah. Oleh karena itu, staf restoran seharusnya selalu siap dan terlatih untuk merespon keluhan pelanggan dengan baik dan memberikan pelayanan terbaik yang mereka mampu."
+  },
+  {
+    "number": 109,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Seorang pegawai di instansi pemerintah yang bertanggung jawab dalam memberikan pelayanan kepada masyarakat mendapatkan evaluasi kinerja yang buruk. Apa yang seharusnya dilakukan oleh pegawai tersebut untuk meningkatkan kinerjanya? (pelayanan publik)",
+    "options": {
+      "A": "Mencari alasan untuk membenarkan kinerja yang buruk",
+      "B": "Menyalahkan atasan yang tidak memberikan dukungan.",
+      "C": "Meninggalkan pekerjaannya dan mencari pekerjaan lain.",
+      "D": "Menerima evaluasi kinerja dan mencari solusi untuk meningkatkannya",
+      "E": "Mengkritik sistem evaluasi kinerja yang tidak adil"
+    },
+    "answer": "D",
+    "points": {
+      "A": 3,
+      "B": 4,
+      "C": 1,
+      "D": 5,
+      "E": 2
+    },
+    "explanation": "Seorang pegawai seharusnya membuka diri untuk menerima feedback dari atasan dan mencari solusi untuk mengatasi kelemahan yang ada ketika mendapatkan evaluasi kinerja yang buruk. Hal ini dapat membantu meningkatkan kinerja pegawai dan kualitas pelayanan publik yang diberikan"
+  },
+  {
+    "number": 110,
+    "type": "single",
+    "category": "TKP",
+    "categoryLabel": "Tes Karakteristik Pribadi",
+    "text": "Bagaimana cara terbaik untuk mengukur kinerja di instansi pelayanan publik? (pelayanan publik)",
+    "options": {
+      "A": "Mengukur banyaknya keluhan yang diterima oleh instansi tersebut",
+      "B": "Mengukur banyaknya pegawai yang meninggalkan instansi tersebut",
+      "C": "Mengukur kepuasan masyarakat dengan pelayanan yang diberikan.",
+      "D": "Mengukur jumlah tugas yang diberikan kepada pegawai",
+      "E": "Mengukur kinerja pegawai berdasarkan waktu yang dihabiskan dalam bekerja."
+    },
+    "answer": "C",
+    "points": {
+      "A": 3,
+      "B": 1,
+      "C": 5,
+      "D": 4,
+      "E": 2
+    },
+    "explanation": "CDAEB\nMengukur kepuasan masyarakat dengan pelayanan yang diberikan merupakan indikator yang paling penting dalam mengukur kinerja di instansi pelayanan publik karena pelayanan publik pada akhirnya bertujuan untuk memenuhi kebutuhan dan harapan masyarakat. Namun, pengukuran kinerja yang baik sebaiknya juga mencakup faktor-faktor lain seperti produktivitas dan efisiensi kerja pegawai."
+  }
+];
+</script>
+<script type="module" src="soal-template-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+PERUBAHAN MENU POLRI + SKD
+
+1. Setelah login, user sekarang masuk ke main.html sebagai Menu Utama.
+2. Menu Utama menampilkan 2 pilihan besar:
+   - Tryout POLRI
+   - Tryout SKD Kedinasan/CPNS
+3. Isi menu lama dipindahkan ke tryout_polri.html supaya fitur POLRI tetap aman.
+4. Ditambahkan halaman skd_cpns.html untuk menu SKD.
+5. Ditambahkan halaman list awal SKD:
+   - skd_twk_list.html
+   - skd_tiu_list.html
+   - skd_tkp_list.html
+   - skd_full_list.html
+6. Paket SKD masih disiapkan sebagai slot belum aktif, jadi tidak ada link kosong/404.
+7. Beberapa tombol kembali di menu POLRI diarahkan ke tryout_polri.html supaya navigasi lebih rapi.

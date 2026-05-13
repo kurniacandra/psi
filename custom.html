@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN PANEL - JAGOPSI CUSTOM</title>
+    <style>
+        :root { --primary: #1a252f; --accent: #f39c12; --bg: #f4f7f6; --success: #27ae60; --danger: #e74c3c; --blue: #3498db; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; display: none; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h2 { color: var(--primary); border-left: 5px solid var(--accent); padding-left: 10px; margin-bottom: 20px; }
+        
+        .grid-main { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+        .section-box { background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 10px; }
+        
+        label { font-weight: bold; display: block; margin-top: 10px; font-size: 0.85rem; }
+        .kolom-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+        .kolom-input { 
+            padding: 10px; border: 1px solid #ccc; border-radius: 5px; 
+            font-size: 0.9rem; text-align: center; font-weight: bold; text-transform: uppercase;
+        }
+        .kolom-input:focus { border-color: var(--accent); outline: none; background: #fff9f0; }
+        
+        .history-section { margin-top: 15px; padding-top: 10px; border-top: 2px dashed #eee; }
+        .history-list { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+        .history-item { 
+            background: #eee; padding: 5px 10px; border-radius: 15px; font-size: 0.75rem; 
+            display: flex; align-items: center; gap: 8px; border: 1px solid #ccc; transition: 0.2s; 
+        }
+        .history-name { cursor: pointer; }
+        .history-name:hover { color: var(--blue); }
+        .btn-del-history { color: var(--danger); cursor: pointer; font-weight: bold; font-size: 0.85rem; border: none; background: none; padding: 0 2px; }
+
+        .user-list { height: 400px; overflow-y: auto; border: 1px solid #eee; padding: 10px; border-radius: 8px; }
+        .user-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #f9f9f9; }
+        .user-item input[type="checkbox"] { margin-right: 15px; transform: scale(1.3); cursor: pointer; }
+        .status-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; margin-left: 5px; font-weight: bold; }
+        .badge-custom { background: var(--success); color: white; }
+        .badge-normal { background: #95a5a6; color: white; }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.8rem; text-align: center; text-decoration: none; transition: 0.2s; }
+        .btn:active { transform: scale(0.98); }
+        .btn-blue { background: var(--blue); color: white; }
+        .btn-green { background: var(--success); color: white; }
+        .btn-red { background: var(--danger); color: white; }
+        .btn-dark { background: var(--primary); color: white; }
+    </style>
+  <link rel="stylesheet" href="jagopsi-elegant.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="grid-main">
+        <div class="section-box">
+            <h2>Konfigurasi Custom</h2>
+            <p style="font-size: 0.8rem; color: var(--danger); font-weight: bold;">* Setiap kolom WAJIB diisi TEPAT 5 karakter/simbol.</p>
+            
+            <div class="kolom-grid">
+                <input type="text" class="kolom-input" id="k1" placeholder="K1" maxlength="5">
+                <input type="text" class="kolom-input" id="k2" placeholder="K2" maxlength="5">
+                <input type="text" class="kolom-input" id="k3" placeholder="K3" maxlength="5">
+                <input type="text" class="kolom-input" id="k4" placeholder="K4" maxlength="5">
+                <input type="text" class="kolom-input" id="k5" placeholder="K5" maxlength="5">
+                <input type="text" class="kolom-input" id="k6" placeholder="K6" maxlength="5">
+                <input type="text" class="kolom-input" id="k7" placeholder="K7" maxlength="5">
+                <input type="text" class="kolom-input" id="k8" placeholder="K8" maxlength="5">
+                <input type="text" class="kolom-input" id="k9" placeholder="K9" maxlength="5">
+                <input type="text" class="kolom-input" id="k10" placeholder="K10" maxlength="5">
+            </div>
+
+            <div class="history-section">
+                <label>Riwayat / Preset Tersimpan:</label>
+                <div class="history-list" id="history-list"></div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-blue" id="btn-save-history">SIMPAN RIWAYAT</button>
+                <button class="btn btn-green" id="btn-apply-selected">TERAPKAN KE TERPILIH</button>
+                <button class="btn btn-red" id="btn-off-selected">OFF-KAN TERPILIH</button>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2>Pilih Peserta</h2>
+                <button onclick="toggleSelectAll()" style="font-size:0.7rem; cursor:pointer; padding:5px; border-radius:4px; border:1px solid #ccc; background:#fff;">Select All</button>
+            </div>
+            <input type="text" id="search-user" style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ddd; box-sizing: border-box;" placeholder="Cari email peserta...">
+            
+            <div class="user-list" id="list-peserta">
+                <p style="text-align:center; color:#999;">Memuat data peserta...</p>
+            </div>
+            
+            <div class="btn-group">
+                <a href="manajemen.html" class="btn btn-dark">KEMBALI KE ADMIN</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, update, onValue, set, push, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const config = {
+        apiKey: "AIzaSyCT6bL4sZxLEFr_wyxAW7VPRxLukNQ02mw",
+        authDomain: "simulasi-2b93b.firebaseapp.com",
+        databaseURL: "https://simulasi-2b93b-default-rtdb.firebaseio.com",
+        projectId: "simulasi-2b93b"
+    };
+
+    const app = initializeApp(config);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
+
+    // Variabel untuk melacak nama preset yang sedang aktif di form
+    let currentSelectedPresetName = "";
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.body.style.display = "block";
+        } else {
+            alert("Akses Ditolak! Anda harus login sebagai admin.");
+            window.location.href = "index.html";
+        }
+    });
+
+    // --- 2. LOAD USER DENGAN SORTING ---
+    onValue(ref(db, 'users'), (snap) => {
+        const list = document.getElementById('list-peserta');
+        list.innerHTML = "";
+        if(snap.exists()){
+            let users = [];
+            snap.forEach(child => {
+                users.push({ key: child.key, ...child.val() });
+            });
+
+            users.sort((a, b) => (b.custom_mode === true) - (a.custom_mode === true));
+
+            users.forEach(u => {
+                const isCustom = u.custom_mode === true;
+                const statusLabel = u.active_preset_name || "CUSTOM ON";
+                const badge = isCustom ? `<span class="status-badge badge-custom">${statusLabel}</span>` : '<span class="status-badge badge-normal">OFF</span>';
+                
+                const div = document.createElement('div');
+                div.className = "user-item";
+                div.innerHTML = `
+                    <input type="checkbox" class="user-check" value="${u.key}">
+                    <div style="flex:1">
+                        <div style="font-weight:bold; font-size:0.9rem;">${u.email}</div>
+                        <div>${badge}</div>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+    });
+
+    // --- 3. LOAD PRESETS DENGAN FITUR HAPUS ---
+    onValue(ref(db, 'presets'), (snap) => {
+        const hList = document.getElementById('history-list');
+        hList.innerHTML = "";
+        if(snap.exists()){
+            snap.forEach(child => {
+                const p = child.val();
+                const key = child.key;
+                const item = document.createElement('div');
+                item.className = "history-item";
+                item.innerHTML = `
+                    <span class="history-name">${p.name || "Preset"}</span>
+                    <button class="btn-del-history" title="Hapus">🗑️</button>
+                `;
+                
+                // Klik Nama untuk Load
+                item.querySelector('.history-name').onclick = () => {
+                    currentSelectedPresetName = p.name; // Simpan nama preset
+                    for(let i=1; i<=10; i++) {
+                        document.getElementById('k'+i).value = p.data['k'+i] || "";
+                    }
+                };
+
+                // Klik Sampah untuk Hapus
+                item.querySelector('.btn-del-history').onclick = () => {
+                    if(confirm(`Hapus riwayat "${p.name}"?`)) {
+                        remove(ref(db, `presets/${key}`));
+                    }
+                };
+
+                hList.appendChild(item);
+            });
+        }
+    });
+
+    const getFormAndValidate = () => {
+        const kolom = {};
+        for(let i=1; i<=10; i++) {
+            const input = document.getElementById('k'+i);
+            const val = input.value.trim().toUpperCase();
+            if(val.length !== 5) {
+                alert(`Kolom ${i} harus berisi tepat 5 karakter!`);
+                input.focus();
+                return null;
+            }
+            kolom['k'+i] = val;
+        }
+        return kolom;
+    };
+
+    document.getElementById('btn-save-history').onclick = () => {
+        const data = getFormAndValidate();
+        if(!data) return;
+        const name = prompt("Masukkan nama riwayat ini:");
+        if(name) {
+            push(ref(db, 'presets'), { name, data });
+            alert("Riwayat tersimpan!");
+        }
+    };
+
+    document.getElementById('btn-apply-selected').onclick = async () => {
+        const selected = Array.from(document.querySelectorAll('.user-check:checked')).map(cb => cb.value);
+        if(selected.length === 0) return alert("Pilih minimal satu peserta!");
+        
+        const data = getFormAndValidate();
+        if(!data) return;
+
+        const presetNameToSave = currentSelectedPresetName || "Manual Custom";
+
+        const updates = {};
+        selected.forEach(userId => {
+            updates[`users/${userId}/custom_mode`] = true;
+            updates[`users/${userId}/active_preset_name`] = presetNameToSave;
+            updates[`users/${userId}/custom_rules/kolom`] = data;
+        });
+
+        try {
+            await update(ref(db), updates);
+            alert(`Berhasil meng-CUSTOM (${presetNameToSave}) ke ${selected.length} peserta!`);
+            currentSelectedPresetName = ""; // Reset setelah diterapkan
+        } catch (err) {
+            alert("Gagal memperbarui database.");
+        }
+    };
+
+    document.getElementById('btn-off-selected').onclick = async () => {
+        const selected = Array.from(document.querySelectorAll('.user-check:checked')).map(cb => cb.value);
+        if(selected.length === 0) return alert("Pilih minimal satu peserta!");
+
+        if(confirm(`Matikan fitur custom untuk ${selected.length} peserta?`)){
+            const updates = {};
+            selected.forEach(userId => {
+                updates[`users/${userId}/custom_mode`] = false;
+                updates[`users/${userId}/active_preset_name`] = null;
+                updates[`users/${userId}/custom_rules`] = null;
+            });
+            await update(ref(db), updates);
+            alert("Status dikembalikan ke Normal.");
+        }
+    };
+
+    window.toggleSelectAll = () => {
+        const checkboxes = document.querySelectorAll('.user-check');
+        const anyUnchecked = Array.from(checkboxes).some(cb => !cb.checked);
+        checkboxes.forEach(cb => cb.checked = anyUnchecked);
+    };
+
+    document.getElementById('search-user').onkeyup = function(){
+        const val = this.value.toLowerCase();
+        document.querySelectorAll('.user-item').forEach(item => {
+            const email = item.querySelector('div div').innerText.toLowerCase();
+            item.style.display = email.includes(val) ? 'flex' : 'none';
+        });
+    };
+</script>
+</body>
+</html>

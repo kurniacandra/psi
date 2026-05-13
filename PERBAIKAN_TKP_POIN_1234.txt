@@ -1,0 +1,11 @@
+PERBAIKAN TKP - SKD TO 6
+
+Perubahan:
+1. Scoring TKP di skd_to6.html sudah memakai bobot 1-5.
+2. Opsi kunci terbaik bernilai 5.
+3. Opsi lain bernilai 1, 2, 3, atau 4 sesuai bobot dari file sumber.
+4. Tulisan "Bobot: x.00" di pilihan jawaban sudah dihapus supaya peserta tidak melihat poin opsi saat mengerjakan.
+5. TWK dan TIU tetap memakai pola benar 5, salah 0.
+
+File utama yang berubah:
+- skd_to6.html

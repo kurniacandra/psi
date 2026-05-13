@@ -1,0 +1,28 @@
+Perubahan utama:
+1. Ditambahkan result-utils.js untuk schema hasil pusat + normalisasi hasil lama/baru.
+2. soal.html / soal2.html / soal3.html:
+   - simpan hasil multi-exam ke rekap_skor
+   - tambah review_items kecerdasan, kepribadian, kecermatan
+3. wk.html / mtk.html:
+   - hasil disimpan pakai schema pusat
+   - tambah review_items
+   - mtk dibetulkan agar tidak lagi terbaca sebagai WK
+4. kepri2.html / kepri3.html / kepri4.html:
+   - ubah simpan dari set menjadi push
+   - tambah review_items
+   - ikut masuk rekap_skor
+5. kecermatan.html / cermat.html:
+   - simpan hasil ke schema pusat + data grafik peserta
+6. cerdas1.html / to.html / to2.html:
+   - ditambahkan simpan hasil pusat ke rekap_skor
+7. kepri.html:
+   - simpan manual diarahkan ke rekap_skor
+8. riwayat.html baru:
+   - peserta bisa lihat riwayat hasil, review soal, grafik perkembangan
+9. hasil.html baru:
+   - admin multi-exam
+   - filter, review, riwayat peserta, grafik peserta, hapus data
+10. manajemen.html:
+   - shortcut Review/Hasil, Riwayat, Grafik
+11. main.html:
+   - tombol Riwayat TO menuju riwayat.html
